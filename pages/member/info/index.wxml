@@ -1,0 +1,51 @@
+<loading hidden="{{show}}">正在加载</loading>
+<view class="page navbar" wx:if="{{show}}">
+  <view class="fui-cell-group" wx:if="{{openbind}}">
+    <view class="fui-cell must">
+      <view class="fui-cell-label">手机号</view>
+      <view class="fui-cell-info">{{member.mobile}}({{member.mobileverify == 1 ? '已绑定' : '未绑定'}})</view>
+      <navigator class="fui-cell-remark" hover-class="none" url="/pages/member/bind/index">
+        {{member.mobileverify == 1 ? '更换绑定' : '立即绑定'}}
+      </navigator>
+    </view>
+  </view>
+  <view class="fui-cell-group" wx:if="{{!diyform.template_flag}}">
+    <view class="fui-cell must ">
+      <view class="fui-cell-label ">姓名</view>
+      <view class="fui-cell-info">
+        <input class="fui-input" data-type="realname" bindinput="onChange" placeholder="请输入您的姓名" value="{{postData.realname}}" />
+      </view>
+    </view>
+    <view class="fui-cell must" wx:if="{{!openbind}}">
+      <view class="fui-cell-label">手机号</view>
+      <view class="fui-cell-info">
+        <input class="fui-input" data-type="mobile" type="number" bindinput="onChange" maxlength="11" placeholder="请输入您的手机号" value="{{postData.mobile}}" />
+      </view> 
+    </view>
+    <view class="fui-cell">
+      <view class="fui-cell-label">微信号</view>
+      <view class="fui-cell-info">
+        <input class="fui-input" bindinput="onChange" data-type="weixin" placeholder="请输入您的微信号" value="{{postData.weixin}}" />
+      </view>
+    </view>
+    <view class="fui-cell">
+      <view class="fui-cell-label">出生日期</view>
+      <view class="fui-cell-info">
+        <picker mode="date" bindchange="onChange" data-type="birthday" value="{{postData.birthday}}">
+          <view>{{postData.birthday || '选择出生日期'}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="fui-cell">
+      <view class="fui-cell-label ">所在城市</view>
+      <view class="fui-cell-info" bindtap="selectArea" data-area="{{postData.city}}">{{!postData.city ? '请选择所在城市' : postData.city}}</view>
+    </view>
+  </view>
+  <block wx:else><include src="/pages/common/diyform.wxml"/></block>
+  <include src="/pages/common/city-picker.wxml"/>
+  <view class="fui-mask {{showPicker ? 'show' : ''}}"></view>
+  <view bindtap="submit" class="btn btn-success block">确认修改</view>
+  <view class="fui-toast {{FoxUIToast.show ? 'in' : 'out'}}">
+    <view class="text">{{FoxUIToast.text}}</view>
+  </view>
+</view>

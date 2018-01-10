@@ -1,0 +1,18 @@
+page {
+  padding: 30px 0 20px;
+  background-color: #f0f0f0;
+}
+.name {
+  padding: 0 15px;
+}
+.input {
+  height: 45px;
+  padding: 0 10px;
+  background-color: #fff;
+}
+.btn {
+  margin-top: 200rpx;
+}
+.btn-wrap {
+  margin: 0 40px;
+}

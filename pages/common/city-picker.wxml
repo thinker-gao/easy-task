@@ -1,0 +1,35 @@
+<view class="picker-modal city-picker {{showPicker ? 'in' : 'out'}}">
+  <view class="picker-control">
+    <view bindtap="onCancel" class="cancel">取消</view>
+    <view bindtap="onConfirm" class="confirm">确定</view>
+  </view>
+  <picker-view bindchange="bindChange" class="picker" indicatorStyle="height: 40px;" value="{{pval}}" wx:if="{{!noArea}}">
+    <picker-view-column>
+      <block wx:for="{{areas}}">
+        <view class="item">{{item.name}}</view>
+      </block>
+    </picker-view-column>
+    <picker-view-column>
+      <block wx:for="{{areas[pval[0]].city}}">
+        <view class="item">{{item.name}}</view>
+      </block>
+    </picker-view-column>
+    <picker-view-column>
+      <block wx:for="{{areas[pval[0]].city[pval[1]].area}}">
+        <view class="item">{{item.name}}</view>
+      </block>
+    </picker-view-column>
+  </picker-view>
+  <picker-view bindchange="bindChange" class="picker" indicatorStyle="height: 40px;" value="{{pval}}" wx:if="{{noArea}}">
+    <picker-view-column>
+      <block wx:for="{{areas}}">
+        <view class="item">{{item.name}}</view>
+      </block>
+    </picker-view-column>
+    <picker-view-column>
+      <block wx:for="{{areas[pval[0]].city}}">
+        <view class="item">{{item.name}}</view>
+      </block>
+    </picker-view-column>
+  </picker-view>
+</view>

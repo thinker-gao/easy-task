@@ -1,0 +1,119 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.6.6",
+	"appid": "wx48d041b60b2c729a",
+	"projectname": "led",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "device",
+					"pathName": "pages/devices/devices",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "device",
+					"pathName": "pages/member/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "show",
+					"pathName": "pages/member/show/show",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "reg",
+					"pathName": "pages/member/register/register",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "login",
+					"pathName": "pages/member/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "forget",
+					"pathName": "pages/member/forget/forget",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "bind",
+					"pathName": "pages/member/bind/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "edit",
+					"pathName": "pages/member/edit/edit",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "skin",
+					"pathName": "pages/skin/skin",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "desc",
+					"pathName": "pages/desc/desc",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "calendar",
+					"pathName": "pages/calendar/calendar",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索列表",
+					"pathName": "pages/devices/devices",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "修改姓名",
+					"pathName": "pages/member/editname/editname",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "日历",
+					"pathName": "pages/calendar/calendar",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/member/index/index",
+					"query": ""
+				}
+			]
+		}
+	}
+}

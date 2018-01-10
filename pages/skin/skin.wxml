@@ -1,0 +1,11 @@
+<view class="container">
+  <view class='list'>
+    <view class='item' wx:for="{{skins}}">
+      <view class='skin' data-index='{{index}}' bindtap='selectTap'>
+        <image data-index="{{index}}" class='img' src='{{item.image}}' mode='widthFix'></image>
+        <image class='icon' src='{{icon.skin_selected}}' wx:if="{{selected===index}}"></image>
+      </view>
+      <view class='text'>{{item.text}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+<loading hidden='{{!isloading}}'>请稍候..</loading>
+<view class="container">
+  <view class='list'>
+    <navigator url='../editname/editname?realname={{info.realname}}' class='item clearfix'>
+      <text class='fl'>姓名</text>
+      <text class='fr'>{{info.realname}}<text class='arrow'></text></text>
+    </navigator>
+    <view class='item clearfix'>
+      <text class='fl'>性别</text>
+      <view class='fr'>
+        <radio-group>
+          <label class='radio'><radio value="男" bindtap='upgender' data-id='1' checked="{{info.gender==1}}" />男</label>
+          <label class='radio'><radio value="女" bindtap='upgender' data-id='0' checked="{{info.gender==0}}" />女</label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='item clearfix'>
+      <text class='fl'>出生年月</text>
+      <view class='picktime fr'>
+        <picker mode="date" value="{{info.birthday}}" start="1900-01-01" end="2017-01-01" bindchange="dateChange">
+          <view class="picker">{{info.birthday}}</view>
+        </picker>
+      </view>
+    </view>
+    <navigator style='display:none' url='../bind/index' class='item clearfix'>
+      <text class='fl'>手机号</text>
+      <view class='phone fr'>{{info.mobile}}<text class='arrow'></text></view>
+    </navigator>
+  </view>
+  <view class='btn-wrap'>
+    <view class='btn btn-primary' bindtap='save'>提交保存</view>
+  </view>
+</view>

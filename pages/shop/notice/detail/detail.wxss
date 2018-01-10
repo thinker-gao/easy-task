@@ -1,0 +1,23 @@
+@import "/utils/wxParse/wxParse.wxss";
+
+.page-shop-notice-detail .fui-content .fui-article {
+  padding-top: 0.5rem;
+}
+
+.page-shop-notice-detail .fui-content .fui-article .content {
+  margin-top: 1em;
+}
+
+.page-shop-notice-detail .fui-content .fui-article .title {
+  text-align: center;
+}
+
+.page-shop-notice-detail .fui-content .fui-article .subtitle {
+  text-align: center;
+}
+
+.page-shop-notice-detail .fui-content .fui-article .hr {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 10px;
+}

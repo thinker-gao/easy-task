@@ -1,0 +1,5 @@
+.inner { width: 300rpx; margin: 150rpx auto 0; }
+.icon { width: 220rpx; height: 220rpx; margin: auto; display: block; }
+.text { width: 300rpx; margin: 40rpx 0 30rpx; font-size: 36rpx; text-align: center; color: #666; }
+.text1 { width: 300rpx; margin: 40rpx 0 30rpx; font-size: 30rpx; text-align: center; color: #666; }
+.btn { margin: auto; display: block; }

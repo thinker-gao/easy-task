@@ -1,0 +1,30 @@
+<view class='modal-container {{showModal==="person_mode"?"":"vh"}}'>
+  <view class='mask'></view>
+  <view class='mask-content standard' >
+    <view class='title'>个性化模式选择</view>
+    <view class='slide-wrap'>
+      <view class='item'>
+        <view class='text'>亮度:{{lightvalue}}%</view>
+        <view class='slide'>
+          <view id='slide' class='f'>
+            <view class='value' style='width: {{lightvalue}}%; background-color: #e20202'></view>
+            <image class='drag' data-type="0" style='left: {{lightdrag}}%' src='{{icon.drag}}' catchtouchstart="start" bindtouchmove="move" bindtouchend="end"></image>
+          </view>
+        </view>
+      </view>
+      <view class='item'>
+        <view class='text'>时间:{{totaltime}}min</view>
+        <view class='slide'>
+          <view class='f'>
+            <view class='value' style='width: {{timevalue}}%; background-color: #593d6f'></view>
+            <image class='drag' data-type="1" style='left: {{timedrag}}%' src='{{icon.drag}}' catchtouchstart="start" bindtouchmove="move" bindtouchend="end"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='btn-wrap personal-sure'>
+      <view class='btn' style='background-color: {{colors[skin-1]}}' bindtap='selectSureTap'>确定</view>
+    </view>
+    <image class='close' src='{{icon.close}}' bindtap='closeAnyModal'></image>
+  </view>
+</view>

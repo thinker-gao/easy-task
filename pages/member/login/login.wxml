@@ -1,0 +1,33 @@
+<loading hidden="{{!issubmit}}">请稍候</loading>
+<form class="container" bindsubmit='formsubmit'>
+  <view class="title">
+    <image class='logo' src="{{icon.logo}}" mode='widthFix'></image>
+  </view>
+  <view class="content">
+    <view class="item">
+      <view class="label">
+        <image class="icon" src="{{icon.info_mobile}}"></image>
+      </view>
+      <view class="input-wrap">
+        <input class="input" name="mobile" type="number" value="" placeholder="请输入您的手机号" />
+      </view>
+    </view>
+    <view class="item">
+      <view class="label">
+        <image class="icon" src="{{icon.info_password}}"></image>
+      </view>
+      <view class="input-wrap">
+        <input class="input" name="pwd" type="password" value="" placeholder="请输入密码" />
+      </view>
+    </view>
+  </view>
+  <view animation="{{animateData}}" class="tips {{!isError?'vh none':''}}">
+    <view class="line"></view>
+    <view class="text">{{errortext}}</view>
+  </view>
+  <button class='btn btn-primary' form-type='submit' >登录</button>
+  <view class='link-wrap'>
+    <navigator class='link' url='/pages/member/forget/forget'>忘记密码？</navigator>
+    <navigator class='link' url='/pages/member/register/register'>立即注册</navigator>
+  </view>
+</form>

@@ -1,0 +1,57 @@
+<view class="fui-cell-group diyform-container" wx:if="{{diyform.fields != null && diyform.fields.length > 0}}">
+  <block wx:for="{{diyform.fields}}" wx:for-item="field">
+    <view class="fui-cell {{field.tp_must ? 'must' : ''}}">
+      <view class="fui-cell-label ">{{field.tp_name}}</view>
+      <view class="fui-cell-info wrap">
+        <input class="fui-input" bindinput="DiyFormHandler" data-field="{{field.diy_type}}" data-type="input" placeholder="{{field.placeholder}}" value="{{diyform.f_data[field.diy_type]}}" wx:if="{{field.data_type == 0}}" />
+        <textarea bindinput="DiyFormHandler" data-field="{{field.diy_type}}" placeholder="{{field.placeholder}}" value="{{diyform.f_data[field.diy_type]}}" data-type="textarea" wx:if="{{field.data_type == 1}}"></textarea>
+        <picker data-type="picker" bindchange="DiyFormHandler" data-field="{{field.diy_type}}" range="{{field.tp_text}}" value="{{diyform.f_data[field.diy_type][0]}}" wx:if="{{field.data_type == 2}}">
+          <view class="picker">{{diyform.f_data[field.diy_type][1]}}</view>
+        </picker>
+        <checkbox-group bindchange="DiyFormHandler" data-field="{{field.diy_type}}" data-type="checkbox" wx:if="{{field.data_type == 3}}">
+          <block wx:for="{{field.tp_text}}">
+            <label class="checkbox-label">
+              <checkbox checked="{{diyform.f_data[field.diy_type][item]}}" class="zoom-80 align-middle" name="{{item}}" value="{{item}}" />
+              <text class="align-middle">{{item}}</text>
+            </label>
+          </block>
+        </checkbox-group>
+        <view wx:if="{{field.data_type == 5}}">
+          <view class="fui-images fui-images-sm">
+            <block wx:for="{{diyform.f_data[field.diy_type]['images']}}">
+              <image bindtap="DiyFormHandler" data-field="{{field.diy_type}}" class="image image-sm" data-type="image-preview" src="{{item.url}}">
+                <span bindtap="DiyFormHandler" data-field="{{field.diy_type}}" class="image-remove" data-type="image-remove" data-filename="{{item.filename}}">×</span>
+              </image>
+            </block>
+          </view>
+          <view bindtap="DiyFormHandler" data-field="{{field.diy_type}}" class="fui-uploader fui-uploader-sm" data-type="image" wx:if="{{diyform.f_data[field.diy_type]['count'] < field.tp_max}}"></view>
+        </view>
+        <input bindinput="DiyFormHandler" data-field="{{field.diy_type}}" data-type="input" value="{{diyform.f_data[field.diy_type]}}" placeholder="请输入身份证号码" type="idcard" wx:if="{{field.data_type == 6}}" />
+        <picker bindchange="DiyFormHandler" data-field="{{field.diy_type}}" value="{{diyform.f_data[field.diy_type]}}" data-type="date" mode="date" wx:if="{{field.data_type == 7}}">
+          <view>{{diyform.f_data[field.diy_type] || '请选择' + field.tp_name}}</view>
+        </picker>
+        <view class="picker-group" wx:if="{{field.data_type == 8}}">
+          <picker bindchange="DiyFormHandler" data-field="{{field.diy_type}}" value="{{diyform.f_data[field.diy_type][0]}}" mode="date" data-type="datestart">
+            <view>{{diyform.f_data[field.diy_type][0] || '开始日期'}}</view>
+          </picker>
+          <picker bindchange="DiyFormHandler" data-field="{{field.diy_type}}" mode="date" data-type="dateend" value="{{diyform.f_data[field.diy_type][1]}}">
+            <view>{{diyform.f_data[field.diy_type][1] || '结束日期'}}</view>
+          </picker>
+        </view>
+        <view data-field="{{field.diy_type}}" bindtap="selectArea" data-area="{{diyform.f_data[field.diy_type]['province']}} {{diyform.f_data[field.diy_type]['city']}} {{diyform.f_data[field.diy_type]['area']}}" data-hasarea="{{field.tp_area}}" data-type="city" wx:if="{{field.data_type == 9}}">
+          <text wx:if="{{!diyform.f_data[field.diy_type]['province'] || !diyform.f_data[field.diy_type]['city']}}">请选择{{field.tp_name}}</text>
+          <text wx:else>{{diyform.f_data[field.diy_type]['province'] + ' ' + diyform.f_data[field.diy_type]['city']}} {{field.tp_area == 1 ? diyform.f_data[field.diy_type]['area'] : ''}}</text>
+        </view>
+        <view wx:if="{{field.data_type == 10}}">
+          <input class="fui-input" bindinput="DiyFormHandler" data-field="{{field.diy_type}}" data-type="input" data-datatype="10" data-name="name1" placeholder="{{field.tp_name}}" value="{{diyform.f_data[field.diy_type]['name1']}}" />
+        </view>
+      </view>
+    </view>
+    <view class="fui-cell {{field.tp_must ? 'must' : ''}}" wx:if="{{field.data_type == 10}}">
+      <view class="fui-cell-label">{{field.tp_name2}}</view>
+      <view class="fui-cell-info">
+        <input class="fui-input" bindinput="DiyFormHandler" data-field="{{field.diy_type}}" data-type="input" data-datatype="10" data-name="name2" placeholder="{{field.tp_name2}}" value="{{diyform.f_data[field.diy_type]['name2']}}" />
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,41 @@
+<view class="page header {{type < 2 ? 'footer' : ''}}">
+  <view class="fui-header">
+    <view class="searchbar">
+      <icon size="18" type="search"/>
+      <input bindinput="search" name="search" bindfocus="bindSearch" placeholder="输入关键字进行搜索"/>
+    </view>
+  </view>
+  <view class="coupon-group" wx:if="{{!loading && list.length > 0}}">
+    <block wx:for="{{list}}">
+    <view class="coupon-item">
+      <i class="coupon-dot-top"></i>
+      <i class="coupon-dot-bot"></i>
+      <view class="thumb">
+        <image src="{{item.thumb}}"></image>
+      </view>
+      <view class="inner">
+        <view class="title">{{item.couponname}}</view>
+        <view class="text">{{item.backstr}}{{item.backpre ? '￥' : ''}}
+          <text class="big">{{item.backmoney}}</text>
+        </view>
+      </view>
+      <view class="right" bindtap="bindBtn" data-id="{{item.id}}" data-name="{{item.couponname}}">
+        <text wx:if="{{type < 2}}">立即使用</text>
+        <text wx:else>立即领取</text>
+      </view>
+    </view>
+    </block>
+  </view>
+  <view class="fui-loading" wx:if="{{loading}}">
+    <view class="icon"></view>
+    <view class="text">正在加载</view>
+  </view>
+  <view class="fui-loading empty" wx:if="{{list.length < 1 && loading}}">
+    <view class="text">没有数据</view>
+  </view>
+  <view data-id="0" bindtap="bindBtn" class="fui-footer text-center" wx:if="{{type < 2}}">
+    <view class="tool nopadding">
+      <view class="text text-center">不使用优惠券</view>
+    </view>
+  </view>
+</view>

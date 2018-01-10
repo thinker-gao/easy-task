@@ -1,0 +1,60 @@
+page {
+  background-color: #f0f0f0
+}
+.header {
+  position: relative;
+}
+.tohome {
+  position: absolute;
+  left: 15px;
+  top: 33px;
+  width: 40px;
+}
+.header .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.header .content {
+  position: relative;
+  padding: 30px 0;
+  color: #fff;
+  text-align: center
+}
+.header .content .name {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+.avatar .img {
+  width: 142rpx;
+  height: 142rpx;
+  border-radius: 50%;
+  border: 2px solid #fff
+}
+.list .item {
+  display: flex;
+  display: -webkit-flex;
+  padding: 15px 10px;
+  line-height: 26px;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
+.list .item .icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 12px;
+}
+.list .item .right {
+  flex: 1;
+}
+.list .item .right .fr {
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #e8e8e8;
+  border-right: 2px solid #e8e8e8;
+  margin-top: 4px;
+  transform: rotateZ(45deg);
+  -webkit-transform: rotateZ(45deg);
+}

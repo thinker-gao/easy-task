@@ -1,0 +1,145 @@
+.flex-head {
+}
+
+.flex-head .flex-head-item {
+  padding: 0 16rpx;
+}
+
+.flex-head-search {
+  position: relative;
+  padding: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.flex-icon-search {
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  left: 0px;
+  top: 0px;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.flex-search-bar {
+  padding-top: 80rpx;
+}
+
+.flex-input {
+  height: 56rpx;
+  line-height: 56rpx;
+  display: block;
+  overflow: hidden;
+}
+
+.category-search {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.category-search::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid #e2e2e2;
+}
+
+.category-search-form {
+  background: #fff;
+}
+
+.category-search-box {
+  background: #efefef;
+}
+
+.category-content {
+  background: #fff;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0rpx;
+  bottom: 0px;
+}
+
+.category-search-bar {
+  padding-top: 80rpx;
+}
+
+.category-content-left {
+  width: 200rpx;
+  height: 100%;
+  background: #f8f8f8;
+}
+
+.content-left-item {
+  height: 80rpx;
+  line-height: 80rpx;
+  overflow: hidden;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.content-left-item.active {
+  background: #fff;
+}
+
+.content-left-item.active::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  border-left: 6rpx solid #ff7431;
+}
+
+.content-right-item {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+
+.content-right-item .fui-icon-group .fui-icon-col::before {
+  border: none;
+}
+
+#advimg {
+  width: 100%;
+}
+
+.block {
+  display: block;
+}
+
+.none {
+  display: none;
+}
+
+.weui-search-bar__input {
+  color: #666;
+}
+
+.fui-goods-item .detail .price {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 34rpx;
+  margin-top: 12rpx;
+}

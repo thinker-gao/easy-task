@@ -1,0 +1,9 @@
+<loading hidden='{{!isloading}}'>请稍候..</loading>
+<form class="container" bindsubmit='submit'>
+  <view class='name'>
+    <input class='input' name="name" placeholder='请输入你的姓名' value='{{name}}'></input>
+  </view>
+  <view class='btn-wrap'>
+    <button class='btn btn-primary' form-type='submit'>保存</button>
+  </view>
+</form>

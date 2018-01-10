@@ -1,0 +1,32 @@
+page {
+  background-color: #f0f0f0
+}
+.container {
+  padding-top: 15px;
+}
+.list .item {
+  padding: 0 15px;
+  line-height: 50px;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
+.list .item .radio {
+  margin-left: 30px;
+}
+.list .item .fr {
+  color: #666;
+}
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  border-top: 2px solid #e8e8e8;
+  border-right: 2px solid #e8e8e8;
+  margin-top: 4px;
+  transform: rotateZ(45deg);
+  -webkit-transform: rotateZ(45deg);
+}
+.btn-wrap {
+  margin: 200rpx 70rpx 20rpx;
+}

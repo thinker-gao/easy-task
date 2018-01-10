@@ -1,0 +1,51 @@
+<loading hidden="{{isShow}}">正在加载</loading>
+<view class='container'>
+  <view class='header'>
+    <image class='bg' src="{{icon['skin_home'+skin]}}"></image>
+    <view class='content'>
+      <view class='avatar'>
+        <image class='img' src='{{userinfo.avatarUrl}}'></image>
+      </view>
+      <view class='name'>{{userinfo.nickName}}</view>
+      <view class='phone'>{{member.mobile}}</view>
+      <navigator url='/pages/index/index' open-type='redirect'><image class='tohome' src='{{icon.footer1}}' mode='widthFix'></image></navigator>
+    </view>
+  </view>
+  <view class='list'>
+    <navigator url='/pages/member/show/show' class='item'>
+      <image class='icon' src='{{icon.home_info}}'></image>
+      <view class='right clearfix'>
+        <text class='text fl'>个人信息</text>
+        <view class='fr'></view>
+      </view>
+    </navigator>
+    <navigator url='/pages/member/edit/edit' class='item'>
+      <image class='icon' src='{{icon.home_pwd}}'></image>
+      <view class='right clearfix'>
+        <text class='text fl'>修改密码</text>
+        <view class='fr'></view>
+      </view>
+    </navigator>
+    <navigator url='/pages/member/bind/index' class='item'>
+      <image class='icon' src='{{icon.home_phone}}'></image>
+      <view class='right clearfix'>
+        <text class='text fl'>更换手机号</text>
+        <view class='fr'></view>
+      </view>
+    </navigator>
+    <navigator url='/pages/desc/desc' class='item'>
+      <image class='icon' src='{{icon.home_use}}'></image>
+      <view class='right clearfix'>
+        <text class='text fl'>使用流程</text>
+        <view class='fr'></view>
+      </view>
+    </navigator>
+    <navigator url='/pages/skin/skin' class='item'>
+      <image class='icon' src='{{icon.home_skin}}'></image>
+      <view class='right clearfix'>
+        <text class='text fl'>更换皮肤</text>
+        <view class='fr'></view>
+      </view>
+    </navigator>
+  </view>
+</view>

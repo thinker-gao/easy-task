@@ -1,0 +1,22 @@
+<view hidden="true" class="fui-navbar">
+  <navigator hover-class="none" url="/pages/index/index" class="nav-item {{route != 'home' || 'active'}}" open-type="redirect">
+    <image class="icon" src="{{route == 'home' ? icons.home_red : icons.home}}"></image>
+    <text class="label">商城首页</text>
+  </navigator>
+  <navigator hover-class="none" open-type="redirect" class="nav-item {{route != 'caregory' || 'active'}}" url="/pages/shop/caregory/index">
+    <image class="icon" src="{{route == 'caregory' ? icons.cate_red : icons.cate}}"></image>
+    <text class="label">全部分类</text>
+  </navigator>
+  <navigator hover-class="none" open-type="redirect" class="nav-item {{route != 'cart' || 'active'}}" url="/pages/member/cart/index">
+    <view class="badge" wx:if="{{cartcount > 0}}"></view>
+    <image class="icon" src="{{route == 'cart' ? icons.cart_red : icons.cart}}"></image>
+    <text class="label">购物车</text>
+  </navigator>
+  <navigator hover-class="none" open-type="redirect" class="nav-item {{route != 'member' || 'active'}}" url="/pages/member/index/index">
+    <image class="icon" src="{{route == 'caregory' ? icons.people_red : icons.people}}"></image>
+    <text class="label">会员中心</text>
+  </navigator>
+</view>
+<view class="fui-toast {{FoxUIToast.show ? 'in' : 'out'}}">
+  <view class="text">{{FoxUIToast.text}}</view>
+</view>
