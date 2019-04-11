@@ -1,6 +1,0 @@
-<view class="empty-wrap">
-  <view class='img-wrap'>
-    <image class='img' src='/static/icons/empty.png' mode='widthFix'></image>
-  </view>
-  <view class='text'>还没发现设备噢~</view>
-</view>
