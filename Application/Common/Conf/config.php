@@ -1,12 +1,11 @@
 <?php
 return [
-    'DB_TYPE' => 'mysql',
-    'DB_PREFIX' => 'hqjf_',
-    'DB_CHARSET' => 'utf8',
-    'DB_PORT' => '3306',
-    'DB_HOST' => 'db.elecfans.net',
-    'DB_NAME' => 'hqjfapi',
-    'DB_USER' => 'hqjfapi',
-    'DB_PWD' => 'NE8WWEEVJNu2Yzah',
-    'zhang' => 'san',
+'DB_TYPE' => 'mysql',
+'DB_PREFIX' => 'light',
+'DB_CHARSET' => 'utf8',
+'DB_HOST' => '127.0.0.1',
+'DB_PORT' => '3306',
+'DB_NAME' => 'test',
+'DB_USER' => 'root',
+'DB_PWD' => 'root',
 ];

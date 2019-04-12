@@ -2,130 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/Install/Common/function.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/layui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/layui.mobile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/code.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/laydate/default/laydate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/icon-ext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/layer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/10.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/11.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/12.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/13.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/14.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/15.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/16.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/17.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/18.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/19.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/20.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/21.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/22.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/23.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/24.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/25.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/26.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/27.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/28.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/29.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/30.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/31.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/32.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/33.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/34.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/35.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/36.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/37.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/38.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/39.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/4.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/40.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/41.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/42.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/43.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/44.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/45.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/46.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/47.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/48.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/49.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/5.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/50.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/51.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/52.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/53.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/54.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/55.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/56.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/57.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/58.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/59.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/6.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/60.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/61.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/62.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/63.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/64.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/65.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/66.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/67.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/68.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/69.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/7.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/70.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/71.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/8.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/9.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/carousel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/code.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/colorpicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/element.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/flow.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laydate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/layedit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laypage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laytpl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/mobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/rate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/slider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/tree.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/upload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/util.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/layui.all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/layui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Install/images/success.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Common/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Common/Conf/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Conf/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/View/Index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/View/Index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Public/Install/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/Install/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Public/Install/js/install.js" beforeDir="false" afterPath="$PROJECT_DIR$/Public/Install/js/install.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1012">
-              <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+            <state relative-caret-position="417">
+              <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
               <folding>
                 <element signature="e#37#66#0#PHP" expanded="true" />
               </folding>
@@ -151,80 +39,64 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="227" column="57" selection-start-line="227" selection-start-column="57" selection-end-line="227" selection-end-column="57" />
+            <state relative-caret-position="329">
+              <caret line="229" column="8" selection-start-line="229" selection-start-column="8" selection-end-line="229" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/composer.json">
+        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state relative-caret-position="280">
+              <caret line="55" column="28" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Install/View/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
+        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+            <state relative-caret-position="437">
+              <caret line="109" column="21" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
+        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/PDO/PDO.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="193" column="83" lean-forward="true" selection-start-line="193" selection-start-column="83" selection-end-line="193" selection-end-column="83" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="299">
+              <caret line="840" column="20" selection-start-line="840" selection-start-column="20" selection-end-line="840" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="101" column="43" lean-forward="true" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -246,6 +118,11 @@
       <find>SEA</find>
       <find>success</find>
       <find>ajaxReturn</find>
+      <find>initConnect</find>
+      <find>query</find>
+      <find>new PDO</find>
+      <find>new pdo</find>
+      <find>quer</find>
     </findStrings>
     <replaceStrings>
       <replace>LIGHT</replace>
@@ -259,26 +136,29 @@
       <list>
         <option value="$PROJECT_DIR$/Application/Home/Controller/IndexController.class.php" />
         <option value="$PROJECT_DIR$/Application/Home/Controller/BaseController.class.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/Application/Install/Conf/config.php" />
         <option value="$PROJECT_DIR$/Application/Install/Logic/IndexLogic.class.php" />
-        <option value="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" />
         <option value="$PROJECT_DIR$/../haiyang/install/images/install.js" />
         <option value="$PROJECT_DIR$/Public/Install/css/style.css" />
-        <option value="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" />
         <option value="$PROJECT_DIR$/composer.json" />
-        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" />
         <option value="$PROJECT_DIR$/Application/Install/View/Index/index.html" />
         <option value="$PROJECT_DIR$/Public/Install/js/install.js" />
-        <option value="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" />
         <option value="$PROJECT_DIR$/Application/Install/Common/function.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" />
         <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
+        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" />
+        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="8" />
-    <option name="y" value="122" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-88" />
+    <option name="y" value="91" />
     <option name="width" value="1871" />
     <option name="height" value="1100" />
   </component>
@@ -302,15 +182,7 @@
             <path>
               <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
               <item name="huocms" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="huocms" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="Conf" type="462c0819:PsiDirectoryNode" />
+              <item name="ThinkPHP" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -362,17 +234,18 @@
       <workItem from="1554993871433" duration="3815000" />
       <workItem from="1555030283418" duration="13041000" />
       <workItem from="1555044996158" duration="3172000" />
+      <workItem from="1555049256211" duration="7547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20028000" />
+    <option name="totallyTimeSpent" value="27575000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="8" y="122" width="1871" height="1100" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26449475" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -417,13 +290,6 @@
     <entry file="file://$PROJECT_DIR$/Public/Install/js/jquery.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../haiyang/install/images/install.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -431,13 +297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="66" column="34" lean-forward="true" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -465,13 +324,6 @@
     <entry file="file://$PROJECT_DIR$/Application/Home/Conf/config.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/迅雷下载/layer-v3.1.1/layer-v3.1.1/layer/layer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -484,6 +336,13 @@
     <entry file="file://$PROJECT_DIR$/Public/Common/component/layui/layui.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-741" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -501,19 +360,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="227" column="57" selection-start-line="227" selection-start-column="57" selection-end-line="227" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/View/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1786">
+          <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
+        <state relative-caret-position="3667">
           <caret line="193" column="83" lean-forward="true" selection-start-line="193" selection-start-column="83" selection-end-line="193" selection-end-column="83" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -528,31 +387,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="152">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+        <state relative-caret-position="76">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Exception.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="55" column="28" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/PDO/PDO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="840" column="20" selection-start-line="840" selection-start-column="20" selection-end-line="840" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="109" column="21" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="101" column="43" lean-forward="true" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/Model.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="990" column="31" selection-start-line="990" selection-start-column="26" selection-end-line="990" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="229" column="8" selection-start-line="229" selection-start-column="8" selection-end-line="229" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
-          <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+        <state relative-caret-position="417">
+          <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
           <folding>
             <element signature="e#37#66#0#PHP" expanded="true" />
           </folding>

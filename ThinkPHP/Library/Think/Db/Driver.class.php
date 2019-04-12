@@ -102,12 +102,14 @@ abstract class Driver {
                 }
                 $this->linkID[$linkNum] = new PDO( $config['dsn'], $config['username'], $config['password'],$this->options);
             }catch (\PDOException $e) {
+
                 if($autoConnection){
                     trace($e->getMessage(),'','ERR');
                     return $this->connect($autoConnection,$linkNum);
                 }elseif($config['debug']){
                     E($e->getMessage());
                 }
+                var_dump(1122);
             }
         }
         return $this->linkID[$linkNum];

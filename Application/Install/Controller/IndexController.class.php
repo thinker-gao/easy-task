@@ -2,8 +2,10 @@
 namespace Install\Controller;
 
 use Install\Logic\CheckLogic;
+use Install\Logic\InstallLogic;
 use Think\Controller;
 use Think\Db;
+use Think\Exception;
 
 class IndexController extends Controller
 {
@@ -71,7 +73,33 @@ class IndexController extends Controller
             $this->ajaxResponse(1, '管理员账户和密码不得为空！');
         }
 
-        setConfig('zhang','san');
+        //检查配置是否正确
+        try
+        {
+            InstallLogic::chkConfig($dbConf);
+        }
+        catch (\Exception $ex)
+        {
+            //$msg = iconv("GB2312", "UTF-8", $ex->getMessage());
+            $this->ajaxResponse(1, $ex->getMessage());
+            //$this->ajaxResponse(1, 'sb');
+        }
+
+
+        $this->ajaxResponse(1, '正常！');
+
+        die();
+
+        //保存配置文件
+        InstallLogic::setConfig($dbConf);
+
+
+        if (!$rel['status'])
+        {
+            $this->ajaxResponse(2, $rel['message']);
+        }
+
+
     }
 
 

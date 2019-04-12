@@ -227,6 +227,7 @@ abstract class Controller
      */
     protected function ajaxResponse($code, $msg, $info = [])
     {
+        $msg = iconv("GB2312", "UTF-8", $msg);
         $this->ajaxReturn([
             'msg' => $msg,
             'code' => $code,
@@ -248,6 +249,7 @@ abstract class Controller
         switch (strtoupper($type))
         {
             case 'JSON' :
+
                 // 返回JSON数据格式到客户端 包含状态信息
                 header('Content-Type:application/json; charset=utf-8');
                 exit(json_encode($data, $json_option));

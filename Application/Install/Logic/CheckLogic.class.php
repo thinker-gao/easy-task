@@ -2,7 +2,7 @@
 namespace Install\Logic;
 
 /**
- * 安装逻辑层
+ * 安装检查
  * @package Install\Logic
  */
 class CheckLogic
