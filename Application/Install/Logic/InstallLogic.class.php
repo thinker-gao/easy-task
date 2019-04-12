@@ -1,8 +1,6 @@
 <?php
 namespace Install\Logic;
 
-use Think\Exception;
-
 /**
  * 安装逻辑
  * @package Install\Logic
@@ -24,18 +22,24 @@ class InstallLogic
     /**
      * 检查配置文件是否正确
      */
-    public static function chkConfig($config)
+    public static function createDatabase($dbname)
     {
-        $dsn = "{$config['DB_TYPE']}:host={$config['DB_HOST']};port={$config['DB_PORT']};charset={$config['DB_CHARSET']}";
-        try
-        {
-            $pdo = new \PDO($dsn, $config['DB_USER'], $config['DB_PWD']);
+        $model = new \Think\Model();
+        $sql = "drop database if exists $dbname;create database $dbname;";
+        $model->execute($sql);
+    }
 
-            echo 111;
-        }
-        catch (\PDOException $e)
-        {
-            throw new \Exception($e->getMessage());
-        }
+    /**
+     * SQL文件导入
+     */
+    public static function importSqlData()
+    {
+        $sqlFile = './Public/Install/sql/install.sql';
+        $sqlText = file_get_contents($sqlFile);
+
+        echo $sqlText;
+
+        $model = new \Think\Model();
+        $model->execute($sqlText);
     }
 }

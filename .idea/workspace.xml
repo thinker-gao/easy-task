@@ -2,18 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Install/sql/install.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Admin/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Admin/Conf/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Common/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Common/Conf/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Common/function.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Common/function.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Model/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Home/20914c0f075f91df3579ffbdf5180b02.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Home/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/20914c0f075f91df3579ffbdf5180b02.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Data/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_11.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Temp/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/common~runtime.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/common~runtime.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,11 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
+            <state relative-caret-position="556">
+              <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
               <folding>
                 <element signature="e#37#66#0#PHP" expanded="true" />
               </folding>
@@ -38,65 +54,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="229" column="8" selection-start-line="229" selection-start-column="8" selection-end-line="229" selection-end-column="8" />
-            </state>
-          </provider>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Public/Install/sql/install.sql">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php">
+        <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="55" column="28" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="109" column="21" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/PDO/PDO.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="840" column="20" selection-start-line="840" selection-start-column="20" selection-end-line="840" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/functions.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="101" column="43" lean-forward="true" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+            <state relative-caret-position="721">
+              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -143,22 +110,25 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/Application/Install/View/Index/index.html" />
         <option value="$PROJECT_DIR$/Public/Install/js/install.js" />
-        <option value="$PROJECT_DIR$/Application/Install/Common/function.php" />
         <option value="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" />
         <option value="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" />
-        <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
         <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Lite.class.php" />
         <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Db/Driver.class.php" />
-        <option value="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/1.php" />
+        <option value="$PROJECT_DIR$/Application/Admin/Conf/config.php" />
         <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Common/function.php" />
+        <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
         <option value="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" />
+        <option value="$PROJECT_DIR$/Public/Install/sql/install.sql" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-88" />
-    <option name="y" value="91" />
+    <option name="x" value="-74" />
+    <option name="y" value="19" />
     <option name="width" value="1871" />
     <option name="height" value="1100" />
   </component>
@@ -177,12 +147,20 @@
             <path>
               <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
               <item name="huocms" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
+              <item name="Public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
               <item name="huocms" type="462c0819:PsiDirectoryNode" />
-              <item name="ThinkPHP" type="462c0819:PsiDirectoryNode" />
+              <item name="Public" type="462c0819:PsiDirectoryNode" />
+              <item name="Install" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huocms" type="462c0819:PsiDirectoryNode" />
+              <item name="Public" type="462c0819:PsiDirectoryNode" />
+              <item name="Install" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -194,7 +172,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Public/Install/sql" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -202,11 +180,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\wwwroot\huocms\Public\Install\sql" />
       <recent name="D:\wwwroot\huocms\Application\Install\Common" />
       <recent name="D:\wwwroot\huocms\Public\Common\component" />
       <recent name="D:\wwwroot\huocms\Public\Common\component\layui" />
       <recent name="D:\wwwroot\huocms\Public\Common\js" />
-      <recent name="D:\wwwroot\huocms\Application\Install\Logic" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -234,12 +212,12 @@
       <workItem from="1554993871433" duration="3815000" />
       <workItem from="1555030283418" duration="13041000" />
       <workItem from="1555044996158" duration="3172000" />
-      <workItem from="1555049256211" duration="7547000" />
+      <workItem from="1555049256211" duration="16037000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27575000" />
+    <option name="totallyTimeSpent" value="36065000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -270,9 +248,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Application/Admin/Conf/config.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Home/Controller/IndexController.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -338,13 +313,6 @@
         <state relative-caret-position="-741" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -384,13 +352,6 @@
             <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -443,6 +404,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="78" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -450,36 +425,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/Model.class.php">
+    <entry file="file://$USER_HOME$/Desktop/test.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="990" column="31" selection-start-line="990" selection-start-column="26" selection-end-line="990" selection-end-column="31" />
+        <state relative-caret-position="57">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Lite/Model.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+        <state relative-caret-position="291">
+          <caret line="989" column="20" selection-start-line="989" selection-start-column="20" selection-end-line="989" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="229" column="8" selection-start-line="229" selection-start-column="8" selection-end-line="229" selection-end-column="8" />
+        <state relative-caret-position="457">
+          <caret line="229" column="48" selection-start-line="229" selection-start-column="10" selection-end-line="229" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
+        <state relative-caret-position="556">
+          <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
           <folding>
             <element signature="e#37#66#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="721">
+          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Install/sql/install.sql">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">

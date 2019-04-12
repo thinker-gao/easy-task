@@ -21,7 +21,16 @@ if (!function_exists('setConfig'))
         $configText = "<?php" . PHP_EOL . 'return [' . PHP_EOL;
         foreach ($configdata as $key => $item)
         {
-            $configText .= "'{$key}' => '{$item}'," . PHP_EOL;
+            if (gettype($item) == 'boolean')
+            {
+                $item = $item ? 'true' : 'false';
+            }
+            else
+            {
+                $item = "'$item'";
+            }
+
+            $configText .= "'{$key}' => {$item}," . PHP_EOL;
         }
         $configText .= '];';
 

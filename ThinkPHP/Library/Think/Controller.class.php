@@ -227,7 +227,7 @@ abstract class Controller
      */
     protected function ajaxResponse($code, $msg, $info = [])
     {
-        $msg = iconv("GB2312", "UTF-8", $msg);
+        //$msg = iconv("GB2312", "UTF-8", $msg);
         $this->ajaxReturn([
             'msg' => $msg,
             'code' => $code,
