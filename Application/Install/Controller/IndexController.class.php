@@ -95,6 +95,8 @@ class IndexController extends Controller
 
         //导入SQL文件
         InstallLogic::importSqlData();
+
+        $this->ajaxResponse(1, '安装成功！');
     }
 
 

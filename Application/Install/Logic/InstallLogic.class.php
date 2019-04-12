@@ -25,8 +25,8 @@ class InstallLogic
     public static function createDatabase($dbname)
     {
         $model = new \Think\Model();
-        $sql = "drop database if exists $dbname;create database $dbname;";
-        $model->execute($sql);
+        //$sql = "drop database if exists $dbname;create database $dbname;";
+        //$model->execute($sql);
     }
 
     /**
@@ -34,12 +34,28 @@ class InstallLogic
      */
     public static function importSqlData()
     {
+        //加载SQL文件
         $sqlFile = './Public/Install/sql/install.sql';
         $sqlText = file_get_contents($sqlFile);
 
-        echo $sqlText;
+        //过滤注释
+        $sqlText = preg_replace('/(\/\*)(.*)(\*\/)/s', '', $sqlText);
+        $sqlText = preg_replace('/-{2}\s-{28}(.*)-{2}\s-{28}/s', '', $sqlText);
 
+        //循环执行SQL语句
         $model = new \Think\Model();
-        $model->execute($sqlText);
+        $sqlNode = explode(';', $sqlText);
+        foreach ($sqlNode as $node)
+        {
+            $sql = trim($node);
+            if (!$sql)
+            {
+                continue;
+            }
+
+            //var_dump($sql);
+
+            $model->execute($sql);
+        }
     }
 }
