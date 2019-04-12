@@ -34,7 +34,7 @@ table{border-collapse:collapse;border-spacing:0}
 .cont .c_c .c_c_right .content i{font-style:normal;color:green}
 .cont .c_c .c_c_right .content u{text-decoration:none;color:red}
 .cont .c_c .c_c_right .content .end{margin:12px 0 0}
-.cont .c_c .c_c_right .content .end h3{line-height:48px;background:url('success.gif') no-repeat;font-size:26px;text-indent:55px;color:green}
+.cont .c_c .c_c_right .content .end h3{line-height:48px;background:url('/Public/Install/images/success.gif') no-repeat;font-size:26px;text-indent:55px;color:green}
 .cont .c_c .c_c_right .content .end h4{font-size:26px;color:red}
 .cont .c_c .c_c_right .content .end p{padding:10px;color:#CD0200;font-weight:bold;font-size:18px}
 .cont .c_c .c_c_right .button{position:absolute;bottom:0;width:100%;height:28px;_height:36px;padding:7px 0 0;background:url('/Public/Install/images/bg.gif') no-repeat;overflow:hidden}

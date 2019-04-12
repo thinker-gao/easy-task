@@ -1,23 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="" />
+    <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/Install/Common/function.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/layui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/layui.mobile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/code.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/laydate/default/laydate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/icon-ext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/css/modules/layer/default/loading-2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/font/iconfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/10.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/11.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/12.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/13.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/14.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/15.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/16.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/17.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/18.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/19.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/20.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/21.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/22.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/23.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/24.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/25.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/26.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/27.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/28.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/29.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/3.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/30.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/31.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/32.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/33.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/34.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/35.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/36.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/37.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/38.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/39.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/4.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/40.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/41.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/42.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/43.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/44.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/45.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/46.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/47.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/48.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/49.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/5.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/50.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/51.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/52.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/53.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/54.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/55.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/56.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/57.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/58.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/59.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/6.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/60.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/61.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/62.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/63.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/64.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/65.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/66.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/67.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/68.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/69.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/7.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/70.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/71.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/8.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/images/face/9.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/carousel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/code.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/colorpicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/element.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/flow.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laydate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/layedit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/layer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laypage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/laytpl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/rate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/slider.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/tree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/lay/modules/util.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/layui.all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Common/component/layui/layui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Public/Install/images/success.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Common/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Common/Conf/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Conf/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Install/View/Index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/View/Index/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Public/Install/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/Install/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Public/Install/js/install.js" beforeDir="false" afterPath="$PROJECT_DIR$/Public/Install/js/install.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Install/Conf/config.php">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+            <state relative-caret-position="1012">
+              <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+              <folding>
+                <element signature="e#37#66#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="227" column="57" selection-start-line="227" selection-start-column="57" selection-end-line="227" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -28,55 +202,29 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1271">
-              <caret line="172" column="36" lean-forward="true" selection-start-line="172" selection-start-column="36" selection-end-line="172" selection-end-column="36" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#1595#1601#0" expanded="true" />
-                <element signature="e#1602#1608#0" expanded="true" />
-                <element signature="e#1610#1616#0" expanded="true" />
-                <element signature="e#1617#1623#0" expanded="true" />
-                <element signature="e#1625#1631#0" expanded="true" />
-                <element signature="e#1632#1638#0" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/Install/js/jquery.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/Install/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+            <state relative-caret-position="532">
+              <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="193" column="83" lean-forward="true" selection-start-line="193" selection-start-column="83" selection-end-line="193" selection-end-column="83" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,24 +243,43 @@
       <find>bg.gif</find>
       <find>box.gif</find>
       <find>top.gif</find>
+      <find>SEA</find>
+      <find>success</find>
+      <find>ajaxReturn</find>
     </findStrings>
+    <replaceStrings>
+      <replace>LIGHT</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Application/Home/Controller/IndexController.class.php" />
         <option value="$PROJECT_DIR$/Application/Home/Controller/BaseController.class.php" />
+        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/Application/Install/Conf/config.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/IndexLogic.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php" />
+        <option value="$PROJECT_DIR$/../haiyang/install/images/install.js" />
         <option value="$PROJECT_DIR$/Public/Install/css/style.css" />
-        <option value="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" />
         <option value="$PROJECT_DIR$/Application/Install/View/Index/index.html" />
+        <option value="$PROJECT_DIR$/Public/Install/js/install.js" />
+        <option value="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" />
+        <option value="$PROJECT_DIR$/Application/Install/Common/function.php" />
+        <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-4" />
-    <option name="y" value="33" />
-    <option name="width" value="1932" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="8" />
+    <option name="y" value="122" />
+    <option name="width" value="1871" />
     <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
@@ -124,40 +291,26 @@
         <subPane>
           <expand>
             <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
+              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huocms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
-              <item name="Public" type="462c0819:PsiDirectoryNode" />
+              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huocms" type="462c0819:PsiDirectoryNode" />
+              <item name="Application" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
-              <item name="Public" type="462c0819:PsiDirectoryNode" />
-              <item name="Install" type="462c0819:PsiDirectoryNode" />
+              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huocms" type="462c0819:PsiDirectoryNode" />
+              <item name="Application" type="462c0819:PsiDirectoryNode" />
+              <item name="Common" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
-              <item name="Public" type="462c0819:PsiDirectoryNode" />
-              <item name="Install" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
-              <item name="Public" type="462c0819:PsiDirectoryNode" />
-              <item name="Install" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="video" type="b2602c69:ProjectViewProjectNode" />
-              <item name="video" type="462c0819:PsiDirectoryNode" />
-              <item name="Public" type="462c0819:PsiDirectoryNode" />
-              <item name="Install" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="huocms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="huocms" type="462c0819:PsiDirectoryNode" />
+              <item name="Application" type="462c0819:PsiDirectoryNode" />
+              <item name="Common" type="462c0819:PsiDirectoryNode" />
+              <item name="Conf" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -167,8 +320,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Public/Install/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -176,11 +330,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\wwwroot\video\Public\Install\images" />
-      <recent name="D:\wwwroot\video\Public\Install\js" />
-      <recent name="D:\wwwroot\video\Application\Install\View\Index" />
-      <recent name="D:\wwwroot\video\Application\Home\Controller" />
-      <recent name="D:\wwwroot\video\Application" />
+      <recent name="D:\wwwroot\huocms\Application\Install\Common" />
+      <recent name="D:\wwwroot\huocms\Public\Common\component" />
+      <recent name="D:\wwwroot\huocms\Public\Common\component\layui" />
+      <recent name="D:\wwwroot\huocms\Public\Common\js" />
+      <recent name="D:\wwwroot\huocms\Application\Install\Logic" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -206,23 +360,21 @@
       <option name="presentableId" value="Default" />
       <updated>1554993870233</updated>
       <workItem from="1554993871433" duration="3815000" />
+      <workItem from="1555030283418" duration="13041000" />
+      <workItem from="1555044996158" duration="3172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3815000" />
+    <option name="totallyTimeSpent" value="20028000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="33" width="1932" height="1100" extended-state="0" />
+    <frame x="8" y="122" width="1871" height="1100" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25053418" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26449475" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -230,10 +382,15 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,53 +417,144 @@
     <entry file="file://$PROJECT_DIR$/Public/Install/js/jquery.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Conf/config.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+        <state relative-caret-position="114">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/../haiyang/install/images/install.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Public/Install/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="361">
+          <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/CheckLogic.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="669">
+          <caret line="66" column="34" lean-forward="true" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Mode/Api/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="498" column="48" selection-start-line="498" selection-start-column="37" selection-end-line="498" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Db.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Home/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/SaveLogic.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/迅雷下载/layer-v3.1.1/layer-v3.1.1/layer/layer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Common/component/layui/layui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-741" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="227" column="57" selection-start-line="227" selection-start-column="57" selection-end-line="227" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/View/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
+    <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        <state relative-caret-position="513">
+          <caret line="193" column="83" lean-forward="true" selection-start-line="193" selection-start-column="83" selection-end-line="193" selection-end-column="83" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/View/Index/index.html">
+    <entry file="file://$PROJECT_DIR$/Public/Install/js/install.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1271">
-          <caret line="172" column="36" lean-forward="true" selection-start-line="172" selection-start-column="36" selection-end-line="172" selection-end-column="36" />
+        <state relative-caret-position="532">
+          <caret line="94" column="22" lean-forward="true" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Common/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="73" column="30" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#1595#1601#0" expanded="true" />
-            <element signature="e#1602#1608#0" expanded="true" />
-            <element signature="e#1610#1616#0" expanded="true" />
-            <element signature="e#1617#1623#0" expanded="true" />
-            <element signature="e#1625#1631#0" expanded="true" />
-            <element signature="e#1632#1638#0" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#37#66#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
