@@ -1,36 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Public/Install/sql/install.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Admin/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Admin/Conf/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Common/Conf/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Common/Conf/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Common/function.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Common/function.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Install/Model/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Home/20914c0f075f91df3579ffbdf5180b02.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Home/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/20914c0f075f91df3579ffbdf5180b02.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/Install/c6bbce5b1f1dcf027c8ceb5cf5141b65.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Cache/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Data/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Common/19_04_12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/19_04_12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Home/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/Logs/Install/19_04_12.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Logs/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/Temp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/common~runtime.php" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Runtime/common~runtime.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Runtime/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" afterDir="false" />
-    </list>
+    <list default="true" id="61a2948a-4d24-439c-9143-157918655303" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +16,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
+            <state relative-caret-position="1582">
               <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
               <folding>
                 <element signature="e#37#66#0#PHP" expanded="true" />
@@ -54,16 +25,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Public/Install/sql/install.sql">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="721">
-              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+              <caret line="42" column="32" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -172,7 +147,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Public/Install/sql" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../learn" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -212,16 +187,15 @@
       <workItem from="1554993871433" duration="3815000" />
       <workItem from="1555030283418" duration="13041000" />
       <workItem from="1555044996158" duration="3172000" />
-      <workItem from="1555049256211" duration="16037000" />
+      <workItem from="1555049256211" duration="16116000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36065000" />
+    <option name="totallyTimeSpent" value="36144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -458,7 +432,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Install/Controller/IndexController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
+        <state relative-caret-position="1582">
           <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
           <folding>
             <element signature="e#37#66#0#PHP" expanded="true" />
@@ -466,15 +440,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
+    <entry file="file://$PROJECT_DIR$/Public/Install/sql/install.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+        <state relative-caret-position="323">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Public/Install/sql/install.sql">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/Application/Install/Logic/InstallLogic.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="721">
+          <caret line="42" column="32" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="32" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
