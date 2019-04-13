@@ -1,14 +1,16 @@
 <?php
 /**
- * 安装检查项目
+ * 配置
  */
-return array(
-    'chkexts' => array(
+return [
+    //扩展检查
+    'chkexts' => [
         'gd' => false,
         'curl' => false,
         'openssl' => false,
-    ),
-    'chkrwpath' => array(
+    ],
+    //读写检查
+    'chkrwpath' => [
         'Runtime' => false
-    )
-);
+    ]
+];

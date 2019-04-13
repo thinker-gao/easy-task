@@ -17,8 +17,10 @@ class IndexController extends Controller
         //环境检查
         $check = new CheckLogic();
 
-        //$check->chkenvpass =false;
+        //获取网站域名
+        $siteUrl = getServername();
 
+        $this->assign('siteurl', $siteUrl);
         $this->assign('chkexts', $check->chkexts);
         $this->assign('chkrwpath', $check->chkrwpath);
         $this->assign('chkenvpass', $check->chkenvpass);
@@ -26,19 +28,18 @@ class IndexController extends Controller
     }
 
     /**
-     * 阅读协议
+     * 保存配置
      */
     public function save()
     {
         //外部参数
-        $dbName = trim(I('dbname'));
-
         $dbConf = [
             'DB_TYPE' => 'mysql',// 数据库类型
             'DB_PREFIX' => 'light',// 数据表前缀
             'DB_CHARSET' => 'utf8',// 网站编码
             'DB_HOST' => trim(I('dbhost')),// 数据库地址
             'DB_PORT' => trim(I('dbport')),// 数据库端口
+            'DB_NAME' => trim(I('dbname')),// 数据库名称
             'DB_USER' => trim(I('dbuser')),// 数据库用户名
             'DB_PWD' => trim(I('dbpass')),// 数据库密码
         ];
@@ -57,7 +58,7 @@ class IndexController extends Controller
         {
             $this->ajaxResponse(1, '数据库端口不得为空！');
         }
-        if (empty($dbName))
+        if (empty($dbConf['DB_NAME']))
         {
             $this->ajaxResponse(1, '数据库名称不得为空！');
         }
@@ -74,30 +75,25 @@ class IndexController extends Controller
             $this->ajaxResponse(1, '管理员账户和密码不得为空！');
         }
 
-        //保存配置文件
-        InstallLogic::setConfig($dbConf);
-
-        //创建数据库
+        //检查数据库配置并创建数据库
         try
         {
-            InstallLogic::createDatabase($dbName);
+            InstallLogic::chkDbConfig($dbConf);
+            InstallLogic::createDatebase();
+            InstallLogic::importSqlData();
         }
         catch (\Exception $ex)
         {
-            $msg = iconv("GB2312", "UTF-8", $ex->getMessage());
-            $this->ajaxResponse(1, $msg);
+            $this->ajaxResponse(1, iconv("GB2312", "UTF-8", $ex->getMessage()));
         }
 
-        //数据库创建完成设置到配置信息
-        InstallLogic::setConfig([
-            'DB_NAME' => $dbName
-        ]);
+        //保存配置文件
+        InstallLogic::setConfig($dbConf);
 
-        //导入SQL文件
-        InstallLogic::importSqlData();
+        //运行时文件清理
+        InstallLogic::deleteRuntime();
 
-        $this->ajaxResponse(1, '安装成功！');
+        //返回
+        $this->ajaxResponse(0, 'success');
     }
-
-
 }

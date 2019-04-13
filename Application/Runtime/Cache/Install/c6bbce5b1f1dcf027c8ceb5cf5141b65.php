@@ -1,4 +1,4 @@
-<html>
+<?php if (!defined('THINK_PATH')) exit();?><html>
 <head>
     <title>安装向导 - LightCMS</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -76,22 +76,17 @@
                                     <th width="400"><strong>实际状态</strong></th>
                                 </tr>
 
-                                <foreach name="chkexts" item="v" key="k">
-                                    <tr>
-                                        <td>{$k} 支持</td>
+                                <?php if(is_array($chkexts)): foreach($chkexts as $k=>$v): ?><tr>
+                                        <td><?php echo ($k); ?> 支持</td>
                                         <td>On</td>
                                         <td>
 
-                                            <if condition="$v">
-                                                <font color=green>[√]On</font>
-                                                <else/>
-                                                <font color=#B8860B>[×]Off</font>
-
-                                            </if>
+                                            <?php if($v): ?><font color=green>[√]On</font>
+                                                <?php else: ?>
+                                                <font color=#B8860B>[×]Off</font><?php endif; ?>
                                             <small>(v0.1)</small>
                                         </td>
-                                    </tr>
-                                </foreach>
+                                    </tr><?php endforeach; endif; ?>
                             </table>
 
                             <table class="tb">
@@ -101,37 +96,29 @@
                                     <th width="212"><strong>写入权限</strong></th>
                                 </tr>
 
-                                <foreach name="chkrwpath" item="v" key="k">
-                                    <tr>
-                                        <td>{$v.path}</td>
+                                <?php if(is_array($chkrwpath)): foreach($chkrwpath as $k=>$v): ?><tr>
+                                        <td><?php echo ($v["path"]); ?></td>
                                         <td>
-                                            <if condition="$v.read">
-                                                <font color=green>[√]读</font>
-                                                <else/>
-                                                <font color=#B8860B>[X]读</font>
-                                            </if>
+                                            <?php if($v.read): ?><font color=green>[√]读</font>
+                                                <?php else: ?>
+                                                <font color=#B8860B>[X]读</font><?php endif; ?>
                                         </td>
                                         <td>
-                                            <if condition="$v.write">
-                                                <font color=green>[√]写</font>
-                                                <else/>
-                                                <font color=#B8860B>[X]写</font>
-                                            </if>
+                                            <?php if($v.write): ?><font color=green>[√]写</font>
+                                                <?php else: ?>
+                                                <font color=#B8860B>[X]写</font><?php endif; ?>
                                         </td>
-                                    </tr>
-                                </foreach>
+                                    </tr><?php endforeach; endif; ?>
 
                             </table>
 
 
                         </div>
                         <div class="button">
-                            <if condition="$chkenvpass">
-                                <a onclick="step(3)">下一步</a>
-                                <else/>
+                            <?php if($chkenvpass): ?><a onclick="step(3)">下一步</a>
+                                <?php else: ?>
                                 <font color="red">&nbsp;&nbsp;&nbsp;错误：请先修复红色 [×] 错误后刷新本页继续！</font>
-                                <a class="but grey">下一步</a>
-                            </if>
+                                <a class="but grey">下一步</a><?php endif; ?>
                             <a onclick="step(1)">上一步</a>
                         </div>
 
@@ -216,7 +203,7 @@
                                 </tr>
                                 <tr>
                                     <td width="120"> 网站网址：</td>
-                                    <td><input class="inp" name="siteurl" type="text" value="{$Think.server.http_host}"
+                                    <td><input class="inp" name="siteurl" type="text" value="<?php echo ($_SERVER['HTTP_HOST']); ?>"
                                                tips="网站地址，如：http://www.LIGHTcms.net"/></td>
                                 </tr>
                             </table>
@@ -235,13 +222,13 @@
                             <h2>恭喜您已经成功完成了LightCMS的安装</h2>
                             <br><br>
                             <div class="end" style="margin-left:80px;"><h3>恭喜,您的网站已安装完成！</h3>
-                                <p>首页地址：<a href="{$siteurl}" target="_blank">{$siteurl}</a>
-                                    <br>后台地址：<a href="{$siteurl}/index.php/Admin"
-                                                target="_blank">{$siteurl}/index.php/Admin</a>
+                                <p>首页地址：<a href="<?php echo ($siteurl); ?>" target="_blank"><?php echo ($siteurl); ?></a>
+                                    <br>后台地址：<a href="<?php echo ($siteurl); ?>/index.php/Admin"
+                                                target="_blank"><?php echo ($siteurl); ?>/index.php/Admin</a>
                                     <br>用户名：admin <br>密　码：admin <br>请牢记以上信息，您可以登陆后台修改密码及网站设置。</p>
                             </div>
                         </div>
-                        <div class="button"><a href="{$siteurl}" target="_blank">访问网站</a></div>
+                        <div class="button"><a href="http://<?php echo ($_SERVER['REMOTE_HOST']); ?>" target="_blank">访问网站</a></div>
                     </div>
 
                 </div>

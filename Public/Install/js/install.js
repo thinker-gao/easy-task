@@ -1,14 +1,12 @@
-var  layer = null;
-layui.use(['layer', ], function(){
+//加载layer
+var layer = null;
+layui.use(['layer',], function () {
     var layer = layui.layer
 });
 
-
+//初始化Install页面
 var nowstep = initStep();
 var resetUrl = false;
-
-
-
 if (nowstep != 0) {
     resetUrl = true;
     step(nowstep);
@@ -16,7 +14,7 @@ if (nowstep != 0) {
     step(nowstep);
 }
 
-//去某个步骤
+//跳转到某个步骤
 function step(nextsum) {
     initpage();
     $('.divstep' + nextsum).show();
@@ -25,7 +23,7 @@ function step(nextsum) {
         nextsum > nowstep ? nowstep++ : nowstep--;
     }
     console.log(nowstep, nextsum);
-    setCookie('step', nextsum);
+    setCookie('installstep', nextsum);
 }
 
 
@@ -39,7 +37,7 @@ function initpage() {
 
 //获取当前步骤数
 function initStep() {
-    var ckstep = getCookie('step');
+    var ckstep = getCookie('installstep');
     if (!ckstep) {
         return 0;
     } else {
@@ -89,13 +87,14 @@ function save() {
         if (result.code != 0) {
             layer.open({
                 title: '提示'
-                ,content: result.msg
+                , content: result.msg
             });
+        } else {
+            step(4);
         }
         console.log();
     }, 'json');
     console.log(data);
-    //step(4);
 }
 
 

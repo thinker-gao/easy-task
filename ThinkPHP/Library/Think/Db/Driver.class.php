@@ -109,7 +109,6 @@ abstract class Driver {
                 }elseif($config['debug']){
                     E($e->getMessage());
                 }
-                var_dump(1122);
             }
         }
         return $this->linkID[$linkNum];

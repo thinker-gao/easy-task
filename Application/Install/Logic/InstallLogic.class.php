@@ -8,6 +8,16 @@ namespace Install\Logic;
 class InstallLogic
 {
     /**
+     * PDO配置
+     */
+    public static $conf;
+
+    /**
+     * PDO连接对象
+     */
+    public static $conn;
+
+    /**
      * 保存配置到配置文件
      * @param array $config
      */
@@ -20,13 +30,44 @@ class InstallLogic
     }
 
     /**
-     * 检查配置文件是否正确
+     * 检查DB配置并初始化
      */
-    public static function createDatabase($dbname)
+    public static function chkDbConfig($config)
     {
-        $model = new \Think\Model();
-        //$sql = "drop database if exists $dbname;create database $dbname;";
-        //$model->execute($sql);
+        try
+        {
+            static::$conf = $config;
+            static::$conn = new \PDO("{$config['DB_TYPE']}:host={$config['DB_HOST']};port={$config['DB_PORT']}", $config['DB_USER'], $config['DB_PWD']);
+        }
+        catch (PDOException $e)
+        {
+            E($e->getMessage());
+        }
+    }
+
+    /**
+     * 创建数据库
+     */
+    public static function createDatebase()
+    {
+        $dbName = static::$conf['DB_NAME'];
+        if (!static::$conn->exec("drop database if exists $dbName;create database $dbName;"))
+        {
+            $errMessage = static::$conn->errorInfo()['2'] ?? '';
+            if ($errMessage)
+            {
+                E($errMessage);
+            }
+        }
+    }
+
+    /**
+     * 运行时清理
+     */
+    public static function deleteRuntime()
+    {
+        $file = RUNTIME_PATH . 'common~runtime.php';
+        return @unlink($file);
     }
 
     /**
@@ -42,8 +83,11 @@ class InstallLogic
         $sqlText = preg_replace('/(\/\*)(.*)(\*\/)/s', '', $sqlText);
         $sqlText = preg_replace('/-{2}\s-{28}(.*)-{2}\s-{28}/s', '', $sqlText);
 
-        //循环执行SQL语句
-        $model = new \Think\Model();
+        //DB选择数据库
+        $dbName = static::$conf['DB_NAME'];
+        static::$conn->exec("use $dbName;");
+
+        //DB执行SQL语句
         $sqlNode = explode(';', $sqlText);
         foreach ($sqlNode as $node)
         {
@@ -52,10 +96,14 @@ class InstallLogic
             {
                 continue;
             }
-
-            //var_dump($sql);
-
-            $model->execute($sql);
+            if (!static::$conn->exec($sql))
+            {
+                $errMessage = static::$conn->errorInfo()['2'] ?? '';
+                if ($errMessage)
+                {
+                    E($errMessage);
+                }
+            }
         }
     }
 }
