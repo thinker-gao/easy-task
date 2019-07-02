@@ -30,6 +30,9 @@ class Command
      */
     public function send($msgType, $command)
     {
+        var_dump('send');
+        var_dump($msgType, $command);
+        $command['time'] = time();
         $this->sysMsg->sendMessage($this->sysQueue, $msgType, $command);
     }
 
@@ -39,17 +42,17 @@ class Command
      * @param $command
      * @return bool
      */
-    public
-    function receive($msgType, &$command)
+    public function receive($msgType, &$command)
     {
+        var_dump('rec');
+        var_dump($msgType, $command);
         return $this->sysMsg->receMesage($this->sysQueue, $msgType, $command);
     }
 
     /**
      * 移除命令通信
      */
-    public
-    function remove()
+    public function remove()
     {
         $this->sysMsg->removeQueue($this->sysQueue);
     }

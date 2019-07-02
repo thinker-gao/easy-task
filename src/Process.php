@@ -57,6 +57,27 @@ class Process
     }
 
     /**
+     * 运行状态
+     */
+    public function status()
+    {
+        $this->commander->send(2, ['type' => 'status']);
+        $this->initWaitExit();
+    }
+
+    /**
+     * 停止运行
+     * @param bool $force 是否强制
+     */
+    public function stop($force = false)
+    {
+        $this->commander->send(2, [
+            'type' => 'stop',
+            'force' => $force
+        ]);
+    }
+
+    /**
      * 守护进程
      */
     private function daemon()
@@ -189,10 +210,10 @@ class Process
             sleep(1);
 
             //接收汇报
-            $this->executeByWaitCommand(1, function ($report) {
+            $this->WaitCommandForExecute(1, function ($report) {
                 if ($report['type'] == 'status')
                 {
-                    Console::showTable($report['allocate']);
+                    Console::showTable($report['status']);
                 }
                 if ($report['type'] == 'allocate')
                 {
@@ -223,6 +244,7 @@ class Process
         //挂起进程
         while (true)
         {
+            //CPU休息1秒
             sleep(1);
 
             //接收命令
@@ -237,7 +259,7 @@ class Process
                 }
                 if ($command['type'] == 'stop')
                 {
-                    $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM);
+                    $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
                 }
 
             });
@@ -275,7 +297,10 @@ class Process
     {
         $command = '';
         $status = $this->commander->receive($msgType, $command);
-        if (!$status) return;
+        if (!$status || (!empty($command['time']) && (time() - $command['time']) > 5))
+        {
+            return;
+        }
         $func($command);
     }
 }
