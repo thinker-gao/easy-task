@@ -1,20 +1,17 @@
 <?php
-
+namespace EasyTask;
 require './src/Task.php';
 require './src/Process.php';
+require './src/Console.php';
+require './src/Command.php';
+require './src/SysMsg.php';
 
 
 //初始化
-$task = new \EasyTask\task();
+$task = new Task();
 
-$task->setDaemon(true);
-
-//传入Redis
-/*
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
-$task->setRedis($redis);
-*/
+//设置常驻
+$task->setDaemon(false);
 
 //设置匿名函数任务
 $task->addFunction(function () {
@@ -26,15 +23,13 @@ class order
 {
     public static function do()
     {
-       // echo '2' . PHP_EOL;
+        // echo '2' . PHP_EOL;
     }
 }
 
 $task->addClass(order::class, 'do', 'english', 10, 1);
 
-//输出任务列表
-//$task->getList();
-
+//启动任务
 $task->start();
 
 

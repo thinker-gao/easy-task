@@ -9,7 +9,7 @@ class SysMsg
      * @param int $perms 队列权限
      * @return resource
      */
-    public static function setQueue($key, $perms = 0666)
+    public static function setQueue($key, $perms = 0777)
     {
         return msg_get_queue($key, $perms);
     }

@@ -31,7 +31,7 @@ class Task
     /**
      * @var int $ipcKey 进程通信Key
      */
-    private $ipcKey = '0x3000111';
+    private $ipcKey = '';
 
     /**
      * @var array 任务列表
@@ -45,6 +45,9 @@ class Task
     {
         //异步支持
         $this->canAsync = function_exists('pcntl_async_signals');
+
+        //初始化ipcKey
+        $this->ipcKey = ftok(dirname(__FILE__), 'T');
     }
 
     /**

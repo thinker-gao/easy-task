@@ -14,6 +14,11 @@ class Process
     private $sleepTime;
 
     /**
+     * 进程命令管理
+     */
+    private $commander;
+
+    /**
      * @var array 进程执行记录
      */
     private $processList = [];
@@ -34,6 +39,8 @@ class Process
             $this->sleepTime = 100;
             pcntl_async_signals(true);
         }
+
+        $this->commander = new Command($this->task->ipcKey);
     }
 
     /**
@@ -67,7 +74,7 @@ class Process
         $pid = pcntl_fork();
         if ($pid < 0)
         {
-            exit('Create process failed' . PHP_EOL);
+            Console::error('创建进程失败');
         }
         elseif ($pid)
         {
@@ -79,7 +86,7 @@ class Process
             $sid = posix_setsid();
             if ($sid < 0)
             {
-                exit('Setsid child process failed' . PHP_EOL);
+                Console::error('设置守护进程失败');
             }
         }
     }
@@ -181,7 +188,16 @@ class Process
             //CPU休息1秒
             sleep(1);
 
-            //订阅汇报任务
+            //接收守护进程的任务报告
+            $this->executeByWaitCommand('allocate', function ($report) {
+                Console::showTable($report['startList']);
+                //var_dump($report['startList']);
+            });
+
+            //接收守护进程的状态报告
+            $this->executeByWaitCommand('statusReplay', function ($report) {
+                Console::showTable($report['startList']);
+            });
         }
         exit();
     }
@@ -191,6 +207,12 @@ class Process
      */
     private function daemonWait()
     {
+        //任务汇报Init进程
+        $this->commander->send([
+            'action' => 'allocate',
+            'startList' => $this->processList,
+        ]);
+
         //监听Kill命令
         pcntl_signal(SIGTERM, function () {
             posix_kill(0, SIGTERM);
@@ -202,8 +224,62 @@ class Process
         {
             sleep(1);
 
+            //接收STATUS命令
+            $this->executeByWaitCommand('status', function () {
+                $this->processStatus();
+                $this->commander->send([
+                    'action' => 'statusReplay',
+                    'startList' => $this->processList,
+                ]);
+
+            });
+
+            //接收STOP命令
+            $this->executeByWaitCommand('stop', function ($command) {
+                $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM);
+            });
+
             //调用信号处理
             if (!$this->task->canAsync) pcntl_signal_dispatch();
+        }
+    }
+
+    /**
+     * 查看进程状态
+     */
+    public function processStatus()
+    {
+        foreach ($this->processList as $key => $item)
+        {
+            //提取参数
+            $pid = $item['pid'];
+
+            //检查进程状态
+            $rel = pcntl_waitpid($pid, $status, WNOHANG);
+            if ($rel == -1 || $rel > 0)
+            {
+                $this->processList[$key]['status'] = 'stoped';
+            }
+        }
+    }
+
+    /**
+     * 根据命令执行对应操作
+     * @param string $action 操作
+     * @param \Closure $func 执行函数
+     */
+    public function executeByWaitCommand($action, $func)
+    {
+        $command = '';
+        $status = $this->commander->receive($command);
+        if (!$status) return;
+        if ($command['action'] != $action)
+        {
+            $this->commander->send($command);
+        }
+        else
+        {
+            $func($command);
         }
     }
 }
