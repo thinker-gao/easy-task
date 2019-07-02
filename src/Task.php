@@ -29,9 +29,9 @@ class Task
     private $prefix = 'EasyTask';
 
     /**
-     * @var null Redis实例
+     * @var int $ipcKey 进程通信Key
      */
-    private $redis = null;
+    private $ipcKey = '0x3000111';
 
     /**
      * @var array 任务列表
@@ -55,17 +55,6 @@ class Task
     public function __get($name)
     {
         return $this->$name;
-    }
-
-    /**
-     * 设置Redis
-     * @param $redis
-     * @return $this
-     */
-    public function setRedis($redis)
-    {
-        $this->redis = $redis;
-        return $this;
     }
 
     /**
@@ -113,6 +102,17 @@ class Task
     }
 
     /**
+     * 设置进程通信Key
+     * @param int $ipcKey
+     * @return $this
+     */
+    public function setIpcKey($ipcKey)
+    {
+        $this->ipcKey = $ipcKey;
+        return $this;
+    }
+
+    /**
      * 新增匿名函数作为任务
      * @param \Closure $func 匿名函数
      * @param string $alas 任务别名
@@ -122,9 +122,10 @@ class Task
      */
     public function addFunction($func, $alas = '', $time = 1, $used = 1)
     {
+        //必须是匿名函数
         if (!($func instanceof \Closure))
         {
-            exit('必须传递匿名函数');
+            Console::error('参数必须是匿名函数');
         }
 
         $this->taskList[] = [
@@ -150,38 +151,41 @@ class Task
      */
     public function addClass($class, $func, $alas = '', $time = 1, $used = 1)
     {
+        //检查类是否存在
         if (!class_exists($class))
         {
-            exit('类不存在');
+            Console::error("{$class}类不存在");
         }
 
-        $reflect = new \ReflectionClass($class);
-        if (!$reflect->hasMethod($func))
+        try
         {
-            exit('类的方法不存在');
-        }
+            $reflect = new \ReflectionClass($class);
+            if (!$reflect->hasMethod($func))
+            {
+                Console::error("{$class}类的方法{$func}不存在");
+            }
 
-        $method = new \ReflectionMethod($class, $func);
-        if (!$method->isPublic())
+            $method = new \ReflectionMethod($class, $func);
+            if (!$method->isPublic())
+            {
+                Console::error("{$class}类的方法{$func}必须是可访问的");
+            }
+
+            $this->taskList[] = [
+                'type' => $method->isStatic() ? 1 : 2,
+                'func' => $func,
+                'alas' => $alas ? $alas : uniqid(),
+                'time' => $time,
+                'used' => $used,
+                'class' => $class,
+            ];
+        }
+        catch (\ReflectionException $exception)
         {
-            exit('类的方法必须是公共的');
+            Console::error($exception->getMessage());
         }
-
-        $this->taskList[] = [
-            'type' => $method->isStatic() ? 1 : 2,
-            'func' => $func,
-            'alas' => $alas ? $alas : uniqid(),
-            'time' => $time,
-            'used' => $used,
-            'class' => $class,
-        ];
 
         return $this;
-    }
-
-    public function getList()
-    {
-        var_dump($this->taskList);
     }
 
     /**
@@ -189,8 +193,7 @@ class Task
      */
     public function start()
     {
-        $process = new Process($this);
-        $process->start();
+        (new Process($this))->start();
     }
 
     /**
@@ -198,10 +201,7 @@ class Task
      */
     public function status()
     {
-        if (!$this->redis)
-        {
-            exit('依赖于redis');
-        }
+        (new Process($this))->status();
     }
 
     /**
@@ -209,9 +209,6 @@ class Task
      */
     public function stop()
     {
-        if (!$this->redis)
-        {
-            exit('依赖于redis');
-        }
+        (new Process($this))->stop();
     }
 }
