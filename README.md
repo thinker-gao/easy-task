@@ -1,2 +1,2 @@
 ﻿## EasyTask
-EasyTask是一款PHP原生常驻内存定时任务Library
+EasyTask提供给开发者原生常驻内存定时任务功能，操作简单，极易上手。开发中遇到群发短信，数据挖掘，邮件发送，定时任务，数据队列都可以使用EasyTask
