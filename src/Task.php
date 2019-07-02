@@ -29,6 +29,11 @@ class Task
     private $prefix = 'EasyTask';
 
     /**
+     * @var null Redis实例
+     */
+    private $redis = null;
+
+    /**
      * @var array 任务列表
      */
     private $taskList = [];
@@ -50,6 +55,17 @@ class Task
     public function __get($name)
     {
         return $this->$name;
+    }
+
+    /**
+     * 设置Redis
+     * @param $redis
+     * @return $this
+     */
+    public function setRedis($redis)
+    {
+        $this->redis = $redis;
+        return $this;
     }
 
     /**
@@ -182,7 +198,10 @@ class Task
      */
     public function status()
     {
-
+        if (!$this->redis)
+        {
+            exit('依赖于redis');
+        }
     }
 
     /**
@@ -190,6 +209,9 @@ class Task
      */
     public function stop()
     {
-
+        if (!$this->redis)
+        {
+            exit('依赖于redis');
+        }
     }
 }
