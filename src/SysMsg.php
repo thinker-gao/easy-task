@@ -29,13 +29,14 @@ class SysMsg
     /**
      * 从队列接收信息
      * @param resource $queue
+     * @param int $desiredMsgType
      * @param int $msgType
      * @param mixed $message
      * @return boolean
      */
-    public static function receMesage($queue, $msgType, &$message)
+    public static function receMesage($queue, $desiredMsgType, $msgType, &$message)
     {
-        return msg_receive($queue, 0, $msgType, 8192, $message, true, MSG_NOERROR);
+        return msg_receive($queue, $desiredMsgType, $msgType, 8192, $message, true, MSG_IPC_NOWAIT);
     }
 
     /**

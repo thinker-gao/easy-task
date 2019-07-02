@@ -11,6 +11,7 @@
     "php": ">=7.0",
     "ext-pcntl": "*",
     "ext-posix": "*",
+    "ext-sysvmsg": "*",
     "mathieuviossat/arraytotexttable": "~1.0.0"
   },
   "autoload": {

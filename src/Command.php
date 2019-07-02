@@ -30,23 +30,20 @@ class Command
      */
     public function send($msgType, $command)
     {
-        var_dump('send');
-        var_dump($msgType, $command);
         $command['time'] = time();
         $this->sysMsg->sendMessage($this->sysQueue, $msgType, $command);
     }
 
     /**
      * 接收命令
+     * @param $desiredMsgType
      * @param $msgType
      * @param $command
      * @return bool
      */
-    public function receive($msgType, &$command)
+    public function receive($desiredMsgType, $msgType, &$command)
     {
-        var_dump('rec');
-        var_dump($msgType, $command);
-        return $this->sysMsg->receMesage($this->sysQueue, $msgType, $command);
+        return $this->sysMsg->receMesage($this->sysQueue, $desiredMsgType, $msgType, $command);
     }
 
     /**

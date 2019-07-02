@@ -290,13 +290,14 @@ class Process
 
     /**
      * 根据命令执行对应操作
-     * @param int $msgType 消息类型
+     * @param int $desiredMsgType 消息类型
      * @param \Closure $func 执行函数
      */
-    public function WaitCommandForExecute($msgType, $func)
+    public function WaitCommandForExecute($desiredMsgType, $func)
     {
         $command = '';
-        $status = $this->commander->receive($msgType, $command);
+        $msgType = 0;
+        $status = $this->commander->receive($desiredMsgType, $msgType, $command);
         if (!$status || (!empty($command['time']) && (time() - $command['time']) > 5))
         {
             return;
