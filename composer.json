@@ -1,22 +1,24 @@
 {
   "name": "easy-task/easy-task",
-  "description": "the php timer task",
-  "type": "library",
+  "description": "easy-task",
   "keywords": [
-    "easytask"
+    "easy-task"
   ],
-  "homepage": "https://github.com/392223903/EasyTask",
-  "license": "Apache2",
-  "authors": [
-    {
-      "name": "qi",
-      "email": "392223903@qq.com"
-    }
-  ],
+  "type": "library",
+  "license": "Apache-2.0",
+  "minimum-stability": "stable",
   "require": {
-    "php": ">=7.0",
-    "ext-pcntl": "*",
-    "ext-redis": "*"
+    "php": ">=7.0"
   },
-  "minimum-stability": "dev"
+  "autoload": {
+    "psr-4": {
+      "EasyTask\\": "src/"
+    }
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
 }
