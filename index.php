@@ -1,5 +1,8 @@
 <?php
 namespace EasyTask;
+
+require './vendor/autoload.php';
+
 require './src/Task.php';
 require './src/Process.php';
 require './src/Console.php';
@@ -11,7 +14,7 @@ require './src/SysMsg.php';
 $task = new Task();
 
 //设置常驻
-$task->setDaemon(false);
+$task->setDaemon(true);
 
 //设置匿名函数任务
 $task->addFunction(function () {

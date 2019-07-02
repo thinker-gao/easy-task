@@ -25,27 +25,31 @@ class Command
 
     /**
      * 发送命令
+     * @param $msgType
      * @param $command
      */
-    public function send($command)
+    public function send($msgType, $command)
     {
-        $this->sysMsg->sendMessage($this->sysQueue, 2, $command);
+        $this->sysMsg->sendMessage($this->sysQueue, $msgType, $command);
     }
 
     /**
      * 接收命令
+     * @param $msgType
      * @param $command
      * @return bool
      */
-    public function receive(&$command)
+    public
+    function receive($msgType, &$command)
     {
-        return $this->sysMsg->receMesage($this->sysQueue, 1, $command);
+        return $this->sysMsg->receMesage($this->sysQueue, $msgType, $command);
     }
 
     /**
      * 移除命令通信
      */
-    public function remove()
+    public
+    function remove()
     {
         $this->sysMsg->removeQueue($this->sysQueue);
     }

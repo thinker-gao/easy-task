@@ -188,15 +188,16 @@ class Process
             //CPU休息1秒
             sleep(1);
 
-            //接收守护进程的任务报告
-            $this->executeByWaitCommand('allocate', function ($report) {
-                Console::showTable($report['startList']);
-                //var_dump($report['startList']);
-            });
-
-            //接收守护进程的状态报告
-            $this->executeByWaitCommand('statusReplay', function ($report) {
-                Console::showTable($report['startList']);
+            //接收汇报
+            $this->executeByWaitCommand(1, function ($report) {
+                if ($report['type'] == 'status')
+                {
+                    Console::showTable($report['allocate']);
+                }
+                if ($report['type'] == 'allocate')
+                {
+                    Console::showTable($report['allocate']);
+                }
             });
         }
         exit();
@@ -208,9 +209,9 @@ class Process
     private function daemonWait()
     {
         //任务汇报Init进程
-        $this->commander->send([
-            'action' => 'allocate',
-            'startList' => $this->processList,
+        $this->commander->send(1, [
+            'type' => 'allocate',
+            'allocate' => $this->processList,
         ]);
 
         //监听Kill命令
@@ -224,19 +225,21 @@ class Process
         {
             sleep(1);
 
-            //接收STATUS命令
-            $this->executeByWaitCommand('status', function () {
-                $this->processStatus();
-                $this->commander->send([
-                    'action' => 'statusReplay',
-                    'startList' => $this->processList,
-                ]);
+            //接收命令
+            $this->WaitCommandForExecute(2, function ($command) {
+                if ($command['type'] == 'status')
+                {
+                    $this->processStatus();
+                    $this->commander->send(1, [
+                        'type' => 'status',
+                        'status' => $this->processList,
+                    ]);
+                }
+                if ($command['type'] == 'stop')
+                {
+                    $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM);
+                }
 
-            });
-
-            //接收STOP命令
-            $this->executeByWaitCommand('stop', function ($command) {
-                $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM);
             });
 
             //调用信号处理
@@ -265,21 +268,14 @@ class Process
 
     /**
      * 根据命令执行对应操作
-     * @param string $action 操作
+     * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
      */
-    public function executeByWaitCommand($action, $func)
+    public function WaitCommandForExecute($msgType, $func)
     {
         $command = '';
-        $status = $this->commander->receive($command);
+        $status = $this->commander->receive($msgType, $command);
         if (!$status) return;
-        if ($command['action'] != $action)
-        {
-            $this->commander->send($command);
-        }
-        else
-        {
-            $func($command);
-        }
+        $func($command);
     }
 }
