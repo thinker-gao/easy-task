@@ -21,9 +21,19 @@
   }
 ~~~
 
-如果需要更新框架使用
+1.创建一个匿名函数定时任务
 ~~~
-composer update topthink/framework
+$task = new Task();
+//设置常驻
+$task->setDaemon(true);
+
+//设置匿名函数任务,起个别名叫baby,10秒执行1次
+$task->addFunction(function () {
+    echo '1' . PHP_EOL;
+}, 'baby', 10, 1);
+
+//启动定时任务
+$task->start();
 ~~~
 
 ## 文档
