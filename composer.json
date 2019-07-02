@@ -6,7 +6,7 @@
   ],
   "type": "library",
   "license": "Apache-2.0",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=7.0"
   },
