@@ -2,6 +2,7 @@
 ===============
 
 > 运行环境要求PHP7.0+，推荐PHP7.1支持异步信号，7.1不依赖ticker(仅支持linux系统)
+> 运行环境要求PHP7.0+，推荐PHP7.1支持异步信号，7.1不依赖ticker(仅支持linux系统)
 
 ## 依赖PHP扩展
 
@@ -12,7 +13,7 @@
 
 
 
-## 安装EasyTask只需要composer.json配置如下，然后执行composer update
+## Composer安装
 
 ~~~
   "require": {
