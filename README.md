@@ -3,13 +3,13 @@
 
 > 运行环境要求PHP7.0+，推荐PHP7.1支持异步信号，7.1不依赖ticker(仅支持linux系统)
 
-## 依赖扩展
+## 依赖PHP扩展
 
 * pcntl(一般默认自带)
 * posix(一般默认自带)
 * sysvmsg(需要自行安装)
+* 推荐使用宝塔集成环境一键安装php扩展
 
-## PHP扩展安装(推荐使用宝塔集成环境一键安装php扩展)
 
 
 ## 安装EasyTask只需要composer.json配置如下，然后执行composer update
