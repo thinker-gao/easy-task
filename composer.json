@@ -1,18 +1,16 @@
 {
-  "name": "topthink/thinkphp",
-  "description": "the ThinkPHP Framework",
-  "type": "framework",
+  "name": "EasyTask/EasyTask",
+  "description": "the php timer task",
+  "type": "library",
   "keywords": [
-    "framework",
-    "thinkphp",
-    "ORM"
+    "easytask"
   ],
-  "homepage": "http://thinkphp.cn/",
+  "homepage": "https://github.com/392223903/EasyTask",
   "license": "Apache2",
   "authors": [
     {
-      "name": "liu21st",
-      "email": "liu21st@gmail.com"
+      "name": "qi",
+      "email": "392223903@qq.com"
     }
   ],
   "require": {
