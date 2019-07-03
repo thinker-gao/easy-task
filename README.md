@@ -1,16 +1,14 @@
 ﻿EasyTask -- 原生常驻内存定时任务
 ===============
 
-> 运行环境：linux+PHP7.0以上，强烈推荐PHP7.1以上，PHP7.1带来了异步信号管理，不再依赖ticks特性
+> 运行环境：linux+PHP7.0以上，强烈推荐PHP7.1以上，PHP7.1拥有异步信号管理，不再依赖ticks特性，性能更好。
 
 ## 需要安装的PHP扩展
 
-* pcntl(一般默认自带)
+* pcntl(一般默认自带，提供多进程管理能力)
 * posix(一般默认自带)
-* sysvmsg(需要自行安装)
+* sysvmsg(需要自行安装，提供Linux IPC消息队列能力)
 * 推荐使用[宝塔集成环境](http://www.bt.cn/)一键安装php扩展
-
-
 
 ## Composer安装
 
