@@ -26,25 +26,38 @@
 
 1.创建一个闭包函数每隔10秒执行一次
 ~~~
-//实例化task类
+//初始化Task对象
 $task = new Task();
+try
+{
+    //设置常驻内存
+    $task->setDaemon(true);
 
-//设置task常驻内存
-$task->setDaemon(true);
+    //设置闭包函数任务
+    $task->addFunction(function () {
+        $url = 'https://www.gaojiufeng.cn/?id=243';
+        @file_get_contents($url);
+    }, 'request', 10, 2);
 
-//添加一个闭包函数10秒请求一次某个文章链接,增加这个文章的访问量
-//参数解释:
-//request是为这个闭包函数起的别名
-//10是这个闭包函数10秒执行1次
-//1是这个闭包函数使用1个进程来执行
-$task->addFunction(function () {
-    $url = 'https://www.gaojiufeng.cn/?id=243';
-    @file_get_contents($url);
-}, 'request', 10, 1);
-
-//启动定时任务
-$task->start();
+    //启动任务
+    $task->start();
+}
+catch (\Exception $exception)
+{
+    //错误输出
+    var_dump($exception->getMessage());
+}
 ~~~
+
+输出结果:
+
+┌─────┬──────────────────┬─────────────────────┬───────┬────────┬──────┐
+│ PID │    TASK_NAME     │       STARTED       │ TIMER │ STATUS │ PPID │
+├─────┼──────────────────┼─────────────────────┼───────┼────────┼──────┤
+│ 134 │ EasyTask_request │ 2019-07-03 10:13:19 │  10s  │ active │ 133  │
+│ 135 │ EasyTask_request │ 2019-07-03 10:13:19 │  10s  │ active │ 133  │
+└─────┴──────────────────┴─────────────────────┴───────┴────────┴──────┘
+
 
 ## 文档
 

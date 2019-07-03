@@ -10,30 +10,29 @@ require './src/Command.php';
 require './src/SysMsg.php';
 
 
-//初始化
+//初始化Task对象
 $task = new Task();
-
-//设置常驻
-$task->setDaemon(true);
-
-//设置匿名函数任务
-$task->addFunction(function () {
-    //echo '1' . PHP_EOL;
-}, 'math', 10, 1);
-
-//设置类的方法任务
-class order
+try
 {
-    public static function do()
-    {
-        // echo '2' . PHP_EOL;
-    }
+    //设置常驻内存
+    $task->setDaemon(true);
+
+    //设置闭包函数任务
+    $task->addFunction(function () {
+        $url = 'https://www.gaojiufeng.cn/?id=243';
+        @file_get_contents($url);
+    }, 'request', 10, 2);
+
+    //启动任务
+    $task->start();
+}
+catch (\Exception $exception)
+{
+    //错误输出
+    var_dump($exception->getMessage());
 }
 
-$task->addClass(order::class, 'do', 'english', 10, 1);
 
-//启动任务
-$task->start();
 
 
 
