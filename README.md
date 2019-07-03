@@ -186,10 +186,10 @@ $task->stop();
 ~~~
 
 3.9 整合命令到一个php文件,创建console.php(一般由用户自行封装，这里做个demo)
-    <br/>启动命令: php ./console.php start
-    <br/>状态命令: php ./console.php status
-    <br/>停止命令: php ./console.php stop
-    <br/>强制停止命令: php ./console.php stop -f
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;启动命令: php ./console.php start
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态命令: php ./console.php status
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;停止命令: php ./console.php stop
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;强制停止命令: php ./console.php stop -f
 ~~~
 //实例化Task
 $task = new Task();
