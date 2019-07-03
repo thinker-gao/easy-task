@@ -234,9 +234,9 @@ if (!empty($argv['1']))
 ~~~
 
 
-## <h2>【四】 其他框架</h整合2>
+## <h2>【四】 其他框架整合</h2>
 
-<h4>4.1 微擎cms</h4>
+<h4>4.1 微擎cms </h4>
 
 根目录创建console.php, 启动命令: php ./console.php start
 
