@@ -218,7 +218,6 @@ if (!empty($argv['1']))
         {
             $force = true;
         }
-
         $task->stop($force);
     }
 }
