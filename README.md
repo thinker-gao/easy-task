@@ -198,6 +198,7 @@ $task->stop();
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态命令: php ./console.php status
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;停止命令: php ./console.php stop
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;强制停止命令: php ./console.php stop -f
+
 ~~~
 //实例化Task
 $task = new Task();
