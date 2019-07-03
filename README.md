@@ -24,16 +24,23 @@
 
 ## <h2>【三】 代码案例</h2>
 
-1.创建一个匿名函数定时任务
+1.创建一个闭包函数每隔10秒执行一次
 ~~~
+//实例化task类
 $task = new Task();
-//设置常驻
+
+//设置task常驻内存
 $task->setDaemon(true);
 
-//设置匿名函数任务,起个别名叫baby,10秒执行1次
+//添加一个闭包函数10秒请求一次某个文章链接,增加这个文章的访问量
+//参数解释:
+//request是为这个闭包函数起的别名
+//10是这个闭包函数10秒执行1次
+//1是这个闭包函数使用1个进程来执行
 $task->addFunction(function () {
-    echo '1' . PHP_EOL;
-}, 'baby', 10, 1);
+    $url = 'https://www.gaojiufeng.cn/?id=243';
+    @file_get_contents($url);
+}, 'request', 10, 1);
 
 //启动定时任务
 $task->start();
