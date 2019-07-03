@@ -185,7 +185,11 @@ $task->stop();
   3.8.5 setIpcKey 设置IPC通信Key,除非你懂得怎么设置,否则请不要设置
 ~~~
 
-3.9 整合start status stop命令到一个php文件,假设叫console.php，启动php ./console.php start
+3.9 整合命令到一个php文件,创建console.php(一般由用户自行封装，这里做个demo)
+    启动命令: php ./console.php start
+    状态命令: php ./console.php status
+    停止命令: php ./console.php stop
+    强制停止命令: php ./console.php stop -f
 ~~~
 //实例化Task
 $task = new Task();

@@ -199,7 +199,7 @@ class Task
     {
         if (!$this->taskList)
         {
-            return false;
+            return;
         }
         (new Process($this))->start();
     }
