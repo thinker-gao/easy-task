@@ -122,6 +122,7 @@ class Task
      * @param int $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
+     * @throws
      */
     public function addFunction($func, $alas = '', $time = 1, $used = 1)
     {

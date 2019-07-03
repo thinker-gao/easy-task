@@ -229,6 +229,9 @@ class Process
      */
     private function daemonWait()
     {
+        //守护进程设置进程名
+        @cli_set_process_title($this->task->prefix);
+
         //任务汇报Init进程
         $this->commander->send(1, [
             'type' => 'allocate',

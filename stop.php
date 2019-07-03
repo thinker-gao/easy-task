@@ -13,7 +13,7 @@ require './src/SysMsg.php';
 //初始化
 $task = new Task();
 
-//启动任务
+//停止任务
 $task->stop();
 
 
