@@ -18,7 +18,7 @@
 
 ~~~
   "require": {
-    "easy-task/easy-task": "dev-master"
+    "easy-task/easy-task": "*"
   }
 ~~~
 
@@ -121,6 +121,16 @@ catch (\Exception $exception)
     var_dump($exception->getMessage());
 }
 ~~~
+
+3.4 查看任务运行状态,(请单独创建一个status.php来执行查看状态操作或根据输入命令来隔离启动任务和查看状态的代码，后面会有案例写个一个文件中)
+~~~
+//初始化
+$task = new Task();
+
+//查看运行状态
+$task->status();
+~~~
+
 ## 文档
 
 

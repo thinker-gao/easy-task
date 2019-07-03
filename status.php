@@ -13,7 +13,7 @@ require './src/SysMsg.php';
 //初始化
 $task = new Task();
 
-//启动任务
+//查看运行状态
 $task->status();
 
 
