@@ -210,9 +210,10 @@ class Task
 
     /**
      * 停止运行
+     * @param bool $force 是否强制
      */
-    public function stop()
+    public function stop($force)
     {
-        (new Process($this))->stop();
+        (new Process($this))->stop($force);
     }
 }

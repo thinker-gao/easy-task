@@ -136,8 +136,11 @@ $task->status();
 //初始化
 $task = new Task();
 
-//停止任务
+//普通停止任务
 $task->stop();
+
+//强制停止任务   
+//$task->stop(true);
 ~~~
 
 3.5 手工Kill停止任务
