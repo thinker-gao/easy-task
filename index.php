@@ -20,7 +20,7 @@ try
     //设置闭包函数任务
     $task->addFunction(function () {
         $url = 'https://www.gaojiufeng.cn/?id=243';
-        @file_get_contents($url);
+        file_get_contents($url);
     }, 'request', 10, 2);
 
     //启动任务
