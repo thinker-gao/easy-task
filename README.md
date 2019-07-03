@@ -185,7 +185,40 @@ $task->stop();
   3.8.5 setIpcKey 设置IPC通信Key,除非你懂得怎么设置,否则请不要设置
 ~~~
 
-3.9 整合start status stop命令到一个php文件
+3.9 整合start status stop命令到一个php文件,假设叫console.php，启动php ./console.php start
+~~~
+//实例化Task
+$task = new Task();
+
+//提取命令行传参的命令
+$argv = $_SERVER['argv'];
+if (!empty($argv['1']))
+{
+    if ($argv['1'] == 'start')
+    {
+        //启动命令
+        $task->setDaemon(true)->addFunction(function () {
+            //重复执行的逻辑写在这里
+        }, 'request', 15, 1)->start();
+    }
+    if ($argv['1'] == 'status')
+    {
+        //状态命令
+        $task->status();
+    }
+    if ($argv['1'] == 'stop')
+    {
+        //停止命令
+        $force = false;
+        if (!empty($argv['2']) && $argv['2'] == '-f')
+        {
+            $force = true;
+        }
+
+        $task->stop($force);
+    }
+}
+~~~
 
 
 ## <h2>【四】 其他框架引入</h2>
