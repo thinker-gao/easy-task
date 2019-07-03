@@ -3,14 +3,18 @@
 
 > 运行环境：linux+PHP7.0以上，强烈推荐PHP7.1以上，PHP7.1拥有异步信号管理，不再依赖ticks特性，性能更好。
 
-## <h2>【一】 安装PHP扩展<h2/>
+## <h2>【一】 安装PHP扩展</h2>
 
 * pcntl(一般默认自带，提供多进程管理能力)
 * posix(一般默认自带，提供进程信息能力)
 * sysvmsg(需要自行安装，提供Linux IPC消息队列能力)
 * 推荐使用[宝塔集成环境](http://www.bt.cn/)一键安装php扩展
 
-## Composer安装
+## <h2>Composer安装</h2>
+
+~~~
+    composer require easy-task/easy-task
+~~~
 
 ~~~
   "require": {
