@@ -10,6 +10,14 @@ require './src/Command.php';
 require './src/SysMsg.php';
 
 
+class Sms
+{
+    public function send()
+    {
+        echo 'Success' . PHP_EOL;
+    }
+}
+
 //初始化Task对象
 $task = new Task();
 try
@@ -18,10 +26,7 @@ try
     $task->setDaemon(true);
 
     //设置闭包函数任务
-    $task->addFunction(function () {
-        $url = 'https://www.gaojiufeng.cn/?id=243';
-        file_get_contents($url);
-    }, 'request', 10, 2);
+    $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
 
     //启动任务
     $task->start();

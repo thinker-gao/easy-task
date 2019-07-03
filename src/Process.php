@@ -179,7 +179,7 @@ class Process
             else
             {
                 $object = new $item['class']();
-                $object->$item['func']();
+                call_user_func([$object, $item['func']]);
             }
 
         }, false);
