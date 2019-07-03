@@ -151,7 +151,7 @@ catch (\Exception $exception)
 ~~~
 
 
-<h4>3.5 查看任务运行状态,(请单独创建一个status.php来执行查看状态操作或根据输入命令来隔离启动任务和查看状态的代码，后面会有案例写个一个文件中)</h4>
+<h4>3.5 查看任务运行状态</h4>
 
 ~~~
 //初始化
@@ -161,7 +161,7 @@ $task = new Task();
 $task->status();
 ~~~
 
-<h4>3.6 停止运行任务(如果你启动多次任务，然后执行一次停止，历史执行中的进程也会终止！)</h4>
+<h4>3.6 停止运行任务</h4>
 
 ~~~
 //初始化
@@ -234,6 +234,56 @@ if (!empty($argv['1']))
 ~~~
 
 
-## <h2>【四】 其他框架引入</h2>
+## <h2>【四】 其他框架</h整合2>
+
+<h4>4.1 微擎cms</h4>
+
+根目录创建console.php, 启动命令: php ./console.php start
+
+~~~
+namespace EasyTask;
+
+//加载Composer包
+require './vendor/autoload.php';
+
+//加载微擎核心包
+require './framework/bootstrap.inc.php';
+
+//加载微擎函数包
+load()->func('communication');
+
+//实例化Task
+$task = new Task();
+
+//提取命令行传参的命令
+$argv = $_SERVER['argv'];
+if (!empty($argv['1']))
+{
+    if ($argv['1'] == 'start')
+    {
+        //启动命令
+        $task->setDaemon(true)->addFunction(function () {
+            //重复执行的逻辑写在这里
+        }, 'request', 15, 1)->start();
+    }
+    if ($argv['1'] == 'status')
+    {
+        //状态命令
+        $task->status();
+    }
+    if ($argv['1'] == 'stop')
+    {
+        //停止命令
+        $force = false;
+        if (!empty($argv['2']) && $argv['2'] == '-f')
+        {
+            $force = true;
+        }
+
+        $task->stop($force);
+    }
+}
+~~~
+
 
 
