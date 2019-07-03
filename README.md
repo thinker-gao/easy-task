@@ -63,7 +63,8 @@ catch (\Exception $exception)
 代码解释: 
 addFunction函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
 
-3.2 每隔20秒执行一次类的方法(同时支持静态方法)
+<h4>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h4>
+
 ~~~
 class Sms
 {
@@ -93,7 +94,8 @@ catch (\Exception $exception)
 }
 ~~~
 
-3.3 同时添加多个定时任务(支持闭包和类混合添加)
+<h4>3.3 同时添加多个定时任务(支持闭包和类混合添加)</h4>
+
 ~~~
 //初始化Task对象
 $task = new Task();
@@ -123,7 +125,8 @@ catch (\Exception $exception)
 }
 ~~~
 
-3.4 使用连贯操作
+<h4>3.4 使用连贯操作</h4>
+
 ~~~
 //初始化Task对象
 $task = new Task();
@@ -148,7 +151,8 @@ catch (\Exception $exception)
 ~~~
 
 
-3.5 查看任务运行状态,(请单独创建一个status.php来执行查看状态操作或根据输入命令来隔离启动任务和查看状态的代码，后面会有案例写个一个文件中)
+<h4>3.5 查看任务运行状态,(请单独创建一个status.php来执行查看状态操作或根据输入命令来隔离启动任务和查看状态的代码，后面会有案例写个一个文件中)</h4>
+
 ~~~
 //初始化
 $task = new Task();
@@ -157,7 +161,8 @@ $task = new Task();
 $task->status();
 ~~~
 
-3.6 停止运行任务(如果你启动多次任务，然后执行一次停止，历史执行中的进程也会终止！)
+<h4>3.6 停止运行任务(如果你启动多次任务，然后执行一次停止，历史执行中的进程也会终止！)</h4>
+
 ~~~
 //初始化
 $task = new Task();
@@ -169,7 +174,8 @@ $task->stop();
 //$task->stop(true);
 ~~~
 
-3.7 手工Kill停止任务
+<h4>3.7 手工Kill停止任务</h4>
+
 ~~~
   3.7.1 停止所有任务 kill  ppid (ppid每次在输出结果中会输出,ppid是守护进程id,kill掉会终止相关的任务)
   3.7.2 停止单个任务 kill  pid  (pid每次在输出结果中会输出)
@@ -177,7 +183,8 @@ $task->stop();
 ~~~
 
 
-3.8 函数说明
+<h4>3.8 函数说明</h4>
+
 ~~~
   3.8.1 setDaemon 是否常驻运行
   3.8.2 setChdir 是否卸载工作区
@@ -186,7 +193,7 @@ $task->stop();
   3.8.5 setIpcKey 设置IPC通信Key,除非你懂得怎么设置,否则请不要设置
 ~~~
 
-3.9 整合命令到一个php文件,创建console.php(一般由用户自行封装，这里做个demo)
+<h4>3.9 整合命令到一个php文件,创建console.php(一般由用户自行封装，这里做个demo)</h4>
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;启动命令: php ./console.php start
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态命令: php ./console.php status
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;停止命令: php ./console.php stop
