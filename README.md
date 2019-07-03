@@ -285,5 +285,106 @@ if (!empty($argv['1']))
 }
 ~~~
 
+<h4>4.2 ThinkPHP3.2.3 </h4>
+
+根目录创建console.php, 启动命令: php ./console.php start
+
+~~~
+use EasyTask\Task;
+
+// 检测PHP环境
+if (version_compare(PHP_VERSION, '5.3.0', '<')) die('require PHP > 5.3.0 !');
+
+// 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
+define('APP_DEBUG', True);
+
+// 定义应用目录
+define('APP_PATH', './Application/');
+
+//01. 抑制ThinkPHP默认执行+命令行解析-s
+ob_start();
+
+// 获取命令行参数并重置
+$argv = getArgvs();
+
+// 引入ThinkPHP
+require './ThinkPHP/ThinkPHP.php';
+
+// 引入Composer包
+require './vendor/autoload.php';
+
+ob_end_clean();
+
+// 抑制ThinkPHP默认执行+命令行解析-e
+
+/**
+ * 获取命令行参数
+ */
+function getArgvs()
+{
+    $argv = $_SERVER['argv'];
+    if (count($_SERVER['argv']) >= 2)
+    {
+        $_SERVER['argv'] = array($argv['0']);
+        $_SERVER['argc'] = count($_SERVER['argv']);
+    }
+    return $argv;
+}
+
+//02. 提取命令行输入的命令-s
+$func = '';
+$force = false;
+if (count($argv) < 2)
+{
+    exit('命令不存在！' . PHP_EOL);
+}
+$allowFunc = array('start', 'status', 'stop');
+if (!in_array($argv['1'], $allowFunc))
+{
+    exit('命令不存在！' . PHP_EOL);
+}
+if (!empty($argv['2']) && $argv['2'] == '-f')
+{
+    $force = true;
+}
+$func = $argv['1'];
+//提取命令行输入的命令-e
+
+//03. 实例化Task
+$task = new Task();
+try
+{
+    if ($func == 'start')
+    {
+        //设置常驻
+        $task->setDaemon(true);
+
+        //添加订单超过20秒未支付发送短信-定时任务
+        $class = '\\Home\\Logic\\OrderLogic';
+        $task->addClass($class, 'send', 'send', 20, 1);
+
+        //添加订单超过30秒未支付取消-定时任务
+        $class = '\\Home\\Logic\\OrderLogic';
+        $task->addClass($class, 'cancel', 'cancel', 30, 1);
+
+        //启动定时任务
+        $task->start();
+    }
+    if ($func == 'status')
+    {
+        $task->status();
+    }
+    if ($func == 'stop')
+    {
+        $task->stop($force);
+    }
+}
+catch (Exception $exception)
+{
+    //输出错误信息
+    var_dump($exception->getMessage());
+}
+~~~
+
 
 
