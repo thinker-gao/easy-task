@@ -52,7 +52,16 @@ class Process
         {
             $this->daemon();
         }
-
+        if ($this->task->isChdir)
+        {
+            chdir('/');
+        }
+        if ($this->task->closeInOut)
+        {
+            fclose(STDIN);
+            fclose(STDOUT);
+            fclose(STDERR);
+        }
         $this->allocate();
     }
 
@@ -82,16 +91,6 @@ class Process
      */
     private function daemon()
     {
-        if ($this->task->isChdir)
-        {
-            chdir('/');
-        }
-        if ($this->task->closeInOut)
-        {
-            fclose(STDIN);
-            fclose(STDOUT);
-            fclose(STDERR);
-        }
         $pid = pcntl_fork();
         if ($pid < 0)
         {
