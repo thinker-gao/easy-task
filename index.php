@@ -27,32 +27,22 @@ class Sms
 $task = new Task();
 try
 {
-    //设置常驻内存
-    $task->setDaemon(true);
-
-    //添加执行普通类
-    $task->addClass(Sms::class, 'send', 'sendsms1', 20, 1);
-
-    //添加执行静态类
-    $task->addClass(Sms::class, 'recv', 'sendsms2', 20, 1);
-
-    //添加执行闭包函数
-    $task->addFunction(function () {
-        echo 'Success3' . PHP_EOL;
-    }, 'fucn', 20, 1);
-
-    //启动任务
-    $task->start();
+    $task->setDaemon(true)
+        ->setChdir(true)
+        ->setInOut(true)
+        ->setPrefix('ThinkTask')
+        ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
+        ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
+        ->addFunction(function () {
+            echo 'Success3' . PHP_EOL;
+        }, 'fucn', 20, 1)
+        ->start();
 }
 catch (\Exception $exception)
 {
     //错误输出
     var_dump($exception->getMessage());
 }
-
-
-
-
 
 
 

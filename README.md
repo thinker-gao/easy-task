@@ -150,6 +150,30 @@ $task->stop();
   3.5.3 忘记了输出结果怎么查询全部的任务pid, ps aux | grep 守护进程名 ,默认的守护进程名是EasyTask,然后去kill守护进程的进程即可
 ~~~
 
+3.6 使用连贯操作
+~~~
+//初始化Task对象
+$task = new Task();
+try
+{
+    $task->setDaemon(true)
+        ->setChdir(true)
+        ->setInOut(true)
+        ->setPrefix('ThinkTask')
+        ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
+        ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
+        ->addFunction(function () {
+            echo 'Success3' . PHP_EOL;
+        }, 'fucn', 20, 1)
+        ->start();
+}
+catch (\Exception $exception)
+{
+    //错误输出
+    var_dump($exception->getMessage());
+}
+~~~
+
 ## 文档
 
 

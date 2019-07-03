@@ -197,6 +197,10 @@ class Task
      */
     public function start()
     {
+        if (!$this->taskList)
+        {
+            return false;
+        }
         (new Process($this))->start();
     }
 

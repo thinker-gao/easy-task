@@ -14,7 +14,7 @@ require './src/SysMsg.php';
 $task = new Task();
 
 //停止任务
-$task->stop();
+$task->stop(true);
 
 
 
