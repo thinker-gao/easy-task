@@ -386,5 +386,88 @@ catch (Exception $exception)
 }
 ~~~
 
+<h4>4.3 ThinkPHP5 </h4>
+
+4.3.1 创建一个自定义命令类文件，新建application/common/command/Task.php
+
+~~~
+namespace app\common\command;
+
+use think\console\Command;
+use think\console\Input;
+use think\console\input\Argument;
+use think\console\Output;
+
+class Task extends Command
+{
+    protected function configure()
+    {
+        //添加输入参数
+        $this->setName('Task')
+            ->addArgument('func', Argument::OPTIONAL, "func")
+            ->addArgument('force', Argument::OPTIONAL, "force");
+    }
+
+    protected function execute(Input $input, Output $output)
+    {
+        //获取输入参数
+        $func = trim($input->getArgument('func'));
+        $force = trim($input->getArgument('force'));
+        $func = $func ?: '';
+        $force = $force == '-f' ? true : false;
+
+        //校验输入参数
+        $allowFunc = ['start', 'status', 'stop'];
+        if (!in_array($func, $allowFunc))
+        {
+            $output->writeln('命令不存在');
+            exit();
+        }
+
+        //初始化Task
+        $task = new \EasyTask\Task();
+        try
+        {
+            if ($func == 'start')
+            {
+                //设置常驻
+                $task->setDaemon(true);
+
+                //添加任务测试(可以创建一个配置文件,把所有要执行的类循环添加进去)
+                $task->addFunction(function () {
+                    echo '1122' . PHP_EOL;
+                }, 'request', 20, 1);
+
+                //启动定时任务
+                $task->start();
+            }
+            if ($func == 'status')
+            {
+                $task->status();
+            }
+            if ($func == 'stop')
+            {
+                $task->stop($force);
+            }
+        }
+        catch (Exception $exception)
+        {
+            //输出错误信息
+            var_dump($exception->getMessage());
+        }
+    }
+}
+~~~
+
+4.3.2 配置application/command.php文件
+
+~~~
+return [
+    'app\common\command\Task',
+];
+~~~
+
+执行命令: 
+php think Task  start
 
 
