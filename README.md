@@ -13,7 +13,7 @@
 ## <h2>Composer安装</h2>
 
 ~~~
-    composer require easy-task/easy-task
+  composer require easy-task/easy-task
 ~~~
 
 ~~~
