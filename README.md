@@ -10,7 +10,7 @@
 * sysvmsg(需要自行安装，提供Linux IPC消息队列能力)
 * 推荐使用[宝塔集成环境](http://www.bt.cn/)一键安装php扩展
 
-## <h2>Composer安装</h2>
+## <h2>【二】 Composer安装</h2>
 
 ~~~
   composer require easy-task/easy-task
@@ -21,6 +21,8 @@
     "easy-task/easy-task": "dev-master"
   }
 ~~~
+
+## 【三】 <h2>代码案例</h2>
 
 1.创建一个匿名函数定时任务
 ~~~
