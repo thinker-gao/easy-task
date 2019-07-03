@@ -231,7 +231,7 @@ if (!empty($argv['1']))
 启动命令: php ./console.php start
 <br/>状态命令: php ./console.php status
 <br/>停止命令: php ./console.php stop
-<br/>强制停止命令: php ./console.php stop -f 
+<br/>停止命令: php ./console.php stop -f (强制停止)
 <br/>
 
 ## <h2>【四】 其他框架整合</h2>
