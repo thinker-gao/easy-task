@@ -182,7 +182,7 @@ $task->stop();
   3.8.2 setChdir 是否卸载工作区
   3.8.3 setInOut 是否关闭输入输出
   3.8.4 setPrefix 设置任务进程前缀名称,守护进程的名称就是它
-  3.8.5 setPrefix 设置IPC通信Key,除非你懂得怎么设置,否则请不要设置
+  3.8.5 setIpcKey 设置IPC通信Key,除非你懂得怎么设置,否则请不要设置
 ~~~
 
 3.9 整合start status stop命令到一个php文件
