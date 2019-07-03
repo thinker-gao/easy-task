@@ -14,7 +14,12 @@ class Sms
 {
     public function send()
     {
-        echo 'Success' . PHP_EOL;
+        echo 'Success1' . PHP_EOL;
+    }
+
+    public static function recv()
+    {
+        echo 'Success2' . PHP_EOL;
     }
 }
 
@@ -25,8 +30,16 @@ try
     //设置常驻内存
     $task->setDaemon(true);
 
-    //设置闭包函数任务
-    $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
+    //添加执行普通类
+    $task->addClass(Sms::class, 'send', 'sendsms1', 20, 1);
+
+    //添加执行静态类
+    $task->addClass(Sms::class, 'recv', 'sendsms2', 20, 1);
+
+    //添加执行闭包函数
+    $task->addFunction(function () {
+        echo 'Success3' . PHP_EOL;
+    }, 'fucn', 20, 1);
 
     //启动任务
     $task->start();
