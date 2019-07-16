@@ -40,7 +40,7 @@ class Process
             pcntl_async_signals(true);
         }
 
-        $this->commander = new Command($this->task->ipcKey);
+        $this->commander = new Command();
     }
 
     /**
@@ -70,7 +70,10 @@ class Process
      */
     public function status()
     {
-        $this->commander->send(2, ['type' => 'status']);
+        $this->commander->send([
+            'type' => 'status',
+            'msgType' => 2
+        ]);
         $this->initWaitExit();
     }
 
@@ -80,9 +83,10 @@ class Process
      */
     public function stop($force = false)
     {
-        $this->commander->send(2, [
+        $this->commander->send([
             'type' => 'stop',
-            'force' => $force
+            'force' => $force,
+            'msgType' => 2
         ]);
     }
 
@@ -232,8 +236,9 @@ class Process
         @cli_set_process_title($this->task->prefix);
 
         //任务汇报Init进程
-        $this->commander->send(1, [
+        $this->commander->send([
             'type' => 'allocate',
+            'msgType' => 1,
             'allocate' => $this->processList,
         ]);
 
@@ -254,8 +259,9 @@ class Process
                 if ($command['type'] == 'status')
                 {
                     $this->processStatus();
-                    $this->commander->send(1, [
+                    $this->commander->send([
                         'type' => 'status',
+                        'msgType' => 1,
                         'status' => $this->processList,
                     ]);
                 }
@@ -292,15 +298,14 @@ class Process
 
     /**
      * 根据命令执行对应操作
-     * @param int $desiredMsgType 消息类型
+     * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
      */
-    public function WaitCommandForExecute($desiredMsgType, $func)
+    public function WaitCommandForExecute($msgType, $func)
     {
         $command = '';
-        $msgType = 0;
-        $status = $this->commander->receive($desiredMsgType, $msgType, $command);
-        if (!$status || (!empty($command['time']) && (time() - $command['time']) > 5))
+        $this->commander->receive($msgType, $command);
+        if (!$command || (!empty($command['time']) && (time() - $command['time']) > 5))
         {
             return;
         }

@@ -29,11 +29,6 @@ class Task
     private $prefix = 'EasyTask';
 
     /**
-     * @var int $ipcKey 进程通信Key
-     */
-    private $ipcKey = '';
-
-    /**
      * @var array 任务列表
      */
     private $taskList = [];
@@ -45,9 +40,6 @@ class Task
     {
         //异步支持
         $this->canAsync = function_exists('pcntl_async_signals');
-
-        //初始化ipcKey
-        $this->ipcKey = ftok(dirname(__FILE__), 'T');
     }
 
     /**
@@ -105,17 +97,6 @@ class Task
     }
 
     /**
-     * 设置进程通信Key
-     * @param int $ipcKey
-     * @return $this
-     */
-    public function setIpcKey($ipcKey)
-    {
-        $this->ipcKey = $ipcKey;
-        return $this;
-    }
-
-    /**
      * 新增匿名函数作为任务
      * @param \Closure $func 匿名函数
      * @param string $alas 任务别名
@@ -124,7 +105,7 @@ class Task
      * @return $this
      * @throws
      */
-    public function addFunction($func, $alas = '', $time = 1, $used = 1)
+    public function addFunc($func, $alas = '', $time = 1, $used = 1)
     {
         //必须是匿名函数
         if (!($func instanceof \Closure))
