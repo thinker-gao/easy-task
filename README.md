@@ -4,13 +4,13 @@
 > 运行环境：windows | linux | macos 
 
 
-## <h2>【一】 环境配置</h2>
+## <h3>【一】 环境配置</h3>
 <ul>
     <li>windows：安装PHP线程安全版(PHP版本大于等于5.4)，安装pthreads扩展</li>  
     <li>linux|mac：只需要PHP版本大于等于5.4，安装pcntl和posix扩展</li>  
 </ul>  
 
-## <h2>【二】 Composer安装</h2>
+## <h3>【二】 Composer安装</h3>
 
 ~~~
   composer require easy-task/easy-task
