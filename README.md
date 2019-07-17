@@ -45,118 +45,88 @@ $task->start();
 
 addFunc函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
 
-<h4>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h4>
-
-~~~
-class Sms
-{
-    public function send()
-    {
-        echo 'Success' . PHP_EOL;
-    }
-}
-
-//初始化Task对象
-$task = new Task();
-try
-{
-    //设置常驻内存
-    $task->setDaemon(true);
-
-    //设置执行类的方法
-    $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
-
-    //启动任务
-    $task->start();
-}
-catch (\Exception $exception)
-{
-    //错误输出
-    var_dump($exception->getMessage());
-}
-~~~
-
-<h4>3.3 同时添加多个定时任务(支持闭包和类混合添加)</h4>
+<h3>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h3>
 
 ~~~
 //初始化Task对象
 $task = new Task();
-try
-{
-    //设置常驻内存
-    $task->setDaemon(true);
 
-    //添加执行普通类
-    $task->addClass(Sms::class, 'send', 'sendsms1', 20, 1);
+//设置常驻内存
+$task->setDaemon(true);
 
-    //添加执行静态类
-    $task->addClass(Sms::class, 'recv', 'sendsms2', 20, 1);
+//设置执行类的方法
+$task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
 
-    //添加执行闭包函数
-    $task->addFunc(function () {
+//启动任务
+$task->start();
+~~~
+
+<h3>3.3 同时添加多个定时任务(支持闭包和类混合添加)</h3>
+
+~~~
+//初始化Task对象
+$task = new Task();
+
+//设置常驻内存
+$task->setDaemon(true);
+
+//添加执行普通类
+$task->addClass(Sms::class, 'send', 'sendsms1', 20, 1);
+
+//添加执行静态类
+$task->addClass(Sms::class, 'recv', 'sendsms2', 20, 1);
+
+//添加执行闭包函数
+$task->addFunc(function () {
+    echo 'Success3' . PHP_EOL;
+}, 'fucn', 20, 1);
+
+//启动任务
+$task->start();
+~~~
+
+<h3>3.4 使用连贯操作</h3>
+
+~~~
+//初始化Task对象
+$task = new Task();
+
+$task->setDaemon(true)
+    ->setChdir(true)
+    ->setInOut(true)
+    ->setPrefix('ThinkTask')
+    ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
+    ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
+    ->addFunc(function () {
         echo 'Success3' . PHP_EOL;
-    }, 'fucn', 20, 1);
-
-    //启动任务
-    $task->start();
-}
-catch (\Exception $exception)
-{
-    //错误输出
-    var_dump($exception->getMessage());
-}
+    }, 'fucn', 20, 1)
+    ->start();
 ~~~
 
-<h4>3.4 使用连贯操作</h4>
-
-~~~
-//初始化Task对象
-$task = new Task();
-try
-{
-    $task->setDaemon(true)
-        ->setChdir(true)
-        ->setInOut(true)
-        ->setPrefix('ThinkTask')
-        ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
-        ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
-        ->addFunc(function () {
-            echo 'Success3' . PHP_EOL;
-        }, 'fucn', 20, 1)
-        ->start();
-}
-catch (\Exception $exception)
-{
-    //错误输出
-    var_dump($exception->getMessage());
-}
-~~~
-
-
-<h4>3.5 查看任务运行状态</h4>
+<h3>3.5 查看任务运行状态</h3>
 
 ~~~
 //初始化
 $task = new Task();
 
-//查看运行状态
+//查看运行状态(windows不支持)
 $task->status();
 ~~~
 
-<h4>3.6 停止运行任务</h4>
+<h3>3.6 停止运行任务</h3>
 
 ~~~
 //初始化
 $task = new Task();
 
-//普通停止任务
+//普通停止任务(windows不支持)
 $task->stop();
 
-//强制停止任务   
+//强制停止任务(windows不支持)   
 //$task->stop(true);
 ~~~
 
-<h4>3.7 手工操作任务</h4>
+<h3>3.7 手工操作任务</h3>
 
 ~~~
   3.7.1 停止所有任务 kill  ppid (ppid每次在输出结果中会输出,ppid是守护进程id,kill掉会终止相关的任务)
@@ -165,21 +135,21 @@ $task->stop();
 ~~~
 
 
-<h4>3.8 Task函数说明</h4>
+<h3>3.8 Task函数说明</h3>
 
 ~~~
-  3.8.1 setDaemon 是否常驻运行
-  3.8.2 setChdir 是否卸载工作区
+  3.8.1 setDaemon 是否常驻运行(windows不支持)
+  3.8.2 setChdir 是否卸载工作区(windows不支持)
   3.8.3 setInOut 是否关闭输入输出
   3.8.4 setPrefix 设置任务进程前缀名称,守护进程的名称就是它
   3.8.5 start 启动定时任务
-  3.8.6 status 查看任务状态
-  3.8.7 stop 停止任务
+  3.8.6 status 查看任务状态 (windows不支持)
+  3.8.7 stop 停止任务 (windows不支持)
 ~~~
 
 ## <h2>【四】 框架整合</h2>
 
-<h4>4.1 微擎cms </h4>
+<h3>4.1 微擎cms </h3>
 
 根目录创建console.php, 启动命令: php ./console.php start
 
@@ -228,7 +198,7 @@ if (!empty($argv['1']))
 }
 ~~~
 
-<h4>4.2 ThinkPHP3.2.3 </h4>
+<h3>4.2 ThinkPHP3.2.3 </h3>
 
 4.2.1 根目录创建console.php ,文件代码
 
@@ -329,7 +299,7 @@ catch (Exception $exception)
 }
 ~~~
 
-<h4>4.3 ThinkPHP5 </h4>
+<h3>4.3 ThinkPHP5 </h3>
 
 4.3.1 创建一个自定义命令类文件，新建application/common/command/Task.php
 
