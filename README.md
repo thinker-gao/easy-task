@@ -3,6 +3,12 @@
 
 > 运行环境：linux+php5.4以上，强烈推荐PHP7.1以上，拥有异步信号管理，不再依赖ticks特性，性能更好。
 
+## <h2>【零】 windows下使用</h2>
+
+* win10 linux子系统
+* vm 虚拟机创建linux系统
+* docker 创建linux系统
+    
 ## <h2>【一】 安装PHP扩展</h2>
 
 * pcntl (一般默认自带，提供进程管理能力)
