@@ -215,7 +215,10 @@ class Task
      */
     public function status()
     {
-        (new Process($this))->status();
+        if ($this->currentOs == 2)
+        {
+            (new Process($this))->status();
+        }
     }
 
     /**
@@ -224,6 +227,9 @@ class Task
      */
     public function stop($force)
     {
-        (new Process($this))->stop($force);
+        if ($this->currentOs == 2)
+        {
+            (new Process($this))->stop($force);
+        }
     }
 }
