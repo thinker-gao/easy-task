@@ -19,12 +19,17 @@ class Console
     /**
      * 控制台输出表格
      * @param array $data 输出数据
+     * @param boolean $exit 输出后是否退出
      */
-    public static function showTable($data)
+    public static function showTable($data, $exit = true)
     {
         $renderer = new ArrayToTextTable($data);
         $renderer->setValuesAlignment(ArrayToTextTable::AlignCenter);
-        exit($renderer->getTable());
+        echo($renderer->getTable());
+        if ($exit)
+        {
+            exit();
+        }
     }
 }
 

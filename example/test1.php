@@ -1,7 +1,7 @@
 <?php
 
-require '../vendor/autoload.php';
-
+require 'D:\wwwroot\EasyTask/vendor/autoload.php';
+//require '../vendor/autoload.php';
 
 
 //实例化Task
@@ -15,8 +15,11 @@ if (!empty($argv['1']))
     {
         //启动命令
         $task->setDaemon(true)->addFunc(function () {
-            //重复执行的逻辑写在这里
-        }, 'request', 15, 1)->start();
+
+            echo date('Y-m-d H:i:s', time()) . PHP_EOL;
+
+        }, 'request', 10, 1)->start();
+
     }
     if ($argv['1'] == 'status')
     {

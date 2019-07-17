@@ -1,32 +1,46 @@
 <?php
 namespace EasyTask;
 
+use EasyTask\plugin\ProcessPlugin;
+use EasyTask\plugin\ThreadPlugin;
+
 class Task
 {
     /**
-     * @var bool 是否守护进程
+     * 是否守护进程
+     * @var bool
      */
     private $daemon = false;
 
     /**
-     * @var bool 是否卸载工作区
+     * 是否卸载工作区
+     * @var bool
      */
     private $isChdir = false;
 
     /**
-     * @var bool 关闭标准输入输出
+     * 关闭标准输入输出
+     * @var bool
      */
     private $closeInOut = false;
 
     /**
-     * @var bool 支持异步信号
+     * 是否支持异步信号
+     * @var bool
      */
     private $canAsync = false;
 
     /**
-     * @var string 任务前缀
+     * 任务前缀(作为进程名称前缀)
+     * @var string
      */
     private $prefix = 'EasyTask';
+
+    /**
+     * 当前Os平台 1.win 2.unix
+     * @var int
+     */
+    private $currentOs = 1;
 
     /**
      * @var array 任务列表
@@ -38,8 +52,11 @@ class Task
      */
     public function __construct()
     {
-        //异步支持
+        //检查是否支持异步
         $this->canAsync = function_exists('pcntl_async_signals');
+
+        //获取运行时所在Os平台
+        $this->currentOs = (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
     }
 
     /**
@@ -175,6 +192,7 @@ class Task
 
     /**
      * 开始运行
+     * @throws
      */
     public function start()
     {
@@ -182,7 +200,14 @@ class Task
         {
             return;
         }
-        (new Process($this))->start();
+        if ($this->currentOs == 1)
+        {
+            (new ThreadPlugin($this))->start();
+        }
+        else
+        {
+            (new ProcessPlugin($this))->start();
+        }
     }
 
     /**
