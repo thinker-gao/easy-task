@@ -22,32 +22,25 @@
   }
 ~~~
 
-## <h2>【三】 代码案例</h2>
+## <h2>【三】 快速使用 (自行添加try catch) </h2>
 
 <h4>3.1 创建一个闭包函数每隔10秒执行一次</h4>
 
 ~~~
 //初始化Task对象
 $task = new Task();
-try
-{
-    //设置常驻内存
-    $task->setDaemon(true);
 
-    //设置闭包函数任务
-    $task->addFunc(function () {
-        $url = 'https://www.gaojiufeng.cn/?id=243';
-        @file_get_contents($url);
-    }, 'request', 10, 2);
+//设置常驻内存
+$task->setDaemon(true);
 
-    //启动任务
-    $task->start();
-}
-catch (\Exception $exception)
-{
-    //错误输出
-    var_dump($exception->getMessage());
-}
+//添加闭包函数任务
+$task->addFunc(function () {
+    $url = 'https://www.gaojiufeng.cn/?id=243';
+    @file_get_contents($url);
+}, 'request', 10, 2);
+
+//启动任务
+$task->start();
 ~~~
 
 addFunc函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
