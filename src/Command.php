@@ -15,9 +15,10 @@ class Command
     public function __construct()
     {
         $this->msgFile = sprintf('/tmp/%s.txt', md5(__FILE__));
+
         if (!file_exists($this->msgFile))
         {
-            if (!file_put_contents($this->msgFile, ''))
+            if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
             {
                 Console::error('创建通讯文件失败');
             }
