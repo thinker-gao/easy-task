@@ -72,7 +72,7 @@ class ThreadPlugin
         }
 
         //输出启动信息
-       Console::showTable($this->threadList);
+        Console::showTable($this->threadList, false);
     }
 }
 

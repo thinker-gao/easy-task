@@ -3,6 +3,7 @@ namespace EasyTask;
 
 use MathieuViossat\Util\ArrayToTextTable;
 use Wujunze\Colors;
+use Zend\Text\Table\Decorator\Ascii;
 
 class Console
 {
@@ -24,6 +25,7 @@ class Console
     public static function showTable($data, $exit = true)
     {
         $renderer = new ArrayToTextTable($data);
+        $renderer->setDecorator(new Ascii());
         $renderer->setValuesAlignment(ArrayToTextTable::AlignCenter);
         echo($renderer->getTable());
         if ($exit)
