@@ -9,9 +9,6 @@
   "require": {
     "php": ">=5.4",
     "ext-json": "*",
-    "ext-pcntl": "*",
-    "ext-posix": "*",
-    "ext-pthreads": "*",
     "mathieuviossat/arraytotexttable": "~1.0.0"
   },
   "autoload": {
