@@ -1,16 +1,12 @@
 ﻿EasyTask -- 原生常驻内存定时任务
 ===============
 
-> 运行环境：linux+php5.4以上，强烈推荐PHP7.1以上，拥有异步信号管理，不再依赖ticks特性，性能更好。
+> 运行环境：windows|linux|macos 
 
-## <h2> Windows 使用 (计划原生支持windows) </h2>
 
-* win10 linux子系统
-* vm 虚拟机创建linux系统
-* docker 创建linux系统
-    
-## <h2>【一】 安装PHP扩展</h2>
-
+## <h2>【一】 环境配置</h2>
+windows环境:
+安装php线程安全版
 * pcntl (一般默认自带，提供进程管理能力)
 * posix (一般默认自带，提供进程通讯能力)
 
