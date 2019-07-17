@@ -13,11 +13,11 @@ if (!empty($argv['1']))
     if ($argv['1'] == 'start')
     {
         //启动命令
-        $task->setDaemon(true)->addFunc(function () {
+        $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            $res= file_get_contents('https://www.gaojiufeng.cn/?id=240');
+            $res = file_get_contents('https://www.gaojiufeng.cn/?id=240');
 
-            //var_dump($res);
+            var_dump($res);
 
         }, 'request', 10, 4)->start();
 
