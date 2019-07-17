@@ -1,7 +1,7 @@
 ﻿EasyTask -- 原生常驻内存定时任务
 ===============
 
-> 运行环境：windows|linux|macos 
+> 运行环境：windows | linux| macos 
 
 
 ## <h2>【一】 环境配置</h2>
