@@ -5,8 +5,10 @@
 
 
 ## <h2>【一】 环境配置</h2>
-*windows环境:安装PHP线程安全版(PHP版本大于等于5.4)，安装pthreads扩展<br/>
-*linux|mac环境:PHP版本大于等于5.4，安装pcntl和posix扩展
+<ul>
+    <li>windows:安装PHP线程安全版(PHP版本大于等于5.4)，安装pthreads扩展</li>  
+    <li>linux|mac:PHP版本大于等于5.4，安装pcntl和posix扩展</li>  
+</ul>  
 
 ## <h2>【二】 Composer安装</h2>
 
