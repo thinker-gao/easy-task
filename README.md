@@ -5,6 +5,7 @@
 
 
 ## <h4>【一】 环境配置</h4>
+
 <ul>
     <li>windows：安装PHP线程安全版(PHP版本大于等于5.4)，安装pthreads扩展</li>  
     <li>linux|mac：只需要PHP版本大于等于5.4，安装pcntl和posix扩展</li>  
