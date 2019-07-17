@@ -2,7 +2,6 @@
 namespace EasyTask;
 
 use MathieuViossat\Util\ArrayToTextTable;
-use Wujunze\Colors;
 use Zend\Text\Table\Decorator\Ascii;
 
 class Console
