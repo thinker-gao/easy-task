@@ -15,12 +15,14 @@ class ProcessPlugin
     private $task;
 
     /**
-     * @var int 进程休息时间
+     * 进程休息时间
+     * @var int
      */
     private $sleepTime;
 
     /**
      * 进程命令管理
+     * @var \ArrayObject
      */
     private $commander;
 

@@ -76,8 +76,6 @@ class TaskThread extends \Thread
         //记录线程ID
         $this->creatorId = \Thread::getCurrentThreadId();
 
-        //var_dump($this->creatorId);
-
         //修复线程中时间问题
         date_default_timezone_set('Asia/Shanghai');
 
