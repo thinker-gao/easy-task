@@ -10,7 +10,7 @@
     <li>linux|mac：只需要PHP版本大于等于5.4，安装pcntl和posix扩展</li>  
 </ul>  
 
-## <h3>【二】 Composer安装</h3>
+## <h4>【二】 Composer安装</h4>
 
 ~~~
   composer require easy-task/easy-task
@@ -22,7 +22,7 @@
   }
 ~~~
 
-## <h3>【三】 快速使用  </h3>
+## <h4>【三】 快速使用  </h4>
 
 <h5>3.1 创建一个闭包函数每隔10秒执行一次</h5>
 
@@ -45,7 +45,7 @@ $task->start();
 
 addFunc函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
 
-<h3>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h3>
+<h5>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h5>
 
 ~~~
 //初始化Task对象
@@ -61,7 +61,7 @@ $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
 $task->start();
 ~~~
 
-<h3>3.3 同时添加多个定时任务(支持闭包和类混合添加)</h3>
+<h5>3.3 同时添加多个定时任务(支持闭包和类混合添加)</h5>
 
 ~~~
 //初始化Task对象
@@ -85,7 +85,7 @@ $task->addFunc(function () {
 $task->start();
 ~~~
 
-<h3>3.4 使用连贯操作</h3>
+<h5>3.4 使用连贯操作</h5>
 
 ~~~
 //初始化Task对象
@@ -103,7 +103,7 @@ $task->setDaemon(true)
     ->start();
 ~~~
 
-<h3>3.5 查看任务运行状态</h3>
+<h5>3.5 查看任务运行状态</h5>
 
 ~~~
 //初始化
@@ -113,7 +113,7 @@ $task = new Task();
 $task->status();
 ~~~
 
-<h3>3.6 停止运行任务</h3>
+<h5>3.6 停止运行任务</h5>
 
 ~~~
 //初始化
@@ -126,7 +126,7 @@ $task->stop();
 //$task->stop(true);
 ~~~
 
-<h3>3.7 手工操作任务</h3>
+<h5>3.7 手工操作任务</h5>
 
 ~~~
   3.7.1 停止所有任务 kill  ppid (ppid每次在输出结果中会输出,ppid是守护进程id,kill掉会终止相关的任务)
@@ -135,7 +135,7 @@ $task->stop();
 ~~~
 
 
-<h3>3.8 Task函数说明</h3>
+<h5>3.8 Task函数说明</h5>
 
 ~~~
   3.8.1 setDaemon 是否常驻运行(windows不支持)
@@ -149,7 +149,7 @@ $task->stop();
 
 ## <h2>【四】 框架整合</h2>
 
-<h3>4.1 微擎cms </h3>
+<h5>4.1 微擎cms </h5>
 
 根目录创建console.php, 启动命令: php ./console.php start
 
@@ -198,7 +198,7 @@ if (!empty($argv['1']))
 }
 ~~~
 
-<h3>4.2 ThinkPHP3.2.3 </h3>
+<h5>4.2 ThinkPHP3.2.3 </h5>
 
 4.2.1 根目录创建console.php ,文件代码
 
@@ -299,7 +299,7 @@ catch (Exception $exception)
 }
 ~~~
 
-<h3>4.3 ThinkPHP5 </h3>
+<h5>4.3 ThinkPHP5 </h5>
 
 4.3.1 创建一个自定义命令类文件，新建application/common/command/Task.php
 
