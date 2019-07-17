@@ -14,6 +14,12 @@ class TaskThread extends \Thread
     public $item;
 
     /**
+     * 当前进程Id
+     * @var int
+     */
+    private $creatorId;
+
+    /**
      * 构造函数
      * @var $item
      */
@@ -23,12 +29,21 @@ class TaskThread extends \Thread
     }
 
     /**
-     * 获取线程Id
+     * 获取当前线程Id
      * @return int
      */
-    public function getCreatorId()
+    public function getThreadId()
     {
-        return parent::getCreatorId();
+        return parent::getThreadId();
+    }
+
+    /**
+     * 获取执行当前线程的线程Id
+     * @return int
+     */
+    public function getCurrentId()
+    {
+        return parent::getCurrentThreadId();
     }
 
     /**
@@ -58,6 +73,11 @@ class TaskThread extends \Thread
      */
     function run()
     {
+        //记录线程ID
+        $this->creatorId = \Thread::getCurrentThreadId();
+
+        //var_dump($this->creatorId);
+
         //修复线程中时间问题
         date_default_timezone_set('Asia/Shanghai');
 

@@ -62,13 +62,13 @@ class ThreadPlugin
             $pool->start();
 
             //记录线程信息
-            $tid = $pool->getCreatorId();
+            $tid = $pool->getThreadId();
+            $ttid = $pool->getCurrentId();
             $name = $pool->item['alas'];
             $time = $pool->item['time'];
             $date = date('Y-m-d H:i:s');
-            $used = $pool->item['used'];
             $pName = "{$this->task->prefix}_{$name}";
-            $this->threadList[] = ['tid' => $tid, 'task_name' => $pName, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'used' => $used,];
+            $this->threadList[] = ['tid' => $tid, 'task_name' => $pName, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ttid' => $ttid];
         }
 
         //输出启动信息

@@ -15,9 +15,11 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->addFunc(function () {
 
-            echo date('Y-m-d H:i:s', time()) . PHP_EOL;
+            $res= file_get_contents('https://www.gaojiufeng.cn/?id=240');
 
-        }, 'request', 10, 1)->start();
+            //var_dump($res);
+
+        }, 'request', 10, 4)->start();
 
     }
     if ($argv['1'] == 'status')
