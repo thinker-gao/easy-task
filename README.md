@@ -39,7 +39,7 @@ try
     $task->setDaemon(true);
 
     //设置闭包函数任务
-    $task->addFunction(function () {
+    $task->addFunc(function () {
         $url = 'https://www.gaojiufeng.cn/?id=243';
         @file_get_contents($url);
     }, 'request', 10, 2);
@@ -54,7 +54,7 @@ catch (\Exception $exception)
 }
 ~~~
 
-addFunction函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
+addFunc函数第一个参数传递闭包函数，编写自己需要的逻辑，第二个参数是任务的别名，在输出结果中会体现，第三个参数是每隔多少秒执行1次，第四个参数是启动几个进程来执行
 
 <h4>3.2 每隔20秒执行一次类的方法(同时支持静态方法)</h4>
 
@@ -104,7 +104,7 @@ try
     $task->addClass(Sms::class, 'recv', 'sendsms2', 20, 1);
 
     //添加执行闭包函数
-    $task->addFunction(function () {
+    $task->addFunc(function () {
         echo 'Success3' . PHP_EOL;
     }, 'fucn', 20, 1);
 
@@ -131,7 +131,7 @@ try
         ->setPrefix('ThinkTask')
         ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
         ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
-        ->addFunction(function () {
+        ->addFunc(function () {
             echo 'Success3' . PHP_EOL;
         }, 'fucn', 20, 1)
         ->start();
@@ -216,7 +216,7 @@ if (!empty($argv['1']))
     if ($argv['1'] == 'start')
     {
         //启动命令
-        $task->setDaemon(true)->addFunction(function () {
+        $task->setDaemon(true)->addFunc(function () {
             //重复执行的逻辑写在这里
         }, 'request', 15, 1)->start();
     }
@@ -388,7 +388,7 @@ class Task extends Command
                 $task->setDaemon(true);
 
                 //添加任务测试(可以创建一个配置文件,把所有要执行的类循环添加进去)
-                $task->addFunction(function () {
+                $task->addFunc(function () {
                     echo '1122' . PHP_EOL;
                 }, 'request', 20, 1);
 
