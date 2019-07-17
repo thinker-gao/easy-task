@@ -135,7 +135,7 @@ class ProcessPlugin
             $time = $item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
-            $pname = "{$this->task->prefix}_{$name}";
+            $pName = "{$this->task->prefix}_{$name}";
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
@@ -149,7 +149,7 @@ class ProcessPlugin
                 {
                     //记录进程
                     $ppid = posix_getpid();
-                    $this->processList[] = ['pid' => $pid, 'task_name' => $pname, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
+                    $this->processList[] = ['pid' => $pid, 'task_name' => $pName, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
 
                     //主进程设置非阻塞
                     pcntl_wait($status, WNOHANG);
@@ -157,7 +157,7 @@ class ProcessPlugin
                 else
                 {
                     //执行定时任务
-                    $this->timer($time, $pname, $item);
+                    $this->timer($time, $pName, $item);
                 }
             }
         }

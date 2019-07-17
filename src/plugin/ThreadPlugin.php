@@ -67,8 +67,8 @@ class ThreadPlugin
             $time = $pool->item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $pool->item['used'];
-            $pname = "{$this->task->prefix}_{$name}";
-            $this->threadList[] = ['tid' => $tid, 'task_name' => $pname, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'used' => $used,];
+            $pName = "{$this->task->prefix}_{$name}";
+            $this->threadList[] = ['tid' => $tid, 'task_name' => $pName, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'used' => $used,];
         }
 
         //输出启动信息
