@@ -217,7 +217,7 @@ class Task
     {
         if ($this->currentOs == 2)
         {
-            (new Process($this))->status();
+            (new ProcessPlugin($this))->status();
         }
     }
 
@@ -229,7 +229,7 @@ class Task
     {
         if ($this->currentOs == 2)
         {
-            (new Process($this))->stop($force);
+            (new ProcessPlugin($this))->stop($force);
         }
     }
 }
