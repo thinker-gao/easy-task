@@ -15,10 +15,11 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            $res = file_get_contents('https://www.gaojiufeng.cn/?id=240');
-
-            var_dump($res);
-
+            @file_get_contents('https://www.gaojiufeng.cn/?id=247');
+            @file_get_contents('https://www.gaojiufeng.cn/?id=246');
+            @file_get_contents('https://www.gaojiufeng.cn/?id=245');
+            @file_get_contents('https://www.gaojiufeng.cn/?id=244');
+            
         }, 'request', 10, 4)->start();
 
     }
