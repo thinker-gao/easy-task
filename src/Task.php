@@ -13,6 +13,12 @@ class Task
     private $daemon = false;
 
     /**
+     * 是否清空文件掩码
+     * @var bool
+     */
+    private $umask = false;
+
+    /**
      * 是否卸载工作区
      * @var bool
      */
@@ -77,6 +83,17 @@ class Task
     public function setDaemon($daemon = false)
     {
         $this->daemon = $daemon;
+        return $this;
+    }
+
+    /**
+     * 是否清空文件掩码
+     * @param bool $umask 默认不清空
+     * @return $this
+     */
+    public function setUmask($umask = false)
+    {
+        $this->umask = $umask;
         return $this;
     }
 

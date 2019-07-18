@@ -62,6 +62,10 @@ class ProcessPlugin
         {
             $this->daemon();
         }
+        if ($this->task->umask)
+        {
+            umask(0);
+        }
         if ($this->task->isChdir)
         {
             chdir('/');
