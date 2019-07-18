@@ -8,7 +8,7 @@
 
 <ul>
     <li>windows：安装PHP线程安全版(PHP版本大于等于5.4)，安装pthreads扩展</li>  
-    <li>linux|mac：只需要PHP版本大于等于5.4，安装pcntl和posix扩展</li>  
+    <li>linux|mac：只需要PHP版本大于等于5.4，安装pcntl和posix扩展，强烈推荐PHP7.1以上，拥有异步信号支持，不依赖ticks</li>  
 </ul>  
 
 ## <h4>【二】 Composer安装</h4>
