@@ -1,7 +1,6 @@
 <?php
-require 'D:\wwwroot\EasyTask/vendor/autoload.php';
-//require '../vendor/autoload.php';
 
+require '../vendor/autoload.php';
 
 //实例化Task
 $task = new \EasyTask\Task();
@@ -15,12 +14,9 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            @file_get_contents('https://www.gaojiufeng.cn/?id=247');
-            @file_get_contents('https://www.gaojiufeng.cn/?id=246');
-            @file_get_contents('https://www.gaojiufeng.cn/?id=245');
-            @file_get_contents('https://www.gaojiufeng.cn/?id=244');
-            
-        }, 'request', 10, 4)->start();
+            @file_get_contents('https://www.gaojiufeng.cn/?id=249');
+
+        }, 'request', 5, 4)->start();
 
     }
     if ($argv['1'] == 'status')

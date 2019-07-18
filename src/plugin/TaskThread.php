@@ -1,12 +1,13 @@
 <?php
 namespace EasyTask\plugin;
 
+use \Thread as Thread;
+
 /**
  * 多线程基类
  */
-class TaskThread extends \Thread
+class TaskThread extends Thread
 {
-
     /**
      * 线程执行的任务
      * @var $item
@@ -74,7 +75,7 @@ class TaskThread extends \Thread
     public function run()
     {
         //记录线程ID
-        $this->creatorId = \Thread::getCurrentThreadId();
+        $this->creatorId = Thread::getCurrentThreadId();
 
         //修复线程中时间问题
         date_default_timezone_set('Asia/Shanghai');
