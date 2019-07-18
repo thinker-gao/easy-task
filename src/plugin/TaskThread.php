@@ -71,7 +71,7 @@ class TaskThread extends \Thread
     /**
      * 单线程执行的任务
      */
-    function run()
+    public function run()
     {
         //记录线程ID
         $this->creatorId = \Thread::getCurrentThreadId();
