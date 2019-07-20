@@ -1,5 +1,5 @@
 <?php
-namespace EasyTask\plugin;
+namespace EasyTask\Plugin;
 
 use EasyTask\Command;
 use EasyTask\Console;
@@ -74,7 +74,6 @@ class ProcessPlugin
         {
             fclose(STDIN);
             fclose(STDOUT);
-            fclose(STDERR);
         }
         $this->allocate();
     }

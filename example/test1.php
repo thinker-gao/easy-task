@@ -2,6 +2,8 @@
 
 require '../vendor/autoload.php';
 
+ini_set('display_errors', 'Off');
+
 //实例化Task
 $task = new \EasyTask\Task();
 
@@ -14,9 +16,9 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            @file_get_contents('https://www.gaojiufeng.cn/?id=249');
+            @file_get_contents('https://www.gaojiufeng.cn/?id=9');
 
-        }, 'request', 5, 4)->start();
+        }, 'request', 3, 2)->start();
 
     }
     if ($argv['1'] == 'status')

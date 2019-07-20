@@ -1,8 +1,12 @@
 <?php
 namespace EasyTask;
 
-use EasyTask\plugin\ProcessPlugin;
-use EasyTask\plugin\ThreadPlugin;
+use \Closure as Closure;
+use EasyTask\Plugin\ProcessPlugin;
+use EasyTask\Plugin\ThreadPlugin;
+use \ReflectionClass as ReflectionClass;
+use \ReflectionMethod as ReflectionMethod;
+use \ReflectionException as ReflectionException;
 
 class Task
 {
@@ -43,7 +47,13 @@ class Task
     private $prefix = 'EasyTask';
 
     /**
-     * 当前Os平台 1.win 2.unix
+     * 日志记录目录
+     * @var null
+     */
+    private $logPath = null;
+
+    /**
+     * 当前Os平台
      * @var int
      */
     private $currentOs = 1;
@@ -58,11 +68,17 @@ class Task
      */
     public function __construct()
     {
-        //检查是否支持异步
+        //初始化异步支持
         $this->canAsync = function_exists('pcntl_async_signals');
 
         //获取运行时所在Os平台
         $this->currentOs = (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
+
+        //设置日志目录
+        $this->logPath = $this->currentOs == 1 ? 'C:/Windows/Temp' : '/tmp';
+
+        //异常注册
+        Error::register();
     }
 
     /**
@@ -131,8 +147,25 @@ class Task
     }
 
     /**
+     * 设置日志目录
+     * @param string $path 目录
+     * @return $this
+     * @throws
+     */
+    public function setLogPath($path)
+    {
+        if (!is_dir($path))
+        {
+            Console::error('文件目录不存在');
+        }
+        $this->logPath = $path;
+
+        return $this;
+    }
+
+    /**
      * 新增匿名函数作为任务
-     * @param \Closure $func 匿名函数
+     * @param Closure $func 匿名函数
      * @param string $alas 任务别名
      * @param int $time 定时器间隔
      * @param int $used 定时器占用进程数
@@ -142,7 +175,7 @@ class Task
     public function addFunc($func, $alas = '', $time = 1, $used = 1)
     {
         //必须是匿名函数
-        if (!($func instanceof \Closure))
+        if (!($func instanceof Closure))
         {
             Console::error('参数必须是匿名函数');
         }
@@ -178,13 +211,13 @@ class Task
 
         try
         {
-            $reflect = new \ReflectionClass($class);
+            $reflect = new ReflectionClass($class);
             if (!$reflect->hasMethod($func))
             {
                 Console::error("{$class}类的方法{$func}不存在");
             }
 
-            $method = new \ReflectionMethod($class, $func);
+            $method = new ReflectionMethod($class, $func);
             if (!$method->isPublic())
             {
                 Console::error("{$class}类的方法{$func}必须是可访问的");
@@ -199,7 +232,7 @@ class Task
                 'class' => $class,
             ];
         }
-        catch (\ReflectionException $exception)
+        catch (ReflectionException $exception)
         {
             Console::error($exception->getMessage());
         }

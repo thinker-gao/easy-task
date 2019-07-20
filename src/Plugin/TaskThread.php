@@ -1,5 +1,5 @@
 <?php
-namespace EasyTask\plugin;
+namespace EasyTask\Plugin;
 
 use \Thread as Thread;
 
