@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-ini_set('display_errors', 'Off');
+//ini_set('display_errors', 'Off');
 
 //实例化Task
 $task = new \EasyTask\Task();
@@ -16,7 +16,9 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            @file_get_contents('https://www.gaojiufeng.cn/?id=9');
+            file_get_contents('https://www.gaojiufeng.cn/?id=9');
+
+            $a++;
 
         }, 'request', 3, 2)->start();
 

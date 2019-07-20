@@ -11,9 +11,11 @@ class Log
      */
     public static function report($exception)
     {
+        //var_dump($exception);
 
         $os = (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
         $path = $os == 1 ? 'C:/Windows/Temp' : '/tmp';
+
 
         $file = $path . DIRECTORY_SEPARATOR . 'easytask.log';
 
@@ -21,10 +23,11 @@ class Log
         $errInfo = [
             'errstr' => $exception->getMessage(),
             'errfile' => $exception->getFile(),
-            'errline' => $exception->getLine(),
-            'errtrace' => $exception->getTrace(),
+            'errline' => $exception->getLine()
         ];
 
-        error_log(json_encode($errInfo), 3, $file);
+        $errInfo = json_encode($errInfo) . PHP_EOL;
+
+        file_put_contents($file, $errInfo, FILE_APPEND);
     }
 }
