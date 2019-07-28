@@ -105,6 +105,7 @@ class ProcessPlugin
 
     /**
      * 守护进程
+     * @throws
      */
     private function daemon()
     {
