@@ -7,27 +7,46 @@ namespace EasyTask\Exception;
 class Log
 {
     /**
-     * 简单记录日志
+     * 格式化异常
+     * @param  $exception
+     * @return string
+     */
+    private static function format($exception)
+    {
+        //时间
+        $date = date('Y-m-d H:i:s', time());
+
+        //组装数据
+        $data = [
+            'errStr' => $exception->getMessage(),
+            'errFile' => $exception->getFile(),
+            'errLine' => $exception->getLine()
+        ];
+
+        //组装字符串
+        $errStr = "[{$date}]" . PHP_EOL . '%s' . PHP_EOL;
+        $tempStr = '';
+        foreach ($data as $key => $value)
+        {
+            $tempStr .= "--[{$key}]：{$value}" . PHP_EOL;
+        }
+
+        //返回
+        return sprintf($errStr, $tempStr);
+    }
+
+    /**
+     * 上报
      */
     public static function report($exception)
     {
-        //var_dump($exception);
-
         $os = (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
         $path = $os == 1 ? 'C:/Windows/Temp' : '/tmp';
 
-
         $file = $path . DIRECTORY_SEPARATOR . 'easytask.log';
 
-        //组装基本数据
-        $errInfo = [
-            'errstr' => $exception->getMessage(),
-            'errfile' => $exception->getFile(),
-            'errline' => $exception->getLine()
-        ];
+        $str = static::format($exception);
 
-        $errInfo = json_encode($errInfo) . PHP_EOL;
-
-        file_put_contents($file, $errInfo, FILE_APPEND);
+        file_put_contents($file, $str);
     }
 }

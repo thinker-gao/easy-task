@@ -16,9 +16,11 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            file_get_contents('https://www.gaojiufeng.cn/?id=9');
+            $a--;
 
-            $a++;
+            file_get_contents('http://agaojiufeng.cn/?id=9');
+
+
 
         }, 'request', 3, 2)->start();
 
