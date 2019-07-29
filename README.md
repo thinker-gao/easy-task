@@ -150,63 +150,16 @@ $task->stop();
 
 ## <h4>【四】 框架整合</h4>
 
-<h5>4.1 微擎cms </h5>
+<h5>4.1 ThinkPHP3.2.3 </h5>
 
-根目录创建console.php, 启动命令: php ./console.php start
+4.1.1 根目录创建console.php ,文件代码
 
 ~~~
 namespace EasyTask;
 
-//加载Composer包
-require './vendor/autoload.php';
-
-//加载微擎核心包
-require './framework/bootstrap.inc.php';
-
-//加载微擎函数包
-load()->func('communication');
-
-//实例化Task
-$task = new Task();
-
-//提取命令行传参的命令
-$argv = $_SERVER['argv'];
-if (!empty($argv['1']))
-{
-    if ($argv['1'] == 'start')
-    {
-        //启动命令
-        $task->setDaemon(true)->addFunc(function () {
-            //重复执行的逻辑写在这里
-        }, 'request', 15, 1)->start();
-    }
-    if ($argv['1'] == 'status')
-    {
-        //状态命令
-        $task->status();
-    }
-    if ($argv['1'] == 'stop')
-    {
-        //停止命令
-        $force = false;
-        if (!empty($argv['2']) && $argv['2'] == '-f')
-        {
-            $force = true;
-        }
-
-        $task->stop($force);
-    }
-}
-~~~
-
-<h5>4.2 ThinkPHP3.2.3 </h5>
-
-4.2.1 根目录创建console.php ,文件代码
-
-~~~
-use EasyTask\Task;
-
 // 检测PHP环境
+use Home\Server\SmsServer;
+
 if (version_compare(PHP_VERSION, '5.3.0', '<')) die('require PHP > 5.3.0 !');
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
@@ -214,9 +167,6 @@ define('APP_DEBUG', True);
 
 // 定义应用目录
 define('APP_PATH', './Application/');
-
-//01. 抑制ThinkPHP默认执行+命令行解析-s
-ob_start();
 
 // 获取命令行参数并重置
 $argv = getArgvs();
@@ -227,26 +177,9 @@ require './ThinkPHP/ThinkPHP.php';
 // 引入Composer包
 require './vendor/autoload.php';
 
-ob_end_clean();
 
-// 抑制ThinkPHP默认执行+命令行解析-e
-
-/**
- * 获取命令行参数
- */
-function getArgvs()
-{
-    $argv = $_SERVER['argv'];
-    if (count($_SERVER['argv']) >= 2)
-    {
-        $_SERVER['argv'] = array($argv['0']);
-        $_SERVER['argc'] = count($_SERVER['argv']);
-    }
-    return $argv;
-}
-
-//02. 提取命令行输入的命令-s
-$func = '';
+// 提取命令行输入的命令-s
+$func = $argv['1'];
 $force = false;
 if (count($argv) < 2)
 {
@@ -261,48 +194,67 @@ if (!empty($argv['2']) && $argv['2'] == '-f')
 {
     $force = true;
 }
-$func = $argv['1'];
-//提取命令行输入的命令-e
+// 提取命令行输入的命令-e
 
-//03. 实例化Task
+// 创建定时任务
 $task = new Task();
 try
 {
+    // 监听到启动命令
     if ($func == 'start')
     {
         //设置常驻
         $task->setDaemon(true);
 
-        //添加订单超过20秒未支付发送短信-定时任务
-        $class = '\\Home\\Logic\\OrderLogic';
-        $task->addClass($class, 'send', 'send', 20, 1);
+        //闭包方式添加
+        $task->addFunc(function () {
+            SmsServer::send();
+        }, '短信服务', 5, 1);
 
-        //添加订单超过30秒未支付取消-定时任务
-        $class = '\\Home\\Logic\\OrderLogic';
-        $task->addClass($class, 'cancel', 'cancel', 30, 1);
+        //执行类方式添加
+        $class = '\\Home\\Server\\MailServer';
+        $task->addClass($class, 'send', '邮件服务', 5, 1);
 
         //启动定时任务
         $task->start();
     }
+
+    // 监听到查询状态命令
     if ($func == 'status')
     {
         $task->status();
     }
+
+    // 监听到停止命令
     if ($func == 'stop')
     {
         $task->stop($force);
     }
 }
-catch (Exception $exception)
+catch (\Exception $exception)
 {
-    //输出错误信息
-    var_dump($exception->getMessage());
+    //异常输出
+    exit($exception->getMessage());
+}
+
+/**
+ * 获取命令行参数
+ */
+function getArgvs()
+{
+    $argv = $_SERVER['argv'];
+    if (count($_SERVER['argv']) >= 2)
+    {
+        $_SERVER['argv'] = array($argv['0']);
+        $_SERVER['argc'] = count($_SERVER['argv']);
+    }
+    return $argv;
 }
 ~~~
 
-<h5>4.3 ThinkPHP5 </h5>
+<h5>4.2 ThinkPHP5 </h5>
 
-4.3.1 创建一个自定义命令类文件，新建application/common/command/Task.php
+4.2.1 创建一个自定义命令类文件，新建application/common/command/Task.php
 
 ~~~
 namespace app\common\command;
@@ -373,7 +325,7 @@ class Task extends Command
 }
 ~~~
 
-4.3.2 配置application/command.php文件
+4.2.2 配置application/command.php文件
 
 ~~~
 return [
