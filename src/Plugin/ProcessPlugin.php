@@ -10,6 +10,7 @@ use EasyTask\Console;
 class ProcessPlugin
 {
     /**
+     * Task实例
      * @var $task
      */
     private $task;

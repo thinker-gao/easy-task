@@ -8,10 +8,17 @@ use EasyTask\Exception\ErrorException;
 class Error
 {
     /**
+     * Task实例
+     * @var $task
+     */
+    private static $task;
+
+    /**
      * 注册异常处理
      */
-    public static function register()
+    public static function register($task)
     {
+        static::$task = $task;
         error_reporting(E_ALL);
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
@@ -31,8 +38,8 @@ class Error
     {
         $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
-        //上报
-        Log::report($exception);
+        //记录
+        static::record($exception);
     }
 
     /**
@@ -42,7 +49,7 @@ class Error
     public static function appException($exception)
     {
         //上报
-        Log::report($exception);
+        static::record($exception);
     }
 
     /**
@@ -57,5 +64,55 @@ class Error
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
             self::appException($exception);
         }
+    }
+
+    /**
+     * 异常信息格式化
+     * @param ErrorException $exception
+     * @return string
+     */
+    public static function format($exception)
+    {
+        //时间
+        $date = date('Y-m-d H:i:s', time());
+
+        //组装数据
+        $data = [
+            'errStr' => $exception->getMessage(),
+            'errFile' => $exception->getFile(),
+            'errLine' => $exception->getLine()
+        ];
+
+        //组装字符串
+        $errStr = "[{$date}]" . PHP_EOL . '%s' . PHP_EOL;
+        $tempStr = '';
+        foreach ($data as $key => $value)
+        {
+            $tempStr .= "--[{$key}]：{$value}" . PHP_EOL;
+        }
+
+        //返回
+        return sprintf($errStr, $tempStr);
+    }
+
+    /**
+     * 异常信息记录
+     * @param ErrorException $exception
+     */
+    private static function record($exception)
+    {
+        //设置日志目录
+        $path = static::$task->logPath;
+
+        //按月设置日志文件
+        $date = date('Y-m');
+        $file = $path . DIRECTORY_SEPARATOR . 'EasyTask%s.log';
+        $file = sprintf($file, $date);
+
+        //获取格式化内容
+        $formatLog = static::format($exception);
+
+        //记录日志
+        file_put_contents($file, $formatLog);
     }
 }

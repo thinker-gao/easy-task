@@ -68,7 +68,7 @@ class Task
      */
     public function __construct()
     {
-        //初始化异步支持
+        //检查异步支持
         $this->canAsync = function_exists('pcntl_async_signals');
 
         //获取运行时所在Os平台
@@ -76,9 +76,6 @@ class Task
 
         //设置日志目录
         $this->logPath = $this->currentOs == 1 ? 'C:/Windows/Temp' : '/tmp';
-
-        //异常注册
-        Error::register();
     }
 
     /**
@@ -246,6 +243,7 @@ class Task
      */
     public function start()
     {
+        Error::register($this);
         if (!$this->taskList)
         {
             return;
