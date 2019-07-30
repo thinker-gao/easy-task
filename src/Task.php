@@ -59,7 +59,8 @@ class Task
     private $currentOs = 1;
 
     /**
-     * @var array 任务列表
+     * 任务列表
+     * @var array
      */
     private $taskList = [];
 
@@ -69,13 +70,28 @@ class Task
     public function __construct()
     {
         //检查异步支持
-        $this->canAsync = function_exists('pcntl_async_signals');
+        $this->canAsync = $this->canAsync();
 
-        //获取运行时所在Os平台
-        $this->currentOs = (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
+        //获取运行平台
+        $this->currentOs = $this->currentOs();
+    }
 
-        //设置日志目录
-        $this->logPath = $this->currentOs == 1 ? 'C:/Windows/Temp' : '/tmp';
+    /**
+     * 获取当前运行平台
+     * @return int
+     */
+    private function currentOs()
+    {
+        return (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
+    }
+
+    /**
+     * 检查是否支持异步
+     * @return bool
+     */
+    private function canAsync()
+    {
+        return (function_exists('pcntl_async_signals'));
     }
 
     /**

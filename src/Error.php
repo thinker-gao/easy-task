@@ -96,13 +96,29 @@ class Error
     }
 
     /**
+     * 获取日志储存目录
+     * @return string
+     */
+    private static function getLogPath()
+    {
+        if (static::$task->logPath != null)
+        {
+            return static::$task->logPath;
+        }
+        else
+        {
+            return static::$task->currentOs == 1 ? 'C:/Windows/Temp' : '/tmp';
+        }
+    }
+
+    /**
      * 异常信息记录
      * @param ErrorException $exception
      */
     private static function record($exception)
     {
-        //设置日志目录
-        $path = static::$task->logPath;
+        //获取日志目录
+        $path = static::getLogPath();
 
         //按月设置日志文件
         $date = date('Y-m');
