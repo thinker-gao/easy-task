@@ -13,7 +13,7 @@ if (!empty($argv['1']))
         //启动命令
         $task->setDaemon(true)->setInOut(true)->addFunc(function () {
 
-            file_get_contents('http://www.gaojiufeng.cn');
+            file_get_contents('http://www.gaojiupan.cn/e/public/ViewClick/?classid=76&id=2953&addclick=1');
 
         }, 'request', 3, 2)->start();
 
