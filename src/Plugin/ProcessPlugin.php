@@ -270,7 +270,7 @@ class ProcessPlugin
             sleep(1);
 
             //接收命令
-            $this->WaitCommandForExecute(2, function ($command) {
+            $this->waitCommandForExecute(2, function ($command) {
                 if ($command['type'] == 'status')
                 {
                     $this->processStatus();
@@ -316,7 +316,7 @@ class ProcessPlugin
      * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
      */
-    public function WaitCommandForExecute($msgType, $func)
+    public function waitCommandForExecute($msgType, $func)
     {
         $command = '';
         $this->commander->receive($msgType, $command);
