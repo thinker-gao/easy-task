@@ -29,7 +29,7 @@ class Command
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
             {
-                Console::error('创建通讯文件失败');
+                Helper::exception("crate process queue msgFile failed");
             }
         }
     }

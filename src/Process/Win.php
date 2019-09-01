@@ -2,9 +2,7 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
-use EasyTask\Console;
 use \ArrayObject as ArrayObject;
-use EasyTask\Error;
 use EasyTask\Helper;
 
 /**
