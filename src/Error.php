@@ -7,18 +7,12 @@ use EasyTask\Exception\ErrorException;
 
 class Error
 {
-    /**
-     * Task实例
-     * @var $task
-     */
-    private static $task;
 
     /**
      * 注册异常处理
      */
-    public static function register($task)
+    public static function register()
     {
-        static::$task = $task;
         error_reporting(E_ALL);
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
@@ -96,39 +90,13 @@ class Error
     }
 
     /**
-     * 获取日志储存目录
-     * @return string
-     */
-    private static function getLogPath()
-    {
-        if (static::$task->logPath != null)
-        {
-            return static::$task->logPath;
-        }
-        else
-        {
-            return static::$task->currentOs == 1 ? 'C:/Windows/Temp' : '/tmp';
-        }
-    }
-
-    /**
      * 异常信息记录
      * @param ErrorException $exception
      */
     private static function record($exception)
     {
-        //获取日志目录
-        $path = static::getLogPath();
-
-        //按月设置日志文件
-        $date = date('Y-m');
-        $file = $path . DIRECTORY_SEPARATOR . 'EasyTask%s.log';
-        $file = sprintf($file, $date);
-
-        //获取格式化内容
-        $formatLog = static::format($exception);
 
         //记录日志
-        file_put_contents($file, $formatLog);
+        file_put_contents('D:\wwwroot\log.txt', $exception->getMessage() . PHP_EOL);
     }
 }

@@ -14,7 +14,16 @@ class Command
      */
     public function __construct()
     {
-        $this->msgFile = sprintf('/tmp/%s.txt', md5(__FILE__));
+        if (Helper::isWin())
+        {
+            $file = 'C:/Windows/Temp/%s.txt';
+        }
+        else
+        {
+            $file = '/tmp/%s.txt';
+        }
+        $this->msgFile = sprintf($file, md5(__FILE__));
+        $this->msgFile = sprintf($file, md5(__FILE__));
 
         if (!file_exists($this->msgFile))
         {

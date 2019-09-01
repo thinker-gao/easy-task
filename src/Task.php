@@ -2,8 +2,8 @@
 namespace EasyTask;
 
 use \Closure as Closure;
-use EasyTask\Plugin\ProcessPlugin;
-use EasyTask\Plugin\ThreadPlugin;
+use EasyTask\Process\Linux;
+use EasyTask\Process\Win;
 use \ReflectionClass as ReflectionClass;
 use \ReflectionMethod as ReflectionMethod;
 use \ReflectionException as ReflectionException;
@@ -47,12 +47,6 @@ class Task
     private $prefix = 'EasyTask';
 
     /**
-     * 日志记录目录
-     * @var null
-     */
-    private $logPath = null;
-
-    /**
      * 当前Os平台
      * @var int
      */
@@ -82,7 +76,7 @@ class Task
      */
     private function currentOs()
     {
-        return (DIRECTORY_SEPARATOR == '\\') ? 1 : 2;
+        return Helper::isWin() ? 1 : 2;
     }
 
     /**
@@ -91,7 +85,7 @@ class Task
      */
     private function canAsync()
     {
-        return (function_exists('pcntl_async_signals'));
+        return Helper::canAsyncSignal();
     }
 
     /**
@@ -160,23 +154,6 @@ class Task
     }
 
     /**
-     * 设置日志目录
-     * @param string $path 目录
-     * @return $this
-     * @throws
-     */
-    public function setLogPath($path)
-    {
-        if (!is_dir($path))
-        {
-            Console::error('文件目录不存在');
-        }
-        $this->logPath = $path;
-
-        return $this;
-    }
-
-    /**
      * 新增匿名函数作为任务
      * @param Closure $func 匿名函数
      * @param string $alas 任务别名
@@ -190,13 +167,13 @@ class Task
         //必须是匿名函数
         if (!($func instanceof Closure))
         {
-            Console::error('参数必须是匿名函数');
+            Helper::exception('func must instanceof Closure');
         }
-
-        $this->taskList[] = [
+        $alas = $alas ? $alas : uniqid();
+        $this->taskList[$alas] = [
             'type' => 0,
             'func' => $func,
-            'alas' => $alas ? $alas : uniqid(),
+            'alas' => $alas,
             'time' => $time,
             'used' => $used,
         ];
@@ -219,7 +196,7 @@ class Task
         //检查类是否存在
         if (!class_exists($class))
         {
-            Console::error("{$class}类不存在");
+            Helper::exception("class {$class} is not exist");
         }
 
         try
@@ -227,19 +204,18 @@ class Task
             $reflect = new ReflectionClass($class);
             if (!$reflect->hasMethod($func))
             {
-                Console::error("{$class}类的方法{$func}不存在");
+                Helper::exception("class {$class}'s func {$func} is not exist");
             }
-
             $method = new ReflectionMethod($class, $func);
             if (!$method->isPublic())
             {
-                Console::error("{$class}类的方法{$func}必须是可访问的");
+                Helper::exception("class {$class}'s func {$func} must public");
             }
-
-            $this->taskList[] = [
+            $alas = $alas ? $alas : uniqid();
+            $this->taskList[$alas] = [
                 'type' => $method->isStatic() ? 1 : 2,
                 'func' => $func,
-                'alas' => $alas ? $alas : uniqid(),
+                'alas' => $alas,
                 'time' => $time,
                 'used' => $used,
                 'class' => $class,
@@ -254,24 +230,54 @@ class Task
     }
 
     /**
+     * 添加指令任务
+     * @param string $command 执行指令
+     * @param string $alas 任务别名
+     * @param int $time 定时器间隔
+     * @param int $used 使用进程数
+     * @return $this
+     */
+    public function addCommand($command, $alas, $time, $used)
+    {
+        $alas = $alas ? $alas : uniqid();
+        $this->taskList[$alas] = [
+            'type' => 3,
+            'alas' => $alas ? $alas : uniqid(),
+            'time' => $time,
+            'used' => $used,
+            'command' => $command,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * 获取进程管理实例
+     * @return  Win | Linux
+     */
+    private function getProcess()
+    {
+        if ($this->currentOs == 1)
+        {
+            return (new Win($this));
+        }
+        else
+        {
+            return (new Linux($this));
+        }
+    }
+
+    /**
      * 开始运行
      * @throws
      */
     public function start()
     {
-        Error::register($this);
         if (!$this->taskList)
         {
             return;
         }
-        if ($this->currentOs == 1)
-        {
-            (new ThreadPlugin($this))->start();
-        }
-        else
-        {
-            (new ProcessPlugin($this))->start();
-        }
+        ($this->getProcess())->start();
     }
 
     /**
@@ -279,10 +285,7 @@ class Task
      */
     public function status()
     {
-        if ($this->currentOs == 2)
-        {
-            (new ProcessPlugin($this))->status();
-        }
+        ($this->getProcess())->status();
     }
 
     /**
@@ -291,9 +294,6 @@ class Task
      */
     public function stop($force)
     {
-        if ($this->currentOs == 2)
-        {
-            (new ProcessPlugin($this))->stop($force);
-        }
+        ($this->getProcess())->stop($force);
     }
 }

@@ -1,13 +1,15 @@
 <?php
-namespace EasyTask\Plugin;
+namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Console;
+use \ArrayObject as ArrayObject;
 
 /**
- * 多进程插件
+ * Class Linux
+ * @package EasyTask\Process
  */
-class ProcessPlugin
+class Linux
 {
     /**
      * Task实例
@@ -23,7 +25,7 @@ class ProcessPlugin
 
     /**
      * 进程命令管理
-     * @var \ArrayObject
+     * @var ArrayObject
      */
     private $commander;
 
