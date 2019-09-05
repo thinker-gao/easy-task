@@ -7,6 +7,11 @@ class Tools
     {
         echo '1122' . PHP_EOL;
     }
+
+    public function do2()
+    {
+        echo '3344' . PHP_EOL;
+    }
 }
 
 //实例化Task
@@ -19,7 +24,9 @@ if (!empty($argv['1']))
     if ($argv['1'] == 'start')
     {
         $task->setDaemon(false);
-        $task->addClass('Tools', 'do1', 'test', 5, 2);
+        $task->addClass('Tools', 'do1', 'test', 5, 1)->addFunc(function () {
+            (new Tools())->do2();
+        }, '2', 5, 1);
         $task->start();
     }
     if ($argv['1'] == 'status')

@@ -4,6 +4,7 @@ namespace EasyTask\Process;
 use EasyTask\Command;
 use EasyTask\Console;
 use \ArrayObject as ArrayObject;
+use EasyTask\Helper;
 
 /**
  * Class Linux
@@ -115,7 +116,7 @@ class Linux
         $pid = pcntl_fork();
         if ($pid < 0)
         {
-            Console::error('创建进程失败');
+            Helper::exception("fork process failed");
         }
         elseif ($pid)
         {
@@ -123,11 +124,10 @@ class Linux
         }
         else
         {
-            //子进程转守护进程
             $sid = posix_setsid();
             if ($sid < 0)
             {
-                Console::error('设置守护进程失败');
+                Helper::exception("set processForInit failed");
             }
         }
     }
@@ -181,18 +181,18 @@ class Linux
      */
     public function timer($time, $pname, $item)
     {
-        //设置任务进程标题
+        //设置进程标题
         @cli_set_process_title($pname);
 
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {
             pcntl_alarm($time);
-            if ($item['type'] == 0)
+            if ($item['type'] == 1)
             {
                 $func = $item['func'];
                 $func();
             }
-            elseif ($item['type'] == 1)
+            elseif ($item['type'] == 2)
             {
                 call_user_func([$item['class'], $item['func']]);
             }

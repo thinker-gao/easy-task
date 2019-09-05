@@ -164,14 +164,15 @@ class Task
      */
     public function addFunc($func, $alas = '', $time = 1, $used = 1)
     {
-        //必须是匿名函数
         if (!($func instanceof Closure))
         {
             Helper::exception('func must instanceof Closure');
         }
+
         $alas = $alas ? $alas : uniqid();
-        $this->taskList[$alas] = [
-            'type' => 0,
+        $uniKey = md5($alas);
+        $this->taskList[$uniKey] = [
+            'type' => 1,
             'func' => $func,
             'alas' => $alas,
             'time' => $time,
@@ -193,12 +194,10 @@ class Task
      */
     public function addClass($class, $func, $alas = '', $time = 1, $used = 1)
     {
-        //检查类是否存在
         if (!class_exists($class))
         {
             Helper::exception("class {$class} is not exist");
         }
-
         try
         {
             $reflect = new ReflectionClass($class);
@@ -212,8 +211,9 @@ class Task
                 Helper::exception("class {$class}'s func {$func} must public");
             }
             $alas = $alas ? $alas : uniqid();
-            $this->taskList[$alas] = [
-                'type' => $method->isStatic() ? 1 : 2,
+            $uniKey = md5($alas);
+            $this->taskList[$uniKey] = [
+                'type' => $method->isStatic() ? 2 : 3,
                 'func' => $func,
                 'alas' => $alas,
                 'time' => $time,
@@ -223,30 +223,8 @@ class Task
         }
         catch (ReflectionException $exception)
         {
-            Console::error($exception->getMessage());
+            Helper::exception($exception->getMessage());
         }
-
-        return $this;
-    }
-
-    /**
-     * 添加指令任务
-     * @param string $command 执行指令
-     * @param string $alas 任务别名
-     * @param int $time 定时器间隔
-     * @param int $used 使用进程数
-     * @return $this
-     */
-    public function addCommand($command, $alas, $time, $used)
-    {
-        $alas = $alas ? $alas : uniqid();
-        $this->taskList[$alas] = [
-            'type' => 3,
-            'alas' => $alas ? $alas : uniqid(),
-            'time' => $time,
-            'used' => $used,
-            'command' => $command,
-        ];
 
         return $this;
     }

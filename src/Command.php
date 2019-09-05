@@ -1,6 +1,11 @@
 <?php
 namespace EasyTask;
 
+/**
+ * 进程通信
+ * Class Command
+ * @package EasyTask
+ */
 class Command
 {
     /**
@@ -24,7 +29,6 @@ class Command
         }
         $this->msgFile = sprintf($file, md5(__FILE__));
         $this->msgFile = sprintf($file, md5(__FILE__));
-
         if (!file_exists($this->msgFile))
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
@@ -81,9 +85,9 @@ class Command
     }
 
     /**
-     * 接收命令(过期清空)
-     * @param $msgType
-     * @param $command
+     * 接收命令
+     * @param string $msgType 消息类型
+     * @param mixed $command 收到的命令
      */
     public function receive($msgType, &$command)
     {

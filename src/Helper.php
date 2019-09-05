@@ -19,6 +19,14 @@ class Helper
     }
 
     /**
+     * 获取唯一Key
+     */
+    public static function getTaskUniKey($alas)
+    {
+        return md5($alas);
+    }
+
+    /**
      * 是否支持异步信号
      * @return bool
      */
@@ -105,7 +113,7 @@ class Helper
         $extend = '';
         foreach ($argv as $item)
         {
-            if (strpos($item, '-m-e:') !== false)
+            if (strpos($item, 'extend:') !== false)
             {
                 $data = explode(':', $item);
                 if ($data)
