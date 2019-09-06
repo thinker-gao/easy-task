@@ -164,6 +164,10 @@ class Task
      */
     public function addFunc($func, $alas = '', $time = 1, $used = 1)
     {
+        if ($this->currentOs == 1)
+        {
+            Helper::exception('windows is not support this api');
+        }
         if (!($func instanceof Closure))
         {
             Helper::exception('func must instanceof Closure');
@@ -194,6 +198,10 @@ class Task
      */
     public function addClass($class, $func, $alas = '', $time = 1, $used = 1)
     {
+        if ($this->currentOs == 1)
+        {
+            Helper::exception('windows is not support this api');
+        }
         if (!class_exists($class))
         {
             Helper::exception("class {$class} is not exist");
@@ -230,6 +238,29 @@ class Task
     }
 
     /**
+     * 新增指令作为任务
+     * @param string $command 指令
+     * @param string $alas 任务别名
+     * @param int $time 定时器间隔
+     * @param int $used 定时器占用进程数
+     * @return $this
+     */
+    public function addCommand($command, $alas = '', $time = 1, $used = 1)
+    {
+        $alas = $alas ? $alas : uniqid();
+        $uniKey = md5($alas);
+        $this->taskList[$uniKey] = [
+            'type' => 4,
+            'alas' => $alas,
+            'time' => $time,
+            'used' => $used,
+            'command' => $command,
+        ];
+
+        return $this;
+    }
+
+    /**
      * 获取进程管理实例
      * @return  Win | Linux
      */
@@ -260,18 +291,28 @@ class Task
 
     /**
      * 运行状态
+     * @throws
      */
     public function status()
     {
+        if ($this->currentOs == 1)
+        {
+            Helper::exception('windows is not support this api');
+        }
         ($this->getProcess())->status();
     }
 
     /**
      * 停止运行
      * @param bool $force 是否强制
+     * @throws
      */
     public function stop($force)
     {
+        if ($this->currentOs == 1)
+        {
+            Helper::exception('windows is not support this api');
+        }
         ($this->getProcess())->stop($force);
     }
 }

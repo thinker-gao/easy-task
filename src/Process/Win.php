@@ -33,83 +33,7 @@ class Win
      */
     public function start()
     {
-        $extend = Helper::getCommandExtend();
-        if ($extend)
-        {
-            //执行任务
-            $this->invoke($extend);
-        }
-        else
-        {
-            //分配任务
-            $this->allocate();
-        }
-    }
-
-    /**
-     * 设置进程
-     */
-    private function setProcess()
-    {
-        if ($this->task->umask)
-        {
-            umask(0);
-        }
-        if ($this->task->isChdir)
-        {
-            chdir('/');
-        }
-        if ($this->task->closeInOut)
-        {
-            fclose(STDIN);
-            fclose(STDOUT);
-        }
-    }
-
-    /**
-     * 执行任务
-     * @param string $uniKey 任务Key
-     */
-    public function invoke($uniKey)
-    {
-        $this->setProcess();
-        $tasks = $this->task->taskList;
-        if (isset($tasks[$uniKey]))
-        {
-            //获取任务
-            $task = $tasks[$uniKey];
-
-            //提取参数
-            $type = $task['type'];
-            $time = $task['time'];
-            $alas = $task['alas'];
-
-            //设置进程标题
-            $alas = "{$this->task->prefix}_{$alas}";
-            @cli_set_process_title($alas);
-
-            //循环执行
-            while (true)
-            {
-                if ($type == 1)
-                {
-                    $func = $task['func'];
-                    $func();
-                }
-                elseif ($type == 2)
-                {
-                    call_user_func([$task['class'], $task['func']]);
-                }
-                elseif ($type == 3)
-                {
-                    $object = new $task['class']();
-                    call_user_func([$object, $task['func']]);
-                }
-
-                //CPU休息
-                sleep($time);
-            }
-        }
+        $this->allocate();
     }
 
     /**
@@ -117,25 +41,29 @@ class Win
      */
     public function allocate()
     {
-        $initCommand = (Helper::getEntryCommand());
         foreach ($this->task->taskList as $key => $item)
         {
             //提取参数
+            $type = $item['type'];
             $used = $item['used'];
+            $alas = $item['alas'];
+            $time = $item['time'];
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
             {
-                //组装Cmd
+                //组装cmd
+                $command = base64_encode($item['command']);
+                $params = " -a{$alas} -t{$time} -c{$command}";
                 if ($this->task->daemon)
                 {
                     //异步执行
-                    $cmd = 'start /b ' . $initCommand . "-extend:{$key}";
+                    $cmd = 'start /b php ' . __FILE__ . $params;
                 }
                 else
                 {
                     //同步执行
-                    $cmd = 'wmic process call create "' . $initCommand . " -extend:{$key}" . '"';
+                    $cmd = 'wmic process call create "' . 'php ' . __FILE__ . $params . '"';
                 }
 
                 //运行Cmd
@@ -143,5 +71,36 @@ class Win
             }
         }
     }
+
+    /**
+     * 进程执行
+     * @param array $commandData 执行指令
+     */
+    public static function invoke($commandData)
+    {
+        //提取参数
+        $alas = $commandData['a'];
+        $time = $commandData['t'];
+        $command = base64_decode($commandData['c']);
+
+        //设置进程标题
+        @cli_set_process_title($alas);
+
+        //启动定时器
+        while (true)
+        {
+            //执行指令
+            @pclose(@popen($command, 'r'));
+
+            //CPU休息
+            sleep($time);
+        }
+    }
+
 }
 
+$commandData = getopt('a:t:c:');
+if ($commandData)
+{
+    Win::invoke($commandData);
+}

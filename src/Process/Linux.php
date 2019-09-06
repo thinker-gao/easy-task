@@ -196,10 +196,14 @@ class Linux
             {
                 call_user_func([$item['class'], $item['func']]);
             }
-            else
+            elseif ($item['type'] == 3)
             {
                 $object = new $item['class']();
                 call_user_func([$object, $item['func']]);
+            }
+            else
+            {
+                @pclose(@popen($item['command'], 'r'));
             }
 
         }, false);

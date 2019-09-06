@@ -1,18 +1,5 @@
 <?php
-require 'D:\wwwroot\EasyTask/vendor/autoload.php';
-
-class Tools
-{
-    public function do1()
-    {
-        echo '1122' . PHP_EOL;
-    }
-
-    public function do2()
-    {
-        echo '3344' . PHP_EOL;
-    }
-}
+require '../vendor/autoload.php';
 
 //实例化Task
 $task = new \EasyTask\Task();
@@ -23,10 +10,14 @@ if (!empty($argv['1']))
 {
     if ($argv['1'] == 'start')
     {
-        $task->setDaemon(true);
-        $task->addClass('Tools', 'do1', 'do1', 5, 1)->addFunc(function () {
-            (new Tools())->do2();
-        }, 'do2', 5, 1);
+        //设置常驻内存
+        $task->setDaemon(false);
+
+        //添加闭包函数任务
+        $task->addCommand('php D:\wwwroot\1.php', 'sms', 5, 1);
+        $task->addCommand('php D:\wwwroot\2.php', 'email', 5, 1);
+
+        //启动任务
         $task->start();
     }
     if ($argv['1'] == 'status')
