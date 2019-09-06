@@ -7,8 +7,8 @@
 ## <h4>【一】 环境配置</h4>
 
 <ul>
-    <li>windows：PHP>=5.4(不需要安装线程或进程扩展)</li>  
-    <li>linux|mac：PHP>=5.4，依赖pcntl|posix扩展(一般自带)扩展，推荐PHP7.1以上，异步信号，不依赖ticks</li>  
+    <li>windows：PHP>=5.4（不需要安装线程或进程扩展）</li>  
+    <li>linux|mac：PHP>=5.4（依赖pcntl|posix扩展(一般自带)扩展，推荐PHP7.1以上，异步信号，不依赖ticks）</li>  
 </ul>  
 
 ## <h4>【二】 Composer安装</h4>
@@ -139,8 +139,8 @@ $task->stop();
 <h5>3.8 Task函数说明</h5>
 
 ~~~
-  3.8.1 setDaemon 是否常驻运行(windows不支持)
-  3.8.2 setChdir 是否卸载工作区(windows不支持)
+  3.8.1 setDaemon 是否常驻运行(windows设置常驻内存,需要使用Cmd并且是管理员权限执行)
+  3.8.2 setChdir 是否卸载工作区
   3.8.3 setInOut 是否关闭输入输出
   3.8.4 setPrefix 设置任务进程前缀名称,守护进程的名称就是它
   3.8.5 start 启动定时任务
