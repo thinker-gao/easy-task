@@ -140,11 +140,11 @@ class Linux
         foreach ($this->task->taskList as $item)
         {
             //提取参数
-            $name = $item['alas'];
+            $alas = $item['alas'];
             $time = $item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
-            $pName = "{$this->task->prefix}_{$name}";
+            $alas = "{$this->task->prefix}_{$alas}";
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
@@ -158,7 +158,7 @@ class Linux
                 {
                     //记录进程
                     $ppid = posix_getpid();
-                    $this->processList[] = ['pid' => $pid, 'task_name' => $pName, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
+                    $this->processList[] = ['pid' => $pid, 'task_name' => $alas, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
 
                     //主进程设置非阻塞
                     pcntl_wait($status, WNOHANG);
@@ -166,7 +166,7 @@ class Linux
                 else
                 {
                     //执行定时任务
-                    $this->timer($time, $pName, $item);
+                    $this->timer($time, $alas, $item);
                 }
             }
         }
@@ -176,13 +176,13 @@ class Linux
     /**
      * 进程定时器
      * @param int $time 执行间隔
-     * @param string $pname 进程名称
+     * @param string $alas 进程名称
      * @param array $item 执行项目
      */
-    public function timer($time, $pname, $item)
+    public function timer($time, $alas, $item)
     {
         //设置进程标题
-        @cli_set_process_title($pname);
+        @cli_set_process_title($alas);
 
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {

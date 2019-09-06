@@ -7,8 +7,8 @@
 ## <h4>【一】 环境配置</h4>
 
 <ul>
-    <li>windows：PHP>=5.4，安装pthreads扩展，需要PHP-ZTS(线程安全版)</li>  
-    <li>linux|mac：PHP>=5.4，安装[pcntl|posix](一般自带)扩展，推荐PHP7.1以上，异步信号，不依赖ticks</li>  
+    <li>windows：PHP>=5.4(不需要安装线程或进程扩展)</li>  
+    <li>linux|mac：PHP>=5.4，依赖pcntl|posix扩展(一般自带)扩展，推荐PHP7.1以上，异步信号，不依赖ticks</li>  
 </ul>  
 
 ## <h4>【二】 Composer安装</h4>

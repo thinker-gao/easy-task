@@ -23,10 +23,10 @@ if (!empty($argv['1']))
 {
     if ($argv['1'] == 'start')
     {
-        $task->setDaemon(false);
-        $task->addClass('Tools', 'do1', 'test', 5, 1)->addFunc(function () {
+        $task->setDaemon(true);
+        $task->addClass('Tools', 'do1', 'do1', 5, 1)->addFunc(function () {
             (new Tools())->do2();
-        }, '2', 5, 1);
+        }, 'do2', 5, 1);
         $task->start();
     }
     if ($argv['1'] == 'status')

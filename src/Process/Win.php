@@ -19,12 +19,6 @@ class Win
     private $task;
 
     /**
-     * 进程命令管理
-     * @var ArrayObject
-     */
-    private $commander;
-
-    /**
      * 构造函数
      * @throws
      * @var  $task
@@ -32,7 +26,6 @@ class Win
     public function __construct($task)
     {
         $this->task = $task;
-        $this->commander = new Command();
     }
 
     /**
@@ -45,7 +38,6 @@ class Win
         {
             //执行任务
             $this->invoke($extend);
-
         }
         else
         {
@@ -55,16 +47,23 @@ class Win
     }
 
     /**
-     * 停止运行
-     * @param bool $force 是否强制
+     * 设置进程
      */
-    public function stop($force = false)
+    private function setProcess()
     {
-        $this->commander->send([
-            'type' => 'stop',
-            'force' => $force,
-            'msgType' => 2
-        ]);
+        if ($this->task->umask)
+        {
+            umask(0);
+        }
+        if ($this->task->isChdir)
+        {
+            chdir('/');
+        }
+        if ($this->task->closeInOut)
+        {
+            fclose(STDIN);
+            fclose(STDOUT);
+        }
     }
 
     /**
@@ -73,6 +72,7 @@ class Win
      */
     public function invoke($uniKey)
     {
+        $this->setProcess();
         $tasks = $this->task->taskList;
         if (isset($tasks[$uniKey]))
         {
@@ -85,6 +85,7 @@ class Win
             $alas = $task['alas'];
 
             //设置进程标题
+            $alas = "{$this->task->prefix}_{$alas}";
             @cli_set_process_title($alas);
 
             //循环执行
@@ -107,14 +108,6 @@ class Win
 
                 //CPU休息
                 sleep($time);
-
-                //接收命令
-                $this->waitCommandForExecute(2, function ($command) {
-                    if ($command['type'] == 'stop')
-                    {
-                        exit();
-                    }
-                });
             }
         }
     }
@@ -124,7 +117,7 @@ class Win
      */
     public function allocate()
     {
-        $initCommand = (Helper::getCommandByArgv());
+        $initCommand = (Helper::getEntryCommand());
         foreach ($this->task->taskList as $key => $item)
         {
             //提取参数
@@ -150,22 +143,5 @@ class Win
             }
         }
     }
-
-    /**
-     * 根据命令执行对应操作
-     * @param int $msgType 消息类型
-     * @param Closure $func 执行函数
-     */
-    public function waitCommandForExecute($msgType, $func)
-    {
-        $command = '';
-        $this->commander->receive($msgType, $command);
-        if (!$command)
-        {
-            return;
-        }
-        $func($command);
-    }
-
 }
 

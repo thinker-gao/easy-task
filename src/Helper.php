@@ -1,12 +1,12 @@
 <?php
-
 namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
-use ReflectionClass as ReflectionClass;
-use ReflectionException as ReflectionException;
-use ReflectionMethod as ReflectionMethod;
 
+/**
+ * Class Helper
+ * @package EasyTask
+ */
 class Helper
 {
     /**
@@ -16,14 +16,6 @@ class Helper
     public static function isWin()
     {
         return (DIRECTORY_SEPARATOR == '\\') ? true : false;
-    }
-
-    /**
-     * 获取唯一Key
-     */
-    public static function getTaskUniKey($alas)
-    {
-        return md5($alas);
     }
 
     /**
@@ -37,6 +29,8 @@ class Helper
 
     /**
      * 抛出异常
+     * @param string $errStr 错误信息
+     * @param int $code 错误码
      * @throws
      */
     public static function exception($errStr, $code = 0)
@@ -45,71 +39,32 @@ class Helper
     }
 
     /**
-     * 检查类和方法
-     * @param $class
-     * @param $func
-     * @throws
+     * 获取入口指令
+     * @return string
      */
-    public static function chkClassFunc($class, $func)
+    public static function getEntryCommand()
     {
-        if (!class_exists($class))
-        {
-            throw new \Exception("{$class}类不存在");
-        }
-        try
-        {
-            $reflect = new ReflectionClass($class);
-            if (!$reflect->hasMethod($func))
-            {
-                throw new \Exception("{$class}类的方法{$func}不存在");
-            }
-
-            $method = new ReflectionMethod($class, $func);
-            if (!$method->isPublic())
-            {
-                throw new \Exception("{$class}类的方法{$func}必须是可访问的");
-            }
-        }
-        catch (ReflectionException $exception)
-        {
-            throw new \Exception($exception->getMessage());
-        }
-    }
-
-    /**
-     * 通过argv获取输入指令
-     */
-    public static function getCommandByArgv()
-    {
-        //提取输入指令集合
+        //指令集
         $argv = $_SERVER['argv'];
-        if (!$argv)
-        {
-            return '';
-        }
 
-        //将指令中脚本的真实地址
+        //入口文件
         $argv['0'] = static::getEntryFile();
-        $command = 'php';
-        foreach ($argv as $value)
-        {
-            $command .= " $value";
-        }
+
+        //填充指令
+        $command = 'php ' . join(' ', $argv);
+
+        //返回
         return $command;
     }
 
     /**
      * 获取指令扩展信息
+     * @return string
      */
     public static function getCommandExtend()
     {
         //提取输入指令集合
         $argv = $_SERVER['argv'];
-        if (!$argv)
-        {
-            return '';
-        }
-
         $extend = '';
         foreach ($argv as $item)
         {
@@ -127,15 +82,14 @@ class Helper
 
     /**
      * 获取入口文件
+     * @return string
      */
     public static function getEntryFile()
     {
-        $includes = get_included_files();
-        if (!$includes)
-        {
-            return '';
-        }
+        //已加载文件
+        $files = get_included_files();
 
-        return array_shift($includes);
+        //返回
+        return array_shift($files);
     }
 }
