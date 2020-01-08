@@ -99,6 +99,7 @@ class Win
 
 }
 
+//Window指令集
 $commandData = getopt('a:t:c:');
 if ($commandData)
 {

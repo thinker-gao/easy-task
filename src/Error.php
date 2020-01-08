@@ -7,12 +7,19 @@ use EasyTask\Exception\ErrorException;
 
 class Error
 {
+    /**
+     * Task实例
+     * @var Task
+     */
+    private static $taskInstance;
 
     /**
      * 注册异常处理
+     * @param Task $taskInstance
      */
-    public static function register()
+    public static function register($taskInstance)
     {
+        static::$taskInstance = $taskInstance;
         error_reporting(E_ALL);
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
@@ -42,8 +49,14 @@ class Error
      */
     public static function appException($exception)
     {
-        //上报
+        //上报异常
         static::record($exception);
+
+        //控制台输出
+        if (static::$taskInstance->throwException)
+        {
+            throw $exception;
+        }
     }
 
     /**
@@ -68,7 +81,7 @@ class Error
     public static function format($exception)
     {
         //时间
-        $date = date('Y-m-d H:i:s', time());
+        $date = date('Y/m/d H:i:s', time());
 
         //组装数据
         $data = [
@@ -95,8 +108,10 @@ class Error
      */
     private static function record($exception)
     {
+        //格式化信息
+        $log = static::format($exception);
 
         //记录日志
-        file_put_contents('D:\wwwroot\log.txt', $exception->getMessage() . PHP_EOL);
+        file_put_contents('/tmp/log.txt', $log);
     }
 }

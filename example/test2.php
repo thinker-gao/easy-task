@@ -1,8 +1,12 @@
 <?php
 
-use EasyTask\Helper;
+$time = time();
 
-require 'D:\wwwroot\EasyTask/vendor/autoload.php';
+$data = [];
 
+if($data['a'])
+{
+    file_put_contents('D:\wwwroot\EasyTask\example\2.txt', $time);
+}
 
-var_dump(Helper::getEntryCommand()); ;
+file_put_contents('D:\wwwroot\EasyTask\example\1.txt', $time);

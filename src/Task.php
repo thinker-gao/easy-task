@@ -29,6 +29,18 @@ class Task
     private $isChdir = false;
 
     /**
+     * 是否记录日志
+     * @var bool
+     */
+    private $isWriteLog = false;
+
+    /**
+     * 抛出异常
+     * @var bool
+     */
+    private $throwException = false;
+
+    /**
      * 关闭标准输入输出
      * @var bool
      */
@@ -99,8 +111,8 @@ class Task
     }
 
     /**
-     * 设置守护
-     * @param bool $daemon 是否守护
+     * 设置是否守护进程
+     * @param bool $daemon
      * @return $this
      */
     public function setDaemon($daemon = false)
@@ -111,7 +123,7 @@ class Task
 
     /**
      * 是否清空文件掩码
-     * @param bool $umask 默认不清空
+     * @param bool $umask
      * @return $this
      */
     public function setUmask($umask = false)
@@ -121,8 +133,8 @@ class Task
     }
 
     /**
-     * 卸载工作区
-     * @param bool $isChdir 是否卸载所在工作区
+     * 设置是否卸载所在工作区
+     * @param bool $isChdir
      * @return $this
      */
     public function setChdir($isChdir = false)
@@ -150,6 +162,19 @@ class Task
     public function setPrefix($prefix = '')
     {
         $this->prefix = $prefix;
+        return $this;
+    }
+
+    /**
+     * 设置是否记录日志
+     * @param bool $setWriteLog 是否记录异常日志
+     * @param bool $throwException 是否将异常输出到终端
+     * @return $this
+     */
+    public function setWriteLog($setWriteLog = false, $throwException = true)
+    {
+        $this->isWriteLog = $setWriteLog;
+        $this->throwException = $throwException;
         return $this;
     }
 
@@ -272,6 +297,7 @@ class Task
         }
         else
         {
+            var_dump(12);
             return (new Linux($this));
         }
     }
@@ -286,6 +312,13 @@ class Task
         {
             return;
         }
+
+        //异常注册
+        if ($this->isWriteLog)
+        {
+            Error::register($this);
+        }
+        //进程启动
         ($this->getProcess())->start();
     }
 
