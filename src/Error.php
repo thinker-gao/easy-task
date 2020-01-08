@@ -2,8 +2,7 @@
 
 namespace EasyTask;
 
-use EasyTask\Exception\Log;
-use EasyTask\Exception\ErrorException;
+use \Exception as Exception;
 
 class Error
 {
@@ -37,7 +36,7 @@ class Error
      */
     public static function appError($errno, $errStr, $errFile, $errLine)
     {
-        $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
+        $exception = new Exception($errno, $errStr, $errFile, $errLine);
 
         //记录
         static::record($exception);
@@ -68,14 +67,14 @@ class Error
         //存在错误
         if (($error = error_get_last()) != null)
         {
-            $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
+            $exception = new Exception($error['type'], $error['message'], $error['file'], $error['line']);
             self::appException($exception);
         }
     }
 
     /**
      * 异常信息格式化
-     * @param ErrorException $exception
+     * @param Exception $exception
      * @return string
      */
     public static function format($exception)
@@ -95,7 +94,7 @@ class Error
         $tempStr = '';
         foreach ($data as $key => $value)
         {
-            $tempStr .= "--[{$key}]：{$value}" . PHP_EOL;
+            $tempStr .= "['{$key}']：{$value}" . PHP_EOL;
         }
 
         //返回
@@ -104,7 +103,7 @@ class Error
 
     /**
      * 异常信息记录
-     * @param ErrorException $exception
+     * @param \Exception $exception
      */
     private static function record($exception)
     {
