@@ -297,7 +297,6 @@ class Task
         }
         else
         {
-            var_dump(12);
             return (new Linux($this));
         }
     }
@@ -336,7 +335,7 @@ class Task
     }
 
     /**
-     * 停止运行
+     * 停止运行(未支持单个PID,后续支持)
      * @param bool $force 是否强制
      * @throws
      */
