@@ -2,7 +2,7 @@
 
 namespace EasyTask;
 
-use \Exception as Exception;
+use EasyTask\Exception\ErrorException;
 
 class Error
 {
@@ -36,23 +36,33 @@ class Error
      */
     public static function appError($errno, $errStr, $errFile, $errLine)
     {
-        $exception = new Exception($errno, $errStr, $errFile, $errLine);
+        //组装异常
+        $type = 'appError';
+        $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
-        //记录
-        static::record($exception);
+        //上报异常
+        static::writeRecord($type, $exception);
+
+        //控制台输出
+        if ((static::$taskInstance)->throwException)
+        {
+            static::showError($type, $exception);
+        }
     }
 
     /**
      * appException
      * @param mixed $exception (Exception|Throwable)
+     * @throws
      */
     public static function appException($exception)
     {
         //上报异常
-        static::record($exception);
+        $type = 'appException';
+        static::writeRecord($type, $exception);
 
-        //控制台输出
-        if (static::$taskInstance->throwException)
+        //控制台抛出(根据需要,异常开发者必须处理)
+        if ((static::$taskInstance)->throwException)
         {
             throw $exception;
         }
@@ -65,52 +75,54 @@ class Error
     public static function appShutdown()
     {
         //存在错误
+        $type = 'appShutdown';
         if (($error = error_get_last()) != null)
         {
-            $exception = new Exception($error['type'], $error['message'], $error['file'], $error['line']);
-            self::appException($exception);
+            $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
+            static::writeRecord($type, $exception);
         }
     }
 
     /**
      * 异常信息格式化
-     * @param Exception $exception
+     * @param string $type
+     * @param ErrorException $exception
      * @return string
      */
-    public static function format($exception)
+    public static function format($type, $exception)
     {
         //时间
         $date = date('Y/m/d H:i:s', time());
 
-        //组装数据
-        $data = [
-            'errStr' => $exception->getMessage(),
-            'errFile' => $exception->getFile(),
-            'errLine' => $exception->getLine()
-        ];
-
-        //组装字符串
-        $errStr = "[{$date}]" . PHP_EOL . '%s' . PHP_EOL;
-        $tempStr = '';
-        foreach ($data as $key => $value)
-        {
-            $tempStr .= "['{$key}']：{$value}" . PHP_EOL;
-        }
-
-        //返回
-        return sprintf($errStr, $tempStr);
+        //组装文本
+        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
     }
 
     /**
-     * 异常信息记录
-     * @param \Exception $exception
+     * 记录异常
+     * @param string $type
+     * @param ErrorException $exception
      */
-    private static function record($exception)
+    private static function writeRecord($type, $exception)
     {
         //格式化信息
-        $log = static::format($exception);
+        $log = static::format($type, $exception);
 
-        //记录日志
+        //记录信息
         file_put_contents('/tmp/log.txt', $log);
+    }
+
+    /***
+     *  输出异常
+     * @param string $type
+     * @param ErrorException $exception
+     */
+    public static function showError($type, $exception)
+    {
+        //格式化信息
+        $text = static::format($type, $exception);
+
+        //输出信息
+        echo $text;
     }
 }

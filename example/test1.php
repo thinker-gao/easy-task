@@ -17,7 +17,7 @@ $task->addFunc(function () {
 
 }, 'test', 10, 1);
 
-$task->setDaemon(true);
-$task->setInOut(true);
+$task->setDaemon(false);
+//$task->setInOut(true);
 
 $task->start();
