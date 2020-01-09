@@ -162,7 +162,7 @@ class Linux
             //提取参数
             $alas = $item['alas'];
             $time = $item['time'];
-            $date = date('Y-m-d H:i:s');
+            $date = date('H:i:s');
             $used = $item['used'];
             $alas = "{$this->task->prefix}_{$alas}";
 
@@ -257,11 +257,11 @@ class Linux
             $this->WaitCommandForExecute(1, function ($report) {
                 if ($report['type'] == 'status')
                 {
-                    Console::showTable($report['status']);
+                    Helper::showTable($report['status']);
                 }
                 if ($report['type'] == 'allocate')
                 {
-                    Console::showTable($report['allocate']);
+                    Helper::showTable($report['allocate']);
                 }
             });
         }

@@ -96,4 +96,32 @@ class Helper
         }
         echo $text;
     }
+
+    /**
+     * 控制台输出表格
+     * @param array $data 输出数据
+     * @param boolean $exit 输出后是否退出
+     */
+    public static function showTable($data, $exit = true)
+    {
+        //提取表头
+        $header = array_keys($data['0']);
+
+        //组装数据
+        foreach ($data as $key => $row)
+        {
+            $data[$key] = array_values($row);
+        }
+
+        //输出表格
+        $table = new Table();
+        $table->setHeader($header);
+        $table->setStyle('box');
+        $table->setRows($data);
+        if ($exit)
+        {
+            exit($table->render());
+        }
+        echo($table->render());
+    }
 }
