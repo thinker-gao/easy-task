@@ -95,9 +95,7 @@ class Error
         $log = Helper::formatException($exception, $type);
 
         //设置日志文件
-        $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
-        $prefix = static::$taskInstance->prefix . '_log_' . date('Ymd');
-        $file = sprintf($file, $prefix);
+        $file = Helper::getFormatLogFilePath(static::$taskInstance->prefix);
 
         //记录信息
         file_put_contents($file, $log, FILE_APPEND);

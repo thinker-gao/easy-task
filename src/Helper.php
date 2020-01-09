@@ -19,6 +19,18 @@ class Helper
     }
 
     /**
+     * 获取日志文件名格式
+     * @param string $prefix 前缀名称
+     * @return string
+     */
+    public static function getFormatLogFilePath($prefix)
+    {
+        $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
+        $format = $prefix . '_log_' . date('Ymd');
+        return printf($file, $format);
+    }
+
+    /**
      * 是否支持异步信号
      * @return bool
      */
