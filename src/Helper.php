@@ -28,13 +28,72 @@ class Helper
     }
 
     /**
-     * 抛出异常(统一格式todo())
+     * 格式化异常信息
+     * @param ErrorException $exception
+     * @param string $type
+     * @return string
+     */
+    public static function formatException($exception, $type = 'system')
+    {
+        //时间
+        $date = date('Y/m/d H:i:s', time());
+
+        //组装文本
+        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
+    }
+
+    /**
+     * 格式化异常信息
+     * @param string $message
+     * @param string $type
+     * @return string
+     */
+    public static function formatError($message, $type = 'system')
+    {
+        //时间
+        $date = date('Y/m/d H:i:s', time());
+
+        //组装文本
+        return $date . ' [' . $type . '] : ' . $message . PHP_EOL;
+    }
+
+    /**
+     * 输出错误
      * @param string $errStr 错误信息
-     * @param int $code 错误码
+     * @param string $type
+     * @param bool $isExit
      * @throws
      */
-    public static function exception($errStr, $code = 0)
+    public static function showError($errStr, $type = 'warring', $isExit = true)
     {
-        throw new ErrorException($errStr, $code);
+        //格式化信息
+        $text = static::formatError($errStr, $type);
+
+        //输出信息
+        if ($isExit)
+        {
+            exit($text);
+        }
+        echo $text;
+    }
+
+    /**
+     * 输出错误
+     * @param mixed $exception 异常信息
+     * @param string $type
+     * @param bool $isExit
+     * @throws
+     */
+    public static function showException($exception, $type = 'warring', $isExit = true)
+    {
+        //格式化信息
+        $text = static::formatException($exception, $type);
+
+        //输出信息
+        if ($isExit)
+        {
+            exit($text);
+        }
+        echo $text;
     }
 }

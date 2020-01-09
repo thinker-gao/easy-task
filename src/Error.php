@@ -84,21 +84,6 @@ class Error
     }
 
     /**
-     * 异常信息格式化
-     * @param string $type
-     * @param ErrorException $exception
-     * @return string
-     */
-    public static function format($type, $exception)
-    {
-        //时间
-        $date = date('Y/m/d H:i:s', time());
-
-        //组装文本
-        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
-    }
-
-    /**
      * 记录异常
      * @param string $type
      * @param ErrorException $exception
@@ -106,7 +91,7 @@ class Error
     private static function writeRecord($type, $exception)
     {
         //格式化信息
-        $log = static::format($type, $exception);
+        $log = Helper::formatException($exception, $type);
 
         //记录信息
         file_put_contents('/tmp/log.txt', $log);
@@ -120,7 +105,7 @@ class Error
     public static function showError($type, $exception)
     {
         //格式化信息
-        $text = static::format($type, $exception);
+        $text = Helper::formatException($exception, $type);
 
         //输出信息
         echo $text;

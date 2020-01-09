@@ -6,7 +6,6 @@ require '../vendor/autoload.php';
 $task = new \EasyTask\Task();
 
 $task->setWriteLog(true, true);
-
 $task->addFunc(function () {
 
     $data = [];

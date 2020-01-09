@@ -75,11 +75,14 @@ class Task
      */
     public function __construct()
     {
-        //检查异步支持
-        $this->canAsync = $this->canAsync();
-
         //获取运行平台
         $this->currentOs = $this->currentOs();
+
+        //检查运行环境
+        Check::analysis($this->currentOs);
+
+        //检查异步支持
+        $this->canAsync = $this->canAsync();
     }
 
     /**
@@ -191,11 +194,11 @@ class Task
     {
         if ($this->currentOs == 1)
         {
-            Helper::exception('windows is not support this api');
+            Helper::showError('windows is not support addFunc api');
         }
         if (!($func instanceof Closure))
         {
-            Helper::exception('func must instanceof Closure');
+            Helper::showError('func must instanceof Closure');
         }
 
         $alas = $alas ? $alas : uniqid();
@@ -225,23 +228,23 @@ class Task
     {
         if ($this->currentOs == 1)
         {
-            Helper::exception('windows is not support this api');
+            Helper::showError('windows is not support addClass api');
         }
         if (!class_exists($class))
         {
-            Helper::exception("class {$class} is not exist");
+            Helper::showError("class {$class} is not exist");
         }
         try
         {
             $reflect = new ReflectionClass($class);
             if (!$reflect->hasMethod($func))
             {
-                Helper::exception("class {$class}'s func {$func} is not exist");
+                Helper::showError("class {$class}'s func {$func} is not exist");
             }
             $method = new ReflectionMethod($class, $func);
             if (!$method->isPublic())
             {
-                Helper::exception("class {$class}'s func {$func} must public");
+                Helper::showError("class {$class}'s func {$func} must public");
             }
             $alas = $alas ? $alas : uniqid();
             $uniKey = md5($alas);
@@ -256,7 +259,7 @@ class Task
         }
         catch (ReflectionException $exception)
         {
-            Helper::exception($exception->getMessage());
+            Helper::showException($exception);
         }
 
         return $this;
@@ -329,21 +332,21 @@ class Task
     {
         if ($this->currentOs == 1)
         {
-            Helper::exception('windows is not support this api');
+            Helper::showError('windows is not support status api');
         }
         ($this->getProcess())->status();
     }
 
     /**
-     * 停止运行(未支持单个PID,后续支持)
+     * 停止运行
      * @param bool $force 是否强制
      * @throws
      */
-    public function stop($force)
+    public function stop($force = false)
     {
         if ($this->currentOs == 1)
         {
-            Helper::exception('windows is not support this api');
+            Helper::showError('windows is not support stop api');
         }
         ($this->getProcess())->stop($force);
     }

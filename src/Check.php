@@ -3,7 +3,6 @@ namespace EasyTask;
 
 /**
  * 环境检查
- * @package EasyTask
  */
 class Check
 {
@@ -12,9 +11,15 @@ class Check
      */
     private static $waitExtends = [
         //Win
-        '1' => [],
+        '1' => [
+            'json',
+        ],
         //Linux
-        '2' => []
+        '2' => [
+            'json',
+            'pcntl',
+            'posix',
+        ]
     ];
 
     /**
@@ -23,9 +28,18 @@ class Check
      */
     private static $waitFunctions = [
         //Win
-        '1' => [],
+        '1' => [
+            'popen1',
+            'pclose',
+            'umask',
+        ],
         //Linux
-        '2' => []
+        '2' => [
+            'umask',
+            'chdir',
+            'popen',
+            'pclose',
+        ]
     ];
 
     /**
@@ -41,7 +55,7 @@ class Check
         {
             if (!extension_loaded($extend))
             {
-                Helper::exception("$extend extend is not loaded");
+                Helper::showError("$extend extend is not load");
             }
         }
         //检查函数
@@ -50,7 +64,7 @@ class Check
         {
             if (!function_exists($func))
             {
-                Helper::exception("$func function is not exists");
+                Helper::showError("$func function is disabled");
             }
         }
     }
