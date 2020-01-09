@@ -25,6 +25,12 @@ class Linux
     private $sleepTime;
 
     /**
+     * 进程启动时间
+     * @var int
+     */
+    private $startTime;
+
+    /**
      * 进程命令管理
      * @var ArrayObject
      */
@@ -44,6 +50,7 @@ class Linux
     public function __construct($task)
     {
         $this->task = $task;
+        $this->startTime = time();
         if (!$task->canAsync)
         {
             $this->sleepTime = 1;
@@ -62,6 +69,7 @@ class Linux
      */
     public function start()
     {
+        //初始配置
         if ($this->task->daemon)
         {
             $this->daemon();
@@ -79,6 +87,14 @@ class Linux
             fclose(STDIN);
             fclose(STDOUT);
         }
+
+        //发送命令,关闭重复进程
+        $this->commander->send([
+            'type' => 'start',
+            'msgType' => 2
+        ]);
+
+        //分配进程
         $this->allocate();
     }
 
@@ -87,10 +103,13 @@ class Linux
      */
     public function status()
     {
+        //发送查询命令
         $this->commander->send([
             'type' => 'status',
             'msgType' => 2
         ]);
+
+        //等待返回结果
         $this->initWaitExit();
     }
 
@@ -100,6 +119,7 @@ class Linux
      */
     public function stop($force = false)
     {
+        //发送关闭命令
         $this->commander->send([
             'type' => 'stop',
             'force' => $force,
@@ -227,7 +247,7 @@ class Linux
      */
     private function initWaitExit()
     {
-        $i = 10;
+        $i = 5;
         while ($i--)
         {
             //CPU休息1秒
@@ -277,6 +297,16 @@ class Linux
 
             //接收命令
             $this->waitCommandForExecute(2, function ($command) {
+                //监听启动命令
+                if ($command['type'] == 'start')
+                {
+                    if ($command['time'] > $this->startTime)
+                    {
+                        posix_kill(0, SIGTERM) && exit();
+                    }
+                }
+
+                //监听查询命令
                 if ($command['type'] == 'status')
                 {
                     $this->processStatus();
@@ -286,6 +316,8 @@ class Linux
                         'status' => $this->processList,
                     ]);
                 }
+
+                //监听停止命令
                 if ($command['type'] == 'stop')
                 {
                     $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
