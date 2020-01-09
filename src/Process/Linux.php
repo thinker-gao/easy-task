@@ -116,7 +116,7 @@ class Linux
         $pid = pcntl_fork();
         if ($pid < 0)
         {
-            Helper::exception("fork process failed");
+            Helper::showError("fork process failed");
         }
         elseif ($pid)
         {
@@ -127,7 +127,7 @@ class Linux
             $sid = posix_setsid();
             if ($sid < 0)
             {
-                Helper::exception("set processForInit failed");
+                Helper::showError("set processForInit failed");
             }
         }
     }
