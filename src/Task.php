@@ -147,13 +147,13 @@ class Task
     }
 
     /**
-     * 设置关闭标准输入输出
-     * @param bool $closeInOut
+     * 关闭标准输入输出
+     * @param bool $isClose
      * @return $this
      */
-    public function setInOut($closeInOut = false)
+    public function setCloseInOut($isClose = false)
     {
-        $this->closeInOut = $closeInOut;
+        $this->closeInOut = $isClose;
         return $this;
     }
 

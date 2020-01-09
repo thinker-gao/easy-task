@@ -3,6 +3,7 @@ namespace EasyTask;
 
 /**
  * 环境检查
+ * @package EasyTask
  */
 class Check
 {
