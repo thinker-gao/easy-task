@@ -14,7 +14,7 @@ $task->setWriteLog(true, true);
 $task->setDaemon(true);
 
 //关闭标准输入输出(关闭后程序运行时任何输出不会显示到终端)
-$task->setCloseInOut(true);
+$task->setCloseInOut(false);
 
 //设置文件掩码
 $task->setUmask(0);
@@ -26,5 +26,9 @@ $task->setChdir(true);
 $task->addFunc(function () {
     file_put_contents('./1.txt', time());
 }, 'task1', 10, 1);
+
+//启动全部定时任务
+$task->start();
+
 
 
