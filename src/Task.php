@@ -56,7 +56,7 @@ class Task
      * 任务前缀(作为进程名称前缀)
      * @var string
      */
-    private $prefix = 'EasyTask';
+    private $prefix = 'Task';
 
     /**
      * 当前Os平台

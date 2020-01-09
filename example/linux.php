@@ -22,10 +22,28 @@ $task->setUmask(0);
 //设置文件工作目录
 $task->setChdir(true);
 
-//添加定时任务
+//添加定时任务(通过闭包方式)
 $task->addFunc(function () {
-    file_put_contents('./1.txt', time());
-}, 'task1', 10, 1);
+    //开1个进程,每隔10秒执行1次
+    file_put_contents('/mnt/d/wwwroot/EasyTask/example/sendSms.txt', time());
+    $a++;
+    //var_dump(1).PHP_EOL;
+}, 'sendSms', 5, 1);
+
+
+//添加定时任务(通过类和方法的方式)
+class Mail
+{
+    public function send()
+    {
+        //开2个进程,每隔30秒执行1次
+        file_put_contents('/mnt/d/wwwroot/EasyTask/example/sendMail.txt', time());
+
+        //var_dump(2).PHP_EOL;
+    }
+}
+
+$task->addClass('Mail', 'send', 'sendMail', 5, 2);
 
 //启动全部定时任务
 $task->start();

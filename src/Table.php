@@ -99,7 +99,7 @@ class Table
      * @param int $align 对齐方式 默认1 ALGIN_LEFT 0 ALIGN_RIGHT 2 ALIGN_CENTER
      * @return void
      */
-    public function setHeader(array $header, $align = self::ALIGN_LEFT)
+    public function setHeader($header, $align = self::ALIGN_LEFT)
     {
         $this->header = $header;
         $this->headerAlign = $align;
@@ -114,7 +114,7 @@ class Table
      * @param int $align 对齐方式 默认1 ALGIN_LEFT 0 ALIGN_RIGHT 2 ALIGN_CENTER
      * @return void
      */
-    public function setRows(array $rows, $align = self::ALIGN_LEFT)
+    public function setRows($rows, $align = self::ALIGN_LEFT)
     {
         $this->rows = $rows;
         $this->cellAlign = $align;

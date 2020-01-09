@@ -61,11 +61,8 @@ class Error
         $type = 'appException';
         static::writeRecord($type, $exception);
 
-        //控制台抛出(根据需要,异常开发者必须处理)
-        if ((static::$taskInstance)->throwException)
-        {
-            throw $exception;
-        }
+        //控制台抛出异常
+        if ((static::$taskInstance)->throwException) throw $exception;
     }
 
     /**
@@ -80,6 +77,9 @@ class Error
         {
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
             static::writeRecord($type, $exception);
+
+            //控制台抛出异常
+            if ((static::$taskInstance)->throwException) throw $exception;
         }
     }
 
@@ -87,14 +87,20 @@ class Error
      * 记录异常
      * @param string $type
      * @param ErrorException $exception
+     * @throws
      */
     private static function writeRecord($type, $exception)
     {
         //格式化信息
         $log = Helper::formatException($exception, $type);
 
+        //设置日志文件
+        $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
+        $prefix = static::$taskInstance->prefix . '_log_' . date('Ymd');
+        $file = sprintf($file, $prefix);
+
         //记录信息
-        file_put_contents('/tmp/log.txt', $log);
+        file_put_contents($file, $log, FILE_APPEND);
     }
 
     /***

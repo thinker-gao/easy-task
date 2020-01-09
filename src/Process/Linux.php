@@ -190,6 +190,7 @@ class Linux
                 }
             }
         }
+
         $this->daemonWait();
     }
 
