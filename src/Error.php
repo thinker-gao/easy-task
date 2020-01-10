@@ -44,7 +44,7 @@ class Error
         static::writeRecord($type, $exception);
 
         //控制台输出
-        if ((static::$taskInstance)->throwException)
+        if ((static::$taskInstance)->isThrowExcept)
         {
             static::showError($type, $exception);
         }
@@ -62,12 +62,13 @@ class Error
         static::writeRecord($type, $exception);
 
         //控制台抛出异常
-        if ((static::$taskInstance)->throwException) throw $exception;
+        if ((static::$taskInstance)->isThrowExcept) throw $exception;
     }
 
     /**
      * appShutdown
      * (Fatal Error|Parse Error)
+     * @throws
      */
     public static function appShutdown()
     {
@@ -79,7 +80,7 @@ class Error
             static::writeRecord($type, $exception);
 
             //控制台抛出异常
-            if ((static::$taskInstance)->throwException) throw $exception;
+            if ((static::$taskInstance)->isThrowExcept) throw $exception;
         }
     }
 

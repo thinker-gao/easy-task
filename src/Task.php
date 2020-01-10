@@ -23,12 +23,6 @@ class Task
     private $umask = false;
 
     /**
-     * 是否卸载工作区
-     * @var bool
-     */
-    private $isChdir = false;
-
-    /**
      * 是否记录日志
      * @var bool
      */
@@ -38,7 +32,7 @@ class Task
      * 抛出异常
      * @var bool
      */
-    private $throwException = false;
+    private $isThrowExcept = false;
 
     /**
      * 关闭标准输入输出
@@ -75,32 +69,18 @@ class Task
      */
     public function __construct()
     {
-        //获取运行平台
-        $this->currentOs = $this->currentOs();
+        //初始化
+        $this->initialise();
+    }
 
-        //检查运行环境
+    /**
+     * 进程初始化
+     */
+    private function initialise()
+    {
+        $this->currentOs = Helper::isWin() ? 1 : 2;
         Check::analysis($this->currentOs);
-
-        //检查异步支持
-        $this->canAsync = $this->canAsync();
-    }
-
-    /**
-     * 获取当前运行平台
-     * @return int
-     */
-    private function currentOs()
-    {
-        return Helper::isWin() ? 1 : 2;
-    }
-
-    /**
-     * 检查是否支持异步
-     * @return bool
-     */
-    private function canAsync()
-    {
-        return Helper::canAsyncSignal();
+        $this->canAsync = Helper::canAsyncSignal();
     }
 
     /**
@@ -136,17 +116,6 @@ class Task
     }
 
     /**
-     * 设置是否卸载所在工作区
-     * @param bool $isChdir
-     * @return $this
-     */
-    public function setChdir($isChdir = false)
-    {
-        $this->isChdir = $isChdir;
-        return $this;
-    }
-
-    /**
      * 关闭标准输入输出
      * @param bool $isClose
      * @return $this
@@ -177,7 +146,7 @@ class Task
     public function setWriteLog($setWriteLog = false, $throwException = true)
     {
         $this->isWriteLog = $setWriteLog;
-        $this->throwException = $throwException;
+        $this->isThrowExcept = $throwException;
         return $this;
     }
 
@@ -320,6 +289,7 @@ class Task
         {
             Error::register($this);
         }
+
         //进程启动
         ($this->getProcess())->start();
     }

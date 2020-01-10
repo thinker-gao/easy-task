@@ -1,24 +1,16 @@
 {
-  "name": "easy-task/easy-task",
-  "description": "easy-task",
-  "keywords": [
-    "easy-task"
-  ],
-  "type": "library",
-  "license": "Apache-2.0",
   "require": {
-    "php": ">=5.4",
-    "ext-json": "*"
+    "jonnyw/php-phantomjs": "4.*"
   },
-  "autoload": {
-    "psr-4": {
-      "EasyTask\\": "src/"
-    }
+  "scripts": {
+    "post-install-cmd": [
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ],
+    "post-update-cmd": [
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ]
   },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
-    }
+  "config": {
+    "bin-dir": "bin"
   }
 }

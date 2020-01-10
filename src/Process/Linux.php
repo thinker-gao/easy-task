@@ -78,10 +78,6 @@ class Linux
         {
             umask(0);
         }
-        if ($this->task->isChdir)
-        {
-            chdir('/');
-        }
         if ($this->task->closeInOut)
         {
             fclose(STDIN);

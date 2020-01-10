@@ -2,21 +2,6 @@
 
 require '../vendor/autoload.php';
 
-//实例化Task
-$task = new \EasyTask\Task();
+chdir('D:/');
 
-$task->setWriteLog(true, true);
-$task->addFunc(function () {
-
-    $data = [];
-    if($data['a'])
-    {
-        echo time() . PHP_EOL;
-    }
-
-}, 'test', 10, 1);
-
-$task->setDaemon(false);
-//$task->setInOut(true);
-
-$task->start();
+var_dump(getcwd());
