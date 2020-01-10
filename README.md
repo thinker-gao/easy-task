@@ -1,4 +1,4 @@
-﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器★★★  <h4>(QQ交流群60973229，如果对您有帮助，start it)</h4></h3>
+﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器★★★  <h4>(QQ交流群60973229，如果对您有帮助，can you start it？)</h4></h3>
 ===============
 
 > 运行环境：windows | linux | macos 
