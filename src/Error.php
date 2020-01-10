@@ -42,12 +42,6 @@ class Error
 
         //上报异常
         static::writeRecord($type, $exception);
-
-        //控制台输出
-        if ((static::$taskInstance)->isThrowExcept)
-        {
-            static::showError($type, $exception);
-        }
     }
 
     /**

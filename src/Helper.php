@@ -27,7 +27,7 @@ class Helper
     {
         $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
         $format = $prefix . '_log_' . date('Ymd');
-        return printf($file, $format);
+        return sprintf($file, $format);
     }
 
     /**
@@ -51,7 +51,7 @@ class Helper
         $date = date('Y/m/d H:i:s', time());
 
         //组装文本
-        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
+        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
     }
 
     /**
