@@ -19,9 +19,6 @@ $task->setCloseInOut(true);
 //设置文件掩码
 $task->setUmask(0);
 
-//设置文件工作目录
-$task->setChdir(true);
-
 //添加定时任务(通过闭包方式)
 $task->addFunc(function () {
     //开1个进程,每隔10秒执行1次
@@ -44,6 +41,9 @@ class Mail
 }
 
 $task->addClass('Mail', 'send', 'sendMail', 5, 2);
+
+$command = 'php /www/web/orderAutoCancel.php';
+$task->addCommand($command,'orderCancel',10,1);
 
 //启动全部定时任务
 $task->start();

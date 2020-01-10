@@ -30,7 +30,7 @@ class Check
     private static $waitFunctions = [
         //Win
         '1' => [
-            'popen1',
+            'popen',
             'pclose',
             'umask',
         ],

@@ -44,10 +44,11 @@ class Win
         foreach ($this->task->taskList as $key => $item)
         {
             //提取参数
+            $alas = $item['alas'];
             $type = $item['type'];
             $used = $item['used'];
-            $alas = $item['alas'];
             $time = $item['time'];
+            $alas = "{$this->task->prefix}_{$alas}";
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)

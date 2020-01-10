@@ -158,7 +158,7 @@ class Linux
             //提取参数
             $alas = $item['alas'];
             $time = $item['time'];
-            $date = date('H:i:s');
+            $date = date('Y-m-d H:i:s');
             $used = $item['used'];
             $alas = "{$this->task->prefix}_{$alas}";
 
