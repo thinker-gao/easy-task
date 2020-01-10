@@ -1,10 +1,6 @@
 <?php
 namespace EasyTask;
 
-/**
- * 环境检查
- * @package EasyTask
- */
 class Check
 {
     /**
@@ -46,7 +42,6 @@ class Check
     /**
      *  分析环境是否支持
      * @param int $currentOs 输出数据
-     * @throws
      */
     public static function analysis($currentOs)
     {

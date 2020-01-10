@@ -1,11 +1,6 @@
 <?php
 namespace EasyTask;
 
-/**
- * 进程通信
- * Class Command
- * @package EasyTask
- */
 class Command
 {
     /**

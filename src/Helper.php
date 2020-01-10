@@ -3,10 +3,6 @@ namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
 
-/**
- * Class Helper
- * @package EasyTask
- */
 class Helper
 {
     /**
