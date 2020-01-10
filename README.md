@@ -134,10 +134,10 @@ else
 <h5>3.5 手工Linux命令管理</h5>
 
 ~~~
-  3.5.1查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
-  3.5.2关闭单个任务:kill pid  (例如上面的第一个任务进行id是32,执行kill 32)
-  3.5.3关闭全部任务:kill ppid (例如上面的ppid是31,执行kill 31)
-  提示:请不要直接kill -9 ppid,否则其他子进程成为孤儿进程
+3.5.1查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
+3.5.2关闭单个任务:kill pid  (例如上面的第一个任务进行id是32,执行kill 32)
+3.5.3关闭全部任务:kill ppid (例如上面的ppid是31,执行kill 31)
+提示:请不要直接kill -9 ppid,否则其他子进程成为孤儿进程
 ~~~
 
 <h5>3.6 Windows特别说明</h5>
