@@ -107,10 +107,10 @@ else
     exit('This is command is not exists:' . $command . PHP_EOL);
 }
 
-//启动命令: php this.php start
-//查询命令: php this.php status
-//关闭命令: php this.php stop
-//强制命令: php this.php stop -f
+启动命令: php this.php start
+查询命令: php this.php status
+关闭命令: php this.php stop
+强制关闭命令: php this.php stop -f
 ~~~
 
 <h5>3.4 认识启动后表格输出信息</h5>
@@ -123,12 +123,12 @@ else
 │ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10s   │ active │ 31   │
 └─────┴──────────────┴─────────────────────┴───────┴────────┴──────┘
 参数说明:
-    pid:当前定时任务的进程id
-    task_name:您为您的定时任务起的别名
-    started:定时任务启动时间
-    timer:定时任务执行间隔时间
-    status:定时任务状态
-    ppid:管理当前定时任务的守护进程id
+pid:当前定时任务的进程id
+task_name:您为您的定时任务起的别名
+started:定时任务启动时间
+timer:定时任务执行间隔时间
+status:定时任务状态
+ppid:管理当前定时任务的守护进程id
 ~~~
 
 <h5>3.5 手工Linux命令管理</h5>
