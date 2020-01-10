@@ -143,10 +143,7 @@ else
 <h5>3.6 Windows特别说明</h5>
 
 ~~~
-3.6.1 windows支持的函数:
-    setPrefix(),
-    addCommand(),
-    start(), 
+3.6.1 windows支持的函数:setPrefix(),addCommand(),start(), 
 3.6.2 windows必须使用cmd管理员权限执行
 3.6.3 windows不可保证稳定性,排查跟踪困难
 ~~~
