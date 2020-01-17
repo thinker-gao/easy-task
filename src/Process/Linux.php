@@ -151,13 +151,13 @@ class Linux
     /**
      * 分配进程处理任务
      */
-    public function allocate()
+    private function allocate()
     {
         foreach ($this->task->taskList as $item)
         {
             //提取参数
             $alas = $item['alas'];
-            $time = $item['time'];
+            $time = (int)$item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
             $alas = "{$this->task->prefix}_{$alas}";
@@ -181,8 +181,8 @@ class Linux
                 }
                 else
                 {
-                    //执行定时任务
-                    $this->timer($time, $alas, $item);
+                    //执行任务
+                    $time == 0 ? $this->invoker($alas, $item) : $this->timer($time, $alas, $item);
                 }
             }
         }
@@ -191,12 +191,12 @@ class Linux
     }
 
     /**
-     * 进程定时器
+     * 进程定时器(用于定时执行)
      * @param int $time 执行间隔
      * @param string $alas 进程名称
      * @param array $item 执行项目
      */
-    public function timer($time, $alas, $item)
+    private function timer($time, $alas, $item)
     {
         //设置进程标题
         @cli_set_process_title($alas);
@@ -222,7 +222,6 @@ class Linux
             {
                 @pclose(@popen($item['command'], 'r'));
             }
-
         }, false);
 
         //发送闹钟信号
@@ -237,6 +236,40 @@ class Linux
             //同步模式(调用信号处理)
             if (!$this->task->canAsync) pcntl_signal_dispatch();
         }
+    }
+
+    /**
+     * 进程执行器(用于直接执行)
+     * @param string $alas 进程名称
+     * @param array $item 执行项目
+     */
+    private function invoker($alas, $item)
+    {
+        //设置进程标题
+        @cli_set_process_title($alas);
+
+        //执行程序
+        if ($item['type'] == 1)
+        {
+            $func = $item['func'];
+            $func();
+        }
+        elseif ($item['type'] == 2)
+        {
+            call_user_func([$item['class'], $item['func']]);
+        }
+        elseif ($item['type'] == 3)
+        {
+            $object = new $item['class']();
+            call_user_func([$object, $item['func']]);
+        }
+        else
+        {
+            @pclose(@popen($item['command'], 'r'));
+        }
+
+        //进程退出
+        exit();
     }
 
     /**
@@ -330,7 +363,7 @@ class Linux
     /**
      * 查看进程状态
      */
-    public function processStatus()
+    private function processStatus()
     {
         foreach ($this->processList as $key => $item)
         {
@@ -351,7 +384,7 @@ class Linux
      * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
      */
-    public function waitCommandForExecute($msgType, $func)
+    private function waitCommandForExecute($msgType, $func)
     {
         $command = '';
         $this->commander->receive($msgType, $command);
