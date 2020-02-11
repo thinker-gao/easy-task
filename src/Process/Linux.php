@@ -2,7 +2,9 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
-use EasyTask\Console;
+use \Event as Event;
+use \EventConfig as EventConfig;
+use \EventBase as EventBase;
 use \ArrayObject as ArrayObject;
 use EasyTask\Helper;
 
@@ -157,7 +159,7 @@ class Linux
         {
             //提取参数
             $alas = $item['alas'];
-            $time = (int)$item['time'];
+            $time = $item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
             $alas = "{$this->task->prefix}_{$alas}";
@@ -182,7 +184,7 @@ class Linux
                 else
                 {
                     //执行任务
-                    $time == 0 ? $this->invoker($alas, $item) : $this->timer($time, $alas, $item);
+                    $this->invoker($time, $alas, $item);
                 }
             }
         }
@@ -191,12 +193,68 @@ class Linux
     }
 
     /**
-     * 进程定时器(用于定时执行)
+     * 执行器
      * @param int $time 执行间隔
      * @param string $alas 进程名称
      * @param array $item 执行项目
      */
-    private function timer($time, $alas, $item)
+    private function invoker($time, $alas, $item)
+    {
+        if ($time == 0)
+        {
+            $this->invokerByDirect($alas, $item);
+        }
+        if (!$this->task->canEvent)
+        {
+            $this->invokeByAlarm($time, $alas, $item);
+        }
+        else
+        {
+            $this->invokeByEvent($time, $alas, $item);
+        }
+    }
+
+    /**
+     * 普通执行(执行完成,直接退出)
+     * @param string $alas 进程名称
+     * @param array $item 执行项目
+     */
+    private function invokerByDirect($alas, $item)
+    {
+        //设置进程标题
+        @cli_set_process_title($alas);
+
+        //执行程序
+        if ($item['type'] == 1)
+        {
+            $func = $item['func'];
+            $func();
+        }
+        elseif ($item['type'] == 2)
+        {
+            call_user_func([$item['class'], $item['func']]);
+        }
+        elseif ($item['type'] == 3)
+        {
+            $object = new $item['class']();
+            call_user_func([$object, $item['func']]);
+        }
+        else
+        {
+            @pclose(@popen($item['command'], 'r'));
+        }
+
+        //进程退出
+        exit();
+    }
+
+    /**
+     * 通过闹钟信号执行
+     * @param int $time 执行间隔
+     * @param string $alas 进程名称
+     * @param array $item 执行项目
+     */
+    private function invokeByAlarm($time, $alas, $item)
     {
         //设置进程标题
         @cli_set_process_title($alas);
@@ -239,37 +297,45 @@ class Linux
     }
 
     /**
-     * 进程执行器(用于直接执行)
+     * 通过Event事件执行
+     * @param int $time 执行间隔
      * @param string $alas 进程名称
      * @param array $item 执行项目
      */
-    private function invoker($alas, $item)
+    private function invokeByEvent($time, $alas, $item)
     {
         //设置进程标题
         @cli_set_process_title($alas);
 
-        //执行程序
-        if ($item['type'] == 1)
-        {
-            $func = $item['func'];
-            $func();
-        }
-        elseif ($item['type'] == 2)
-        {
-            call_user_func([$item['class'], $item['func']]);
-        }
-        elseif ($item['type'] == 3)
-        {
-            $object = new $item['class']();
-            call_user_func([$object, $item['func']]);
-        }
-        else
-        {
-            @pclose(@popen($item['command'], 'r'));
-        }
+        //创建Event事件
+        $eventConfig = new EventConfig();
+        $eventBase = new EventBase($eventConfig);
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
+            if ($item['type'] == 1)
+            {
+                $func = $item['func'];
+                $func();
+            }
+            elseif ($item['type'] == 2)
+            {
+                call_user_func([$item['class'], $item['func']]);
+            }
+            elseif ($item['type'] == 3)
+            {
+                $object = new $item['class']();
+                call_user_func([$object, $item['func']]);
+            }
+            else
+            {
+                @pclose(@popen($item['command'], 'r'));
+            }
+        });
 
-        //进程退出
-        exit();
+        //添加事件
+        $event->add($time);
+
+        //事件循环
+        $eventBase->loop();
     }
 
     /**

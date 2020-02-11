@@ -47,6 +47,12 @@ class Task
     private $canAsync = false;
 
     /**
+     * 是否支持event事件
+     * @var bool
+     */
+    private $canEvent = false;
+
+    /**
      * 任务前缀(作为进程名称前缀)
      * @var string
      */
@@ -80,6 +86,7 @@ class Task
     {
         $this->currentOs = Helper::isWin() ? 1 : 2;
         Check::analysis($this->currentOs);
+        $this->canEvent = Helper::canEvent();
         $this->canAsync = Helper::canAsyncSignal();
     }
 

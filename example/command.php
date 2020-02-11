@@ -11,12 +11,12 @@ $isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获
 
 //配置定时任务
 $task = new Task();
-$task->setDaemon(true)
-    ->setCloseInOut(true)
+$task->setDaemon(false)
+    ->setCloseInOut(false)
     ->setWriteLog(false, true)
     ->addFunc(function () {
-            $a=1;
-    }, 'request', 0, 1);
+            echo '1122'.PHP_EOL;
+    }, 'request', 10, 1);
 
 //根据命令执行
 if ($command == 'start')

@@ -104,7 +104,7 @@ elseif ($command == 'stop')
 }
 else
 {
-    exit('This is command is not exists:' . $command . PHP_EOL);
+    exit('This command is not exists:' . $command . PHP_EOL);
 }
 
 启动命令: php this.php start

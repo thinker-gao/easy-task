@@ -36,6 +36,15 @@ class Helper
     }
 
     /**
+     * 是否支持event事件
+     * @return bool
+     */
+    public static function canEvent()
+    {
+        return (extension_loaded('event'));
+    }
+
+    /**
      * 格式化异常信息
      * @param ErrorException $exception
      * @param string $type
