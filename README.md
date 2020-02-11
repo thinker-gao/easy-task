@@ -8,7 +8,7 @@
 
 <ul>
     <li>windows：PHP>=5.4</li>  
-    <li>linux|mac：PHP>=5.4（依赖pcntl和posix扩展，一般默认已安装，推荐PHP7.1以上，支持异步信号，不依赖ticks）</li>  
+    <li>linux|mac：PHP>=5.4（依赖pcntl和posix扩展,一般默认已安装;推荐安装event扩展,性能更高,非硬性要求）</li>  
 </ul>  
 
 ## <h4>【二】 Composer安装</h4>
