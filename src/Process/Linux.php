@@ -21,12 +21,6 @@ class Linux
     private $task;
 
     /**
-     * 进程休息时间
-     * @var int
-     */
-    private $sleepTime;
-
-    /**
      * 进程启动时间
      * @var int
      */
@@ -53,17 +47,11 @@ class Linux
     {
         $this->task = $task;
         $this->startTime = time();
-        if (!$task->canAsync)
+        $this->commander = new Command();
+        if (!$task->canEvent && $task->canAsync)
         {
-            $this->sleepTime = 1;
-        }
-        else
-        {
-            $this->sleepTime = 100;
             pcntl_async_signals(true);
         }
-
-        $this->commander = new Command();
     }
 
     /**
@@ -289,7 +277,7 @@ class Linux
         while (true)
         {
             //CPU休息
-            sleep($this->sleepTime);
+            sleep(1);
 
             //同步模式(调用信号处理)
             if (!$this->task->canAsync) pcntl_signal_dispatch();
