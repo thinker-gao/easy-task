@@ -23,7 +23,7 @@ $task = new Task();
 $task->setDaemon(false)
     ->setCloseInOut(false)
     ->setWriteLog(false, true)
-    ->addClass('Mail', 'send', 'req', 0.1, 1);
+    ->addClass('Mail', 'send', 'req', 1, 1);
 
 //根据命令执行
 if ($command == 'start')
