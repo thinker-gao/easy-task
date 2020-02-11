@@ -41,7 +41,7 @@ class Helper
      */
     public static function canEvent()
     {
-        return (!extension_loaded('event'));
+        return (extension_loaded('event'));
     }
 
     /**
