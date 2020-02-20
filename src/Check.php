@@ -10,6 +10,7 @@ class Check
         //Win
         '1' => [
             'json',
+            'pthreads',
         ],
         //Linux
         '2' => [

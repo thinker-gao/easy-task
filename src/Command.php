@@ -98,4 +98,19 @@ class Command
         }
         $this->set($data);
     }
+
+    /**
+     * 根据命令执行对应操作
+     * @param int $msgType 消息类型
+     * @param \Closure $func 执行函数
+     */
+    public function waitCommandForExecute($msgType, $func)
+    {
+        $command = '';
+        $this->receive($msgType, $command);
+        if ($command && !empty($command['time']) && (time() - $command['time']) <= 5)
+        {
+            $func($command);
+        }
+    }
 }

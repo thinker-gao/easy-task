@@ -2,6 +2,7 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
+use EasyTask\Env;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -28,9 +29,15 @@ class Linux
 
     /**
      * 进程命令管理
-     * @var ArrayObject
+     * @var array
      */
     private $commander;
+
+    /**
+     * 任务列表
+     * @var array
+     */
+    private $taskList;
 
     /**
      * 进程执行记录
@@ -41,14 +48,14 @@ class Linux
     /**
      * 构造函数
      * @throws
-     * @var  $task
+     * @var array $taskList
      */
-    public function __construct($task)
+    public function __construct($taskList)
     {
-        $this->task = $task;
+        $this->taskList = $taskList;
         $this->startTime = time();
         $this->commander = new Command();
-        if (!$task->canEvent && $task->canAsync)
+        if (!Env::get('canEvent') && Env::get('canAsync'))
         {
             pcntl_async_signals(true);
         }
@@ -60,15 +67,15 @@ class Linux
     public function start()
     {
         //初始配置
-        if ($this->task->daemon)
+        if (Env::get('daemon'))
         {
             $this->daemon();
         }
-        if ($this->task->umask)
+        if (Env::get('umask'))
         {
             umask(0);
         }
-        if ($this->task->closeInOut)
+        if (Env::get('closeInOut'))
         {
             fclose(STDIN);
             fclose(STDOUT);
@@ -143,14 +150,15 @@ class Linux
      */
     private function allocate()
     {
-        foreach ($this->task->taskList as $item)
+        foreach ($this->taskList as $item)
         {
             //提取参数
             $alas = $item['alas'];
             $time = $item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
-            $alas = "{$this->task->prefix}_{$alas}";
+            $prefix = Env::get('prefix');
+            $alas = "{$prefix}_{$alas}";
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
@@ -192,7 +200,7 @@ class Linux
         {
             $this->invokerByDirect($alas, $item);
         }
-        if (!$this->task->canEvent)
+        if (!Env::get('canEvent'))
         {
             $this->invokeByAlarm($time, $alas, $item);
         }
@@ -213,7 +221,7 @@ class Linux
         @cli_set_process_title($alas);
 
         //执行程序
-        $this->execUserCode($item);
+        $this->execute($item);
 
         //进程退出
         exit();
@@ -233,7 +241,7 @@ class Linux
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {
             pcntl_alarm($time);
-            $this->execUserCode($item);
+            $this->execute($item);
         }, false);
 
         //发送闹钟信号
@@ -246,7 +254,7 @@ class Linux
             sleep(1);
 
             //同步模式(调用信号处理)
-            if (!$this->task->canAsync) pcntl_signal_dispatch();
+            if (!Env::get('canAsync')) pcntl_signal_dispatch();
         }
     }
 
@@ -264,7 +272,7 @@ class Linux
         //创建Event事件
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
-        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST,$this->execUserCode($item));
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, $this->execute($item));
 
         //添加事件
         $event->add($time);
@@ -274,28 +282,27 @@ class Linux
     }
 
     /**
-     * 执行用户代码
+     * 执行任务代码
      * @param array $item 执行项目
      */
-    private function execUserCode($item)
+    private function execute($item)
     {
-        if ($item['type'] == 1)
+        $type = $item['type'];
+        switch ($type)
         {
-            $func = $item['func'];
-            $func();
-        }
-        elseif ($item['type'] == 2)
-        {
-            call_user_func([$item['class'], $item['func']]);
-        }
-        elseif ($item['type'] == 3)
-        {
-            $object = new $item['class']();
-            call_user_func([$object, $item['func']]);
-        }
-        else
-        {
-            @pclose(@popen($item['command'], 'r'));
+            case 1:
+                $func = $item['func'];
+                $func();
+                break;
+            case 2:
+                call_user_func([$item['class'], $item['func']]);
+                break;
+            case 3:
+                $object = new $item['class']();
+                call_user_func([$object, $item['func']]);
+                break;
+            default:
+                @pclose(@popen($item['command'], 'r'));
         }
     }
 
@@ -311,7 +318,7 @@ class Linux
             sleep(1);
 
             //接收汇报
-            $this->WaitCommandForExecute(1, function ($report) {
+            $this->commander->waitCommandForExecute(1, function ($report) {
                 if ($report['type'] == 'status')
                 {
                     Helper::showTable($report['status']);
@@ -331,7 +338,7 @@ class Linux
     private function daemonWait()
     {
         //守护进程设置进程名
-        @cli_set_process_title($this->task->prefix);
+        @cli_set_process_title(Env::get('prefix'));
 
         //任务汇报Init进程
         $this->commander->send([
@@ -353,7 +360,7 @@ class Linux
             sleep(1);
 
             //接收命令
-            $this->waitCommandForExecute(2, function ($command) {
+            $this->commander->waitCommandForExecute(2, function ($command) {
                 //监听启动命令
                 if ($command['type'] == 'start')
                 {
@@ -383,7 +390,7 @@ class Linux
             });
 
             //调用信号处理
-            if (!$this->task->canAsync) pcntl_signal_dispatch();
+            if (!Env::get('canAsync')) pcntl_signal_dispatch();
         }
     }
 
@@ -404,21 +411,5 @@ class Linux
                 $this->processList[$key]['status'] = 'stop';
             }
         }
-    }
-
-    /**
-     * 根据命令执行对应操作
-     * @param int $msgType 消息类型
-     * @param \Closure $func 执行函数
-     */
-    private function waitCommandForExecute($msgType, $func)
-    {
-        $command = '';
-        $this->commander->receive($msgType, $command);
-        if (!$command || (!empty($command['time']) && (time() - $command['time']) > 5))
-        {
-            return;
-        }
-        $func($command);
     }
 }

@@ -1,31 +1,28 @@
 <?php
-require '../vendor/autoload.php';
+require 'D:/wwwroot/EasyTask/vendor/autoload.php';
 
 use \EasyTask\Task;
+
+//获取命令行输入参数
+$cliArgv = $_SERVER['argv'];
+$command = empty($cliArgv['1']) ? '' : $cliArgv['1'];  //获取输入的是start,status,stop中的哪一个
+$isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获取是否要强制停止
 
 
 //实例化Task
 $task = new Task();
 
 //设置记录日志,当日志存在异常影响代码执行时抛出到外部
-$task->setWriteLog(true, true);
+$task->setWriteLog(true, false);
 
 //设置运行时常驻内存
 $task->setDaemon(true);
 
 //关闭标准输入输出(关闭后程序运行时任何输出不会显示到终端)
-$task->setCloseInOut(true);
+$task->setCloseInOut(false);
 
 //设置文件掩码
 $task->setUmask(0);
-
-//添加定时任务(通过闭包方式)
-$task->addFunc(function () {
-    //开1个进程,每隔10秒执行1次
-    file_put_contents('/mnt/d/wwwroot/EasyTask/example/sendSms.txt', time());
-    $a++;
-    //var_dump(1).PHP_EOL;
-}, 'sendSms', 5, 1);
 
 
 //添加定时任务(通过类和方法的方式)
@@ -33,20 +30,30 @@ class Mail
 {
     public function send()
     {
-        //开2个进程,每隔30秒执行1次
-        file_put_contents('/mnt/d/wwwroot/EasyTask/example/sendMail.txt', time());
-
-        //var_dump(2).PHP_EOL;
+        file_get_contents('https://www.gaojiufeng.cn/?id=292');
     }
 }
 
-$task->addClass('Mail', 'send', 'sendMail', 5, 2);
+$task->addClass('Mail', 'send', 'curl', 25, 10);
 
-$command = 'php /www/web/orderAutoCancel.php';
-$task->addCommand($command,'orderCancel',10,1);
+//$task->addCommand('php D:/wwwroot/EasyTask/example/b.php ');
 
-//启动全部定时任务
-$task->start();
-
+//根据命令执行
+if ($command == 'start')
+{
+    $task->start();
+}
+elseif ($command == 'status')
+{
+    $task->status();
+}
+elseif ($command == 'stop')
+{
+    $task->stop($isForce);
+}
+else
+{
+    exit('This is command is not exists:' . $command . PHP_EOL);
+}
 
 

@@ -4,21 +4,17 @@ namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
 
+/**
+ * Class Error
+ * @package EasyTask
+ */
 class Error
 {
     /**
-     * Task实例
-     * @var Task
-     */
-    private static $taskInstance;
-
-    /**
      * 注册异常处理
-     * @param Task $taskInstance
      */
-    public static function register($taskInstance)
+    public static function register()
     {
-        static::$taskInstance = $taskInstance;
         error_reporting(E_ALL);
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
@@ -55,8 +51,10 @@ class Error
         $type = 'appException';
         static::writeRecord($type, $exception);
 
+
         //控制台抛出异常
-        if ((static::$taskInstance)->isThrowExcept) throw $exception;
+        $isThrowExcept = Env::get('isThrowExcept');
+        if ($isThrowExcept) throw $exception;
     }
 
     /**
@@ -74,7 +72,8 @@ class Error
             static::writeRecord($type, $exception);
 
             //控制台抛出异常
-            if ((static::$taskInstance)->isThrowExcept) throw $exception;
+            $isThrowExcept = Env::get('isThrowExcept');
+            if ($isThrowExcept) throw $exception;
         }
     }
 
@@ -90,7 +89,8 @@ class Error
         $log = Helper::formatException($exception, $type);
 
         //设置日志文件
-        $file = Helper::getFormatLogFilePath(static::$taskInstance->prefix);
+        $prefix = Env::get('prefix');
+        $file = Helper::getFormatLogFilePath($prefix);
 
         //记录信息
         file_put_contents($file, $log, FILE_APPEND);
