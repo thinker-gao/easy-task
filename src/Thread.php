@@ -94,7 +94,8 @@ class Thread extends \Thread
         //异常注册
         if (!$this->isRegError)
         {
-            //Error::register();
+            Error::register();
+
             $this->isRegError = true;
         }
 

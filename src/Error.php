@@ -2,6 +2,8 @@
 
 namespace EasyTask;
 
+use EasyTask\Exception\ErrorException;
+
 /**
  * Class Error
  * @package EasyTask
@@ -32,7 +34,7 @@ class Error
     {
         //组装异常
         $type = 'appError';
-        $exception = new Exception\ErrorException($errno, $errStr, $errFile, $errLine);
+        $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
         //日志记录
         Log::write($type, $exception);

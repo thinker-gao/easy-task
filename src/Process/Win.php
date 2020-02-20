@@ -5,6 +5,7 @@ use EasyTask\Command;
 use \ArrayObject as ArrayObject;
 use EasyTask\Env;
 use EasyTask\Error;
+use EasyTask\Exception\ErrorException;
 use EasyTask\Helper;
 use EasyTask\Thread;
 
@@ -136,12 +137,8 @@ class Win
             ];
         }
 
-        file_put_contents('D:\wwwroot\1.txt', '1');
-
         //汇报执行情况
         Helper::showTable($this->threadStatus(), false);
-
-
     }
 
     /**

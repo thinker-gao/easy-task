@@ -1,5 +1,5 @@
 <?php
-require 'D:/wwwroot/EasyTask/vendor/autoload.php';
+include 'D:/wwwroot/EasyTask/vendor/autoload.php';
 
 use \EasyTask\Task;
 
@@ -7,8 +7,6 @@ use \EasyTask\Task;
 $cliArgv = $_SERVER['argv'];
 $command = empty($cliArgv['1']) ? '' : $cliArgv['1'];  //获取输入的是start,status,stop中的哪一个
 $isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获取是否要强制停止
-
-
 
 //实例化Task
 $task = new Task();
