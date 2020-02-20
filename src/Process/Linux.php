@@ -3,6 +3,7 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
+use EasyTask\Error;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -15,12 +16,6 @@ use EasyTask\Helper;
  */
 class Linux
 {
-    /**
-     * Task实例
-     * @var $task
-     */
-    private $task;
-
     /**
      * 进程启动时间
      * @var int
@@ -66,22 +61,19 @@ class Linux
      */
     public function start()
     {
-        //初始配置
+        //进程守护
         if (Env::get('daemon'))
         {
             $this->daemon();
         }
-        if (Env::get('umask'))
+
+        //异常注册
+        if (Env::get('isWriteLog'))
         {
-            umask(0);
-        }
-        if (Env::get('closeInOut'))
-        {
-            fclose(STDIN);
-            fclose(STDOUT);
+            Error::register();
         }
 
-        //发送命令,关闭重复进程
+        //发送命令(关闭重复进程)
         $this->commander->send([
             'type' => 'start',
             'msgType' => 2
@@ -122,7 +114,6 @@ class Linux
 
     /**
      * 守护进程
-     * @throws
      */
     private function daemon()
     {
@@ -166,7 +157,7 @@ class Linux
                 $pid = pcntl_fork();
                 if ($pid == -1)
                 {
-                    exit();
+                    exit;
                 }
                 elseif ($pid)
                 {
@@ -224,7 +215,7 @@ class Linux
         $this->execute($item);
 
         //进程退出
-        exit();
+        exit;
     }
 
     /**
@@ -329,7 +320,7 @@ class Linux
                 }
             });
         }
-        exit();
+        exit;
     }
 
     /**
@@ -350,7 +341,7 @@ class Linux
         //监听Kill命令
         pcntl_signal(SIGTERM, function () {
             posix_kill(0, SIGTERM);
-            exit();
+            exit;
         });
 
         //挂起进程

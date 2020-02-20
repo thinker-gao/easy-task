@@ -8,6 +8,10 @@ use \ReflectionClass as ReflectionClass;
 use \ReflectionMethod as ReflectionMethod;
 use \ReflectionException as ReflectionException;
 
+/**
+ * Class Task
+ * @package EasyTask
+ */
 class Task
 {
     /**
@@ -51,28 +55,6 @@ class Task
     }
 
     /**
-     * 是否清空文件掩码
-     * @param bool $umask
-     * @return $this
-     */
-    public function setUmask($umask = false)
-    {
-        Env::set('umask', $umask);
-        return $this;
-    }
-
-    /**
-     * 关闭标准输入输出
-     * @param bool $isClose
-     * @return $this
-     */
-    public function setCloseInOut($isClose = false)
-    {
-        Env::set('closeInOut', $isClose);
-        return $this;
-    }
-
-    /**
      * 设置任务前缀
      * @param string $prefix
      * @return $this
@@ -85,14 +67,42 @@ class Task
 
     /**
      * 设置是否记录日志
-     * @param bool $setWriteLog 是否记录异常日志
-     * @param bool $throwException 是否将异常输出到终端
+     * @param bool $isWrite 是否记录日志
      * @return $this
      */
-    public function setWriteLog($setWriteLog = false, $throwException = true)
+    public function setIsWriteLog($isWrite = false)
     {
-        Env::set('isWriteLog', $setWriteLog);
-        Env::set('isThrowExcept', $throwException);
+        Env::set('isWriteLog', $isWrite);
+        return $this;
+    }
+
+    /**
+     * 设置异常是否抛出终端
+     * @param bool $isThrow
+     * @return $this
+     */
+    public function setThrowExcept($isThrow = true)
+    {
+        Env::set('isThrowExcept', $isThrow);
+        return $this;
+    }
+
+    /**
+     * 设置日志保存目录
+     * @param $path
+     * @return $this
+     */
+    public function setWriteLogPath($path)
+    {
+        if (!is_dir($path))
+        {
+            Helper::showError("the path {$path} is not exist");
+        }
+        if (!is_writable($path))
+        {
+            Helper::showError("the path {$path} is not writeable");
+        }
+        Env::set('writeLogPath', $path);
         return $this;
     }
 
@@ -224,12 +234,7 @@ class Task
             return;
         }
 
-        //异常注册
-        $isWriteLog = Env::get('isWriteLog');
-        if ($isWriteLog)
-        {
-            Error::register();
-        }
+        Error::register();
 
         //进程启动
         ($this->getProcess())->start();

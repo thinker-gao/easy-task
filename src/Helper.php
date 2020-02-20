@@ -3,6 +3,10 @@ namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
 
+/**
+ * Class Helper
+ * @package EasyTask
+ */
 class Helper
 {
     /**
@@ -15,15 +19,12 @@ class Helper
     }
 
     /**
-     * 获取日志文件名格式
-     * @param string $prefix 前缀名称
+     * 获取平台临时目录
      * @return string
      */
-    public static function getFormatLogFilePath($prefix)
+    public static function getOsTempPath()
     {
-        $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
-        $format = $prefix . '_log_' . date('Ymd');
-        return sprintf($file, $format);
+        return Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
     }
 
     /**
@@ -52,11 +53,13 @@ class Helper
      */
     public static function formatException($exception, $type = 'system')
     {
+        var_dump(7373);
         //时间
         $date = date('Y/m/d H:i:s', time());
 
         //组装文本
-        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
+        $a= $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
+        var_dump($a);die();
     }
 
     /**
@@ -95,7 +98,7 @@ class Helper
     }
 
     /**
-     * 输出错误
+     * 输出异常
      * @param mixed $exception 异常信息
      * @param string $type
      * @param bool $isExit

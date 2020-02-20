@@ -20,22 +20,19 @@ class Thread extends \Thread
     private $creatorId;
 
     /**
+     * 是否注册异常
+     * @var bool
+     */
+    private $isRegError;
+
+    /**
      * 构造函数
      * @var $item
      */
     public function __construct($item)
     {
         $this->item = $item;
-    }
-
-    /**
-     * 设置运行中的任务
-     * @param $key
-     * @param $value
-     */
-    public function setItem($key, $value)
-    {
-        $this->item[$key] = $value;
+        $this->isRegError = false;
     }
 
     /**
@@ -48,10 +45,10 @@ class Thread extends \Thread
     }
 
     /**
-     * 获取执行当前线程的线程Id
+     * 获取当前线程的父Id
      * @return int
      */
-    public function getCurrentId()
+    public function getThreadPid()
     {
         return parent::getCurrentThreadId();
     }
@@ -85,7 +82,7 @@ class Thread extends \Thread
                 call_user_func([$object, $item['func']]);
                 break;
             default:
-                @pclose(@popen1($item['command'], 'r'));
+                @pclose(@popen($item['command'], 'r'));
         }
     }
 
@@ -94,6 +91,13 @@ class Thread extends \Thread
      */
     public function run()
     {
+        //异常注册
+        if (!$this->isRegError)
+        {
+            //Error::register();
+            $this->isRegError = true;
+        }
+
         //记录线程ID
         $this->creatorId = Thread::getCurrentThreadId();
 

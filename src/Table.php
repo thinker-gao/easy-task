@@ -2,6 +2,10 @@
 
 namespace EasyTask;
 
+/**
+ * Class Table
+ * @package EasyTask
+ */
 class Table
 {
     const ALIGN_LEFT = 1;

@@ -30,6 +30,8 @@ class Check
             'popen',
             'pclose',
             'umask',
+            'putenv',
+            'getenv'
         ],
         //Linux
         '2' => [
@@ -37,6 +39,8 @@ class Check
             'chdir',
             'popen',
             'pclose',
+            'putenv',
+            'getenv'
         ]
     ];
 

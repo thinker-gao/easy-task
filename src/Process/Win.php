@@ -4,6 +4,7 @@ namespace EasyTask\Process;
 use EasyTask\Command;
 use \ArrayObject as ArrayObject;
 use EasyTask\Env;
+use EasyTask\Error;
 use EasyTask\Helper;
 use EasyTask\Thread;
 
@@ -54,18 +55,7 @@ class Win
      */
     public function start()
     {
-        //初始配置
-        if (Env::get('umask'))
-        {
-            umask(0);
-        }
-        if (Env::get('closeInOut'))
-        {
-            fclose(STDIN);
-            fclose(STDOUT);
-        }
-
-        //发送命令,关闭重复线程
+        //发送命令(关闭重复进程)
         $this->commander->send([
             'type' => 'start',
             'msgType' => 2
@@ -75,10 +65,7 @@ class Win
         $this->allocate();
 
         //主进程守护
-        if (Env::get('daemon'))
-        {
-            $this->daemonWait();
-        }
+        if (Env::get('daemon')) $this->daemonWait();
     }
 
     /**
@@ -144,13 +131,17 @@ class Win
                 'task_name' => $pName,
                 'started' => $date,
                 'timer' => $time . 's',
-                'ttid' => $pool->getCurrentId(),
+                'ttid' => $pool->getThreadPid(),
                 'object' => $pool,
             ];
         }
 
+        file_put_contents('D:\wwwroot\1.txt', '1');
+
         //汇报执行情况
         Helper::showTable($this->threadStatus(), false);
+
+
     }
 
     /**
@@ -196,6 +187,7 @@ class Win
                 }
             });
         }
+        var_dump(111);
     }
 
     /**
@@ -217,7 +209,7 @@ class Win
                 }
             });
         }
-        exit();
+        exit;
     }
 
     /**
@@ -240,7 +232,6 @@ class Win
             unset($item['object']);
             $report[] = $item;
         }
-
         return $report;
     }
 }
