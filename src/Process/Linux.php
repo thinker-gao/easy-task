@@ -209,28 +209,11 @@ class Linux
      */
     private function invokerByDirect($alas, $item)
     {
-        //设置进程标题
+        //进程标题
         @cli_set_process_title($alas);
 
         //执行程序
-        if ($item['type'] == 1)
-        {
-            $func = $item['func'];
-            $func();
-        }
-        elseif ($item['type'] == 2)
-        {
-            call_user_func([$item['class'], $item['func']]);
-        }
-        elseif ($item['type'] == 3)
-        {
-            $object = new $item['class']();
-            call_user_func([$object, $item['func']]);
-        }
-        else
-        {
-            @pclose(@popen($item['command'], 'r'));
-        }
+        $this->execUserCode($item);
 
         //进程退出
         exit();
@@ -244,30 +227,13 @@ class Linux
      */
     private function invokeByAlarm($time, $alas, $item)
     {
-        //设置进程标题
+        //进程标题
         @cli_set_process_title($alas);
 
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {
             pcntl_alarm($time);
-            if ($item['type'] == 1)
-            {
-                $func = $item['func'];
-                $func();
-            }
-            elseif ($item['type'] == 2)
-            {
-                call_user_func([$item['class'], $item['func']]);
-            }
-            elseif ($item['type'] == 3)
-            {
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-            }
-            else
-            {
-                @pclose(@popen($item['command'], 'r'));
-            }
+            $this->execUserCode($item);
         }, false);
 
         //发送闹钟信号
@@ -292,38 +258,45 @@ class Linux
      */
     private function invokeByEvent($time, $alas, $item)
     {
-        //设置进程标题
+        //进程标题
         @cli_set_process_title($alas);
 
         //创建Event事件
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
-        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
-            if ($item['type'] == 1)
-            {
-                $func = $item['func'];
-                $func();
-            }
-            elseif ($item['type'] == 2)
-            {
-                call_user_func([$item['class'], $item['func']]);
-            }
-            elseif ($item['type'] == 3)
-            {
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-            }
-            else
-            {
-                @pclose(@popen($item['command'], 'r'));
-            }
-        });
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST,$this->execUserCode($item));
 
         //添加事件
         $event->add($time);
 
         //事件循环
         $eventBase->loop();
+    }
+
+    /**
+     * 执行用户代码
+     * @param array $item 执行项目
+     */
+    private function execUserCode($item)
+    {
+        if ($item['type'] == 1)
+        {
+            $func = $item['func'];
+            $func();
+        }
+        elseif ($item['type'] == 2)
+        {
+            call_user_func([$item['class'], $item['func']]);
+        }
+        elseif ($item['type'] == 3)
+        {
+            $object = new $item['class']();
+            call_user_func([$object, $item['func']]);
+        }
+        else
+        {
+            @pclose(@popen($item['command'], 'r'));
+        }
     }
 
     /**
@@ -428,7 +401,7 @@ class Linux
             $rel = pcntl_waitpid($pid, $status, WNOHANG);
             if ($rel == -1 || $rel > 0)
             {
-                $this->processList[$key]['status'] = 'stoped';
+                $this->processList[$key]['status'] = 'stop';
             }
         }
     }
