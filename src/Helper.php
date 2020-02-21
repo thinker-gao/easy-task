@@ -106,27 +106,6 @@ class Helper
     }
 
     /**
-     * 获取Server环境变量
-     * @return array
-     */
-    public static function getWin32ServerPath()
-    {
-        if (isset($_SERVER['PATH']))
-        {
-            return $_SERVER['PATH'];
-        }
-        if (isset($_SERVER['Path']))
-        {
-            return $_SERVER['Path'];
-        }
-        if (!empty(getenv('PATH')))
-        {
-            return getenv('PATH');
-        }
-        return [];
-    }
-
-    /**
      * 是否支持异步信号
      * @return bool
      */

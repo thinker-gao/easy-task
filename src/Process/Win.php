@@ -17,6 +17,7 @@ use EasyTask\Win32;
 class Win
 {
     /**
+     * win32服务
      * @var Win32
      */
     private $win32;

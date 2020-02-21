@@ -1,6 +1,10 @@
 <?php
 namespace EasyTask;
 
+/**
+ * Class Command
+ * @package EasyTask
+ */
 class Command
 {
     /**

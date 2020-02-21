@@ -67,12 +67,6 @@ class Linux
             $this->daemon();
         }
 
-        //异常注册
-        if (Env::get('isWriteLog'))
-        {
-            Error::register();
-        }
-
         //发送命令(关闭重复进程)
         $this->commander->send([
             'type' => 'start',
@@ -94,8 +88,8 @@ class Linux
             'msgType' => 2
         ]);
 
-        //等待返回结果
-        $this->initWaitExit();
+        //master等待返回结果
+        $this->masterWaitExit();
     }
 
     /**
@@ -176,6 +170,7 @@ class Linux
             }
         }
 
+        //常驻守护
         $this->daemonWait();
     }
 
@@ -208,9 +203,6 @@ class Linux
      */
     private function invokerByDirect($alas, $item)
     {
-        //进程标题
-        @cli_set_process_title($alas);
-
         //执行程序
         $this->execute($item);
 
@@ -226,9 +218,6 @@ class Linux
      */
     private function invokeByAlarm($time, $alas, $item)
     {
-        //进程标题
-        @cli_set_process_title($alas);
-
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {
             pcntl_alarm($time);
@@ -257,9 +246,6 @@ class Linux
      */
     private function invokeByEvent($time, $alas, $item)
     {
-        //进程标题
-        @cli_set_process_title($alas);
-
         //创建Event事件
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
@@ -278,6 +264,7 @@ class Linux
      */
     private function execute($item)
     {
+        @cli_set_process_title($item['alas']);
         $type = $item['type'];
         switch ($type)
         {
@@ -298,9 +285,9 @@ class Linux
     }
 
     /**
-     * init进程等待结束退出
+     * master进程等待结束退出
      */
-    private function initWaitExit()
+    private function masterWaitExit()
     {
         $i = 5;
         while ($i--)

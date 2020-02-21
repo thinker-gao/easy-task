@@ -1,6 +1,10 @@
 <?php
 namespace EasyTask\Exception;
 
+/**
+ * Class ErrorException
+ * @package EasyTask\Exception
+ */
 class ErrorException extends \Exception
 {
     /**
