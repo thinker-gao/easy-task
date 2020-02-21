@@ -163,7 +163,7 @@ class Linux
                 {
                     //记录进程
                     $ppid = posix_getpid();
-                    $this->processList[] = ['pid' => $pid, 'task_name' => $alas, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
+                    $this->processList[] = ['pid' => $pid, 'name' => $alas, 'started' => $date, 'timer' => $time, 'status' => 'active', 'ppid' => $ppid,];
 
                     //主进程设置非阻塞
                     pcntl_wait($status, WNOHANG);

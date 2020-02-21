@@ -12,21 +12,23 @@ $isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获
 $task = new Task();
 
 //设置记录日志,当日志存在异常影响代码执行时抛出到外部
-$task->setIsWriteLog(true);
+$task->setIsWriteLog(false);
 
 $task->setThrowExcept(true);
 
+//$task->setPhpPath('D:\php-7.0.32-Win32-VC14-x64\1.exe');
+
 //设置运行时常驻内存
-$task->setDaemon(true);
+$task->setDaemon(false);
 
 //添加含税
 $task->addFunc(function () {
 
     $da = [];
     $da['1'] = 1;
-    if($da['b'])
+    if($da['1'])
     {
-        //echo '1133' . PHP_EOL;
+        echo '1133' . PHP_EOL;
     }
 
     //echo '1122' . PHP_EOL;

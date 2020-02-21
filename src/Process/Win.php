@@ -8,6 +8,7 @@ use EasyTask\Error;
 use EasyTask\Exception\ErrorException;
 use EasyTask\Helper;
 use EasyTask\Thread;
+use EasyTask\Win32;
 
 /**
  * Class Win
@@ -15,6 +16,11 @@ use EasyTask\Thread;
  */
 class Win
 {
+    /**
+     * @var Win32
+     */
+    private $win32;
+
     /**
      * 进程启动时间
      * @var int
@@ -34,18 +40,13 @@ class Win
     private $taskList;
 
     /**
-     * 线程执行记录
-     * @var array
-     */
-    private $threadList = [];
-
-    /**
      * 构造函数
      * @throws
      * @var array  taskList
      */
     public function __construct($taskList)
     {
+        $this->win32 = new Win32();
         $this->taskList = $taskList;
         $this->startTime = time();
         $this->commander = new Command();
@@ -56,17 +57,92 @@ class Win
      */
     public function start()
     {
-        //发送命令(关闭重复进程)
-        $this->commander->send([
-            'type' => 'start',
-            'msgType' => 2
-        ]);
+        //注册进程
+        $this->regProcessName();
 
-        //分配进程
-        $this->allocate();
+        //检查是否可运行
+        if (!$this->chkCanStart())
+        {
+            Helper::showError('Please close the running process first');
+        }
 
-        //主进程守护
-        if (Env::get('daemon')) $this->daemonWait();
+        //根据进程执行
+        $this->win32->getProcessIdExecute(
+            function ($name) {
+                $this->executeByProcessName($name);
+            },
+            function () {
+                Helper::showError('Unexpected error, process has been allocated');
+            });
+    }
+
+    /**
+     * 是否可启动
+     * @return bool
+     */
+    private function chkCanStart()
+    {
+        $taskDict = Helper::array_dict($this->taskList, 'name');
+        $lineCount = 0;
+        foreach ($taskDict as $name => $item)
+        {
+            $status = $this->win32->getProcessStatus($name);
+            if ($status)
+            {
+                $lineCount++;
+            }
+        }
+        return $lineCount == count($taskDict) ? false : true;
+    }
+
+    /**
+     * 跟进进程名称执行任务
+     * @param string $name
+     */
+    private function executeByProcessName($name)
+    {
+        switch ($name)
+        {
+            //主进程
+            case 'master':
+                $this->allocate();
+                break;
+
+            //守护进程
+            case 'manager';
+                $this->daemonWait();
+                break;
+
+            //worker进程
+            default:
+                $this->invoker($name);
+        }
+    }
+
+    /**
+     * 注册进程名称
+     */
+    private function regProcessName()
+    {
+        $list = ['master', 'manager'];
+        foreach ($list as $name)
+        {
+            $this->win32->regProcessName($name);
+        }
+        foreach ($this->taskList as $key => $item)
+        {
+            //提取参数
+            $alas = $item['alas'];
+            $used = $item['used'];
+
+            //根据Worker数分配进程
+            for ($i = 0; $i < $used; $i++)
+            {
+                $name = $alas . '___' . $i;
+                $this->taskList[$key]['name'] = $name;
+                $this->win32->regProcessName($name);
+            }
+        }
     }
 
     /**
@@ -81,7 +157,7 @@ class Win
         ]);
 
         //等待返回结果
-        $this->initWaitExit();
+        $this->masterWaitExit();
     }
 
     /**
@@ -99,46 +175,161 @@ class Win
     }
 
     /**
-     * 分配进程处理指令任务
+     * 分配子进程
      */
     private function allocate()
     {
-        //分配线程池
-        $pools = [];
-        foreach ($this->taskList as $key => $item)
-        {
-            //提取参数
-            $used = $item['used'];
+        //计算要分配的进程数
+        $count = $this->getWorkerCount() + 1;
 
-            //根据used数分配线程
-            for ($i = 0; $i < $used; $i++)
+        //根据count数分配进程
+        $argv = Helper::getFullArgv();
+        for ($i = 0; $i < $count; $i++)
+        {
+            if (Env::get('daemon'))
             {
-                $pools[] = new Thread($item);
+                //异步执行
+                $cmd = 'start /b ' . $argv;
             }
-        }
+            else
+            {
+                //同步执行
+                $cmd = 'wmic process call create "' . $argv . '"';
+            }
 
-        //启动线程池
-        foreach ($pools as $pool)
-        {
-            //启动并记录线程信息
-            $pool->start();
-            $name = $pool->item['alas'];
-            $time = $pool->item['time'];
-            $date = date('Y-m-d H:i:s');
-            $prefix = Env::get('prefix');
-            $pName = "{$prefix}_{$name}";
-            $this->threadList[] = [
-                'tid' => $pool->getThreadId(),
-                'task_name' => $pName,
-                'started' => $date,
-                'timer' => $time . 's',
-                'ttid' => $pool->getThreadPid(),
-                'object' => $pool,
-            ];
+            //运行Cmd
+            @pclose(@popen($cmd, 'r'));
         }
 
         //汇报执行情况
-        Helper::showTable($this->threadStatus(), false);
+        Helper::showTable($this->workerStatus($count - 1));
+    }
+
+    /**
+     * 获取worker数量
+     * @return int|mixed
+     */
+    private function getWorkerCount()
+    {
+        $count = 0;
+        foreach ($this->taskList as $key => $item)
+        {
+            $count += (int)$item['used'];
+        }
+        return $count;
+    }
+
+    /**
+     * 执行器
+     * @param string $name 任务名称
+     */
+    private function invoker($name)
+    {
+        //提取字典
+        $taskDict = Helper::array_dict($this->taskList, 'name');
+        if (!isset($taskDict[$name]))
+        {
+            Helper::showError("the task name $name is not exist");
+        }
+
+        //提取任务
+        $item = $taskDict[$name];
+
+        //执行任务
+        if (Env::get('canEvent') && $item['time'] != 0)
+        {
+            $this->invokeByEvent($item);
+        }
+        else
+        {
+            $this->invokeByDefault($item);
+        }
+    }
+
+    /**
+     * 通过默认定时执行
+     * @param array $item 执行项目
+     */
+    private function invokeByDefault($item)
+    {
+        while (true)
+        {
+            //执行任务
+            $this->execute($item);
+
+            //执行一次
+            if ($item['time'] == 0) break;
+
+            //CPU休息
+            sleep($item['time']);
+        }
+        exit;
+    }
+
+    /**
+     * 通过Event事件执行
+     * @param array $item 执行项目
+     */
+    private function invokeByEvent($item)
+    {
+        //创建Event事件
+        $eventConfig = new EventConfig();
+        $eventBase = new EventBase($eventConfig);
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, $this->execute($item));
+
+        //添加事件
+        $event->add($item['time']);
+
+        //事件循环
+        $eventBase->loop();
+    }
+
+    /**
+     * 执行任务代码
+     * @param array $item 执行项目
+     */
+    private function execute($item)
+    {
+        //进程标题
+        @cli_set_process_title($item['alas']);
+
+        //保存进程信息
+        $pid = getmypid();
+        $this->win32->saveProcessInfo([
+            'pid' => $pid,
+            'name' => $item['name'],
+            'alas' => $item['alas'],
+            'started' => date('Y-m-d H:i:s', $this->startTime),
+            'timer' => $item['time']
+        ]);
+
+        //跟进任务类型执行
+        $type = $item['type'];
+        switch ($type)
+        {
+            case 1:
+                $func = $item['func'];
+                $func();
+                break;
+            case 2:
+                call_user_func([$item['class'], $item['func']]);
+                break;
+            case 3:
+                $object = new $item['class']();
+                call_user_func([$object, $item['func']]);
+                break;
+            default:
+                @pclose(@popen($item['command'], 'r'));
+        }
+
+        //监听manager的命令
+        $this->commander->waitCommandForExecute($pid, function ($command) {
+            $commandType = $command['type'];
+            if ($commandType == 'stop')
+            {
+                Helper::showError('Listen to exit command, the current process is safely exiting...');
+            }
+        }, 3600);
     }
 
     /**
@@ -158,39 +349,47 @@ class Win
             //接收命令
             $this->commander->waitCommandForExecute(2, function ($command) {
                 $commandType = $command['type'];
+                var_dump($command);
                 switch ($commandType)
                 {
-                    //监听启动命令(当前主进程关闭,避免多开)
-                    case 'start':
-                        if ($command['time'] > $this->startTime)
-                        {
-                            Helper::showError('Duplicate process detected, the current process is safely exiting...');
-                        }
-                        break;
-
-                    //监听查询命令(汇报线程状态)
+                    //监听查询命令
                     case 'status':
                         $this->commander->send([
                             'type' => 'status',
                             'msgType' => 1,
-                            'status' => $this->threadStatus(),
+                            'status' => $this->workerStatus($this->getWorkerCount()),
                         ]);
                         break;
 
                     //监听关闭命令(当前主进程关闭)
                     case 'stop':
+                        $this->sendStopToWorker();
                         Helper::showError('Listen to exit command, the current process is safely exiting...');
                         break;
                 }
             });
         }
-        var_dump(111);
     }
 
     /**
-     * init进程等待结束退出
+     * 向所有worker进程发送退出命令
      */
-    private function initWaitExit()
+    private function sendStopToWorker()
+    {
+        $workers = $this->workerStatus($this->getWorkerCount());
+        foreach ($workers as $work)
+        {
+            $this->commander->send([
+                'type' => 'stop',
+                'msgType' => $work['pid']
+            ]);
+        }
+    }
+
+    /**
+     * master进程等待结束退出
+     */
+    private function masterWaitExit()
     {
         $i = 10;
         while ($i--)
@@ -211,24 +410,35 @@ class Win
 
     /**
      * 查看进程状态
+     * @param int $count
      * @return array
      */
-    private function threadStatus()
+    private function workerStatus($count)
     {
-        $report = [];
-        foreach ($this->threadList as $key => $item)
+        $report = $infoDict = [];
+        while (true)
         {
-            //提取参数
-            $object = $item['object'];
+            //Cpu休息
+            sleep(1);
+            $infoDict = $this->win32->getProcessInfo();
+            if ($count == count($infoDict))
+            {
+                break;
+            }
+        }
 
-            //检查线程状态
-            $status = $object->isRunning();
+        foreach ($infoDict as $name => $item)
+        {
+            //获取进程状态
+            $status = $this->win32->getProcessStatus($name);
             $item['status'] = $status ? 'active' : 'stop';
+            $item['name'] = $item['alas'];
+            unset($item['alas']);
 
-            //组装返回
-            unset($item['object']);
+            //组装报告
             $report[] = $item;
         }
+
         return $report;
     }
 }

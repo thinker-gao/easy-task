@@ -10,6 +10,39 @@ use EasyTask\Exception\ErrorException;
 class Helper
 {
     /**
+     * 二维数组转字典
+     * @param array $list
+     * @param string $key
+     * @return array
+     */
+    public static function array_dict($list, $key)
+    {
+        $dict = [];
+        foreach ($list as $v)
+        {
+            if (!isset($v[$key]))
+            {
+                continue;
+            }
+            $dict[$v[$key]] = $v;
+        }
+
+        return $dict;
+    }
+
+    public static function getFullArgv()
+    {
+        //输入参数
+        $argv = $_SERVER['argv'];
+
+        //组装PHP路径
+        array_unshift($argv, Env::get('phpPath'));
+
+        //返回
+        return join(' ', $argv);
+    }
+
+    /**
      * 是否win平台
      * @return bool
      */
@@ -25,6 +58,29 @@ class Helper
     public static function getOsTempPath()
     {
         return Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
+    }
+
+    /**
+     * 获取运行时目录
+     * @return  string
+     */
+    public static function getRunTimePath()
+    {
+        $path = Env::get('writeLogPath');
+        if (!$path)
+        {
+            $path = Helper::getOsTempPath();
+        }
+        return $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取win32进程锁目录
+     * @return  string
+     */
+    public static function getWin32LockPath()
+    {
+        return Helper::getRunTimePath() . 'win32_lock' . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -53,13 +109,11 @@ class Helper
      */
     public static function formatException($exception, $type = 'system')
     {
-        var_dump(7373);
         //时间
         $date = date('Y/m/d H:i:s', time());
 
         //组装文本
-        $a= $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
-        var_dump($a);die();
+        $a = $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
     }
 
     /**

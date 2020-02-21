@@ -103,14 +103,16 @@ class Command
      * 根据命令执行对应操作
      * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
+     * @param int $timeOut 执行函数
      */
-    public function waitCommandForExecute($msgType, $func)
+    public function waitCommandForExecute($msgType, $func, $timeOut = 5)
     {
         $command = '';
         $this->receive($msgType, $command);
-        if ($command && !empty($command['time']) && (time() - $command['time']) <= 5)
+        if (!$command || (!empty($command['time']) && (time() - $command['time']) > $timeOut))
         {
-            $func($command);
+            return;
         }
+        $func($command);
     }
 }

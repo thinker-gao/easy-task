@@ -66,6 +66,22 @@ class Task
     }
 
     /**
+     * 设置PHP执行路径
+     * @param $path
+     * @return $this
+     */
+    public function setPhpPath($path)
+    {
+        $file = realpath($path);
+        if (!file_exists($file))
+        {
+            Helper::showError("the path {$path} is not exists");
+        }
+        Env::set('phpPath', $path);
+        return $this;
+    }
+
+    /**
      * 设置是否记录日志
      * @param bool $isWrite 是否记录日志
      * @return $this
@@ -234,7 +250,8 @@ class Task
             return;
         }
 
-        Error::register();
+        //异常注册
+        //Error::register();
 
         //进程启动
         ($this->getProcess())->start();
