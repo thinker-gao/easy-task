@@ -251,7 +251,7 @@ class Task
         }
 
         //异常注册
-        //Error::register();
+        Error::register();
 
         //进程启动
         ($this->getProcess())->start();

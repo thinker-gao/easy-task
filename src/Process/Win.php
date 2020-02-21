@@ -40,6 +40,12 @@ class Win
     private $taskList;
 
     /**
+     * 进程worker
+     * @var array
+     */
+    private $workerList;
+
+    /**
      * 构造函数
      * @throws
      * @var array  taskList
@@ -82,9 +88,9 @@ class Win
      */
     private function chkCanStart()
     {
-        $taskDict = Helper::array_dict($this->taskList, 'name');
         $lineCount = 0;
-        foreach ($taskDict as $name => $item)
+        $workerList = $this->workerList;
+        foreach ($workerList as $name => $item)
         {
             $status = $this->win32->getProcessStatus($name);
             if ($status)
@@ -92,7 +98,7 @@ class Win
                 $lineCount++;
             }
         }
-        return $lineCount == count($taskDict) ? false : true;
+        return $lineCount == count($workerList) ? false : true;
     }
 
     /**
@@ -138,8 +144,8 @@ class Win
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
             {
-                $name = $alas . '___' . $i;
-                $this->taskList[$key]['name'] = $name;
+                $name = $item['name'] = $alas . '___' . $i;
+                $this->workerList[$name] = $item;
                 $this->win32->regProcessName($name);
             }
         }
@@ -226,10 +232,10 @@ class Win
     private function invoker($name)
     {
         //提取字典
-        $taskDict = Helper::array_dict($this->taskList, 'name');
+        $taskDict = $this->workerList;
         if (!isset($taskDict[$name]))
         {
-            Helper::showError("the task name $name is not exist");
+            Helper::showError("the task name $name is not exist" . json_encode($taskDict));
         }
 
         //提取任务
@@ -329,7 +335,7 @@ class Win
             {
                 Helper::showError('Listen to exit command, the current process is safely exiting...');
             }
-        }, 3600);
+        }, 3600 * 24);
     }
 
     /**
@@ -349,7 +355,6 @@ class Win
             //接收命令
             $this->commander->waitCommandForExecute(2, function ($command) {
                 $commandType = $command['type'];
-                var_dump($command);
                 switch ($commandType)
                 {
                     //监听查询命令

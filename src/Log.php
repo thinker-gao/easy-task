@@ -9,25 +9,40 @@ namespace EasyTask;
  */
 class Log
 {
-
-    public  function wi()
+    /**
+     * 记录错误类型日志
+     * @param string $message
+     * @throws
+     */
+    public static function writeError($message)
     {
+        //获取日志文件
+        $file = static::getWriteFile();
 
+        //写入日志文件
+        $fp = fopen($file, 'a+');
+
+        //加锁
+        if (flock($fp, LOCK_EX))
+        {
+            fwrite($fp, $message);
+            flock($fp, LOCK_UN);
+        }
+
+        //关闭文件
+        fclose($fp);
     }
 
     /**
-     * 记录日志
+     * 记录异常类型日志
      * @param string $type
      * @param  $exception
      * @throws
      */
-    public static function write($type, $exception)
+    public static function writeException($type, $exception)
     {
-        return '';
-
         //格式化信息
         $log = Helper::formatException($exception, $type);
-        die();
 
         //获取日志文件
         $file = static::getWriteFile();
@@ -66,7 +81,7 @@ class Log
         //设置子目录
         $prefix = Env::get('prefix');
         $path = $setPath . DIRECTORY_SEPARATOR . $prefix . DIRECTORY_SEPARATOR;
-        if (is_dir($path))
+        if (!is_dir($path))
         {
             mkdir($path);
         }

@@ -113,7 +113,7 @@ class Helper
         $date = date('Y/m/d H:i:s', time());
 
         //组装文本
-        $a = $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
+        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -143,6 +143,9 @@ class Helper
         //格式化信息
         $text = static::formatError($errStr, $type);
 
+        //记录日志
+        Log::writeError($text);
+
         //输出信息
         if ($isExit)
         {
@@ -162,6 +165,9 @@ class Helper
     {
         //格式化信息
         $text = static::formatException($exception, $type);
+
+        //记录日志
+        Log::writeException($type, $exception);
 
         //输出信息
         if ($isExit)

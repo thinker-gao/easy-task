@@ -37,7 +37,7 @@ class Error
         $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
         //日志记录
-        Log::write($type, $exception);
+        Log::writeException($type, $exception);
     }
 
     /**
@@ -49,6 +49,7 @@ class Error
     {
         //日志记录
         $type = 'appException';
+        Log::writeException($type, $exception);
 
         //控制台抛出异常
         $isThrowExcept = Env::get('isThrowExcept');
@@ -68,7 +69,7 @@ class Error
         {
             //日志记录
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
-            Log::write($type, $exception);
+            Log::writeException($type, $exception);
 
             //控制台抛出异常
             $isThrowExcept = Env::get('isThrowExcept');

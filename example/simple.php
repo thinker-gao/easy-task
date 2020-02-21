@@ -12,7 +12,7 @@ $isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获
 $task = new Task();
 
 //设置记录日志,当日志存在异常影响代码执行时抛出到外部
-$task->setIsWriteLog(false);
+$task->setIsWriteLog(true);
 
 $task->setThrowExcept(true);
 
@@ -24,16 +24,9 @@ $task->setDaemon(false);
 //添加含税
 $task->addFunc(function () {
 
-    $da = [];
-    $da['1'] = 1;
-    if($da['1'])
-    {
-        echo '1133' . PHP_EOL;
-    }
+    file_get_contents('https://www.gaojiufeng.cn/?id=289');
 
-    //echo '1122' . PHP_EOL;
-
-}, 'test1', 5, 1);
+}, 'test1', 3, 5);
 
 //根据命令执行
 if ($command == 'start')

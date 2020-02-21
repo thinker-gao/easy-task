@@ -121,7 +121,8 @@ class Win32
         $fp = fopen($file, 'r');
         if (flock($fp, LOCK_EX))
         {
-            $oldInfo = fread($fp, filesize($file));
+            $fileSize = filesize($file);
+            $oldInfo = $fileSize ? fread($fp, $fileSize) : [];
             if ($oldInfo)
             {
                 $info = json_decode($oldInfo, true);
