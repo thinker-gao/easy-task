@@ -67,7 +67,8 @@ class Win32
     public function getProcessInfoFile()
     {
         $runPath = Helper::getWin32Path();
-        return $runPath . '888.txt';
+        $infoFile = md5(date('Y-m-d') . __FILE__);
+        return $runPath . $infoFile;
     }
 
     /**

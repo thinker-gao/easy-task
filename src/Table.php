@@ -107,7 +107,6 @@ class Table
     {
         $this->header = $header;
         $this->headerAlign = $align;
-
         $this->checkColWidth($header);
     }
 

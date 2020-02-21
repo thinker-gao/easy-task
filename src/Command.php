@@ -14,16 +14,16 @@ class Command
      */
     public function __construct()
     {
-        if (Helper::isWin())
-        {
-            $file = 'C:/Windows/Temp/%s.txt';
-        }
-        else
-        {
-            $file = '/tmp/%s.txt';
-        }
-        $this->msgFile = sprintf($file, md5(__FILE__));
-        $this->msgFile = sprintf($file, md5(__FILE__));
+        $this->initMsgFile();
+    }
+
+    /**
+     * 初始化文件
+     */
+    private function initMsgFile()
+    {
+        $file = Helper::getCommandPath() . '%s.txt';
+        $this->msgFile = sprintf($file, md5(date('Y-m-d') . __FILE__));
         if (!file_exists($this->msgFile))
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
@@ -55,7 +55,7 @@ class Command
      */
     public function set($data)
     {
-        file_put_contents($this->msgFile, json_encode($data));
+        file_put_contents($this->msgFile, json_encode($data), LOCK_EX);
     }
 
     /**

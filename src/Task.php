@@ -66,7 +66,7 @@ class Task
     }
 
     /**
-     * 设置PHP执行路径(windows必须)
+     * 设置PHP执行路径(windows)
      * @param string $path
      * @return $this
      */
@@ -78,6 +78,17 @@ class Task
             Helper::showError("the path {$path} is not exists");
         }
         Env::set('phpPath', $path);
+        return $this;
+    }
+
+    /**
+     * 设置时区
+     * @param $timeIdent
+     * @return $this
+     */
+    public function setTimeZone($timeIdent)
+    {
+        date_default_timezone_set($timeIdent);
         return $this;
     }
 

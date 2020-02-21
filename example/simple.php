@@ -28,22 +28,6 @@ $task->addFunc(function () {
 
 }, 'test1', 5, 1);
 
-//根据命令执行
-if ($command == 'start')
-{
-    $task->start();
-}
-elseif ($command == 'status')
-{
-    $task->status();
-}
-elseif ($command == 'stop')
-{
-    $task->stop($isForce);
-}
-else
-{
-    exit('This is command is not exists:' . $command . PHP_EOL);
-}
+$task->start();
 
 

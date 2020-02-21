@@ -437,29 +437,30 @@ class Win
     private function workerStatus($count)
     {
         //构建报告
-        $report = $infoDict = [];
-        $tryTotal = 3;
+        $report = $infoData = [];
+        $tryTotal = 10;
         while ($tryTotal--)
         {
-            //Cpu休息
             sleep(1);
-            $infoDict = $this->win32->getProcessInfo();
-            if ($count == count($infoDict))
+            $infoData = $this->win32->getProcessInfo();
+            if ($count == count($infoData))
             {
                 break;
             }
         }
 
-        //完善报告
-        foreach ($infoDict as $name => $item)
+        //组装数据
+        $pid = getmypid();
+        foreach ($infoData as $name => $item)
         {
-            //获取进程状态
-            $status = $this->win32->getProcessStatus($name);
-            $item['status'] = $status ? 'active' : 'stop';
+            $item['ppid'] = $pid;
+            $item['status'] = 'stop';
             $item['name'] = $item['alas'];
+            if ($this->win32->getProcessStatus($name))
+            {
+                $item['status'] = 'active';
+            }
             unset($item['alas']);
-
-            //组装报告
             $report[] = $item;
         }
 

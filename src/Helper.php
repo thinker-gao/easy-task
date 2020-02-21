@@ -97,6 +97,15 @@ class Helper
     }
 
     /**
+     * 获取进程命令通信目录
+     * @return  string
+     */
+    public static function getCommandPath()
+    {
+        return Helper::getRunTimePath() . 'ipc' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * 获取Server环境变量
      * @return array
      */
