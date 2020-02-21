@@ -14,7 +14,7 @@ $task = new Task();
 //设置记录日志,当日志存在异常影响代码执行时抛出到外部
 $task->setIsWriteLog(true);
 
-$task->setThrowExcept(true);
+$task->setThrowExcept(false);
 
 $task->setPhpPath('C:\phpEnv\php\php-7.3\php.exe');
 
@@ -28,6 +28,22 @@ $task->addFunc(function () {
 
 }, 'test1', 5, 1);
 
-$task->start();
+//根据命令执行
+if ($command == 'start')
+{
+    $task->start();
+}
+elseif ($command == 'status')
+{
+    $task->status();
+}
+elseif ($command == 'stop')
+{
+    $task->stop($isForce);
+}
+else
+{
+    exit('This is command is not exists:' . $command . PHP_EOL);
+}
 
 

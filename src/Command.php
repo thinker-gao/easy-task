@@ -26,7 +26,15 @@ class Command
      */
     private function initMsgFile()
     {
-        $file = Helper::getCommandPath() . '%s.txt';
+        //创建目录
+        $path = Helper::getCommandPath();
+        if (!is_dir($path))
+        {
+            mkdir($path, 0777);
+        }
+
+        //创建文件
+        $file = $path . '%s.txt';
         $this->msgFile = sprintf($file, md5(date('Y-m-d') . __FILE__));
         if (!file_exists($this->msgFile))
         {
