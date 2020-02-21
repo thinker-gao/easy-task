@@ -30,13 +30,26 @@ class Helper
         return $dict;
     }
 
-    public static function getFullArgv()
+    /**
+     * 提取完整的cli命令
+     * @return string
+     */
+    public static function getFullCliCommand()
     {
         //输入参数
         $argv = $_SERVER['argv'];
 
         //组装PHP路径
         array_unshift($argv, Env::get('phpPath'));
+
+        //自动校正
+        foreach ($argv as $key => $value)
+        {
+            if (file_exists($value))
+            {
+                $argv[$key] = realpath($value);
+            }
+        }
 
         //返回
         return join(' ', $argv);
@@ -75,12 +88,33 @@ class Helper
     }
 
     /**
-     * 获取win32进程锁目录
+     * 获取win32进程目录
      * @return  string
      */
-    public static function getWin32LockPath()
+    public static function getWin32Path()
     {
-        return Helper::getRunTimePath() . 'win32_lock' . DIRECTORY_SEPARATOR;
+        return Helper::getRunTimePath() . 'win32' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取Server环境变量
+     * @return array
+     */
+    public static function getWin32ServerPath()
+    {
+        if (isset($_SERVER['PATH']))
+        {
+            return $_SERVER['PATH'];
+        }
+        if (isset($_SERVER['Path']))
+        {
+            return $_SERVER['Path'];
+        }
+        if (!empty(getenv('PATH')))
+        {
+            return getenv('PATH');
+        }
+        return [];
     }
 
     /**
@@ -133,7 +167,7 @@ class Helper
 
     /**
      * 输出错误
-     * @param string $errStr 错误信息
+     * @param string $errStr
      * @param string $type
      * @param bool $isExit
      * @throws
@@ -156,7 +190,7 @@ class Helper
 
     /**
      * 输出异常
-     * @param mixed $exception 异常信息
+     * @param mixed $exception
      * @param string $type
      * @param bool $isExit
      * @throws
@@ -179,8 +213,8 @@ class Helper
 
     /**
      * 控制台输出表格
-     * @param array $data 输出数据
-     * @param boolean $exit 输出后是否退出
+     * @param array $data
+     * @param boolean $exit
      */
     public static function showTable($data, $exit = true)
     {

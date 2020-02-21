@@ -63,27 +63,39 @@ class Win
      */
     public function start()
     {
-        //注册进程
-        $this->regProcessName();
+        //构建基础
+        $this->make();
 
-        //检查是否可运行
+        //启动检查
+        $this->checkForRun();
+
+        //进程分配
+        $func = function ($name) {
+            $this->executeByProcessName($name);
+        };
+        if (!$this->win32->allocateProcess($func))
+        {
+            Helper::showError('Unexpected error, process has been allocated');
+        }
+    }
+
+    /**
+     * 启动检查
+     */
+    private function checkForRun()
+    {
+        if (!Env::get('phpPath'))
+        {
+            Helper::showError('If you use windows system, then you must set the value of phpPath through the setPhpPath method');
+        }
         if (!$this->chkCanStart())
         {
             Helper::showError('Please close the running process first');
         }
-
-        //根据进程执行
-        $this->win32->getProcessIdExecute(
-            function ($name) {
-                $this->executeByProcessName($name);
-            },
-            function () {
-                Helper::showError('Unexpected error, process has been allocated');
-            });
     }
 
     /**
-     * 是否可启动
+     * 检查进程
      * @return bool
      */
     private function chkCanStart()
@@ -126,14 +138,14 @@ class Win
     }
 
     /**
-     * 注册进程名称
+     * 构建任务
      */
-    private function regProcessName()
+    private function make()
     {
         $list = ['master', 'manager'];
         foreach ($list as $name)
         {
-            $this->win32->regProcessName($name);
+            $this->win32->joinProcess($name);
         }
         foreach ($this->taskList as $key => $item)
         {
@@ -146,7 +158,7 @@ class Win
             {
                 $name = $item['name'] = $alas . '___' . $i;
                 $this->workerList[$name] = $item;
-                $this->win32->regProcessName($name);
+                $this->win32->joinProcess($name);
             }
         }
     }
@@ -189,7 +201,7 @@ class Win
         $count = $this->getWorkerCount() + 1;
 
         //根据count数分配进程
-        $argv = Helper::getFullArgv();
+        $argv = Helper::getFullCliCommand();
         for ($i = 0; $i < $count; $i++)
         {
             if (Env::get('daemon'))
@@ -208,7 +220,11 @@ class Win
         }
 
         //汇报执行情况
-        Helper::showTable($this->workerStatus($count - 1));
+        $report = $this->workerStatus($count - 1);
+        if ($report)
+        {
+            Helper::showTable($report);
+        }
     }
 
     /**
@@ -420,8 +436,10 @@ class Win
      */
     private function workerStatus($count)
     {
+        //构建报告
         $report = $infoDict = [];
-        while (true)
+        $tryTotal = 3;
+        while ($tryTotal--)
         {
             //Cpu休息
             sleep(1);
@@ -432,6 +450,7 @@ class Win
             }
         }
 
+        //完善报告
         foreach ($infoDict as $name => $item)
         {
             //获取进程状态

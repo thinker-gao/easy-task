@@ -2,7 +2,6 @@
 
 namespace EasyTask;
 
-
 /**
  * Class Log
  * @package EasyTask
@@ -16,6 +15,11 @@ class Log
      */
     public static function writeError($message)
     {
+
+        file_put_contents('C:\Windows\Temp\Task\1.txt',$message,FILE_APPEND);
+
+
+        /*
         //获取日志文件
         $file = static::getWriteFile();
 
@@ -31,6 +35,7 @@ class Log
 
         //关闭文件
         fclose($fp);
+        */
     }
 
     /**
@@ -44,7 +49,10 @@ class Log
         //格式化信息
         $log = Helper::formatException($exception, $type);
 
+        file_put_contents('C:\Windows\Temp\Task\1.txt',$log,FILE_APPEND);
+
         //获取日志文件
+        /*
         $file = static::getWriteFile();
 
         //写入日志文件
@@ -59,6 +67,7 @@ class Log
 
         //关闭文件
         fclose($fp);
+        */
     }
 
     /**

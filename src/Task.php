@@ -66,8 +66,8 @@ class Task
     }
 
     /**
-     * 设置PHP执行路径
-     * @param $path
+     * 设置PHP执行路径(windows必须)
+     * @param string $path
      * @return $this
      */
     public function setPhpPath($path)
@@ -104,11 +104,11 @@ class Task
     }
 
     /**
-     * 设置日志保存目录
-     * @param $path
+     * 设置运行时目录
+     * @param string $path
      * @return $this
      */
-    public function setWriteLogPath($path)
+    public function setRunTimePath($path)
     {
         if (!is_dir($path))
         {

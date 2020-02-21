@@ -9,8 +9,8 @@ class Env
 {
     /**
      * 设置
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      */
     public static function set($key, $value)
     {
@@ -20,7 +20,7 @@ class Env
 
     /**
      * 获取
-     * @param $key
+     * @param string $key
      * @return array|false|string
      */
     public static function get($key)

@@ -8,12 +8,6 @@ namespace EasyTask;
 class Win32
 {
     /**
-     * 进程锁
-     * @var string
-     */
-    private $lockFile;
-
-    /**
      * 进程名称列表
      * @var array
      */
@@ -26,17 +20,10 @@ class Win32
     public function __construct()
     {
         //创建运行时目录
-        $runPath = Helper::getWin32LockPath();
+        $runPath = Helper::getWin32Path();
         if (!is_dir($runPath))
         {
             mkdir($runPath, 0777, true);
-        }
-
-        //创建锁文件
-        $lockFile = $this->lockFile = $runPath . 'lock';
-        if (!file_exists($lockFile))
-        {
-            file_put_contents($lockFile, '');
         }
 
         //创建进程信息文件
@@ -51,10 +38,10 @@ class Win32
      * 注册进程名称
      * @param string $name
      */
-    public function regProcessName($name)
+    public function joinProcess($name)
     {
         $this->processNames[] = $name;
-        $runPath = Helper::getWin32LockPath();
+        $runPath = Helper::getWin32Path();
         $file = $runPath . md5($name);
         if (!file_exists($file))
         {
@@ -69,7 +56,7 @@ class Win32
      */
     public function getProcessFile($name)
     {
-        $runPath = Helper::getWin32LockPath();
+        $runPath = Helper::getWin32Path();
         return $runPath . md5($name);
     }
 
@@ -79,24 +66,13 @@ class Win32
      */
     public function getProcessInfoFile()
     {
-        $runPath = Helper::getWin32LockPath();
+        $runPath = Helper::getWin32Path();
         return $runPath . '888.txt';
-    }
-
-    public function formatProcessName($name)
-    {
-        $split = '___';
-        if (strpos($name, $split) !== false)
-        {
-            $name_Split = explode($split, $name);
-            $name = array_shift($name_Split);
-        }
-        return $name;
     }
 
     /**
      * 获取进程状态
-     * @param $name
+     * @param string $name 进行名称
      * @return bool
      */
     public function getProcessStatus($name)
@@ -135,7 +111,7 @@ class Win32
 
     /**
      * 保存进程信息
-     * @param $info
+     * @param array $info
      */
     public function saveProcessInfo($info)
     {
@@ -161,11 +137,11 @@ class Win32
     }
 
     /**
-     * 为程序获取一个进程
-     * @param \Closure $success 获取成功回调
-     * @param \Closure $error 获取失败回调
+     * 分配进程
+     * @param \Closure $func
+     * @return bool
      */
-    public function getProcessIdExecute($success, $error)
+    public function allocateProcess($func)
     {
         $processNames = $this->processNames;
         foreach ($processNames as $name)
@@ -174,11 +150,12 @@ class Win32
             $fp = fopen($file, 'w');
             if (flock($fp, LOCK_EX | LOCK_NB))
             {
-                $success($name);
+                $func($name);
                 flock($fp, LOCK_UN);
+                return true;
             }
             fclose($fp);
         }
-        $error();
+        return false;
     }
 }

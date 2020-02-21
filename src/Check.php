@@ -1,6 +1,10 @@
 <?php
 namespace EasyTask;
 
+/**
+ * Class Check
+ * @package EasyTask
+ */
 class Check
 {
     /**
@@ -10,7 +14,6 @@ class Check
         //Win
         '1' => [
             'json',
-            //'pthreads',
         ],
         //Linux
         '2' => [
@@ -45,8 +48,8 @@ class Check
     ];
 
     /**
-     *  分析环境是否支持
-     * @param int $currentOs 输出数据
+     *  解析运行环境
+     * @param int $currentOs
      */
     public static function analysis($currentOs)
     {
@@ -68,42 +71,6 @@ class Check
                 Helper::showError("$func function is disabled");
             }
         }
-
-        //Windows特殊检查
-        if ($currentOs == 1 && !Env::get('phpPath'))
-        {
-            static::checkOtherForWin();
-        }
-    }
-
-    /**
-     * Windows特殊检查
-     */
-    private static function checkOtherForWin()
-    {
-        //提取环境变量
-        $paths = $_SERVER['Path'];
-        if (!$paths)
-        {
-            Helper::showError("get php env path failed");
-        }
-
-        //循环检查
-        $isSet = false;
-        $paths = explode(';', $paths);
-        foreach ($paths as $path)
-        {
-            $file = $path . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . 'php.exe';
-            if (file_exists($file))
-            {
-                $isSet = true;
-                Env::set('phpPath', realpath($file));
-                break;
-            }
-        }
-
-        //提示检查或者手动设置变量
-        if (!$isSet) Helper::showError('get your php environment variable failed or you can set it by setPhpPath api');
     }
 }
 

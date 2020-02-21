@@ -16,17 +16,17 @@ $task->setIsWriteLog(true);
 
 $task->setThrowExcept(true);
 
-//$task->setPhpPath('D:\php-7.0.32-Win32-VC14-x64\1.exe');
+$task->setPhpPath('C:\phpEnv\php\php-7.3\php.exe');
 
 //设置运行时常驻内存
-$task->setDaemon(false);
+$task->setDaemon(true);
 
 //添加含税
 $task->addFunc(function () {
 
     file_get_contents('https://www.gaojiufeng.cn/?id=289');
 
-}, 'test1', 3, 5);
+}, 'test1', 5, 1);
 
 //根据命令执行
 if ($command == 'start')

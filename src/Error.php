@@ -24,10 +24,10 @@ class Error
     /**
      * appError
      * (E_ERROR|E_PARSE|E_CORE_ERROR|E_CORE_WARNING|E_COMPILE_ERROR|E_COMPILE_WARNING|E_STRICT)
-     * @param $errno
-     * @param $errStr
-     * @param $errFile
-     * @param $errLine
+     * @param string $errno
+     * @param string $errStr
+     * @param string $errFile
+     * @param int $errLine
      * @throws
      */
     public static function appError($errno, $errStr, $errFile, $errLine)
