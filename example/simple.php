@@ -26,9 +26,11 @@ $task->setDaemon(true);
 //添加含税
 $task->addFunc(function () {
 
-    file_get_contents('https://www.gaojiufeng.cn/?id=289');
+    file_get_contents('https://www.gaojiufeng.cn/?id=288');
 
-}, 'test1', 2, 3);
+    echo  1122;
+
+}, 'test1', 30, 2);
 
 //根据命令执行
 if ($command == 'start')

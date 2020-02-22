@@ -2,12 +2,8 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
-use \ArrayObject as ArrayObject;
 use EasyTask\Env;
-use EasyTask\Error;
-use EasyTask\Exception\ErrorException;
 use EasyTask\Helper;
-use EasyTask\Thread;
 use EasyTask\Win32;
 
 /**
@@ -199,6 +195,9 @@ class Win
      */
     private function allocate()
     {
+        //清理进程信息
+        $this->win32->cleanProcessInfo();
+
         //计算要分配的进程数
         $count = $this->getWorkerCount() + 1;
 

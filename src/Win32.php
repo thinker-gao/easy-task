@@ -139,6 +139,17 @@ class Win32
     }
 
     /**
+     * 清理进程信息
+     */
+    public function cleanProcessInfo()
+    {
+        //加锁执行
+        $this->lockToExecute(function () {
+            @file_put_contents($this->getProcessInfoFile(), '');
+        });
+    }
+
+    /**
      * 保存进程信息
      * @param array $info
      */

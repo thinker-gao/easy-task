@@ -3,11 +3,9 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
-use EasyTask\Error;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
-use \ArrayObject as ArrayObject;
 use EasyTask\Helper;
 
 /**
