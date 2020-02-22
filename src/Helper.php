@@ -10,6 +10,15 @@ use EasyTask\Exception\ErrorException;
 class Helper
 {
     /**
+     * 关闭标准输入输出
+     */
+    public static function closeStdInOut()
+    {
+        fclose(STDIN);
+        fclose(STDOUT);
+    }
+
+    /**
      * 二维数组转字典
      * @param array $list
      * @param string $key
@@ -144,13 +153,36 @@ class Helper
      * @param string $type
      * @return string
      */
-    public static function formatError($message, $type = 'system')
+    public static function formatMessage($message, $type = 'system')
     {
         //时间
         $date = date('Y/m/d H:i:s', time());
 
         //组装文本
         return $date . ' [' . $type . '] : ' . $message . PHP_EOL;
+    }
+
+    /**
+     * 输出信息
+     * @param string $message
+     * @param string $type
+     * @param bool $isExit
+     * @throws
+     */
+    public static function showInfo($message, $type = 'info', $isExit = false)
+    {
+        //格式化信息
+        $text = static::formatMessage($message, $type);
+
+        //记录日志
+        Log::writeError($text);
+
+        //输出信息
+        if ($isExit)
+        {
+            exit($text);
+        }
+        echo $text;
     }
 
     /**
@@ -163,7 +195,7 @@ class Helper
     public static function showError($errStr, $type = 'warring', $isExit = true)
     {
         //格式化信息
-        $text = static::formatError($errStr, $type);
+        $text = static::formatMessage($errStr, $type);
 
         //记录日志
         Log::writeError($text);

@@ -18,6 +18,8 @@ $task->setThrowExcept(false);
 
 $task->setPhpPath('C:\phpEnv\php\php-7.3\php.exe');
 
+$task->setRunTimePath('D:/wwwroot/wwwroot/');
+
 //设置运行时常驻内存
 $task->setDaemon(true);
 
@@ -26,7 +28,7 @@ $task->addFunc(function () {
 
     file_get_contents('https://www.gaojiufeng.cn/?id=289');
 
-}, 'test1', 5, 1);
+}, 'test1', 2, 3);
 
 //根据命令执行
 if ($command == 'start')

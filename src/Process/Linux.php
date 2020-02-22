@@ -297,7 +297,7 @@ class Linux
 
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status')
+                if ($report['type'] == 'status' && $report['status'])
                 {
                     Helper::showTable($report['status']);
                 }

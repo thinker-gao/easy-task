@@ -111,7 +111,7 @@ class Win
                 $lineCount++;
             }
         }
-        return $lineCount == count($workerList) ? false : true;
+        return $lineCount == $this->getWorkerCount() ? false : true;
     }
 
     /**
@@ -120,21 +120,22 @@ class Win
      */
     private function executeByProcessName($name)
     {
-        switch ($name)
+        if ($name == 'master')
         {
-            //主进程
-            case 'master':
-                $this->allocate();
-                break;
-
-            //守护进程
-            case 'manager';
+            $this->allocate();
+        }
+        else
+        {
+            if (Env::get('daemon')) ob_start();
+            if ($name == 'manager')
+            {
                 $this->daemonWait();
-                break;
-
-            //worker进程
-            default:
+            }
+            else
+            {
                 $this->invoker($name);
+            }
+            if (Env::get('daemon')) ob_clean();
         }
     }
 
@@ -224,7 +225,7 @@ class Win
         $report = $this->workerStatus($count - 1);
         if ($report)
         {
-            Helper::showTable($report);
+            Helper::showTable($report, false);
         }
     }
 
@@ -255,7 +256,10 @@ class Win
             Helper::showError("the task name $name is not exist" . json_encode($taskDict));
         }
 
-        //提取任务
+        //输出信息
+        if (!Env::get('daemon')) Helper::showInfo('this worker is start...');
+
+        //提取Task字典
         $item = $taskDict[$name];
 
         //执行任务
@@ -314,7 +318,8 @@ class Win
     private function execute($item)
     {
         //进程标题
-        @cli_set_process_title($item['alas']);
+        $title = Env::get('prefix') . '.' . $item['alas'];
+        @cli_set_process_title($title);
 
         //保存进程信息
         $pid = getmypid();
@@ -356,12 +361,15 @@ class Win
     }
 
     /**
-     * 守护进程常驻
+     * 常驻进程
      */
     private function daemonWait()
     {
-        //守护进程设置进程名
+        //进程标题
         @cli_set_process_title(Env::get('prefix'));
+
+        //输出信息
+        if (!Env::get('daemon')) Helper::showInfo('the daemon worker is started in background process');
 
         //挂起进程
         while (true)
@@ -421,7 +429,7 @@ class Win
 
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status')
+                if ($report['type'] == 'status' && $report['status'])
                 {
                     Helper::showTable($report['status']);
                 }
@@ -468,4 +476,3 @@ class Win
         return $report;
     }
 }
-

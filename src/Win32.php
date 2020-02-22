@@ -8,6 +8,12 @@ namespace EasyTask;
 class Win32
 {
     /**
+     * 进程锁
+     * @var string
+     */
+    private $lockFile;
+
+    /**
      * 进程名称列表
      * @var array
      */
@@ -26,12 +32,34 @@ class Win32
             mkdir($runPath, 0777, true);
         }
 
+        //创建锁文件
+        $lockFile = $this->lockFile = $runPath . 'lock';
+        if (!file_exists($lockFile))
+        {
+            file_put_contents($lockFile, '');
+        }
+
         //创建进程信息文件
         $processFile = $this->getProcessInfoFile();
         if (!file_exists($processFile))
         {
             file_put_contents($processFile, '');
         }
+    }
+
+    /**
+     * 通过进程锁执行
+     * @param \Closure $func
+     */
+    private function lockToExecute($func)
+    {
+        $fp = fopen($this->lockFile, "r");
+        if (flock($fp, LOCK_EX))
+        {
+            $func();
+            flock($fp, LOCK_UN);
+        }
+        fclose($fp);
     }
 
     /**
@@ -116,25 +144,21 @@ class Win32
      */
     public function saveProcessInfo($info)
     {
-        //提取信息参数
-        $name = $info['name'];
+        //加锁执行
+        $this->lockToExecute(function () use ($info) {
 
-        //打开文件
-        $file = $this->getProcessInfoFile();
-        $fp = fopen($file, 'w+');
-        if (flock($fp, LOCK_EX))
-        {
-            //包装数据
-            $fileSize = filesize($file);
-            $oldInfo = $fileSize ? fread($fp, $fileSize) : [];
-            $oldInfo = $oldInfo ? json_decode($oldInfo, true) : [];
-            $oldInfo[$name] = $info;
+            //进程信息文件
+            $name = $info['name'];
+            $file = $this->getProcessInfoFile();
 
-            //写入数据
-            fwrite($fp, json_encode($oldInfo));
-            flock($fp, LOCK_UN);
-        }
-        fclose($fp);
+            //读取原数据
+            $content = @file_get_contents($file);
+            $oldInfo = $content ? json_decode($content, true) : [$name => $info];
+
+            //追加数据
+            $oldInfo ? $oldInfo[$name] = $info : $oldInfo = $info;
+            file_put_contents($file, json_encode($oldInfo));
+        });
     }
 
     /**
