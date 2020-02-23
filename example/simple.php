@@ -21,7 +21,7 @@ $task->setPhpPath('C:/phpEnv/php/php-7.3/php.exe');
 $task->setRunTimePath('D:/wwwroot/wwwroot/');
 
 //设置运行时常驻内存
-$task->setDaemon(true);
+$task->setDaemon(false);
 
 //添加含税
 $task->addFunc(function () {

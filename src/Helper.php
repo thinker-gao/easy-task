@@ -9,58 +9,6 @@ use EasyTask\Exception\ErrorException;
  */
 class Helper
 {
-    /**
-     * 二维数组转字典
-     * @param array $list
-     * @param string $key
-     * @return array
-     */
-    public static function array_dict($list, $key)
-    {
-        $dict = [];
-        foreach ($list as $v)
-        {
-            if (!isset($v[$key]))
-            {
-                continue;
-            }
-            $dict[$v[$key]] = $v;
-        }
-
-        return $dict;
-    }
-
-    /**
-     *
-     * 删除文件夹所有文件
-     * @param string $path
-     * @param array $filter
-     */
-    public static function unlinkPathFiles($path, $filter = [])
-    {
-        $filter = array_merge(['.', '..'], $filter);
-        array_map(function ($file) use ($path, $filter) {
-            if (!in_array($file, $filter))
-            {
-                $realpath = realpath($path . DIRECTORY_SEPARATOR . $file);
-                if (is_file($realpath))
-                {
-                    unlink($realpath);
-                }
-            }
-        }, scandir($path));
-    }
-
-    /**
-     * 获取文件名
-     * @param $file
-     * @return string
-     */
-    public static function getFileName($file)
-    {
-        $pathInfo = pathinfo($file);
-        return !empty($pathInfo['filename']) ? $pathInfo['filename'] : '';
-    }
 
     /**
      * 提取完整的cli命令
@@ -85,6 +33,20 @@ class Helper
 
         //返回
         return join(' ', $argv);
+    }
+
+    /**
+     * 获取PHP二进制文件
+     * @return string
+     */
+    public static function getPhpPath()
+    {
+        $file = dirname(php_ini_loaded_file()) . DIRECTORY_SEPARATOR . 'php';
+        if (Helper::isWin())
+        {
+            $file .= '.exe';
+        }
+        return file_exists($file) ? $file : '';
     }
 
     /**
@@ -198,7 +160,7 @@ class Helper
         $text = static::formatMessage($message, $type);
 
         //记录日志
-        Log::writeError($text);
+        Log::write($text);
 
         //输出信息
         if ($isExit)
@@ -221,7 +183,7 @@ class Helper
         $text = static::formatMessage($errStr, $type);
 
         //记录日志
-        Log::writeError($text);
+        Log::write($text);
 
         //输出信息
         if ($isExit)
@@ -244,7 +206,7 @@ class Helper
         $text = static::formatException($exception, $type);
 
         //记录日志
-        Log::writeException($type, $exception);
+        Log::write($text);
 
         //输出信息
         if ($isExit)

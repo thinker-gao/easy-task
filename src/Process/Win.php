@@ -74,6 +74,7 @@ class Win
         {
             Helper::showError('Unexpected error, process has been allocated');
         }
+
     }
 
     /**
@@ -364,6 +365,7 @@ class Win
      */
     private function daemonWait()
     {
+
         //进程标题
         @cli_set_process_title(Env::get('prefix'));
 
