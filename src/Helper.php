@@ -59,7 +59,7 @@ class Helper
     }
 
     /**
-     * 获取平台临时目录
+     * 获取临时目录
      * @return string
      */
     public static function getOsTempPath()
@@ -82,7 +82,7 @@ class Helper
     }
 
     /**
-     * 获取win32进程目录
+     * 获取Win进程目录
      * @return  string
      */
     public static function getWin32Path()
