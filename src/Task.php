@@ -88,7 +88,7 @@ class Task
 
     /**
      * 设置时区
-     * @param $timeIdent
+     * @param string $timeIdent
      * @return $this
      */
     public function setTimeZone($timeIdent)

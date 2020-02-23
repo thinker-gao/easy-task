@@ -74,7 +74,6 @@ class Win
         {
             Helper::showError('Unexpected error, process has been allocated');
         }
-
     }
 
     /**
