@@ -1,6 +1,7 @@
 <?php
 namespace EasyTask;
 
+
 /**
  * Class Win32
  * @package EasyTask
@@ -95,7 +96,7 @@ class Win32
     public function getProcessInfoFile()
     {
         $runPath = Helper::getWin32Path();
-        $infoFile = md5(date('Y-m-d') . __FILE__);
+        $infoFile = md5(__FILE__);
         return $runPath . $infoFile;
     }
 

@@ -16,7 +16,7 @@ $task->setIsWriteLog(true);
 
 $task->setThrowExcept(false);
 
-$task->setPhpPath('C:\phpEnv\php\php-7.3\php.exe');
+$task->setPhpPath('C:/phpEnv/php/php-7.3/php.exe');
 
 $task->setRunTimePath('D:/wwwroot/wwwroot/');
 

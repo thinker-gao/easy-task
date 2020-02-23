@@ -151,7 +151,7 @@ class Win
             $alas = $item['alas'];
             $used = $item['used'];
 
-            //根据Worker数分配进程
+            //根据Worker数构建
             for ($i = 0; $i < $used; $i++)
             {
                 $name = $item['name'] = $alas . '___' . $i;

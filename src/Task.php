@@ -29,18 +29,23 @@ class Task
         $currentOs = Helper::isWin() ? 1 : 2;
         Env::set('currentOs', $currentOs);
         Check::analysis($currentOs);
-        $this->initialise();
+        $this->initialise($currentOs);
     }
 
     /**
      * 进程初始化
+     * @param int $currentOs
      */
-    private function initialise()
+    private function initialise($currentOs)
     {
         //初始化基础配置
         Env::set('prefix', 'Task');
         Env::set('canEvent', Helper::canEvent());
         Env::set('canAsync', Helper::canAsyncSignal());
+        if ($currentOs == 1)
+        {
+            Env::set('phpPath', Helper::getPhpPath());
+        }
     }
 
     /**

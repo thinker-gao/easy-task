@@ -8,7 +8,7 @@ namespace EasyTask;
 class Env
 {
     /**
-     * 设置
+     * Set
      * @param string $key
      * @param mixed $value
      */
@@ -19,7 +19,7 @@ class Env
     }
 
     /**
-     * 获取
+     * Get
      * @param string $key
      * @return array|false|string
      */

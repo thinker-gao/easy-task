@@ -10,15 +10,6 @@ use EasyTask\Exception\ErrorException;
 class Helper
 {
     /**
-     * 关闭标准输入输出
-     */
-    public static function closeStdInOut()
-    {
-        fclose(STDIN);
-        fclose(STDOUT);
-    }
-
-    /**
      * 二维数组转字典
      * @param array $list
      * @param string $key
@@ -37,6 +28,38 @@ class Helper
         }
 
         return $dict;
+    }
+
+    /**
+     *
+     * 删除文件夹所有文件
+     * @param string $path
+     * @param array $filter
+     */
+    public static function unlinkPathFiles($path, $filter = [])
+    {
+        $filter = array_merge(['.', '..'], $filter);
+        array_map(function ($file) use ($path, $filter) {
+            if (!in_array($file, $filter))
+            {
+                $realpath = realpath($path . DIRECTORY_SEPARATOR . $file);
+                if (is_file($realpath))
+                {
+                    unlink($realpath);
+                }
+            }
+        }, scandir($path));
+    }
+
+    /**
+     * 获取文件名
+     * @param $file
+     * @return string
+     */
+    public static function getFileName($file)
+    {
+        $pathInfo = pathinfo($file);
+        return !empty($pathInfo['filename']) ? $pathInfo['filename'] : '';
     }
 
     /**
@@ -65,7 +88,7 @@ class Helper
     }
 
     /**
-     * 是否win平台
+     * 是否Win平台
      * @return bool
      */
     public static function isWin()

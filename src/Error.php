@@ -11,7 +11,7 @@ use EasyTask\Exception\ErrorException;
 class Error
 {
     /**
-     * 注册异常处理
+     * Register Error
      */
     public static function register()
     {
@@ -37,7 +37,7 @@ class Error
         $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
         //日志记录
-        Log::writeException($type, $exception);
+        static::report($type, $exception);
     }
 
     /**
@@ -49,7 +49,7 @@ class Error
     {
         //日志记录
         $type = 'appException';
-        Log::writeException($type, $exception);
+        static::report($type, $exception);
 
         //控制台抛出异常
         $isThrowExcept = Env::get('isThrowExcept');
@@ -69,11 +69,22 @@ class Error
         {
             //日志记录
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
-            Log::writeException($type, $exception);
+            static::report($type, $exception);
 
             //控制台抛出异常
             $isThrowExcept = Env::get('isThrowExcept');
             if ($isThrowExcept) Helper::showException($exception);
         }
+    }
+
+    /**
+     * Report
+     * @param $type
+     * @param $exception
+     */
+    private static function report($type, $exception)
+    {
+        $text = Helper::formatException($exception, $type);
+        Log::write($text);
     }
 }

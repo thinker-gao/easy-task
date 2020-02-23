@@ -9,69 +9,17 @@ namespace EasyTask;
 class Log
 {
     /**
-     * 记录错误类型日志
+     * 追加日志
      * @param string $message
-     * @throws
      */
-    public static function writeError($message)
+    public static function write($message)
     {
-
-        file_put_contents('C:\Windows\Temp\Task\1.txt',$message,FILE_APPEND);
-
-
-        /*
-        //获取日志文件
         $file = static::getWriteFile();
-
-        //写入日志文件
-        $fp = fopen($file, 'a+');
-
-        //加锁
-        if (flock($fp, LOCK_EX))
-        {
-            fwrite($fp, $message);
-            flock($fp, LOCK_UN);
-        }
-
-        //关闭文件
-        fclose($fp);
-        */
+        @file_put_contents($file, $file, LOCK_EX);
     }
 
     /**
-     * 记录异常类型日志
-     * @param string $type
-     * @param  $exception
-     * @throws
-     */
-    public static function writeException($type, $exception)
-    {
-        //格式化信息
-        $log = Helper::formatException($exception, $type);
-
-        file_put_contents('C:\Windows\Temp\Task\1.txt',$log,FILE_APPEND);
-
-        //获取日志文件
-        /*
-        $file = static::getWriteFile();
-
-        //写入日志文件
-        $fp = fopen($file, 'a+');
-
-        //加锁
-        if (flock($fp, LOCK_EX))
-        {
-            fwrite($fp, $log);
-            flock($fp, LOCK_UN);
-        }
-
-        //关闭文件
-        fclose($fp);
-        */
-    }
-
-    /**
-     * 获取日志写入目录
+     * 获取日志文件
      * @return string
      */
     private static function getWriteFile()
@@ -96,6 +44,6 @@ class Log
         }
 
         //设置日志文件
-        return $path . date('Y_m_d_H_log') . '.txt';
+        return $path . date('Y_m_d_log') . '.txt';
     }
 }
