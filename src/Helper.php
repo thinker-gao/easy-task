@@ -9,12 +9,11 @@ use EasyTask\Exception\ErrorException;
  */
 class Helper
 {
-
     /**
-     * 提取完整的cli命令
+     * 获取命令行输入
      * @return string
      */
-    public static function getFullCliCommand()
+    public static function getCliInput()
     {
         //输入参数
         $argv = $_SERVER['argv'];

@@ -203,7 +203,7 @@ class Win
         $count = $this->getWorkerCount() + 1;
 
         //根据count数分配进程
-        $argv = Helper::getFullCliCommand();
+        $argv = Helper::getCliInput();
         for ($i = 0; $i < $count; $i++)
         {
             if (Env::get('daemon'))
@@ -225,13 +225,13 @@ class Win
         $report = $this->workerStatus($count - 1);
         if ($report)
         {
-            Helper::showTable($report, false);
+            Helper::showTable($report);
         }
     }
 
     /**
      * 获取worker数量
-     * @return int|mixed
+     * @return int
      */
     private function getWorkerCount()
     {
@@ -365,7 +365,6 @@ class Win
      */
     private function daemonWait()
     {
-
         //进程标题
         @cli_set_process_title(Env::get('prefix'));
 
