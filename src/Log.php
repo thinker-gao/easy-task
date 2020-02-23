@@ -8,41 +8,25 @@ namespace EasyTask;
 class Log
 {
     /**
-     * 追加日志
+     * Write
      * @param string $message
      */
     public static function write($message)
     {
-        $file = static::getWriteFile();
-        @file_put_contents($file, $file, LOCK_EX);
-    }
+        //根目录
+        $runTimePath = Helper::getRunTimePath();
 
-    /**
-     * 获取日志文件
-     * @return string
-     */
-    private static function getWriteFile()
-    {
-        //设置根目录
-        $setPath = Env::get('writeLogPath');
-        if (!$setPath)
-        {
-            $setPath = Helper::getOsTempPath();
-        }
-        if (!is_writable($setPath))
-        {
-            Helper::showError("the log path {$setPath} is not writeable");
-        }
-
-        //设置子目录
-        $prefix = Env::get('prefix');
-        $path = $setPath . DIRECTORY_SEPARATOR . $prefix . DIRECTORY_SEPARATOR;
+        //子目录
+        $path = $runTimePath . 'log' . DIRECTORY_SEPARATOR;
         if (!is_dir($path))
         {
             mkdir($path);
         }
 
-        //设置日志文件
-        return $path . date('Y_m_d_log') . '.txt';
+        //保存文件
+        $file = $path . date('Y_m_d') . '.txt';
+
+        //加锁保存
+        file_put_contents($file, $message, FILE_APPEND | LOCK_EX);
     }
 }

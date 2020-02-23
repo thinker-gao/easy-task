@@ -134,7 +134,7 @@ class Task
         {
             Helper::showError("the path {$path} is not writeable");
         }
-        Env::set('writeLogPath', $path);
+        Env::set('runTimePath', $path);
         return $this;
     }
 

@@ -73,7 +73,7 @@ class Helper
      */
     public static function getRunTimePath()
     {
-        $path = Env::get('writeLogPath');
+        $path = Env::get('runTimePath');
         if (!$path)
         {
             $path = Helper::getOsTempPath();
