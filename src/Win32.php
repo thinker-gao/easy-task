@@ -1,7 +1,6 @@
 <?php
 namespace EasyTask;
 
-
 /**
  * Class Win32
  * @package EasyTask

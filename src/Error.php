@@ -1,5 +1,4 @@
 <?php
-
 namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
