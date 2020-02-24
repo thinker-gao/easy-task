@@ -58,6 +58,15 @@ class Helper
     }
 
     /**
+     * 是否可执行命令
+     * @return bool
+     */
+    public static function canExecuteCommand()
+    {
+        return function_exists('popen') && function_exists('pclose');
+    }
+
+    /**
      * 获取临时目录
      * @return string
      */

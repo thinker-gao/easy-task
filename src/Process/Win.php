@@ -3,6 +3,9 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
+use \Event as Event;
+use \EventConfig as EventConfig;
+use \EventBase as EventBase;
 use EasyTask\Helper;
 use EasyTask\Win32;
 
@@ -44,8 +47,7 @@ class Win
 
     /**
      * 构造函数
-     * @throws
-     * @var array  taskList
+     * @param  array  $taskList
      */
     public function __construct($taskList)
     {

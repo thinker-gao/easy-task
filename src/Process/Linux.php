@@ -40,7 +40,6 @@ class Linux
 
     /**
      * 构造函数
-     * @throws
      * @var array $taskList
      */
     public function __construct($taskList)
@@ -112,7 +111,7 @@ class Linux
         $pid = pcntl_fork();
         if ($pid < 0)
         {
-            Helper::showError("fork process failed");
+            Helper::showError('fork process failed');
         }
         elseif ($pid)
         {
@@ -123,7 +122,7 @@ class Linux
             $sid = posix_setsid();
             if ($sid < 0)
             {
-                Helper::showError("set processForInit failed");
+                Helper::showError('set processForInit failed');
             }
         }
     }

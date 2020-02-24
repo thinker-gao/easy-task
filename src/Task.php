@@ -224,6 +224,10 @@ class Task
      */
     public function addCommand($command, $alas = '', $time = 1, $used = 1)
     {
+        if (!Helper::canExecuteCommand())
+        {
+            Helper::showError('please open the disabled function of popen and pclose');
+        }
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [

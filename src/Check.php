@@ -9,6 +9,7 @@ class Check
 {
     /**
      * 待检查扩展列表
+     * @var array
      */
     private static $waitExtends = [
         //Win
@@ -40,8 +41,6 @@ class Check
         '2' => [
             'umask',
             'chdir',
-            'popen',
-            'pclose',
             'putenv',
             'getenv'
         ]
