@@ -104,26 +104,22 @@ class Linux
     }
 
     /**
-     * 守护进程
+     * 常驻进程
      */
     private function daemon()
     {
         $pid = pcntl_fork();
-        if ($pid < 0)
+        switch ($pid)
         {
-            Helper::showError('fork process failed');
-        }
-        elseif ($pid)
-        {
-            $this->initWaitExit();
-        }
-        else
-        {
-            $sid = posix_setsid();
-            if ($sid < 0)
-            {
-                Helper::showError('set processForInit failed');
-            }
+            case -1:
+                Helper::showError('create process failed');
+                break;
+            case 0:
+                $sid = posix_setsid();
+                if ($sid < 0) Helper::showError('set processForManager failed');
+                break;
+            default:
+                $this->masterWaitExit();;
         }
     }
 
@@ -312,10 +308,10 @@ class Linux
      */
     private function daemonWait()
     {
-        //守护进程设置进程名
+        //设置进程标题
         @cli_set_process_title(Env::get('prefix'));
 
-        //任务汇报Init进程
+        //任务汇报master进程
         $this->commander->send([
             'type' => 'allocate',
             'msgType' => 1,
