@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Think3.2.3 SupportClass
+ */
 class Support
 {
     /**
@@ -65,8 +68,9 @@ class Support
     }
 }
 
-//How to use it
-
+/**
+ * How to use it ?
+ */
 (new Support())
     ->invokeThink(function () {
         //复制think下index.php的代码
@@ -80,6 +84,8 @@ class Support
         // 编写你的代码
     });
 
-// How to run
-
-// php ./index.php start|status|stop
+/**
+ * How to run ?
+ * Use cmd or powerShell:
+ * php ./index.php start|status|stop
+ */
