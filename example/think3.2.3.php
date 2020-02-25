@@ -23,7 +23,7 @@ class Support
     /**
      * Support constructor.
      */
-    function __construct()
+    public function __construct()
     {
         //重置工作目录(only_win_system)
         chdir(dirname(__FILE__));
@@ -42,7 +42,7 @@ class Support
      * @param Closure $think
      * @return Support
      */
-    function invokeThink($think)
+    public function invokeThink($think)
     {
         ob_start();
         $think();
@@ -54,7 +54,7 @@ class Support
      * 加载你的代码
      * @param Closure $code
      */
-    function invokeYourCode($code)
+    public function invokeYourCode($code)
     {
         //恢复Cli_Input
         $_SERVER['argv'] = $this->argv;
