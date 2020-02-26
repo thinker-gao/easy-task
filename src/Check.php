@@ -1,10 +1,15 @@
 <?php
 namespace EasyTask;
 
+/**
+ * Class Check
+ * @package EasyTask
+ */
 class Check
 {
     /**
      * 待检查扩展列表
+     * @var array
      */
     private static $waitExtends = [
         //Win
@@ -29,19 +34,21 @@ class Check
             'popen',
             'pclose',
             'umask',
+            'putenv',
+            'getenv'
         ],
         //Linux
         '2' => [
             'umask',
             'chdir',
-            'popen',
-            'pclose',
+            'putenv',
+            'getenv'
         ]
     ];
 
     /**
-     *  分析环境是否支持
-     * @param int $currentOs 输出数据
+     *  解析运行环境
+     * @param int $currentOs
      */
     public static function analysis($currentOs)
     {

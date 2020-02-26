@@ -3,10 +3,53 @@ namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
 
+/**
+ * Class Helper
+ * @package EasyTask
+ */
 class Helper
 {
     /**
-     * 是否win平台
+     * 获取命令行输入
+     * @return string
+     */
+    public static function getCliInput()
+    {
+        //输入参数
+        $argv = $_SERVER['argv'];
+
+        //组装PHP路径
+        array_unshift($argv, Env::get('phpPath'));
+
+        //自动校正
+        foreach ($argv as $key => $value)
+        {
+            if (file_exists($value))
+            {
+                $argv[$key] = realpath($value);
+            }
+        }
+
+        //返回
+        return join(' ', $argv);
+    }
+
+    /**
+     * 获取PHP二进制文件
+     * @return string
+     */
+    public static function getPhpPath()
+    {
+        $file = dirname(php_ini_loaded_file()) . DIRECTORY_SEPARATOR . 'php';
+        if (Helper::isWin())
+        {
+            $file .= '.exe';
+        }
+        return file_exists($file) ? $file : '';
+    }
+
+    /**
+     * 是否Win平台
      * @return bool
      */
     public static function isWin()
@@ -15,15 +58,53 @@ class Helper
     }
 
     /**
-     * 获取日志文件名格式
-     * @param string $prefix 前缀名称
+     * 是否可执行命令
+     * @return bool
+     */
+    public static function canExecuteCommand()
+    {
+        return function_exists('popen') && function_exists('pclose');
+    }
+
+    /**
+     * 获取临时目录
      * @return string
      */
-    public static function getFormatLogFilePath($prefix)
+    public static function getOsTempPath()
     {
-        $file = Helper::isWin() ? 'C:/Windows/Temp/%s.txt' : '/tmp/%s.txt';
-        $format = $prefix . '_log_' . date('Ymd');
-        return sprintf($file, $format);
+        return Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
+    }
+
+    /**
+     * 获取运行时目录
+     * @return  string
+     */
+    public static function getRunTimePath()
+    {
+        $path = Env::get('runTimePath');
+        if (!$path)
+        {
+            $path = Helper::getOsTempPath();
+        }
+        return $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取Win进程目录
+     * @return  string
+     */
+    public static function getWin32Path()
+    {
+        return Helper::getRunTimePath() . 'win32' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取进程命令通信目录
+     * @return  string
+     */
+    public static function getCommandPath()
+    {
+        return Helper::getRunTimePath() . 'ipc' . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -65,7 +146,7 @@ class Helper
      * @param string $type
      * @return string
      */
-    public static function formatError($message, $type = 'system')
+    public static function formatMessage($message, $type = 'system')
     {
         //时间
         $date = date('Y/m/d H:i:s', time());
@@ -75,16 +156,19 @@ class Helper
     }
 
     /**
-     * 输出错误
-     * @param string $errStr 错误信息
+     * 输出信息
+     * @param string $message
      * @param string $type
      * @param bool $isExit
      * @throws
      */
-    public static function showError($errStr, $type = 'warring', $isExit = true)
+    public static function showInfo($message, $type = 'info', $isExit = false)
     {
         //格式化信息
-        $text = static::formatError($errStr, $type);
+        $text = static::formatMessage($message, $type);
+
+        //记录日志
+        Log::write($text);
 
         //输出信息
         if ($isExit)
@@ -96,7 +180,30 @@ class Helper
 
     /**
      * 输出错误
-     * @param mixed $exception 异常信息
+     * @param string $errStr
+     * @param string $type
+     * @param bool $isExit
+     * @throws
+     */
+    public static function showError($errStr, $type = 'warring', $isExit = true)
+    {
+        //格式化信息
+        $text = static::formatMessage($errStr, $type);
+
+        //记录日志
+        Log::write($text);
+
+        //输出信息
+        if ($isExit)
+        {
+            exit($text);
+        }
+        echo $text;
+    }
+
+    /**
+     * 输出异常
+     * @param mixed $exception
      * @param string $type
      * @param bool $isExit
      * @throws
@@ -105,6 +212,9 @@ class Helper
     {
         //格式化信息
         $text = static::formatException($exception, $type);
+
+        //记录日志
+        Log::write($text);
 
         //输出信息
         if ($isExit)
@@ -116,8 +226,8 @@ class Helper
 
     /**
      * 控制台输出表格
-     * @param array $data 输出数据
-     * @param boolean $exit 输出后是否退出
+     * @param array $data
+     * @param boolean $exit
      */
     public static function showTable($data, $exit = true)
     {

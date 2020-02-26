@@ -8,62 +8,12 @@ use \ReflectionClass as ReflectionClass;
 use \ReflectionMethod as ReflectionMethod;
 use \ReflectionException as ReflectionException;
 
+/**
+ * Class Task
+ * @package EasyTask
+ */
 class Task
 {
-    /**
-     * 是否守护进程
-     * @var bool
-     */
-    private $daemon = false;
-
-    /**
-     * 是否清空文件掩码
-     * @var bool
-     */
-    private $umask = false;
-
-    /**
-     * 是否记录日志
-     * @var bool
-     */
-    private $isWriteLog = false;
-
-    /**
-     * 抛出异常
-     * @var bool
-     */
-    private $isThrowExcept = false;
-
-    /**
-     * 关闭标准输入输出
-     * @var bool
-     */
-    private $closeInOut = false;
-
-    /**
-     * 是否支持异步信号
-     * @var bool
-     */
-    private $canAsync = false;
-
-    /**
-     * 是否支持event事件
-     * @var bool
-     */
-    private $canEvent = false;
-
-    /**
-     * 任务前缀(作为进程名称前缀)
-     * @var string
-     */
-    private $prefix = 'Task';
-
-    /**
-     * 当前Os平台
-     * @var int
-     */
-    private $currentOs = 1;
-
     /**
      * 任务列表
      * @var array
@@ -75,29 +25,27 @@ class Task
      */
     public function __construct()
     {
-        //初始化
-        $this->initialise();
+        //检查运行环境
+        $currentOs = Helper::isWin() ? 1 : 2;
+        Env::set('currentOs', $currentOs);
+        Check::analysis($currentOs);
+        $this->initialise($currentOs);
     }
 
     /**
      * 进程初始化
+     * @param int $currentOs
      */
-    private function initialise()
+    private function initialise($currentOs)
     {
-        $this->currentOs = Helper::isWin() ? 1 : 2;
-        Check::analysis($this->currentOs);
-        $this->canEvent = Helper::canEvent();
-        $this->canAsync = Helper::canAsyncSignal();
-    }
-
-    /**
-     * 拦截器
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return $this->$name;
+        //初始化基础配置
+        Env::set('prefix', 'Task');
+        Env::set('canEvent', Helper::canEvent());
+        Env::set('canAsync', Helper::canAsyncSignal());
+        if ($currentOs == 1)
+        {
+            Env::set('phpPath', Helper::getPhpPath());
+        }
     }
 
     /**
@@ -107,29 +55,7 @@ class Task
      */
     public function setDaemon($daemon = false)
     {
-        $this->daemon = $daemon;
-        return $this;
-    }
-
-    /**
-     * 是否清空文件掩码
-     * @param bool $umask
-     * @return $this
-     */
-    public function setUmask($umask = false)
-    {
-        $this->umask = $umask;
-        return $this;
-    }
-
-    /**
-     * 关闭标准输入输出
-     * @param bool $isClose
-     * @return $this
-     */
-    public function setCloseInOut($isClose = false)
-    {
-        $this->closeInOut = $isClose;
+        Env::set('daemon', $daemon);
         return $this;
     }
 
@@ -140,20 +66,75 @@ class Task
      */
     public function setPrefix($prefix = '')
     {
-        $this->prefix = $prefix;
+        Env::set('prefix', $prefix);
+        return $this;
+    }
+
+    /**
+     * 设置PHP执行路径(windows)
+     * @param string $path
+     * @return $this
+     */
+    public function setPhpPath($path)
+    {
+        $file = realpath($path);
+        if (!file_exists($file))
+        {
+            Helper::showError("the path {$path} is not exists");
+        }
+        Env::set('phpPath', $path);
+        return $this;
+    }
+
+    /**
+     * 设置时区
+     * @param string $timeIdent
+     * @return $this
+     */
+    public function setTimeZone($timeIdent)
+    {
+        date_default_timezone_set($timeIdent);
         return $this;
     }
 
     /**
      * 设置是否记录日志
-     * @param bool $setWriteLog 是否记录异常日志
-     * @param bool $throwException 是否将异常输出到终端
+     * @param bool $isWrite 是否记录日志
      * @return $this
      */
-    public function setWriteLog($setWriteLog = false, $throwException = true)
+    public function setIsWriteLog($isWrite = false)
     {
-        $this->isWriteLog = $setWriteLog;
-        $this->isThrowExcept = $throwException;
+        Env::set('isWriteLog', $isWrite);
+        return $this;
+    }
+
+    /**
+     * 设置异常是否抛出终端
+     * @param bool $isThrow
+     * @return $this
+     */
+    public function setThrowExcept($isThrow = true)
+    {
+        Env::set('isThrowExcept', $isThrow);
+        return $this;
+    }
+
+    /**
+     * 设置运行时目录
+     * @param string $path
+     * @return $this
+     */
+    public function setRunTimePath($path)
+    {
+        if (!is_dir($path))
+        {
+            Helper::showError("the path {$path} is not exist");
+        }
+        if (!is_writable($path))
+        {
+            Helper::showError("the path {$path} is not writeable");
+        }
+        Env::set('runTimePath', $path);
         return $this;
     }
 
@@ -168,10 +149,6 @@ class Task
      */
     public function addFunc($func, $alas = '', $time = 1, $used = 1)
     {
-        if ($this->currentOs == 1)
-        {
-            Helper::showError('windows is not support addFunc api');
-        }
         if (!($func instanceof Closure))
         {
             Helper::showError('func must instanceof Closure');
@@ -202,10 +179,6 @@ class Task
      */
     public function addClass($class, $func, $alas = '', $time = 1, $used = 1)
     {
-        if ($this->currentOs == 1)
-        {
-            Helper::showError('windows is not support addClass api');
-        }
         if (!class_exists($class))
         {
             Helper::showError("class {$class} is not exist");
@@ -251,6 +224,10 @@ class Task
      */
     public function addCommand($command, $alas = '', $time = 1, $used = 1)
     {
+        if (!Helper::canExecuteCommand())
+        {
+            Helper::showError('please open the disabled function of popen and pclose');
+        }
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
@@ -270,13 +247,15 @@ class Task
      */
     private function getProcess()
     {
-        if ($this->currentOs == 1)
+        $taskList = $this->taskList;
+        $currentOs = Env::get('currentOs');
+        if ($currentOs == 1)
         {
-            return (new Win($this));
+            return (new Win($taskList));
         }
         else
         {
-            return (new Linux($this));
+            return (new Linux($taskList));
         }
     }
 
@@ -292,10 +271,7 @@ class Task
         }
 
         //异常注册
-        if ($this->isWriteLog)
-        {
-            Error::register($this);
-        }
+        Error::register();
 
         //进程启动
         ($this->getProcess())->start();
@@ -307,10 +283,6 @@ class Task
      */
     public function status()
     {
-        if ($this->currentOs == 1)
-        {
-            Helper::showError('windows is not support status api');
-        }
         ($this->getProcess())->status();
     }
 
@@ -321,10 +293,6 @@ class Task
      */
     public function stop($force = false)
     {
-        if ($this->currentOs == 1)
-        {
-            Helper::showError('windows is not support stop api');
-        }
         ($this->getProcess())->stop($force);
     }
 }

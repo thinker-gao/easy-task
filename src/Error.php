@@ -1,24 +1,19 @@
 <?php
-
 namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
 
+/**
+ * Class Error
+ * @package EasyTask
+ */
 class Error
 {
     /**
-     * Task实例
-     * @var Task
+     * Register Error
      */
-    private static $taskInstance;
-
-    /**
-     * 注册异常处理
-     * @param Task $taskInstance
-     */
-    public static function register($taskInstance)
+    public static function register()
     {
-        static::$taskInstance = $taskInstance;
         error_reporting(E_ALL);
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
@@ -28,10 +23,10 @@ class Error
     /**
      * appError
      * (E_ERROR|E_PARSE|E_CORE_ERROR|E_CORE_WARNING|E_COMPILE_ERROR|E_COMPILE_WARNING|E_STRICT)
-     * @param $errno
-     * @param $errStr
-     * @param $errFile
-     * @param $errLine
+     * @param string $errno
+     * @param string $errStr
+     * @param string $errFile
+     * @param int $errLine
      * @throws
      */
     public static function appError($errno, $errStr, $errFile, $errLine)
@@ -40,8 +35,8 @@ class Error
         $type = 'appError';
         $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
-        //上报异常
-        static::writeRecord($type, $exception);
+        //日志记录
+        static::report($type, $exception);
     }
 
     /**
@@ -51,12 +46,13 @@ class Error
      */
     public static function appException($exception)
     {
-        //上报异常
+        //日志记录
         $type = 'appException';
-        static::writeRecord($type, $exception);
+        static::report($type, $exception);
 
         //控制台抛出异常
-        if ((static::$taskInstance)->isThrowExcept) throw $exception;
+        $isThrowExcept = Env::get('isThrowExcept');
+        if ($isThrowExcept) Helper::showException($exception);
     }
 
     /**
@@ -70,43 +66,24 @@ class Error
         $type = 'appShutdown';
         if (($error = error_get_last()) != null)
         {
+            //日志记录
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
-            static::writeRecord($type, $exception);
+            static::report($type, $exception);
 
             //控制台抛出异常
-            if ((static::$taskInstance)->isThrowExcept) throw $exception;
+            $isThrowExcept = Env::get('isThrowExcept');
+            if ($isThrowExcept) Helper::showException($exception);
         }
     }
 
     /**
-     * 记录异常
-     * @param string $type
-     * @param ErrorException $exception
-     * @throws
+     * Report
+     * @param $type
+     * @param $exception
      */
-    private static function writeRecord($type, $exception)
+    private static function report($type, $exception)
     {
-        //格式化信息
-        $log = Helper::formatException($exception, $type);
-
-        //设置日志文件
-        $file = Helper::getFormatLogFilePath(static::$taskInstance->prefix);
-
-        //记录信息
-        file_put_contents($file, $log, FILE_APPEND);
-    }
-
-    /***
-     *  输出异常
-     * @param string $type
-     * @param ErrorException $exception
-     */
-    public static function showError($type, $exception)
-    {
-        //格式化信息
         $text = Helper::formatException($exception, $type);
-
-        //输出信息
-        echo $text;
+        Log::write($text);
     }
 }

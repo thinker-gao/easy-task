@@ -2,10 +2,10 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
+use EasyTask\Env;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
-use \ArrayObject as ArrayObject;
 use EasyTask\Helper;
 
 /**
@@ -15,12 +15,6 @@ use EasyTask\Helper;
 class Linux
 {
     /**
-     * Task实例
-     * @var $task
-     */
-    private $task;
-
-    /**
      * 进程启动时间
      * @var int
      */
@@ -28,9 +22,15 @@ class Linux
 
     /**
      * 进程命令管理
-     * @var ArrayObject
+     * @var array
      */
     private $commander;
+
+    /**
+     * 任务列表
+     * @var array
+     */
+    private $taskList;
 
     /**
      * 进程执行记录
@@ -40,15 +40,14 @@ class Linux
 
     /**
      * 构造函数
-     * @throws
-     * @var  $task
+     * @var array $taskList
      */
-    public function __construct($task)
+    public function __construct($taskList)
     {
-        $this->task = $task;
+        $this->taskList = $taskList;
         $this->startTime = time();
         $this->commander = new Command();
-        if (!$task->canEvent && $task->canAsync)
+        if (!Env::get('canEvent') && Env::get('canAsync'))
         {
             pcntl_async_signals(true);
         }
@@ -59,22 +58,13 @@ class Linux
      */
     public function start()
     {
-        //初始配置
-        if ($this->task->daemon)
+        //进程守护
+        if (Env::get('daemon'))
         {
             $this->daemon();
         }
-        if ($this->task->umask)
-        {
-            umask(0);
-        }
-        if ($this->task->closeInOut)
-        {
-            fclose(STDIN);
-            fclose(STDOUT);
-        }
 
-        //发送命令,关闭重复进程
+        //发送命令(关闭重复进程)
         $this->commander->send([
             'type' => 'start',
             'msgType' => 2
@@ -95,8 +85,8 @@ class Linux
             'msgType' => 2
         ]);
 
-        //等待返回结果
-        $this->initWaitExit();
+        //master等待返回结果
+        $this->masterWaitExit();
     }
 
     /**
@@ -114,27 +104,22 @@ class Linux
     }
 
     /**
-     * 守护进程
-     * @throws
+     * 常驻进程
      */
     private function daemon()
     {
         $pid = pcntl_fork();
-        if ($pid < 0)
+        switch ($pid)
         {
-            Helper::showError("fork process failed");
-        }
-        elseif ($pid)
-        {
-            $this->initWaitExit();
-        }
-        else
-        {
-            $sid = posix_setsid();
-            if ($sid < 0)
-            {
-                Helper::showError("set processForInit failed");
-            }
+            case -1:
+                Helper::showError('create process failed');
+                break;
+            case 0:
+                $sid = posix_setsid();
+                if ($sid < 0) Helper::showError('set processForManager failed');
+                break;
+            default:
+                $this->masterWaitExit();;
         }
     }
 
@@ -143,14 +128,15 @@ class Linux
      */
     private function allocate()
     {
-        foreach ($this->task->taskList as $item)
+        foreach ($this->taskList as $item)
         {
             //提取参数
             $alas = $item['alas'];
             $time = $item['time'];
             $date = date('Y-m-d H:i:s');
             $used = $item['used'];
-            $alas = "{$this->task->prefix}_{$alas}";
+            $prefix = Env::get('prefix');
+            $alas = "{$prefix}_{$alas}";
 
             //根据Worker数分配进程
             for ($i = 0; $i < $used; $i++)
@@ -158,13 +144,13 @@ class Linux
                 $pid = pcntl_fork();
                 if ($pid == -1)
                 {
-                    exit();
+                    exit;
                 }
                 elseif ($pid)
                 {
                     //记录进程
                     $ppid = posix_getpid();
-                    $this->processList[] = ['pid' => $pid, 'task_name' => $alas, 'started' => $date, 'timer' => $time . 's', 'status' => 'active', 'ppid' => $ppid,];
+                    $this->processList[] = ['pid' => $pid, 'name' => $alas, 'started' => $date, 'timer' => $time, 'status' => 'active', 'ppid' => $ppid,];
 
                     //主进程设置非阻塞
                     pcntl_wait($status, WNOHANG);
@@ -177,6 +163,7 @@ class Linux
             }
         }
 
+        //常驻守护
         $this->daemonWait();
     }
 
@@ -192,7 +179,7 @@ class Linux
         {
             $this->invokerByDirect($alas, $item);
         }
-        if (!$this->task->canEvent)
+        if (!Env::get('canEvent'))
         {
             $this->invokeByAlarm($time, $alas, $item);
         }
@@ -209,31 +196,11 @@ class Linux
      */
     private function invokerByDirect($alas, $item)
     {
-        //设置进程标题
-        @cli_set_process_title($alas);
-
         //执行程序
-        if ($item['type'] == 1)
-        {
-            $func = $item['func'];
-            $func();
-        }
-        elseif ($item['type'] == 2)
-        {
-            call_user_func([$item['class'], $item['func']]);
-        }
-        elseif ($item['type'] == 3)
-        {
-            $object = new $item['class']();
-            call_user_func([$object, $item['func']]);
-        }
-        else
-        {
-            @pclose(@popen($item['command'], 'r'));
-        }
+        $this->execute($item);
 
         //进程退出
-        exit();
+        exit;
     }
 
     /**
@@ -244,30 +211,10 @@ class Linux
      */
     private function invokeByAlarm($time, $alas, $item)
     {
-        //设置进程标题
-        @cli_set_process_title($alas);
-
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($time, $item) {
             pcntl_alarm($time);
-            if ($item['type'] == 1)
-            {
-                $func = $item['func'];
-                $func();
-            }
-            elseif ($item['type'] == 2)
-            {
-                call_user_func([$item['class'], $item['func']]);
-            }
-            elseif ($item['type'] == 3)
-            {
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-            }
-            else
-            {
-                @pclose(@popen($item['command'], 'r'));
-            }
+            $this->execute($item);
         }, false);
 
         //发送闹钟信号
@@ -280,7 +227,7 @@ class Linux
             sleep(1);
 
             //同步模式(调用信号处理)
-            if (!$this->task->canAsync) pcntl_signal_dispatch();
+            if (!Env::get('canAsync')) pcntl_signal_dispatch();
         }
     }
 
@@ -292,32 +239,10 @@ class Linux
      */
     private function invokeByEvent($time, $alas, $item)
     {
-        //设置进程标题
-        @cli_set_process_title($alas);
-
         //创建Event事件
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
-        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
-            if ($item['type'] == 1)
-            {
-                $func = $item['func'];
-                $func();
-            }
-            elseif ($item['type'] == 2)
-            {
-                call_user_func([$item['class'], $item['func']]);
-            }
-            elseif ($item['type'] == 3)
-            {
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-            }
-            else
-            {
-                @pclose(@popen($item['command'], 'r'));
-            }
-        });
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, $this->execute($item));
 
         //添加事件
         $event->add($time);
@@ -327,9 +252,35 @@ class Linux
     }
 
     /**
-     * init进程等待结束退出
+     * 执行任务代码
+     * @param array $item 执行项目
      */
-    private function initWaitExit()
+    private function execute($item)
+    {
+        @cli_set_process_title($item['alas']);
+        $type = $item['type'];
+        switch ($type)
+        {
+            case 1:
+                $func = $item['func'];
+                $func();
+                break;
+            case 2:
+                call_user_func([$item['class'], $item['func']]);
+                break;
+            case 3:
+                $object = new $item['class']();
+                call_user_func([$object, $item['func']]);
+                break;
+            default:
+                @pclose(@popen($item['command'], 'r'));
+        }
+    }
+
+    /**
+     * master进程等待结束退出
+     */
+    private function masterWaitExit()
     {
         $i = 5;
         while ($i--)
@@ -338,8 +289,8 @@ class Linux
             sleep(1);
 
             //接收汇报
-            $this->WaitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status')
+            $this->commander->waitCommandForExecute(1, function ($report) {
+                if ($report['type'] == 'status' && $report['status'])
                 {
                     Helper::showTable($report['status']);
                 }
@@ -349,7 +300,7 @@ class Linux
                 }
             });
         }
-        exit();
+        exit;
     }
 
     /**
@@ -357,10 +308,10 @@ class Linux
      */
     private function daemonWait()
     {
-        //守护进程设置进程名
-        @cli_set_process_title($this->task->prefix);
+        //设置进程标题
+        @cli_set_process_title(Env::get('prefix'));
 
-        //任务汇报Init进程
+        //任务汇报master进程
         $this->commander->send([
             'type' => 'allocate',
             'msgType' => 1,
@@ -370,7 +321,7 @@ class Linux
         //监听Kill命令
         pcntl_signal(SIGTERM, function () {
             posix_kill(0, SIGTERM);
-            exit();
+            exit;
         });
 
         //挂起进程
@@ -380,7 +331,7 @@ class Linux
             sleep(1);
 
             //接收命令
-            $this->waitCommandForExecute(2, function ($command) {
+            $this->commander->waitCommandForExecute(2, function ($command) {
                 //监听启动命令
                 if ($command['type'] == 'start')
                 {
@@ -410,7 +361,7 @@ class Linux
             });
 
             //调用信号处理
-            if (!$this->task->canAsync) pcntl_signal_dispatch();
+            if (!Env::get('canAsync')) pcntl_signal_dispatch();
         }
     }
 
@@ -428,24 +379,8 @@ class Linux
             $rel = pcntl_waitpid($pid, $status, WNOHANG);
             if ($rel == -1 || $rel > 0)
             {
-                $this->processList[$key]['status'] = 'stoped';
+                $this->processList[$key]['status'] = 'stop';
             }
         }
-    }
-
-    /**
-     * 根据命令执行对应操作
-     * @param int $msgType 消息类型
-     * @param \Closure $func 执行函数
-     */
-    private function waitCommandForExecute($msgType, $func)
-    {
-        $command = '';
-        $this->commander->receive($msgType, $command);
-        if (!$command || (!empty($command['time']) && (time() - $command['time']) > 5))
-        {
-            return;
-        }
-        $func($command);
     }
 }

@@ -1,7 +1,10 @@
 <?php
-
 namespace EasyTask;
 
+/**
+ * Class Table
+ * @package EasyTask
+ */
 class Table
 {
     const ALIGN_LEFT = 1;
@@ -103,7 +106,6 @@ class Table
     {
         $this->header = $header;
         $this->headerAlign = $align;
-
         $this->checkColWidth($header);
     }
 
@@ -224,6 +226,11 @@ class Table
         return $content;
     }
 
+    /**
+     * 获取风格
+     * @param string $style
+     * @return array
+     */
     protected function getStyle($style)
     {
         if ($this->format[$this->style])
@@ -287,7 +294,6 @@ class Table
                 }
             }
         }
-
         $content .= $this->renderSeparator('bottom');
 
         return $content;

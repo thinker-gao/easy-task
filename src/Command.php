@@ -1,6 +1,10 @@
 <?php
 namespace EasyTask;
 
+/**
+ * Class Command
+ * @package EasyTask
+ */
 class Command
 {
     /**
@@ -14,16 +18,24 @@ class Command
      */
     public function __construct()
     {
-        if (Helper::isWin())
+        $this->initMsgFile();
+    }
+
+    /**
+     * 初始化文件
+     */
+    private function initMsgFile()
+    {
+        //创建目录
+        $path = Helper::getCommandPath();
+        if (!is_dir($path))
         {
-            $file = 'C:/Windows/Temp/%s.txt';
+            mkdir($path, 0777);
         }
-        else
-        {
-            $file = '/tmp/%s.txt';
-        }
-        $this->msgFile = sprintf($file, md5(__FILE__));
-        $this->msgFile = sprintf($file, md5(__FILE__));
+
+        //创建文件
+        $file = $path . '%s.txt';
+        $this->msgFile = sprintf($file, md5(date('Y-m-d') . __FILE__));
         if (!file_exists($this->msgFile))
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
@@ -55,7 +67,7 @@ class Command
      */
     public function set($data)
     {
-        file_put_contents($this->msgFile, json_encode($data));
+        file_put_contents($this->msgFile, json_encode($data), LOCK_EX);
     }
 
     /**
@@ -97,5 +109,22 @@ class Command
             }
         }
         $this->set($data);
+    }
+
+    /**
+     * 根据命令执行对应操作
+     * @param int $msgType 消息类型
+     * @param \Closure $func 执行函数
+     * @param int $timeOut 执行函数
+     */
+    public function waitCommandForExecute($msgType, $func, $timeOut = 5)
+    {
+        $command = '';
+        $this->receive($msgType, $command);
+        if (!$command || (!empty($command['time']) && (time() - $command['time']) > $timeOut))
+        {
+            return;
+        }
+        $func($command);
     }
 }

@@ -7,8 +7,8 @@
 ## <h4>【一】 环境配置</h4>
 
 <ul>
-    <li>windows：PHP>=5.4</li>  
-    <li>linux|mac：PHP>=5.4（依赖pcntl和posix扩展,一般默认已安装;推荐安装event扩展,性能更高,且支持毫秒级定时,非硬性要求）</li>  
+    <li>windows：PHP>=5.5</li>  
+    <li>linux|mac：PHP>=5.5（依赖pcntl和posix扩展,一般默认已安装;推荐安装event扩展,性能更高,且支持毫秒级定时,非硬性要求）</li>  
 </ul>  
 
 ## <h4>【二】 Composer安装</h4>
@@ -25,7 +25,7 @@
 
 ## <h4>【三】 快速使用  </h4>
 
-<h5>3.1 创建多个定时任务</h5>
+<h5>3.1 创建任务</h5>
 
 ~~~
 $task = new Task();
@@ -33,11 +33,8 @@ $task = new Task();
 //设置常驻内存
 $task->setDaemon(true);
 
-//设置关闭标准输入输出(定时任务中任何输入和打印全部关闭,不显示)
-$task->setCloseInOut(true);
-
-//设置记录日志,当日志存在异常类型抛出到外部
-$task->setWriteLog(true, true);
+//设置记录日志
+$task->setWriteLog(true);
 
 //1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
 $task->addFunc(function () {
@@ -56,12 +53,12 @@ $task->addCommand($command,'orderCancel',10,1);
 $task->start();
 ~~~
 
-<h5>3.2 使用连贯操作</h5>
+<h5>3.2 连贯操作</h5>
 
 ~~~
 $task = new Task();
 $task->setDaemon(true)
-    ->setCloseInOut(true)
+    ->setWriteLog(true);
     ->setPrefix('ThinkTask')
     ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
     ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
@@ -71,15 +68,13 @@ $task->setDaemon(true)
     ->start();
 ~~~
 
-<h5>3.3 整合启动任务、查看状态、关闭任务(仅供参考)</h5>
+<h5>3.3 启动|查看|关闭命令整合(Demo)</h5>
 
 ~~~
-//获取命令行输入参数
-$cliArgv = $_SERVER['argv'];
-$command = empty($cliArgv['1']) ? '' : $cliArgv['1'];  //获取输入的是start,status,stop中的哪一个
-$isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获取是否要强制停止
+//获取命令
+$command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
-//配置定时任务
+//配置任务
 $task = new Task();
 $task->setDaemon(true)
     ->setCloseInOut(true)
@@ -100,38 +95,37 @@ elseif ($command == 'status')
 }
 elseif ($command == 'stop')
 {
-    $task->stop($isForce);
+    $task->stop();
 }
 else
 {
-    exit('This command is not exists:' . $command . PHP_EOL);
+    exit('Command is not exists');
 }
 
-启动命令: php this.php start
-查询命令: php this.php status
-关闭命令: php this.php stop
-强制关闭命令: php this.php stop -f
+启动: php this.php start
+查询: php this.php status
+关闭: php this.php stop
 ~~~
 
-<h5>3.4 认识启动后表格输出信息</h5>
+<h5>3.4 启动信息</h5>
 
 ~~~
 ┌─────┬──────────────┬─────────────────────┬───────┬────────┬──────┐
-│ pid │ task_name    │ started             │ timer │ status │ ppid │
+│ pid │ name         │ started             │ timer │ status │ ppid │
 ├─────┼──────────────┼─────────────────────┼───────┼────────┼──────┤
-│ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10s   │ active │ 31   │
-│ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10s   │ active │ 31   │
+│ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
+│ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 └─────┴──────────────┴─────────────────────┴───────┴────────┴──────┘
 参数说明:
-pid:当前定时任务的进程id
-task_name:您为您的定时任务起的别名
-started:定时任务启动时间
-timer:定时任务执行间隔时间
-status:定时任务状态
-ppid:管理当前定时任务的守护进程id
+        pid:当前定时任务的进程id
+        name:您为您的定时任务起的别名
+        started:定时任务启动时间
+        timer:定时任务执行间隔时间
+        status:定时任务状态
+        ppid:管理当前定时任务的守护进程id
 ~~~
 
-<h5>3.5 手工Linux命令管理</h5>
+<h5>3.5 手工管理(Linux命令)</h5>
 
 ~~~
 查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
@@ -140,12 +134,10 @@ ppid:管理当前定时任务的守护进程id
 提示:请不要直接kill -9 ppid,否则其他子进程成为孤儿进程
 ~~~
 
-<h5>3.6 Windows特别说明</h5>
+<h5>3.6 Windows支持</h5>
 
 ~~~
-windows支持的函数:setPrefix(),addCommand(),start(), 
-windows必须使用cmd管理员权限执行
-windows不可保证稳定性,排查跟踪困难
+windows必须使用cmd或powershell以管理员权限运行 
 ~~~
 
 
