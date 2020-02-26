@@ -25,7 +25,7 @@
 
 ## <h4>【三】 快速使用  </h4>
 
-<h5>3.1 创建多个定时任务</h5>
+<h5>3.1 创建任务</h5>
 
 ~~~
 $task = new Task();
@@ -33,11 +33,8 @@ $task = new Task();
 //设置常驻内存
 $task->setDaemon(true);
 
-//设置关闭标准输入输出(定时任务中任何输入和打印全部关闭,不显示)
-$task->setCloseInOut(true);
-
-//设置记录日志,当日志存在异常类型抛出到外部
-$task->setWriteLog(true, true);
+//设置记录日志
+$task->setWriteLog(true);
 
 //1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
 $task->addFunc(function () {
@@ -56,12 +53,12 @@ $task->addCommand($command,'orderCancel',10,1);
 $task->start();
 ~~~
 
-<h5>3.2 使用连贯操作</h5>
+<h5>3.2 连贯操作</h5>
 
 ~~~
 $task = new Task();
 $task->setDaemon(true)
-    ->setCloseInOut(true)
+    ->setWriteLog(true);
     ->setPrefix('ThinkTask')
     ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
     ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
@@ -71,14 +68,13 @@ $task->setDaemon(true)
     ->start();
 ~~~
 
-<h5>3.3 整合启动、查看、关闭命令(Demo)</h5>
+<h5>3.3 启动|查看|关闭命令整合(Demo)</h5>
 
 ~~~
-//获取命令行输入参数
-$cliArgv = $_SERVER['argv'];
-$command = empty($cliArgv['1']) ? '' : $cliArgv['1'];
+//获取命令
+$command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
-//配置定时任务
+//配置任务
 $task = new Task();
 $task->setDaemon(true)
     ->setCloseInOut(true)
@@ -106,9 +102,9 @@ else
     exit('Command is not exists');
 }
 
-启动命令: php this.php start
-查询命令: php this.php status
-关闭命令: php this.php stop
+启动: php this.php start
+查询: php this.php status
+关闭: php this.php stop
 ~~~
 
 <h5>3.4 启动信息</h5>
@@ -129,7 +125,7 @@ status:定时任务状态
 ppid:管理当前定时任务的守护进程id
 ~~~
 
-<h5>3.5 手工Linux命令管理</h5>
+<h5>3.5 手工管理(Linux命令)</h5>
 
 ~~~
 查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
@@ -138,7 +134,7 @@ ppid:管理当前定时任务的守护进程id
 提示:请不要直接kill -9 ppid,否则其他子进程成为孤儿进程
 ~~~
 
-<h5>3.6 Windows特别说明</h5>
+<h5>3.6 Windows支持</h5>
 
 ~~~
 windows必须使用cmd或powershell以管理员权限运行 
