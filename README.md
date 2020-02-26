@@ -71,13 +71,12 @@ $task->setDaemon(true)
     ->start();
 ~~~
 
-<h5>3.3 整合启动任务、查看状态、关闭任务(仅供参考)</h5>
+<h5>3.3 整合启动、查看、关闭命令(Demo)</h5>
 
 ~~~
 //获取命令行输入参数
 $cliArgv = $_SERVER['argv'];
-$command = empty($cliArgv['1']) ? '' : $cliArgv['1'];  //获取输入的是start,status,stop中的哪一个
-$isForce = !empty($cliArgv['2']) && $cliArgv['2'] == '-f' ? true : false;  //获取是否要强制停止
+$command = empty($cliArgv['1']) ? '' : $cliArgv['1'];
 
 //配置定时任务
 $task = new Task();
@@ -100,31 +99,30 @@ elseif ($command == 'status')
 }
 elseif ($command == 'stop')
 {
-    $task->stop($isForce);
+    $task->stop();
 }
 else
 {
-    exit('This command is not exists:' . $command . PHP_EOL);
+    exit('Command is not exists');
 }
 
 启动命令: php this.php start
 查询命令: php this.php status
 关闭命令: php this.php stop
-强制关闭命令: php this.php stop -f
 ~~~
 
-<h5>3.4 认识启动后表格输出信息</h5>
+<h5>3.4 启动信息</h5>
 
 ~~~
 ┌─────┬──────────────┬─────────────────────┬───────┬────────┬──────┐
-│ pid │ task_name    │ started             │ timer │ status │ ppid │
+│ pid │ name         │ started             │ timer │ status │ ppid │
 ├─────┼──────────────┼─────────────────────┼───────┼────────┼──────┤
-│ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10s   │ active │ 31   │
-│ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10s   │ active │ 31   │
+│ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
+│ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 └─────┴──────────────┴─────────────────────┴───────┴────────┴──────┘
 参数说明:
 pid:当前定时任务的进程id
-task_name:您为您的定时任务起的别名
+name:您为您的定时任务起的别名
 started:定时任务启动时间
 timer:定时任务执行间隔时间
 status:定时任务状态
@@ -143,9 +141,7 @@ ppid:管理当前定时任务的守护进程id
 <h5>3.6 Windows特别说明</h5>
 
 ~~~
-windows支持的函数:setPrefix(),addCommand(),start(), 
-windows必须使用cmd管理员权限执行
-windows不可保证稳定性,排查跟踪困难
+windows必须使用cmd或powershell以管理员权限运行 
 ~~~
 
 
