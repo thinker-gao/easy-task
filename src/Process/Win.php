@@ -223,11 +223,7 @@ class Win
         }
 
         //汇报执行情况
-        $report = $this->workerStatus($count - 1);
-        if ($report)
-        {
-            Helper::showTable($report);
-        }
+        $this->status();
     }
 
     /**
