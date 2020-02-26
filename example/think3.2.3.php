@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Think3.2.3 SupportClass
+ * Think3.2.3 Support
  */
 class Support
 {
