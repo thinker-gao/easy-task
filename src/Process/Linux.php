@@ -61,6 +61,13 @@ class Linux
         //进程守护
         if (Env::get('daemon'))
         {
+            //掩码设置
+            umask(0);
+
+            //关闭输出
+            fclose(STDIN);
+            fclose(STDOUT);
+            fclose(STDERR);
             $this->daemon();
         }
 
@@ -72,6 +79,13 @@ class Linux
 
         //分配进程
         $this->allocate();
+    }
+
+    private function closeInOut()
+    {
+        fclose(STDIN);
+        fclose(STDOUT);
+        fclose(STDERR);
     }
 
     /**
