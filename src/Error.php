@@ -85,5 +85,9 @@ class Error
     {
         $text = Helper::formatException($exception, $type);
         Log::write($text);
+        if (Env::get('daemon'))
+        {
+            Helper::showError($text, $type, false);
+        }
     }
 }

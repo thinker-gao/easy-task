@@ -20,7 +20,7 @@ class Log
         $path = $runTimePath . 'log' . DIRECTORY_SEPARATOR;
         if (!is_dir($path))
         {
-            mkdir($path);
+            mkdir($path,0777,true);
         }
 
         //保存文件

@@ -35,14 +35,25 @@ class Check
             'pclose',
             'umask',
             'putenv',
-            'getenv'
+            'getenv',
+            'cli_set_process_title',
         ],
         //Linux
         '2' => [
             'umask',
             'chdir',
             'putenv',
-            'getenv'
+            'getenv',
+            'pcntl_fork',
+            'posix_setsid',
+            'posix_getpid',
+            'pcntl_wait',
+            'posix_kill',
+            'pcntl_signal',
+            'pcntl_alarm',
+            'pcntl_waitpid',
+            'pcntl_signal_dispatch',
+            'cli_set_process_title',
         ]
     ];
 
