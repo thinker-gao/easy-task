@@ -153,7 +153,7 @@ class Task
         {
             Helper::showError('func must instanceof Closure');
         }
-
+        Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
@@ -195,6 +195,7 @@ class Task
             {
                 Helper::showError("class {$class}'s func {$func} must public");
             }
+            Helper::checkTaskTime($time);
             $alas = $alas ? $alas : uniqid();
             $uniKey = md5($alas);
             $this->taskList[$uniKey] = [
@@ -228,6 +229,7 @@ class Task
         {
             Helper::showError('please open the disabled function of popen and pclose');
         }
+        Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
