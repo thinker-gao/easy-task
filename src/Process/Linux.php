@@ -61,9 +61,6 @@ class Linux
         //进程守护
         if (Env::get('daemon'))
         {
-            umask(0);
-            fclose(STDIN);
-            fclose(STDOUT);
             $this->daemon();
         }
 
@@ -107,10 +104,28 @@ class Linux
     }
 
     /**
+     * 设置掩码
+     */
+    private function setMask()
+    {
+        umask(0);
+    }
+
+    /**
+     * 关闭标准输入输出
+     */
+    private function closeInOut()
+    {
+        fclose(STDIN);
+        fclose(STDOUT);
+    }
+
+    /**
      * 常驻进程
      */
     private function daemon()
     {
+        $this->setMask();
         $pid = pcntl_fork();
         switch ($pid)
         {
@@ -131,6 +146,10 @@ class Linux
      */
     private function allocate()
     {
+        if (Env::get('daemon'))
+        {
+            $this->closeInOut();
+        }
         foreach ($this->taskList as $item)
         {
             //提取参数
