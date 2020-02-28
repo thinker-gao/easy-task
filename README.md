@@ -1,17 +1,17 @@
-﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器  <h4>(QQ交流群60973229)</h4></h3>
+﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器  <h4>(QQ群60973229)</h4></h3>
 ===============
 
-> 运行环境：windows | linux | macos 
+> 运行环境:windows | linux | mac
 
 
-## <h4>【一】 环境配置</h4>
+## <h4>【一】 环境配置 </h4>
 
 <ul>
-    <li>windows：PHP>=5.5</li>  
-    <li>linux|mac：PHP>=5.5（依赖pcntl和posix扩展,一般默认已安装;推荐安装event扩展,性能更高,且支持毫秒级定时,非硬性要求）</li>  
+    <li>windows：PHP>=5.5 (推荐安装event扩展,事件循环毫秒级支持)</li>  
+    <li>linux|mac：PHP>=5.5 (依赖pcntl和posix扩展,一般默认已安装;推荐安装event扩展,事件循环毫秒级支持）</li>  
 </ul>  
 
-## <h4>【二】 Composer安装</h4>
+## <h4>【二】 Composer安装 </h4>
 
 ~~~
   composer require easy-task/easy-task
@@ -30,26 +30,29 @@
 ~~~
 $task = new Task();
 
-//设置常驻内存
+// 设置常驻内存
 $task->setDaemon(true);
 
-//设置记录日志
-$task->setWriteLog(true);
+// 设置项目名称
+$task->setPrefix('EasyTask');
 
-//1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
+// 设置记录运行时目录(日志或缓存目录)
+$task->setRunTimePath('./Application/Runtime/');
+
+// 1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
 $task->addFunc(function () {
     $url = 'https://www.gaojiufeng.cn/?id=243';
     @file_get_contents($url);
 }, 'request', 10, 2);
 
-//2.添加类的方法类型定时任务(同时支持静态方法)(开启1个进程,每隔20秒执行1次)
+// 2.添加类的方法类型定时任务(同时支持静态方法)(开启1个进程,每隔20秒执行1次)
 $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
 
-//3.添加指令类型的定时任务(开启1个进程,每隔10秒执行1次)
+// 3.添加指令类型的定时任务(开启1个进程,每隔10秒执行1次)
 $command = 'php /www/web/orderAutoCancel.php';
 $task->addCommand($command,'orderCancel',10,1);
 
-//启动任务
+// 启动任务
 $task->start();
 ~~~
 
@@ -58,7 +61,6 @@ $task->start();
 ~~~
 $task = new Task();
 $task->setDaemon(true)
-    ->setWriteLog(true);
     ->setPrefix('ThinkTask')
     ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
     ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
@@ -71,20 +73,18 @@ $task->setDaemon(true)
 <h5>3.3 启动|查看|关闭命令整合(Demo)</h5>
 
 ~~~
-//获取命令
+// 获取命令
 $command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
-//配置任务
+// 配置任务
 $task = new Task();
 $task->setDaemon(true)
-    ->setCloseInOut(true)
-    ->setWriteLog(true, true)
     ->addFunc(function () {
         $url = 'https://www.gaojiufeng.cn/?id=271';
         @file_get_contents($url);
     }, 'request', 10, 2);;
 
-//根据命令执行
+// 根据命令执行
 if ($command == 'start')
 {
     $task->start();

@@ -98,28 +98,6 @@ class Task
     }
 
     /**
-     * 设置是否记录日志
-     * @param bool $isWrite 是否记录日志
-     * @return $this
-     */
-    public function setIsWriteLog($isWrite = false)
-    {
-        Env::set('isWriteLog', $isWrite);
-        return $this;
-    }
-
-    /**
-     * 设置异常是否抛出终端
-     * @param bool $isThrow
-     * @return $this
-     */
-    public function setThrowExcept($isThrow = true)
-    {
-        Env::set('isThrowExcept', $isThrow);
-        return $this;
-    }
-
-    /**
      * 设置运行时目录
      * @param string $path
      * @return $this
