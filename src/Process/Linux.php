@@ -77,13 +77,6 @@ class Linux
         $this->allocate();
     }
 
-    private function closeInOut()
-    {
-        fclose(STDIN);
-        fclose(STDOUT);
-        fclose(STDERR);
-    }
-
     /**
      * 运行状态
      */
@@ -129,7 +122,7 @@ class Linux
                 if ($sid < 0) Helper::showError('set processForManager failed');
                 break;
             default:
-                $this->masterWaitExit();;
+                $this->status();
         }
     }
 

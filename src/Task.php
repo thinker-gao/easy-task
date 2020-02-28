@@ -98,28 +98,6 @@ class Task
     }
 
     /**
-     * 设置是否记录日志
-     * @param bool $isWrite 是否记录日志
-     * @return $this
-     */
-    public function setIsWriteLog($isWrite = false)
-    {
-        Env::set('isWriteLog', $isWrite);
-        return $this;
-    }
-
-    /**
-     * 设置异常是否抛出终端
-     * @param bool $isThrow
-     * @return $this
-     */
-    public function setThrowExcept($isThrow = true)
-    {
-        Env::set('isThrowExcept', $isThrow);
-        return $this;
-    }
-
-    /**
      * 设置运行时目录
      * @param string $path
      * @return $this
@@ -153,7 +131,7 @@ class Task
         {
             Helper::showError('func must instanceof Closure');
         }
-
+        Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
@@ -195,6 +173,7 @@ class Task
             {
                 Helper::showError("class {$class}'s func {$func} must public");
             }
+            Helper::checkTaskTime($time);
             $alas = $alas ? $alas : uniqid();
             $uniKey = md5($alas);
             $this->taskList[$uniKey] = [
@@ -228,6 +207,7 @@ class Task
         {
             Helper::showError('please open the disabled function of popen and pclose');
         }
+        Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [

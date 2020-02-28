@@ -51,8 +51,7 @@ class Error
         static::report($type, $exception);
 
         //控制台抛出异常
-        $isThrowExcept = Env::get('isThrowExcept');
-        if ($isThrowExcept) Helper::showException($exception);
+        Helper::showException($exception);
     }
 
     /**
@@ -71,8 +70,7 @@ class Error
             static::report($type, $exception);
 
             //控制台抛出异常
-            $isThrowExcept = Env::get('isThrowExcept');
-            if ($isThrowExcept) Helper::showException($exception);
+            Helper::showException($exception);
         }
     }
 

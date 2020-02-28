@@ -6,9 +6,18 @@
   ],
   "type": "library",
   "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "GaoJiuFeng",
+      "email": "392223903@qq.com"
+    }
+  ],
   "require": {
     "php": ">=5.5",
     "ext-json": "*"
+  },
+  "suggest": {
+    "ext-event": "For better performance. "
   },
   "autoload": {
     "psr-4": {

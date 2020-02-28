@@ -179,6 +179,26 @@ class Helper
     }
 
     /**
+     * 检查任务时间是否合法
+     * @param $time
+     */
+    public static function checkTaskTime($time)
+    {
+        if (!is_numeric($time))
+        {
+            static::showError('the Task time must be numeric');
+        }
+        if ($time < 0)
+        {
+            static::showError('the Task time must be greater than or equal to 0');
+        }
+        if (is_float($time) && !static::canEvent())
+        {
+            static::showError('the Event extension must be enabled before using milliseconds');
+        }
+    }
+
+    /**
      * 输出错误
      * @param string $errStr
      * @param string $type
