@@ -165,7 +165,7 @@ Ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【九】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
-<p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="80" height="80"></p>
+<p align=""><a href="https://www.jetbrains.com/phpstorm/" target="_blank" ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="80" height="80"></p>
 
 
 
