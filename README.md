@@ -151,7 +151,7 @@ Ppid:管理当前定时任务的守护进程id
 
 ## <h5>【七】. 进阶了解->框架集成 </h5>
 
-&ensp;&ensp;[<font size=2>-> thinkphp3.2.x正在支持</font>](http://example.com/). 
+&ensp;&ensp;[<font size=2>-> thinkphp3.2.x已支持</font>](https://www.gaojiufeng.cn/?id=293). 
 
 &ensp;&ensp;[<font size=2>-> ThinkPhp5.0.x正在支持</font>](http://example.com/).
 

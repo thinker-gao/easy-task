@@ -27,7 +27,7 @@ class Command
     private function initMsgFile()
     {
         //创建目录
-        $path = Helper::getCommandPath();
+        $path = Helper::getCsgPath();
         if (!is_dir($path))
         {
             mkdir($path, 0777);

@@ -7,7 +7,7 @@ use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
 use EasyTask\Helper;
-use EasyTask\Win32;
+use EasyTask\Wpc;
 
 /**
  * Class Win
@@ -16,10 +16,10 @@ use EasyTask\Win32;
 class Win
 {
     /**
-     * win32服务
-     * @var Win32
+     * wpc服务
+     * @var Wpc
      */
-    private $win32;
+    private $wpc;
 
     /**
      * 进程启动时间
@@ -47,13 +47,13 @@ class Win
 
     /**
      * 构造函数
-     * @param  array  $taskList
+     * @param array $taskList
      */
     public function __construct($taskList)
     {
-        $this->win32 = new Win32();
-        $this->taskList = $taskList;
+        $this->wpc = new Wpc();
         $this->startTime = time();
+        $this->taskList = $taskList;
         $this->commander = new Command();
     }
 
@@ -72,7 +72,7 @@ class Win
         $func = function ($name) {
             $this->executeByProcessName($name);
         };
-        if (!$this->win32->allocateProcess($func))
+        if (!$this->wpc->allocateProcess($func))
         {
             Helper::showError('Unexpected error, process has been allocated');
         }
@@ -103,7 +103,7 @@ class Win
         $workerList = $this->workerList;
         foreach ($workerList as $name => $item)
         {
-            $status = $this->win32->getProcessStatus($name);
+            $status = $this->wpc->getProcessStatus($name);
             if ($status)
             {
                 $lineCount++;
@@ -145,7 +145,7 @@ class Win
         $list = ['master', 'manager'];
         foreach ($list as $name)
         {
-            $this->win32->joinProcess($name);
+            $this->wpc->joinProcess($name);
         }
         foreach ($this->taskList as $key => $item)
         {
@@ -158,7 +158,7 @@ class Win
             {
                 $name = $item['name'] = $alas . '___' . $i;
                 $this->workerList[$name] = $item;
-                $this->win32->joinProcess($name);
+                $this->wpc->joinProcess($name);
             }
         }
     }
@@ -198,7 +198,7 @@ class Win
     private function allocate()
     {
         //清理进程信息
-        $this->win32->cleanProcessInfo();
+        $this->wpc->cleanProcessInfo();
 
         //计算要分配的进程数
         $count = $this->getWorkerCount() + 1;
@@ -254,7 +254,7 @@ class Win
         }
 
         //输出信息
-        if (!Env::get('daemon')) Helper::showInfo('this worker is start...');
+        if (!Env::get('daemon')) Helper::showInfo('this worker ' . getmypid() . ' is start...');
 
         //提取Task字典
         $item = $taskDict[$name];
@@ -320,7 +320,7 @@ class Win
 
         //保存进程信息
         $pid = getmypid();
-        $this->win32->saveProcessInfo([
+        $this->wpc->saveProcessInfo([
             'pid' => $pid,
             'name' => $item['name'],
             'alas' => $item['alas'],
@@ -347,14 +347,12 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
-        //监听manager的命令
-        $this->commander->waitCommandForExecute($pid, function ($command) {
-            $commandType = $command['type'];
-            if ($commandType == 'stop')
-            {
-                Helper::showError('Listen to exit command, the current process is safely exiting...');
-            }
-        }, 3600 * 24);
+        //检查manager进程存活
+        $status = $this->wpc->getProcessStatus('manager');
+        if (!$status)
+        {
+            Helper::showError('Listen to exit command, the current worker process ' . $pid . ' is safely exiting...');
+        }
     }
 
     /**
@@ -390,7 +388,6 @@ class Win
 
                     //监听关闭命令(当前主进程关闭)
                     case 'stop':
-                        $this->sendStopToWorker();
                         Helper::showError('Listen to exit command, the current process is safely exiting...');
                         break;
                 }
@@ -399,26 +396,11 @@ class Win
     }
 
     /**
-     * 向所有worker进程发送退出命令
-     */
-    private function sendStopToWorker()
-    {
-        $workers = $this->workerStatus($this->getWorkerCount());
-        foreach ($workers as $work)
-        {
-            $this->commander->send([
-                'type' => 'stop',
-                'msgType' => $work['pid']
-            ]);
-        }
-    }
-
-    /**
      * master进程等待结束退出
      */
     private function masterWaitExit()
     {
-        $i = 10;
+        $i = 30;
         while ($i--)
         {
             //CPU休息1秒
@@ -448,7 +430,7 @@ class Win
         while ($tryTotal--)
         {
             sleep(1);
-            $infoData = $this->win32->getProcessInfo();
+            $infoData = $this->wpc->getProcessInfo();
             if ($count == count($infoData))
             {
                 break;
@@ -462,7 +444,7 @@ class Win
             $item['ppid'] = $pid;
             $item['status'] = 'stop';
             $item['name'] = $item['alas'];
-            if ($this->win32->getProcessStatus($name))
+            if ($this->wpc->getProcessStatus($name))
             {
                 $item['status'] = 'active';
             }

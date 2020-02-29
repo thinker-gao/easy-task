@@ -93,18 +93,27 @@ class Helper
      * 获取Win进程目录
      * @return  string
      */
-    public static function getWin32Path()
+    public static function getWinPath()
     {
-        return Helper::getRunTimePath() . 'win32' . DIRECTORY_SEPARATOR;
+        return Helper::getRunTimePath() . 'Win' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取日志目录
+     * @return  string
+     */
+    public static function getLogPath()
+    {
+        return Helper::getRunTimePath() . 'Log' . DIRECTORY_SEPARATOR;
     }
 
     /**
      * 获取进程命令通信目录
      * @return  string
      */
-    public static function getCommandPath()
+    public static function getCsgPath()
     {
-        return Helper::getRunTimePath() . 'ipc' . DIRECTORY_SEPARATOR;
+        return Helper::getRunTimePath() . 'Csg' . DIRECTORY_SEPARATOR;
     }
 
     /**

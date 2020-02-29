@@ -2,16 +2,16 @@
 namespace EasyTask;
 
 /**
- * Class Win32
+ * Class Wpc
  * @package EasyTask
  */
-class Win32
+class Wpc
 {
     /**
      * 进程锁
-     * @var string
+     * @var Lock
      */
-    private $lockFile;
+    private $lock;
 
     /**
      * 进程名称列表
@@ -21,22 +21,17 @@ class Win32
 
     /**
      * 构造函数
-     * Win32 constructor.
      */
     public function __construct()
     {
+        //创建进程锁
+        $this->lock = new Lock();
+
         //创建运行时目录
-        $runPath = Helper::getWin32Path();
+        $runPath = Helper::getWinPath();
         if (!is_dir($runPath))
         {
             mkdir($runPath, 0777, true);
-        }
-
-        //创建锁文件
-        $lockFile = $this->lockFile = $runPath . 'lock';
-        if (!file_exists($lockFile))
-        {
-            file_put_contents($lockFile, '');
         }
 
         //创建进程信息文件
@@ -48,28 +43,13 @@ class Win32
     }
 
     /**
-     * 通过进程锁执行
-     * @param \Closure $func
-     */
-    private function lockToExecute($func)
-    {
-        $fp = fopen($this->lockFile, "r");
-        if (flock($fp, LOCK_EX))
-        {
-            $func();
-            flock($fp, LOCK_UN);
-        }
-        fclose($fp);
-    }
-
-    /**
      * 注册进程名称
      * @param string $name
      */
     public function joinProcess($name)
     {
         $this->processNames[] = $name;
-        $runPath = Helper::getWin32Path();
+        $runPath = Helper::getWinPath();
         $file = $runPath . md5($name);
         if (!file_exists($file))
         {
@@ -84,7 +64,7 @@ class Win32
      */
     public function getProcessFile($name)
     {
-        $runPath = Helper::getWin32Path();
+        $runPath = Helper::getWinPath();
         return $runPath . md5($name);
     }
 
@@ -94,7 +74,7 @@ class Win32
      */
     public function getProcessInfoFile()
     {
-        $runPath = Helper::getWin32Path();
+        $runPath = Helper::getWinPath();
         $infoFile = md5(__FILE__);
         return $runPath . $infoFile;
     }
@@ -116,26 +96,15 @@ class Win32
     }
 
     /**
-     * 获取进程信息
+     * 获取进程信息no_lock
      * @return array
      */
     public function getProcessInfo()
     {
-        $info = [];
         $file = $this->getProcessInfoFile();
-        $fp = fopen($file, 'r');
-        if (flock($fp, LOCK_EX))
-        {
-            $fileSize = filesize($file);
-            $oldInfo = $fileSize ? fread($fp, $fileSize) : [];
-            if ($oldInfo)
-            {
-                $info = json_decode($oldInfo, true);
-            }
-            flock($fp, LOCK_UN);
-        }
-        fclose($fp);
-        return $info;
+        $info = file_get_contents($file);
+        $info = json_decode($info, true);
+        return is_array($info) ? $info : [];
     }
 
     /**
@@ -144,7 +113,7 @@ class Win32
     public function cleanProcessInfo()
     {
         //加锁执行
-        $this->lockToExecute(function () {
+        $this->lock->execute(function () {
             @file_put_contents($this->getProcessInfoFile(), '');
         });
     }
@@ -156,7 +125,7 @@ class Win32
     public function saveProcessInfo($info)
     {
         //加锁执行
-        $this->lockToExecute(function () use ($info) {
+        $this->lock->execute(function () use ($info) {
 
             //进程信息文件
             $name = $info['name'];
