@@ -7,7 +7,7 @@
 
 
 ## <h4 style="text-align:left">  项目介绍 </h4>
-<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是基于psr4构建的原生常驻内存定时任务定时器Composer包，同时支持windows、linux、mac环境运行。
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是基于Psr4构建的原生常驻内存定时任务定时器Composer包，同时支持windows、linux、mac环境运行。
 
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;ＱＱ群60973229(讨论交流,问题反馈)
 </p>
