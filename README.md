@@ -9,7 +9,7 @@
 ## <h4 style="text-align:left">  项目介绍 </h4>
 <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是基于psr4构建的原生常驻内存定时任务定时器Composer包，同时支持windows、linux、mac环境运行。
 
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;QQ群60973229(讨论交流,bug反馈)
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;ＱＱ群60973229(讨论交流,问题反馈)
 </p>
 
 ## <h4>   运行环境 </h4>
@@ -165,7 +165,7 @@ Ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【九】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
-<p align=""><a href="https://www.jetbrains.com/phpstorm/" target="_blank" ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="80" height="80"></p>
+<p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="60" height="60"></p>
 
 
 
