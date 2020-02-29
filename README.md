@@ -1,10 +1,8 @@
 ﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器  <h4>(QQ群60973229)</h4></h3>
-===============
-
 <p align="center">
-<a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/a75934dd01c81e4f279058968d7362cf98389849/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7068702d253345253344372e322d627269676874677265656e"><img src="https://camo.githubusercontent.com/a75934dd01c81e4f279058968d7362cf98389849/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7068702d253345253344372e322d627269676874677265656e" data-canonical-src="https://img.shields.io/badge/php-%3E%3D7.2-brightgreen" style="max-width:100%;"></a>
-<a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/9d155a46bfa8eafe37ad67cc8db408fcf4102d2a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73776f6f6c652d253345253344342e342e342d627269676874677265656e"><img src="https://camo.githubusercontent.com/9d155a46bfa8eafe37ad67cc8db408fcf4102d2a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73776f6f6c652d253345253344342e342e342d627269676874677265656e" data-canonical-src="https://img.shields.io/badge/swoole-%3E%3D4.4.4-brightgreen" style="max-width:100%;"></a>
-<a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/ed56dc92927ec9f821d512564467b4672d4a22fc/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d617061636865253230322d626c7565"><img src="https://camo.githubusercontent.com/ed56dc92927ec9f821d512564467b4672d4a22fc/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d617061636865253230322d626c7565" data-canonical-src="https://img.shields.io/badge/license-apache%202-blue" style="max-width:100%;"></a>
+<img src="./icon/stable_version.svg" style="max-width:100%;">
+<img src="./icon/php_version.svg" style="max-width:100%;">
+<img src="./icon/license.svg" style="max-width:100%;"></a>
 </p>
 
 > 运行环境:windows | linux | mac
