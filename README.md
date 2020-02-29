@@ -1,4 +1,4 @@
-﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器  <h4>(QQ群60973229)</h4></h3>
+﻿<h3>EasyTask -- PHP原生常驻内存定时任务定时器</h3>
 <p align="left">
 <img src="./icon/stable_version.svg" style="max-width:100%;">
 <img src="./icon/php_version.svg" style="max-width:100%;">
