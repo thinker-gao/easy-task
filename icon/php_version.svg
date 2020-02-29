@@ -1,0 +1,29 @@
+<svg width="76" height="20" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="b" x2="0" y2="100%">
+   <stop offset="0" stop-color="#bbb" stop-opacity="0.1"/>
+   <stop offset="1" stop-opacity="0.1"/>
+  </linearGradient>
+ </defs>
+ <clipPath id="a">
+  <rect width="76" height="20" rx="3" fill="#fff" id="svg_1"/>
+ </clipPath>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="78" height="22" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g clip-path="url(#a)" id="svg_2">
+   <path fill="#555" d="m0,0l31,0l0,20l-31,0l0,-20z" id="svg_3"/>
+   <path fill="#4c1" d="m31,0l45,0l0,20l-45,0l0,-20z" id="svg_4"/>
+   <path fill="url(#b)" d="m0,0l76,0l0,20l-76,0l0,-20z" id="svg_5"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110" id="svg_6">
+   <text x="165" y="150" fill="#010101" fill-opacity="0.3" transform="scale(0.10000000149011612) " id="svg_7">php</text>
+   <text x="165" y="140" transform="scale(0.10000000149011612) " id="svg_8">php</text>
+   <text x="525" y="150" fill="#010101" fill-opacity="0.3" transform="scale(0.10000000149011612) " id="svg_9">&gt;=7.2</text>
+   <text x="525" y="140" transform="scale(0.10000000149011612) " id="svg_10">&gt;=5.5</text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg width="91" height="20" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="b" x2="0" y2="100%">
+   <stop offset="0" stop-color="#bbb" stop-opacity="0.1"/>
+   <stop offset="1" stop-opacity="0.1"/>
+  </linearGradient>
+ </defs>
+ <mask id="a">
+  <rect width="91" height="20" rx="3" fill="#fff" id="svg_1"/>
+ </mask>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="93" height="22" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g mask="url(#a)" id="svg_2">
+   <rect width="45" height="20" fill="#555" id="svg_3"/>
+   <rect x="45" width="46" height="20" fill="#28a3df" id="svg_4"/>
+   <rect width="91" height="20" fill="url(#b)" id="svg_5"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11" id="svg_6">
+   <text x="23.5" y="15" fill="#010101" fill-opacity="0.3" id="svg_7">stable</text>
+   <text x="23.5" y="14" id="svg_8">stable</text>
+   <text x="67" y="15" fill="#010101" fill-opacity="0.3" id="svg_9">2.5.1</text>
+   <text x="67" y="14" id="svg_10">2.5.1</text>
+  </g>
+ </g>
+</svg>
