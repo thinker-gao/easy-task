@@ -1,5 +1,5 @@
-﻿<p align="center"><h4 style="text-align:center">EasyTask原生常驻内存定时任务</h4></p>
-<p align="center">
+﻿<p align=""><h4>EasyTask原生常驻内存定时任务</h4></p>
+<p align="">
 <img src="https://www.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
 <img src="https://www.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
 <img src="https://www.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;"></a>
