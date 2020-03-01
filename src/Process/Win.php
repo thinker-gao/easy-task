@@ -254,10 +254,24 @@ class Win
         }
 
         //输出信息
-        if (!Env::get('daemon')) Helper::showInfo('this worker ' . getmypid() . ' is start...');
+        $pid = getmypid();
+        if (!Env::get('daemon')) Helper::showInfo('this worker ' . $pid . ' is start...');
 
         //提取Task字典
         $item = $taskDict[$name];
+
+        //设置进程标题
+        $title = Env::get('prefix') . '.' . $item['alas'];
+        @cli_set_process_title($title);
+
+        //保存进程信息
+        $this->wpc->saveProcessInfo([
+            'pid' => $pid,
+            'name' => $item['name'],
+            'alas' => $item['alas'],
+            'started' => date('Y-m-d H:i:s', $this->startTime),
+            'timer' => $item['time']
+        ]);
 
         //执行任务
         if (Env::get('canEvent') && $item['time'] != 0)
@@ -316,20 +330,6 @@ class Win
      */
     private function execute($item)
     {
-        //进程标题
-        $title = Env::get('prefix') . '.' . $item['alas'];
-        @cli_set_process_title($title);
-
-        //保存进程信息
-        $pid = getmypid();
-        $this->wpc->saveProcessInfo([
-            'pid' => $pid,
-            'name' => $item['name'],
-            'alas' => $item['alas'],
-            'started' => date('Y-m-d H:i:s', $this->startTime),
-            'timer' => $item['time']
-        ]);
-
         //跟进任务类型执行
         $type = $item['type'];
         switch ($type)
