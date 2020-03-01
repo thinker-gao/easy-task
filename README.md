@@ -1,8 +1,10 @@
 ﻿<p align=""><h4>EasyTask原生常驻内存定时任务</h4></p>
 <p align="">
+<a href="" rel="noopener noreferrer">
 <img src="./icon/stable_version.svg" style="max-width:100%;">
 <img src="./icon/php_version.svg" style="max-width:100%;">
-<img src="./icon/license.svg" style="max-width:100%;"></a>
+<img src="./icon/license.svg" style="max-width:100%;">
+</a>
 </p>
 
 
@@ -165,7 +167,7 @@ Ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【九】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
-<p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
+<p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
 
 
 
