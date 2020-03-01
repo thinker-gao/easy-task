@@ -299,7 +299,9 @@ class Win
         //创建Event事件
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
-        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, $this->execute($item));
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
+            $this->execute($item);
+        });
 
         //添加事件
         $event->add($item['time']);
