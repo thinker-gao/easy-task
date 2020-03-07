@@ -18,7 +18,7 @@
 
 <ul>
     <li>windows：PHP>=5.5 </li>  
-    <li>linux|mac：PHP>=5.5 (依赖pcntl和posix扩展,一般默认已装;）</li>  
+    <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展,一般默认已装;）</li>  
 </ul>  
 
 ## <h4>  Composer安装 </h4>
@@ -120,7 +120,7 @@ else
 
 ~~~
 ┌─────┬──────────────┬─────────────────────┬───────┬────────┬──────┐
-│ Pid │ Name         │ Started             │ Timer │ Status │ Ppid │
+│ pid │ name         │ started             │ timer │ status │ ppid │
 ├─────┼──────────────┼─────────────────────┼───────┼────────┼──────┤
 │ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 │ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
@@ -140,15 +140,16 @@ Ppid:管理当前定时任务的守护进程id
 -> 查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
 -> 关闭单个任务:kill pid  (例如上面的第一个任务进行id是32,执行kill 32)
 -> 关闭全部任务:kill ppid (例如上面的ppid是31,执行kill 31)
--> 禁止kill -9 ppid,否则其他子进程成为孤儿进程
+-> 禁止强制kill进程的ppid
 ~~~
 
-## <h5>【六】. 进阶了解->window开发规范 </h5>
+## <h5>【六】. 进阶了解->windows开发规范 </h5>
 
 ~~~
 -> 请您使用(cmd|powershell)+管理员权限运行 
 -> 请您在任何地方都使用绝对路径规范开发
 -> 请您在不遵守绝对路径开发的规范前在您的入口文件第一行添加代码chdir(dirname(__FILE__));
+-> 启动异常请检查上面的windows开发规范并查看运行日志
 ~~~
 
 ## <h5>【七】. 进阶了解->框架集成 </h5>
