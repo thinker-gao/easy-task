@@ -9,6 +9,28 @@ use EasyTask\Exception\ErrorException;
  */
 class Helper
 {
+
+    /**
+     * 二维数组转字典
+     * @param array $list
+     * @param string $key
+     * @return array
+     */
+    public static function array_dict($list, $key)
+    {
+        $dict = [];
+        foreach ($list as $v)
+        {
+            if (!isset($v[$key]))
+            {
+                continue;
+            }
+            $dict[$v[$key]] = $v;
+        }
+
+        return $dict;
+    }
+
     /**
      * 获取命令行输入
      * @return string
@@ -123,6 +145,15 @@ class Helper
     public static function canAsyncSignal()
     {
         return (function_exists('pcntl_async_signals'));
+    }
+
+    /**
+     * 开启异步信号
+     * @return bool
+     */
+    public static function openAsyncSignal()
+    {
+        return pcntl_async_signals(true);
     }
 
     /**
