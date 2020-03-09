@@ -134,16 +134,7 @@ Status:定时任务状态
 Ppid:管理当前定时任务的守护进程id
 ~~~
 
-## <h5>【五】. 进阶了解->linux命令 </h5>
-
-~~~
--> 查询全部任务:ps aux | grep Task  (其中Task可以使用setPrefix方法修改默认名称)
--> 关闭单个任务:kill pid  (例如上面的第一个任务进行id是32,执行kill 32)
--> 关闭全部任务:kill ppid (例如上面的ppid是31,执行kill 31)
--> 禁止强制kill进程的ppid
-~~~
-
-## <h5>【六】. 进阶了解->windows开发规范 </h5>
+## <h5>【五】. 进阶了解->windows开发规范 </h5>
 
 ~~~
 -> 请您使用(cmd|powershell)+管理员权限运行 
@@ -152,7 +143,7 @@ Ppid:管理当前定时任务的守护进程id
 -> 启动异常请检查上面的windows开发规范并查看运行日志
 ~~~
 
-## <h5>【七】. 进阶了解->框架集成 </h5>
+## <h5>【六】. 进阶了解->框架集成 </h5>
 
 &ensp;&ensp;[<font size=2>-> thinkphp3.2.x已支持</font>](https://www.gaojiufeng.cn/?id=293). 
 
@@ -160,14 +151,14 @@ Ppid:管理当前定时任务的守护进程id
 
 &ensp;&ensp;[<font size=2>-> laravelPhp6.x.x已支持</font>](https://www.gaojiufeng.cn/?id=295).
 
-## <h5>【八】. 进阶了解->推荐操作 </h5>
+## <h5>【七】. 进阶了解->推荐操作 </h5>
 
 ~~~
 -> 推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
 -> 推荐安装php_event扩展基于事件轮询的毫秒级定时支持
 ~~~
 
-## <h5>【九】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
+## <h5>【八】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
 <p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
 
 
