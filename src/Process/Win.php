@@ -142,7 +142,11 @@ class Win
      */
     private function make()
     {
-        $list = ['master', 'manager'];
+        $list = [];
+        if (!$this->wpc->getProcessStatus('manager'))
+        {
+            $list = ['master', 'manager'];
+        }
         foreach ($list as $name)
         {
             $this->wpc->joinProcess($name);
@@ -207,23 +211,24 @@ class Win
         $argv = Helper::getCliInput();
         for ($i = 0; $i < $count; $i++)
         {
-            if (Env::get('daemon'))
-            {
-                //异步执行
-                $cmd = 'start /b ' . $argv;
-            }
-            else
-            {
-                //同步执行
-                $cmd = 'wmic process call create "' . $argv . '"';
-            }
-
-            //运行Cmd
-            @pclose(@popen($cmd, 'r'));
+            $this->forkItemExec($argv);
         }
 
         //汇报执行情况
         $this->status();
+    }
+
+    /**
+     * 创建任务执行的子进程
+     * @param string $argv 执行指令
+     */
+    private function forkItemExec($argv)
+    {
+        //组装指令
+        $cmd = Env::get('daemon') ? 'start /b ' . $argv : 'wmic process call create "' . $argv . '"';
+
+        //运行指令
+        @pclose(@popen($cmd, 'r'));
     }
 
     /**
@@ -371,15 +376,14 @@ class Win
         //挂起进程
         while (true)
         {
-            //CPU休息1秒
+            //CPU休息
             sleep(1);
 
-            //接收命令
+            //接收命令status/stop
             $this->commander->waitCommandForExecute(2, function ($command) {
                 $commandType = $command['type'];
                 switch ($commandType)
                 {
-                    //监听查询命令
                     case 'status':
                         $this->commander->send([
                             'type' => 'status',
@@ -387,8 +391,6 @@ class Win
                             'status' => $this->workerStatus($this->getWorkerCount()),
                         ]);
                         break;
-
-                    //监听关闭命令(当前主进程关闭)
                     case 'stop':
                         Helper::showError('Listen to exit command, the current process is safely exiting...');
                         break;
@@ -405,7 +407,7 @@ class Win
         $i = 30;
         while ($i--)
         {
-            //CPU休息1秒
+            //CPU休息
             sleep(1);
 
             //接收汇报
@@ -444,11 +446,19 @@ class Win
         foreach ($infoData as $name => $item)
         {
             $item['ppid'] = $pid;
-            $item['status'] = 'stop';
+            $item['status'] = 'active';
             $item['name'] = $item['alas'];
-            if ($this->wpc->getProcessStatus($name))
+            if (!$this->wpc->getProcessStatus($name))
             {
-                $item['status'] = 'active';
+                ////标记状态
+                $item['status'] = 'stop';
+
+                //进程退出,重新fork
+                if (Env::get('canAutoRec'))
+                {
+                    $argv = Helper::getCliInput();
+                    $this->forkItemExec($argv);
+                }
             }
             unset($item['alas']);
             $report[] = $item;

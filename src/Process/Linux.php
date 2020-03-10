@@ -353,12 +353,11 @@ class Linux
         //挂起进程
         while (true)
         {
-            //CPU休息1秒
+            //CPU休息
             sleep(1);
 
-            //接收命令
+            //接收命令start/status/stop
             $this->commander->waitCommandForExecute(2, function ($command) {
-                //监听启动命令
                 if ($command['type'] == 'start')
                 {
                     if ($command['time'] > $this->startTime)
@@ -366,8 +365,6 @@ class Linux
                         posix_kill(0, SIGTERM) && exit();
                     }
                 }
-
-                //监听查询命令
                 if ($command['type'] == 'status')
                 {
                     $report = $this->processStatus();
@@ -377,8 +374,6 @@ class Linux
                         'status' => $report,
                     ]);
                 }
-
-                //监听停止命令
                 if ($command['type'] == 'stop')
                 {
                     $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
@@ -386,7 +381,7 @@ class Linux
 
             });
 
-            //调用信号处理
+            //信号调度
             if (!Env::get('canAsync')) pcntl_signal_dispatch();
 
             //检查进程状况
@@ -410,22 +405,21 @@ class Linux
             $rel = pcntl_waitpid($pid, $status, WNOHANG);
             if ($rel == -1 || $rel > 0)
             {
-                //进程退出,重新fork
-                $this->forkItemExec($item['item']);
-
                 //标记状态
                 $item['status'] = 'stop';
 
-                //剔除记录
-                unset($this->processList[$key]);
+                //进程退出,重新fork
+                if (Env::get('canAutoRec'))
+                {
+                    $this->forkItemExec($item['item']);
+                    unset($this->processList[$key]);
+                }
             }
 
             //记录状态
             unset($item['item']);
             $report[] = $item;
         }
-
-        //var_dump($report);
 
         return $report;
     }

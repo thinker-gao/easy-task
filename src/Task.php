@@ -28,7 +28,6 @@ class Task
         //检查运行环境
         $currentOs = Helper::isWin() ? 1 : 2;
         Check::analysis($currentOs);
-        Env::set('currentOs', $currentOs);
         $this->initialise($currentOs);
     }
 
@@ -41,7 +40,9 @@ class Task
         //初始化基础配置
         Env::set('prefix', 'Task');
         Env::set('canEvent', Helper::canEvent());
+        Env::set('currentOs', $currentOs);
         Env::set('canAsync', Helper::canAsyncSignal());
+        Env::set('canAutoRec', true);
         if ($currentOs == 1)
         {
             Env::set('phpPath', Helper::getPhpPath());
@@ -84,6 +85,15 @@ class Task
         }
         Env::set('phpPath', $path);
         return $this;
+    }
+
+    /**
+     * 设置子进程自动恢复
+     * @param bool $isRec
+     */
+    public function setAutoRecover($isRec = true)
+    {
+        Env::set('canAutoRec', $isRec);
     }
 
     /**
