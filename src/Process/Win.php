@@ -396,6 +396,9 @@ class Win
                         break;
                 }
             });
+
+            //检查进程
+            if (Env::get('canAutoRec')) $this->workerStatus($this->getWorkerCount());
         }
     }
 

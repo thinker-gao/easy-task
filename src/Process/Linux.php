@@ -384,8 +384,8 @@ class Linux
             //信号调度
             if (!Env::get('canAsync')) pcntl_signal_dispatch();
 
-            //检查进程状况
-            $this->processStatus();
+            //检查进程
+            if (Env::get('canAutoRec')) $this->processStatus();
         }
     }
 
