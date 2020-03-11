@@ -3,6 +3,7 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
+use EasyTask\Log;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -270,6 +271,7 @@ class Win
         @cli_set_process_title($title);
 
         //保存进程信息
+        $item['pid'] = $pid;
         $this->wpc->saveProcessInfo([
             'pid' => $pid,
             'name' => $item['name'],
@@ -358,7 +360,7 @@ class Win
         $status = $this->wpc->getProcessStatus('manager');
         if (!$status)
         {
-            Helper::showError('Listen to exit command, the current worker process ' . $pid . ' is safely exiting...');
+            Helper::showInfo('Listen to exit command, the current worker process ' . $item['pid'] . ' is safely exiting...', true);
         }
     }
 
@@ -392,7 +394,7 @@ class Win
                         ]);
                         break;
                     case 'stop':
-                        Helper::showError('Listen to exit command, the current process is safely exiting...');
+                        Helper::showInfo('Listen to exit command, the current process is safely exiting...', true);
                         break;
                 }
             });
@@ -457,10 +459,11 @@ class Win
                 $item['status'] = 'stop';
 
                 //进程退出,重新fork
-                if (Env::get('canAutoRec'))
+                if (Env::get('canAutoRec') && !Env::get('daemon'))
                 {
                     $argv = Helper::getCliInput();
                     $this->forkItemExec($argv);
+                    Log::writeInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
                 }
             }
             unset($item['alas']);

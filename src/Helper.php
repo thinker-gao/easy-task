@@ -198,11 +198,11 @@ class Helper
     /**
      * 输出信息
      * @param string $message
-     * @param string $type
      * @param bool $isExit
+     * @param string $type
      * @throws
      */
-    public static function showInfo($message, $type = 'info', $isExit = false)
+    public static function showInfo($message, $isExit = false, $type = 'info')
     {
         //格式化信息
         $text = static::formatMessage($message, $type);
@@ -241,11 +241,11 @@ class Helper
     /**
      * 输出错误
      * @param string $errStr
-     * @param string $type
      * @param bool $isExit
+     * @param string $type
      * @throws
      */
-    public static function showError($errStr, $type = 'warring', $isExit = true)
+    public static function showError($errStr, $isExit = true, $type = 'warring')
     {
         //格式化信息
         $text = static::formatMessage($errStr, $type);

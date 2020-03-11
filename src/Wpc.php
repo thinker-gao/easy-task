@@ -53,7 +53,7 @@ class Wpc
         $file = $runPath . md5($name);
         if (!file_exists($file))
         {
-            file_put_contents($file, '');
+            file_put_contents($file, $name);
         }
     }
 
@@ -87,6 +87,10 @@ class Wpc
     public function getProcessStatus($name)
     {
         $file = $this->getProcessFile($name);
+        if (!file_exists($file))
+        {
+            return false;
+        }
         $fp = fopen($file, "r");
         if (flock($fp, LOCK_EX | LOCK_NB))
         {
