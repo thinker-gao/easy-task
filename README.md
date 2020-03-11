@@ -1,6 +1,6 @@
 ﻿<p align=""><h4>EasyTask原生常驻内存定时任务</h4></p>
 <p align="">
-<a href="" rel="noopener noreferrer">
+<a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
 <img src="./icon/stable_version.svg" style="max-width:100%;">
 <img src="./icon/php_version.svg" style="max-width:100%;">
 <img src="./icon/license.svg" style="max-width:100%;">
