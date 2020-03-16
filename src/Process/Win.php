@@ -41,10 +41,22 @@ class Win
     private $taskList;
 
     /**
+     * 任务总数
+     * @var int
+     */
+    private $taskCount;
+
+    /**
      * 进程worker
      * @var array
      */
     private $workerList;
+
+    /**
+     * AutoRec事件
+     * @var bool
+     */
+    private $autoRecEvent;
 
     /**
      * 构造函数
@@ -55,6 +67,7 @@ class Win
         $this->wpc = new Wpc();
         $this->startTime = time();
         $this->taskList = $taskList;
+        $this->setTaskCount();
         $this->commander = new Command();
     }
 
@@ -100,17 +113,16 @@ class Win
      */
     private function chkCanStart()
     {
-        $lineCount = 0;
         $workerList = $this->workerList;
         foreach ($workerList as $name => $item)
         {
             $status = $this->wpc->getProcessStatus($name);
-            if ($status)
+            if (!$status)
             {
-                $lineCount++;
+                return true;
             }
         }
-        return $lineCount == $this->getWorkerCount() ? false : true;
+        return false;
     }
 
     /**
@@ -126,14 +138,7 @@ class Win
         else
         {
             if (Env::get('daemon')) ob_start();
-            if ($name == 'manager')
-            {
-                $this->daemonWait();
-            }
-            else
-            {
-                $this->invoker($name);
-            }
+            $this->invoker($name);
             if (Env::get('daemon')) ob_clean();
         }
     }
@@ -143,14 +148,9 @@ class Win
      */
     private function make()
     {
-        $list = [];
-        if (!$this->wpc->getProcessStatus('manager'))
+        if (!$this->wpc->getProcessStatus('master'))
         {
-            $list = ['master', 'manager'];
-        }
-        foreach ($list as $name)
-        {
-            $this->wpc->joinProcess($name);
+            $this->wpc->joinProcess('master');
         }
         foreach ($this->taskList as $key => $item)
         {
@@ -206,7 +206,7 @@ class Win
         $this->wpc->cleanProcessInfo();
 
         //计算要分配的进程数
-        $count = $this->getWorkerCount() + 1;
+        $count = $this->taskCount;
 
         //根据count数分配进程
         $argv = Helper::getCliInput();
@@ -215,8 +215,8 @@ class Win
             $this->forkItemExec($argv);
         }
 
-        //汇报执行情况
-        $this->status();
+        //守护进程
+        $this->daemonWait();
     }
 
     /**
@@ -233,17 +233,16 @@ class Win
     }
 
     /**
-     * 获取worker数量
-     * @return int
+     * 初始化任务数量
      */
-    private function getWorkerCount()
+    private function setTaskCount()
     {
         $count = 0;
         foreach ($this->taskList as $key => $item)
         {
             $count += (int)$item['used'];
         }
-        return $count;
+        $this->taskCount = $count;
     }
 
     /**
@@ -357,7 +356,7 @@ class Win
         }
 
         //检查manager进程存活
-        $status = $this->wpc->getProcessStatus('manager');
+        $status = $this->wpc->getProcessStatus('master');
         if (!$status)
         {
             Helper::showInfo('Listen to exit command, the current worker process ' . $item['pid'] . ' is safely exiting...', true);
@@ -373,7 +372,8 @@ class Win
         @cli_set_process_title(Env::get('prefix'));
 
         //输出信息
-        if (!Env::get('daemon')) Helper::showInfo('the daemon worker is started in background process');
+        Helper::showInfo('the task workers is started:');
+        Helper::showTable($this->getReport(), false);
 
         //挂起进程
         while (true)
@@ -390,18 +390,51 @@ class Win
                         $this->commander->send([
                             'type' => 'status',
                             'msgType' => 1,
-                            'status' => $this->workerStatus($this->getWorkerCount()),
+                            'status' => $this->getReport(),
                         ]);
                         break;
                     case 'stop':
-                        Helper::showInfo('Listen to exit command, the current process is safely exiting...', true);
+                        Helper::showInfo('Listen to exit command, the master process is safely exiting...', true);
                         break;
                 }
             });
 
             //检查进程
-            if (Env::get('canAutoRec')) $this->workerStatus($this->getWorkerCount());
+            if (Env::get('canAutoRec'))
+            {
+                $this->getReport(true);
+                if ($this->autoRecEvent)
+                {
+                    $this->autoRecEvent = false;
+                    Helper::showTable($this->getReport(true), false);
+                }
+            }
         }
+    }
+
+    /**
+     * 获取报告
+     * @param bool $output
+     * @return array
+     */
+    private function getReport($output = false)
+    {
+        $report = $this->workerStatus($this->taskCount);
+        foreach ($report as $key => $item)
+        {
+            if ($item['status'] == 'stop' && Env::get('canAutoRec'))
+            {
+                $argv = Helper::getCliInput();
+                $this->forkItemExec($argv);
+                if ($output)
+                {
+                    $this->autoRecEvent = true;
+                    Helper::showInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
+                }
+            }
+        }
+
+        return $report;
     }
 
     /**
@@ -440,10 +473,7 @@ class Win
         {
             sleep(1);
             $infoData = $this->wpc->getProcessInfo();
-            if ($count == count($infoData))
-            {
-                break;
-            }
+            if ($count == count($infoData)) break;
         }
 
         //组装数据
@@ -453,19 +483,7 @@ class Win
             $item['ppid'] = $pid;
             $item['status'] = 'active';
             $item['name'] = $item['alas'];
-            if (!$this->wpc->getProcessStatus($name))
-            {
-                ////标记状态
-                $item['status'] = 'stop';
-
-                //进程退出,重新fork
-                if (Env::get('canAutoRec') && !Env::get('daemon'))
-                {
-                    $argv = Helper::getCliInput();
-                    $this->forkItemExec($argv);
-                    Log::writeInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
-                }
-            }
+            $item['status'] = $this->wpc->getProcessStatus($name) ? 'active' : 'stop';
             unset($item['alas']);
             $report[] = $item;
         }
