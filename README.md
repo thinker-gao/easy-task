@@ -45,8 +45,8 @@ $task->setDaemon(true);
 // 设置项目名称
 $task->setPrefix('EasyTask');
 
-// 关闭异常自动恢复(子进程异常退出重新启动的开关,默认开启)
-$task->setAutoRecover(false);
+// 设置子进程挂掉自动重启
+$task->setAutoRecover(true);
 
 // 设置记录运行时目录(日志或缓存目录)
 $task->setRunTimePath('./Application/Runtime/');
