@@ -33,8 +33,6 @@ class Check
     private static $waitFunctions = [
         //Win
         '1' => [
-            'popen',
-            'pclose',
             'umask',
             'putenv',
             'getenv',

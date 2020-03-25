@@ -17,7 +17,7 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.5 </li>  
+    <li>windows：PHP>=5.5 (依赖com_dotnet+Wpc扩展,<a href="https://gitee.com/392223903/Rf_Regasm/releases/v1.0">Wpc一键安装包</a>;）</li>  
     <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展,一般默认已装;）</li>  
 </ul>  
 
@@ -140,10 +140,8 @@ Ppid:管理当前定时任务的守护进程id
 ## <h5>【五】. 进阶了解->windows开发规范 </h5>
 
 ~~~
--> 请您使用(cmd|powershell)+管理员权限运行 
--> 请您在任何地方都使用绝对路径规范开发
--> 请您在不遵守绝对路径开发的规范前在您的入口文件第一行添加代码chdir(dirname(__FILE__));
--> 启动异常请检查上面的windows开发规范并查看运行日志
+-> 强烈建议您使用绝对路径规范开发
+-> 启动异常请检查并查看运行日志
 ~~~
 
 ## <h5>【六】. 进阶了解->框架集成 </h5>
