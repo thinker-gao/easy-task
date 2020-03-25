@@ -17,7 +17,7 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.5 (依赖com_dotnet+Wpc扩展,<a href="https://gitee.com/392223903/Rf_Regasm/releases/v1.0">Wpc一键安装包</a>;）</li>  
+    <li>windows：PHP>=5.5 (依赖com_dotnet+Wpc扩展,<a href="https://gitee.com/392223903/Rf_Regasm/releases/v1.0" target="_blank">Wpc扩展一键安装包</a>;）</li>  
     <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展,一般默认已装;）</li>  
 </ul>  
 
