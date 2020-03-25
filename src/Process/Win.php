@@ -128,6 +128,7 @@ class Win
     /**
      * 跟进进程名称执行任务
      * @param string $name
+     * @throws \Exception
      */
     private function executeByProcessName($name)
     {
@@ -138,7 +139,14 @@ class Win
         else
         {
             if (Env::get('daemon')) ob_start();
-            $this->invoker($name);
+            if ($name == 'manager')
+            {
+                $this->daemonWait();
+            }
+            else
+            {
+                $this->invoker($name);
+            }
             if (Env::get('daemon')) ob_clean();
         }
     }
@@ -148,9 +156,14 @@ class Win
      */
     private function make()
     {
-        if (!$this->wpc->getProcessStatus('master'))
+        $list = [];
+        if (!$this->wpc->getProcessStatus('manager'))
         {
-            $this->wpc->joinProcess('master');
+            $list = ['master', 'manager'];
+        }
+        foreach ($list as $name)
+        {
+            $this->wpc->joinProcess($name);
         }
         foreach ($this->taskList as $key => $item)
         {
@@ -199,6 +212,7 @@ class Win
 
     /**
      * 分配子进程
+     * @throws \Exception
      */
     private function allocate()
     {
@@ -209,27 +223,30 @@ class Win
         $count = $this->taskCount;
 
         //根据count数分配进程
-        $argv = Helper::getCliInput();
-        for ($i = 0; $i < $count; $i++)
+        for ($i = 0; $i <= $count; $i++)
         {
-            $this->forkItemExec($argv);
+            $this->forkItemExec();
         }
 
-        //守护进程
-        $this->daemonWait();
+        //查询状态
+        $this->status();
     }
 
     /**
      * 创建任务执行的子进程
-     * @param string $argv 执行指令
+     * @throws \Exception
      */
-    private function forkItemExec($argv)
+    private function forkItemExec()
     {
-        //组装指令
-        $cmd = Env::get('daemon') ? 'start /b ' . $argv : 'wmic process call create "' . $argv . '"';
+        //提取参数
+        $argv = Helper::getCliInput(2);
+        $file = array_shift($argv);;
+        $char = join(' ', $argv);
+        $work = dirname(array_shift($argv));
+        $style = Env::get('daemon') ? 1 : 0;
 
-        //运行指令
-        @pclose(@popen($cmd, 'r'));
+        //创建进程
+        $this->wpc->createProcess($file, $char, $style, $work);
     }
 
     /**
@@ -355,8 +372,8 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
-        //检查manager进程存活
-        $status = $this->wpc->getProcessStatus('master');
+        //检查进程存活
+        $status = $this->wpc->getProcessStatus('manager');
         if (!$status)
         {
             Helper::showInfo('Listen to exit command, the current worker process ' . $item['pid'] . ' is safely exiting...', true);
@@ -372,8 +389,8 @@ class Win
         @cli_set_process_title(Env::get('prefix'));
 
         //输出信息
-        Helper::showInfo('the task workers is started:');
-        Helper::showTable($this->getReport(), false);
+        $pid = getmypid();
+        if (!Env::get('daemon')) Helper::showInfo('this master ' . $pid . ' is start...');
 
         //挂起进程
         while (true)
@@ -394,7 +411,8 @@ class Win
                         ]);
                         break;
                     case 'stop':
-                        Helper::showInfo('Listen to exit command, the master process is safely exiting...', true);
+                        Log::writeInfo('Listen to exit command, the master process is safely exiting...');
+                        exit();
                         break;
                 }
             });
@@ -406,7 +424,6 @@ class Win
                 if ($this->autoRecEvent)
                 {
                     $this->autoRecEvent = false;
-                    Helper::showTable($this->getReport(true), false);
                 }
             }
         }
@@ -416,6 +433,7 @@ class Win
      * 获取报告
      * @param bool $output
      * @return array
+     * @throws
      */
     private function getReport($output = false)
     {
@@ -429,7 +447,7 @@ class Win
                 if ($output)
                 {
                     $this->autoRecEvent = true;
-                    Helper::showInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
+                    Log::writeInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
                 }
             }
         }

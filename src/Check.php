@@ -15,6 +15,8 @@ class Check
         //Win
         '1' => [
             'json',
+            'com_dotnet',
+            'mbstring',
         ],
         //Linux
         '2' => [

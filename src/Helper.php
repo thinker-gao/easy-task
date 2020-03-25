@@ -33,9 +33,10 @@ class Helper
 
     /**
      * 获取命令行输入
-     * @return string
+     * @param $type
+     * @return string|array
      */
-    public static function getCliInput()
+    public static function getCliInput($type = 1)
     {
         //输入参数
         $argv = $_SERVER['argv'];
@@ -53,7 +54,11 @@ class Helper
         }
 
         //返回
-        return join(' ', $argv);
+        if ($type == 1)
+        {
+            return join(' ', $argv);
+        }
+        return $argv;
     }
 
     /**
@@ -163,6 +168,29 @@ class Helper
     public static function canEvent()
     {
         return (extension_loaded('event'));
+    }
+
+    /**
+     * 编码转换
+     * @param string $char
+     * @param string $coding
+     * @return string
+     */
+    public static function convert_char($char, $coding = 'utf-8')
+    {
+        $encode_arr = [
+            'UTF-8',
+            'ASCII',
+            'GBK',
+            'GB2312',
+            'BIG5',
+            'JIS',
+            'eucjp-win',
+            'sjis-win',
+            'EUC-JP'
+        ];
+        $encoded = mb_detect_encoding($char, $encode_arr);
+        return mb_convert_encoding($char, $coding, $encoded);
     }
 
     /**

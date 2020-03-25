@@ -43,6 +43,32 @@ class Wpc
     }
 
     /**
+     * 创建进程
+     * @param $file
+     * @param $argv
+     * @param $style
+     * @param $work
+     * @return int
+     * @throws \Exception
+     */
+    public function createProcess($file, $argv, $style, $work)
+    {
+        try
+        {
+            $wpc = new \Com('Wpc.core');
+            $wpc->SetFile($file);
+            $wpc->SetArgument($argv);
+            $wpc->SetStyle($style);
+            $wpc->SetWorkDir($work);
+            return $wpc->Start();
+        }
+        catch (\Exception $exception)
+        {
+            throw  new \Exception(Helper::convert_char($exception->getMessage()));
+        }
+    }
+
+    /**
      * 注册进程名称
      * @param string $name
      */
