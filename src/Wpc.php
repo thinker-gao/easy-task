@@ -8,189 +8,236 @@ namespace EasyTask;
 class Wpc
 {
     /**
-     * 进程锁
-     * @var Lock
+     * Wpc实例
+     * @var null
      */
-    private $lock;
+    private $instance = null;
 
     /**
-     * 进程名称列表
-     * @var array
-     */
-    private $processNames = [];
-
-    /**
-     * 构造函数
+     * Wpc constructor.
+     * @return $this
      */
     public function __construct()
     {
-        //创建进程锁
-        $this->lock = new Lock();
-
-        //创建运行时目录
-        $runPath = Helper::getWinPath();
-        if (!is_dir($runPath))
-        {
-            mkdir($runPath, 0777, true);
-        }
-
-        //创建进程信息文件
-        $processFile = $this->getProcessInfoFile();
-        if (!file_exists($processFile))
-        {
-            file_put_contents($processFile, '');
-        }
+        $this->instance = new \Com('Wpc.Core');
+        return $this;
     }
 
     /**
-     * 创建进程
-     * @param $file
-     * @param $argv
-     * @param $style
-     * @param $work
-     * @return int
+     * 获取Com_Variant
+     * @return \Com
+     */
+    public function getInstance()
+    {
+        return $this->instance;
+    }
+
+    /**
+     * 设置进程文件(pass)
+     * @param string $filename
      * @throws \Exception
+     * @return $this
      */
-    public function createProcess($file, $argv, $style, $work)
+    public function setFile($filename)
     {
-        try
+        $filename = realpath($filename);
+        if (!file_exists($filename))
         {
-            $wpc = new \Com('Wpc.core');
-            $wpc->SetFile($file);
-            $wpc->SetArgument($argv);
-            $wpc->SetStyle($style);
-            $wpc->SetWorkDir($work);
-            return $wpc->Start();
+            throw new \Exception("the file:{$filename} is not exist");
         }
-        catch (\Exception $exception)
+        $this->instance->SetFile($filename);
+        return $this;
+    }
+
+    /**
+     * 设置进程域
+     * @param string $domain
+     * @return $this
+     */
+    public function setDomain($domain)
+    {
+        $domain = (string)$domain;
+        $this->instance->SetDomain($domain);
+        return $this;
+    }
+
+    /**
+     * 设置进程参数(pass)
+     * @param string $argument
+     * @return $this
+     */
+    public function setArgument($argument)
+    {
+        $argument = (string)$argument;
+        $this->instance->SetArgument($argument);
+        return $this;
+    }
+
+    /**
+     * 设置进程是否带窗口
+     * @param bool $set
+     * @return $this
+     */
+    public function setNoWindow($set)
+    {
+        $set = (bool)$set;
+        $this->instance->SetNoWindow($set);
+        return $this;
+    }
+
+    /**
+     * 设置启动进程的用户
+     * @param string $username
+     * @return $this
+     */
+    public function setUsername($username)
+    {
+        $username = (string)$username;
+        $this->instance->SetUsername($username);
+        return $this;
+    }
+
+    /**
+     * 设置启动进程的密码
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $password = (string)$password;
+        $this->instance->SetPassword($password);
+        return $this;
+    }
+
+    /**
+     * 设置进程风格(pass)
+     * @param int $style (0.正常 1.隐藏 2.最小化 3.最大化)
+     * @return $this
+     */
+    public function setStyle($style)
+    {
+        $style = (int)$style;
+        $this->instance->SetStyle($style);
+        return $this;
+    }
+
+    /**
+     * 设置进程工作目录(pass)
+     * @param string $path
+     * @return $this
+     * @throws Exception
+     */
+    public function setWorkDir($path)
+    {
+        $path = realpath($path);
+        if (!is_dir($path))
         {
-            throw  new \Exception(Helper::convert_char($exception->getMessage()));
+            throw new Exception("the path:{$path} is not exist");
         }
+        $this->instance->SetWorkDir($path);
+        return $this;
     }
 
     /**
-     * 注册进程名称
-     * @param string $name
+     * 设置等待关联进程退出
+     * @param int $timeOut 超时时间
+     * @return $this
+     * @throws Exception
      */
-    public function joinProcess($name)
+    public function setWaitForExit($timeOut = 1024)
     {
-        $this->processNames[] = $name;
-        $runPath = Helper::getWinPath();
-        $file = $runPath . md5($name);
-        if (!file_exists($file))
-        {
-            file_put_contents($file, $name);
-        }
+        $timeOut = (int)$timeOut;
+        $this->instance->SetWaitForExit($timeOut);
+        return $this;
     }
 
     /**
-     * 获取进程文件名
-     * @param string $name 进程名称
-     * @return string
+     * 获取进程ID
+     * @return int
      */
-    public function getProcessFile($name)
+    public function getPid()
     {
-        $runPath = Helper::getWinPath();
-        return $runPath . md5($name);
+        return $this->instance->GetPid();
     }
 
     /**
-     * 获取进程保存信息的文件名
-     * @return string
+     * 获取进程sessionId
+     * @return int
      */
-    public function getProcessInfoFile()
+    public function getSessionId()
     {
-        $runPath = Helper::getWinPath();
-        $infoFile = md5(__FILE__);
-        return $runPath . $infoFile;
+        return $this->instance->GetSessionId();
     }
 
     /**
-     * 获取进程状态
-     * @param string $name 进行名称
+     * 获取程是否已经退出
      * @return bool
      */
-    public function getProcessStatus($name)
+    public function hasExited()
     {
-        $file = $this->getProcessFile($name);
-        if (!file_exists($file))
-        {
-            return false;
-        }
-        $fp = fopen($file, "r");
-        if (flock($fp, LOCK_EX | LOCK_NB))
-        {
-            return false;
-        }
-        return true;
+        return $this->instance->HasExited();
     }
 
     /**
-     * 获取进程信息no_lock
-     * @return array
+     * 获取进程名称
+     * @return string
      */
-    public function getProcessInfo()
+    public function getProcessName()
     {
-        $file = $this->getProcessInfoFile();
-        $info = file_get_contents($file);
-        $info = json_decode($info, true);
-        return is_array($info) ? $info : [];
+        return $this->instance->GetProcessName();
     }
 
     /**
-     * 清理进程信息
+     * 获取进程打开的资源句柄数
+     * @return int
      */
-    public function cleanProcessInfo()
+    public function getHandleCount()
     {
-        //加锁执行
-        $this->lock->execute(function () {
-            @file_put_contents($this->getProcessInfoFile(), '');
-        });
+        return $this->instance->GetHandleCount();
     }
 
     /**
-     * 保存进程信息
-     * @param array $info
+     * 获取进程主窗口标题
+     * @return string
      */
-    public function saveProcessInfo($info)
+    public function getMainWindowTitle()
     {
-        //加锁执行
-        $this->lock->execute(function () use ($info) {
-
-            //进程信息文件
-            $name = $info['name'];
-            $file = $this->getProcessInfoFile();
-
-            //读取原数据
-            $content = @file_get_contents($file);
-            $oldInfo = $content ? json_decode($content, true) : [$name => $info];
-
-            //追加数据
-            $oldInfo ? $oldInfo[$name] = $info : $oldInfo = $info;
-            file_put_contents($file, json_encode($oldInfo));
-        });
+        return $this->instance->GetMainWindowTitle();
     }
 
     /**
-     * 分配进程
-     * @param \Closure $func
-     * @return bool
+     * 获取进程启动时间
+     * @return string
      */
-    public function allocateProcess($func)
+    public function getStartTime()
     {
-        $processNames = $this->processNames;
-        foreach ($processNames as $name)
-        {
-            $file = $this->getProcessFile($name);
-            $fp = fopen($file, 'w');
-            if (flock($fp, LOCK_EX | LOCK_NB))
-            {
-                $func($name);
-                flock($fp, LOCK_UN);
-                return true;
-            }
-            fclose($fp);
-        }
-        return false;
+        return $this->instance->GetStartTime();
+    }
+
+    /**
+     * 获取进程停止时间
+     * @return string
+     */
+    public function getStopTime()
+    {
+        return $this->instance->GetStopTime();
+    }
+
+    /**
+     * 启动进程(pass)
+     * @return int 进程id
+     */
+    public function start()
+    {
+        return $this->instance->Start();
+    }
+
+    /**
+     * 启动进程(pass)
+     * @param int $force (1.正常停止 2.强制停止)
+     */
+    public function stop($force = 1)
+    {
+        $this->instance->Stop();
     }
 }
