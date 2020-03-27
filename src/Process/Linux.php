@@ -58,20 +58,32 @@ class Linux
      */
     public function start()
     {
-        //进程守护
-        if (Env::get('daemon'))
-        {
-            $this->daemon();
-        }
-
         //发送命令(关闭重复进程)
         $this->commander->send([
             'type' => 'start',
             'msgType' => 2
         ]);
 
-        //分配进程
-        $this->allocate();
+        //掩码
+        if (Env::get('daemon')) $this->setMask();
+
+        //Fork
+        $this->fork(
+            function () {
+                //child
+                $sid = posix_setsid();
+                if ($sid < 0)
+                {
+                    Helper::showError('set child processForManager failed');
+                }
+                //child_allocate
+                $this->allocate();
+            },
+            function () {
+                //parent
+                $this->status();
+            }
+        );
     }
 
     /**
@@ -118,26 +130,6 @@ class Linux
     {
         fclose(STDIN);
         fclose(STDOUT);
-    }
-
-    /**
-     * 常驻进程
-     */
-    private function daemon()
-    {
-        //掩码
-        $this->setMask();
-
-        //常驻
-        $this->fork(
-            function () {
-                $sid = posix_setsid();
-                if ($sid < 0) Helper::showError('set child processForManager failed');
-            },
-            function () {
-                $this->status();
-            }
-        );
     }
 
     /**
@@ -320,7 +312,7 @@ class Linux
      */
     private function masterWaitExit()
     {
-        $i = 5;
+        $i = 10;
         while ($i--)
         {
             //CPU休息1秒

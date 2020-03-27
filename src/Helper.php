@@ -113,7 +113,7 @@ class Helper
         {
             $path = Helper::getOsTempPath();
         }
-        return $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
+        return $path . Env::get('prefix') . DIRECTORY_SEPARATOR;
     }
 
     /**
