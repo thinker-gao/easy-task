@@ -9,7 +9,6 @@ use EasyTask\Exception\ErrorException;
  */
 class Helper
 {
-
     /**
      * 二维数组转字典
      * @param array $list
@@ -99,7 +98,8 @@ class Helper
      */
     public static function getOsTempPath()
     {
-        return Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
+        $path = Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
+        return str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 
     /**
@@ -113,7 +113,9 @@ class Helper
         {
             $path = Helper::getOsTempPath();
         }
-        return $path . Env::get('prefix') . DIRECTORY_SEPARATOR;
+        $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
+        $path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
+        return $path;
     }
 
     /**
