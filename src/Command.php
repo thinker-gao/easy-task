@@ -35,7 +35,7 @@ class Command
 
         //创建文件
         $file = $path . '%s.txt';
-        $this->msgFile = sprintf($file, md5(date('Y-m-d') . __FILE__));
+        $this->msgFile = sprintf($file, md5(__FILE__));
         if (!file_exists($this->msgFile))
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
@@ -101,6 +101,14 @@ class Command
         $data = $this->get();
         foreach ($data as $key => $item)
         {
+            //unset_expired_msg
+            if ((time() - $item['time']) > 300)
+            {
+                unset($data[$key]);
+                continue;
+            }
+
+            //get_your_msg_break
             if ($item['msgType'] == $msgType)
             {
                 $command = $item;
