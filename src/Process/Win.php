@@ -407,7 +407,7 @@ class Win
 
         //输出信息
         $pid = getmypid();
-        if (!Env::get('daemon')) Helper::showInfo('this master ' . $pid . ' is start...');
+        if (!Env::get('daemon')) Helper::showInfo('this manager ' . $pid . ' is start...');
 
         //挂起进程
         while (true)
