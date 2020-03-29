@@ -229,8 +229,9 @@ class Win
             $this->forkItemExec();
         }
 
-        //查询状态
-        $this->status();
+        //输出信息
+        $report =  $this->getReport();
+        Helper::showTable($report);
     }
 
     /**
@@ -477,7 +478,7 @@ class Win
      */
     private function masterWaitExit()
     {
-        $i = 30;
+        $i = 10;
         while ($i--)
         {
             //CPU休息

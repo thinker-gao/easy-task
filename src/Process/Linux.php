@@ -64,26 +64,28 @@ class Linux
             'msgType' => 2
         ]);
 
-        //掩码
-        if (Env::get('daemon')) $this->setMask();
-
-        //Fork
-        $this->fork(
-            function () {
-                //child
-                $sid = posix_setsid();
-                if ($sid < 0)
-                {
-                    Helper::showError('set child processForManager failed');
+        //异步
+        if (Env::get('daemon'))
+        {
+            $this->setMask();
+            $this->fork(
+                function () {
+                    $sid = posix_setsid();
+                    if ($sid < 0)
+                    {
+                        Helper::showError('set child processForManager failed');
+                    }
+                    $this->allocate();
+                },
+                function () {
+                    sleep(1);
+                    $this->status();
                 }
-                //child_allocate
-                $this->allocate();
-            },
-            function () {
-                //parent
-                $this->status();
-            }
-        );
+            );
+        }
+
+        //同步
+        $this->allocate();
     }
 
     /**
