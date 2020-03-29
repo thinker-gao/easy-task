@@ -230,7 +230,7 @@ class Win
         }
 
         //输出信息
-        $report =  $this->getReport();
+        $report = $this->getReport();
         Helper::showTable($report);
     }
 
