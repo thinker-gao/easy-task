@@ -266,6 +266,10 @@ class Helper
         {
             static::showError('the Event extension must be enabled before using milliseconds');
         }
+        if(!$time)
+        {
+            static::showError('the Task time must be valid');
+        }
     }
 
     /**
