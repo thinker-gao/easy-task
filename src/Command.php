@@ -101,14 +101,6 @@ class Command
         $data = $this->get();
         foreach ($data as $key => $item)
         {
-            //unset_expired_msg
-            if ((time() - $item['time']) > 300)
-            {
-                unset($data[$key]);
-                continue;
-            }
-
-            //get_your_msg_break
             if ($item['msgType'] == $msgType)
             {
                 $command = $item;
@@ -123,13 +115,13 @@ class Command
      * 根据命令执行对应操作
      * @param int $msgType 消息类型
      * @param \Closure $func 执行函数
-     * @param int $timeOut 执行函数
+     * @param int $time 等待方时间戳
      */
-    public function waitCommandForExecute($msgType, $func, $timeOut = 5)
+    public function waitCommandForExecute($msgType, $func, $time)
     {
         $command = '';
         $this->receive($msgType, $command);
-        if (!$command || (!empty($command['time']) && (time() - $command['time']) > $timeOut))
+        if (!$command || (!empty($command['time']) && $command['time'] < $time))
         {
             return;
         }

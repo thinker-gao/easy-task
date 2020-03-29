@@ -324,7 +324,7 @@ class Linux
                 {
                     Helper::showTable($report['status']);
                 }
-            });
+            }, $this->startTime);
         }
         exit;
     }
@@ -371,7 +371,7 @@ class Linux
                     $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
                 }
 
-            });
+            }, $this->startTime);
 
             //信号调度
             if (!Env::get('canAsync')) pcntl_signal_dispatch();

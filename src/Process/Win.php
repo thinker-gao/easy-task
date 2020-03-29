@@ -432,7 +432,7 @@ class Win
                         exit();
                         break;
                 }
-            });
+            }, $this->startTime);
 
             //检查进程
             if (Env::get('canAutoRec'))
@@ -489,7 +489,7 @@ class Win
                 {
                     Helper::showTable($report['status']);
                 }
-            });
+            }, $this->startTime);
         }
         exit;
     }
