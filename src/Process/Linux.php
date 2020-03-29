@@ -3,6 +3,7 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
+use EasyTask\Error;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -271,7 +272,15 @@ class Linux
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
         $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
-            $this->execute($item);
+            try
+            {
+                $this->execute($item);
+            }
+            catch (\Throwable $exception)
+            {
+                $type = 'appException';
+                Error::report($type, $exception);
+            }
         });
 
         //添加事件

@@ -79,7 +79,7 @@ class Error
      * @param $type
      * @param $exception
      */
-    private static function report($type, $exception)
+    public static function report($type, $exception)
     {
         $text = Helper::formatException($exception, $type);
         Log::write($text);
