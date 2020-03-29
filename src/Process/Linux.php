@@ -78,7 +78,7 @@ class Linux
                     $this->allocate();
                 },
                 function () {
-                    sleep(1);
+                    pcntl_wait($status, WNOHANG);
                     $this->status();
                 }
             );
@@ -98,8 +98,6 @@ class Linux
             'type' => 'status',
             'msgType' => 2
         ]);
-
-        //master等待返回结果
         $this->masterWaitExit();
     }
 
@@ -314,7 +312,7 @@ class Linux
      */
     private function masterWaitExit()
     {
-        $i = 10;
+        $i = 15;
         while ($i--)
         {
             //CPU休息1秒
