@@ -121,13 +121,9 @@ class Task
         {
             Helper::showError('you must set closeErrorRegister as false before use this api');
         }
-        if ($notify instanceof Closure)
+        if (!$notify instanceof Closure && !is_string($notify))
         {
-            if ((func_get_arg($notify) !== 1)) Helper::showError('notify func must have a parameter');
-        }
-        else
-        {
-            if (!is_string($notify)) Helper::showError('notify parameter can only be string or closure');
+            Helper::showError('notify parameter can only be string or closure');
         }
         Error::$notifyHand = $notify;
         return $this;
