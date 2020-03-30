@@ -51,6 +51,26 @@ $task->setAutoRecover(true);
 // 设置记录运行时目录(日志或缓存目录)
 $task->setRunTimePath('./Application/Runtime/');
 
+// 设置错误和异常发送到邮件或者短信(不推荐,除非您的代码健壮)
+$task->setErrorRegisterNotify(function ($ex) {
+    //获取错误信息|错误行|错误文件
+    $message = $ex->getMessage();
+    $file = $ex->getFile();
+    $line = $ex->getLine();
+    //编写代码发送邮件或短信通知您todo()
+});
+
+/**
+ * 设置错误和异常发送到邮件或者短信(推荐,Http通知无内存溢出风险)
+ * Easy_Task会Get通知这个url并传递以下参数:
+ * errStr:错误信息
+ * errFile:错误文件
+ * errLine:错误行
+ * 您的Url收到Get请求可以编写代码发送邮件或短信通知您
+ */
+$notifyUrl = "http://domain.com/xxx.php?";
+$task->setErrorRegisterNotify($notifyUrl);
+
 // 1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
 $task->addFunc(function () {
     $url = 'https://www.gaojiufeng.cn/?id=243';

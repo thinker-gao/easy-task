@@ -97,7 +97,7 @@ class Error
         //同步模式输出
         if (!Env::get('daemon')) echo($text);
 
-        //异步回调上报
+        //回调上报信息
         if (static::$notifyHand)
         {
             //闭包回调
@@ -110,7 +110,7 @@ class Error
 
             //Http回调
             $e = $exception;
-            $apiUrl = $notify . "type={$type}&errStr={$e->getMessage()}&errFile={$e->getFile()}&errLine={$e->getLine()}";
+            $apiUrl = $notify . "errStr={$e->getMessage()}&errFile={$e->getFile()}&errLine={$e->getLine()}";
             $result = @file_get_contents($apiUrl);
             if (!$result || $result != 'success')
             {
