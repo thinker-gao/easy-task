@@ -62,11 +62,11 @@ $task->setErrorRegisterNotify(function ($ex) {
 
 /**
  * 设置错误和异常发送到邮件或者短信(推荐,Http通知无内存溢出风险)
- * Easy_Task会Get通知这个url并传递以下参数:
+ * Easy_Task会POST通知这个url并传递以下参数:
  * errStr:错误信息
  * errFile:错误文件
  * errLine:错误行
- * 您的Url收到Get请求可以编写代码发送邮件或短信通知您
+ * 您的Url收到GET请求可以编写代码发送邮件或短信通知您
  */
 $notifyUrl = "http://domain.com/xxx.php?";
 $task->setErrorRegisterNotify($notifyUrl);
@@ -149,12 +149,12 @@ else
 │ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 └─────┴──────────────┴─────────────────────┴───────┴────────┴──────┘
 参数:
-Pid:当前定时任务的进程id
-Name:您为您的定时任务起的别名
-Started:定时任务启动时间
-Timer:定时任务执行间隔时间
-Status:定时任务状态
-Ppid:管理当前定时任务的守护进程id
+pid:当前定时任务的进程id
+name:您为您的定时任务起的别名
+started:定时任务启动时间
+timer:定时任务执行间隔时间
+status:定时任务状态
+ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【五】. 进阶了解->windows开发规范 </h5>
@@ -179,7 +179,7 @@ Ppid:管理当前定时任务的守护进程id
 -> 推荐安装php_event扩展基于事件轮询的毫秒级定时支持
 ~~~
 
-## <h5>【八】. 学会感恩->感谢phpStorm提供免费授权码 </h5>
+## <h5>【八】. 感谢phpStorm为开源作者提供免费授权码 </h5>
 <p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
 
 
