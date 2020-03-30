@@ -111,6 +111,29 @@ class Task
     }
 
     /**
+     * 异常通知
+     * @param string|Closure $notify
+     * @return $this
+     */
+    public function setErrorRegisterNotify($notify)
+    {
+        if (Env::get('closeErrorRegister'))
+        {
+            Helper::showError('you must set closeErrorRegister as false before use this api');
+        }
+        if ($notify instanceof Closure)
+        {
+            if ((func_get_arg($notify) !== 1)) Helper::showError('notify func must have a parameter');
+        }
+        else
+        {
+            if (!is_string($notify)) Helper::showError('notify parameter can only be string or closure');
+        }
+        Error::$notifyHand = $notify;
+        return $this;
+    }
+
+    /**
      * 设置时区
      * @param string $timeIdent
      * @return $this

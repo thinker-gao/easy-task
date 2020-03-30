@@ -2,6 +2,7 @@
 namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
+use \Closure as Closure;
 
 /**
  * Class Error
@@ -9,6 +10,12 @@ use EasyTask\Exception\ErrorException;
  */
 class Error
 {
+    /**
+     * 异常回调句柄
+     * @var string|Closure
+     */
+    public static $notifyHand;
+
     /**
      * Register Error
      */
@@ -81,11 +88,34 @@ class Error
      */
     public static function report($type, $exception)
     {
+        //标准化日志
         $text = Helper::formatException($exception, $type);
+
+        //本地日志储存
         Log::write($text);
-        if (!Env::get('daemon'))
+
+        //同步模式输出
+        if (!Env::get('daemon')) echo($text);
+
+        //异步回调上报
+        if (static::$notifyHand)
         {
-            echo($text);
+            //闭包回调
+            $notify = static::$notifyHand;
+            if ($notify instanceof Closure)
+            {
+                $notify($exception);
+                return;
+            }
+
+            //Http回调
+            $e = $exception;
+            $apiUrl = $notify . "type={$type}&errStr={$e->getMessage()}&errFile={$e->getFile()}&errLine={$e->getLine()}";
+            $result = @file_get_contents($apiUrl);
+            if (!$result || $result != 'success')
+            {
+                Helper::showInfo("request http api $apiUrl failed");
+            }
         }
     }
 }
