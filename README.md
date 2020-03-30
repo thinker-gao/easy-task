@@ -70,19 +70,19 @@ $task->start();
 ~~~
 $task = new Task();
 
-//设置常驻内存
+// 设置常驻内存
 $task->setDaemon(true)   
 
-//设置项目名称
+// 设置项目名称
 ->setPrefix('ThinkTask')   
 
-//设置系统时区
+// 设置系统时区
 ->setTimeZone('Asia/Shanghai');   
 
-//设置子进程挂掉自动重启
+// 设置子进程挂掉自动重启
 ->setAutoRecover(true);   
 
-//设置PHP运行路径,一般Window系统才需要设置,当系统无法找到才需要您手动设置
+// 设置PHP运行路径,一般Window系统才需要设置,当系统无法找到才需要您手动设置
 ->setPhpPath('C:/phpEnv/php/php-7.0/php.exe')
 
 /**
@@ -121,18 +121,18 @@ $task->setDaemon(true)
  */
 ->setErrorRegisterNotify('https://www.gaojiufeng.cn/rev.php');
 
-//添加任务定时执行闭包函数
+// 添加任务定时执行闭包函数
 ->addFunc(function () {
     echo 'Success3' . PHP_EOL;
 }, 'fucn', 20, 1)   
 
-//添加任务定时执行类的方法
+// 添加任务定时执行类的方法
 ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)   
 
-//添加任务定时执行命令
+// 添加任务定时执行命令
 ->addCommand('php /www/wwwroot/learn/curl.php','cmd',6,1); 
 
-//启动任务
+// 启动任务
 ->start();
 ~~~
 
