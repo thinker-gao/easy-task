@@ -77,10 +77,10 @@ $task->setDaemon(true)
 ->setPrefix('ThinkTask')   
 
 // 设置系统时区
-->setTimeZone('Asia/Shanghai');   
+->setTimeZone('Asia/Shanghai')  
 
 // 设置子进程挂掉自动重启
-->setAutoRecover(true);   
+->setAutoRecover(true)  
 
 // 设置PHP运行路径,一般Window系统才需要设置,当系统无法找到才需要您手动设置
 ->setPhpPath('C:/phpEnv/php/php-7.0/php.exe')
@@ -90,13 +90,13 @@ $task->setDaemon(true)
  * 不设置的话Linux默认/tmp/目录
  * 不设置的话Window默认C:\Windows\Temp目录
  */
-->setRunTimePath('./Application/Runtime/'); 
+->setRunTimePath('./Application/Runtime/')
 
 /**
  * 关闭EasyTask的异常注册
  * EasyTask将不再监听set_error_handler/set_exception_handler/register_shutdown_function事件
  */
-->setCloseErrorRegister(true);
+->setCloseErrorRegister(true)
 
 /**
  * 设置接收运行中的错误或者异常(方式1)
@@ -108,7 +108,7 @@ $task->setDaemon(true)
     $message = $ex->getMessage();
     $file = $ex->getFile();
     $line = $ex->getLine();
-});
+})
 
 /**
  * 设置接收运行中的错误或者异常的Http地址(方式2)
@@ -119,7 +119,7 @@ $task->setDaemon(true)
  * 您的Url收到POST请求可以编写代码发送邮件或短信通知您
  * (推荐的写法)
  */
-->setErrorRegisterNotify('https://www.gaojiufeng.cn/rev.php');
+->setErrorRegisterNotify('https://www.gaojiufeng.cn/rev.php')
 
 // 添加任务定时执行闭包函数
 ->addFunc(function () {
@@ -130,7 +130,7 @@ $task->setDaemon(true)
 ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)   
 
 // 添加任务定时执行命令
-->addCommand('php /www/wwwroot/learn/curl.php','cmd',6,1); 
+->addCommand('php /www/wwwroot/learn/curl.php','cmd',6,1)
 
 // 启动任务
 ->start();
