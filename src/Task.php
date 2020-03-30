@@ -43,6 +43,7 @@ class Task
         Env::set('currentOs', $currentOs);
         Env::set('canAsync', Helper::canAsyncSignal());
         Env::set('canAutoRec', true);
+        Env::set('closeErrorRegister', false);
         if ($currentOs == 1)
         {
             Env::set('phpPath', Helper::getPhpPath());
@@ -90,10 +91,23 @@ class Task
     /**
      * 设置子进程自动恢复
      * @param bool $isRec
+     * @return $this
      */
     public function setAutoRecover($isRec = true)
     {
         Env::set('canAutoRec', $isRec);
+        return $this;
+    }
+
+    /**
+     * 设置关闭系统异常注册
+     * @param bool $isReg 是否关闭
+     * @return $this
+     */
+    public function setCloseErrorRegister($isReg = false)
+    {
+        Env::set('closeErrorRegister', $isReg);
+        return $this;
     }
 
     /**
@@ -261,7 +275,10 @@ class Task
         }
 
         //异常注册
-        Error::register();
+        if (!Env::get('closeErrorRegister'))
+        {
+            Error::register();
+        }
 
         //进程启动
         ($this->getProcess())->start();
