@@ -85,7 +85,7 @@ class Error
         Log::write($text);
         if (!Env::get('daemon'))
         {
-            Helper::showError($text, false, $type);
+            echo($text);
         }
     }
 }
