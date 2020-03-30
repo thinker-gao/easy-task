@@ -45,31 +45,8 @@ $task->setDaemon(true);
 // 设置项目名称
 $task->setPrefix('EasyTask');
 
-// 设置子进程挂掉自动重启
-$task->setAutoRecover(true);
-
 // 设置记录运行时目录(日志或缓存目录)
 $task->setRunTimePath('./Application/Runtime/');
-
-// 设置错误和异常发送到邮件或者短信(不推荐,除非您的代码健壮)
-$task->setErrorRegisterNotify(function ($ex) {
-    //获取错误信息|错误行|错误文件
-    $message = $ex->getMessage();
-    $file = $ex->getFile();
-    $line = $ex->getLine();
-    //编写代码发送邮件或短信通知您todo()
-});
-
-/**
- * 设置错误和异常发送到邮件或者短信(推荐,Http通知无内存溢出风险)
- * Easy_Task会POST通知这个url并传递以下参数:
- * errStr:错误信息
- * errFile:错误文件
- * errLine:错误行
- * 您的Url收到GET请求可以编写代码发送邮件或短信通知您
- */
-$notifyUrl = "http://domain.com/xxx.php?";
-$task->setErrorRegisterNotify($notifyUrl);
 
 // 1.添加闭包函数类型定时任务(开启2个进程,每隔10秒执行1次)
 $task->addFunc(function () {
@@ -92,13 +69,70 @@ $task->start();
 
 ~~~
 $task = new Task();
-$task->setDaemon(true)
-    ->setPrefix('ThinkTask')
-    ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)
-    ->addClass(Sms::class, 'recv', 'sendsms2', 20, 1)
+
+    //设置常驻内存
+$task->setDaemon(true)   
+
+    //设置项目名称
+    ->setPrefix('ThinkTask')   
+
+    //设置系统时区
+    ->setTimeZone('Asia/Shanghai');   
+
+    //设置子进程挂掉自动重启
+    ->setAutoRecover(true);   
+
+    //设置PHP运行路径,一般Window系统才需要设置,当系统无法找到才需要您手动设置
+    ->setPhpPath('C:/phpEnv/php/php-7.0/php.exe')
+    
+    /**
+     * 设置记录运行时目录(日志或缓存目录)
+     * 不设置的话Linux默认/tmp/目录
+     * 不设置的话Window默认C:\Windows\Temp目录
+     */
+    ->setRunTimePath('./Application/Runtime/'); 
+
+    /**
+     * 关闭EasyTask的异常注册
+     * EasyTask将不再监听set_error_handler/set_exception_handler/register_shutdown_function事件
+     */
+    ->setCloseErrorRegister(true);
+
+    /**
+     * 设置接收运行中的错误或者异常(方式1)
+     * 您可以自定义处理异常信息,例如将它们发送到您的邮件中,短信中,作为预警处理
+     * (不推荐的写法,除非您的代码健壮)
+     */
+    ->setErrorRegisterNotify(function ($ex) {
+        //获取错误信息|错误行|错误文件
+        $message = $ex->getMessage();
+        $file = $ex->getFile();
+        $line = $ex->getLine();
+    });
+
+    /**
+     * 设置接收运行中的错误或者异常的Http地址(方式2)
+     * Easy_Task会POST通知这个url并传递以下参数:
+     * errStr:错误信息
+     * errFile:错误文件
+     * errLine:错误行
+     * 您的Url收到POST请求可以编写代码发送邮件或短信通知您
+     * (推荐的写法)
+     */
+    ->setErrorRegisterNotify('https://www.gaojiufeng.cn/rev.php');
+
+    //添加任务定时执行闭包函数
     ->addFunc(function () {
         echo 'Success3' . PHP_EOL;
-    }, 'fucn', 20, 1)
+    }, 'fucn', 20, 1)   
+
+    //添加任务定时执行类的方法
+    ->addClass(Sms::class, 'send', 'sendsms1', 20, 1)   
+
+    //添加任务定时执行命令
+    ->addCommand('php /www/wwwroot/learn/curl.php','cmd',6,1); 
+
+    //启动任务
     ->start();
 ~~~
 
