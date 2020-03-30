@@ -345,4 +345,51 @@ class Helper
         }
         echo($table->render());
     }
+
+    /**
+     * 通过Curl方式提交数据.
+     *
+     * @param string $url 目标URL
+     * @param null $data 提交的数据
+     * @param bool $return_array 是否转成数组
+     * @param null $header 请求头信息 如：array("Content-Type: application/json")
+     *
+     * @return array|mixed
+     */
+    public static function curl($url, $data = null, $return_array = false, $header = null)
+    {
+        //初始化curl
+        $curl = curl_init();
+
+        //设置超时
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        if (is_array($header))
+        {
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+        }
+        if ($data)
+        {
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        //运行curl，获取结果
+        $result = @curl_exec($curl);
+
+        //关闭句柄
+        curl_close($curl);
+
+        //转成数组
+        if ($return_array)
+        {
+            return json_decode($result, true);
+        }
+
+        //返回结果
+        return $result;
+    }
 }

@@ -109,12 +109,15 @@ class Error
             }
 
             //Http回调
-            $e = $exception;
-            $apiUrl = $notify . "errStr={$e->getMessage()}&errFile={$e->getFile()}&errLine={$e->getLine()}";
-            $result = @file_get_contents($apiUrl);
+            $request = [
+                'errStr' => $exception->getMessage(),
+                'errFile' => $exception->getFile(),
+                'errLine' => $exception->getLine(),
+            ];
+            $result = Helper::curl($notify, $request);
             if (!$result || $result != 'success')
             {
-                Helper::showInfo("request http api $apiUrl failed");
+                Helper::showInfo("request http api $notify failed");
             }
         }
     }
