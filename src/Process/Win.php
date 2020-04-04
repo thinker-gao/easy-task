@@ -230,9 +230,18 @@ class Win
             $this->forkItemExec();
         }
 
-        //输出信息
-        $report = $this->getReport();
-        Helper::showTable($report);
+        //查询状态
+        $i = 30;
+        while ($i--)
+        {
+            $status = $this->wts->getProcessStatus('manager');
+            if ($status)
+            {
+                $this->status();
+                break;
+            }
+            sleep(1);
+        }
     }
 
     /**

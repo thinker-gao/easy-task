@@ -168,7 +168,7 @@ class Task
      * @return $this
      * @throws
      */
-    public function addFunc($func, $alas = '', $time = 1, $used = 1)
+    public function addFunc($func, $alas, $time = 1, $used = 1)
     {
         if (!($func instanceof Closure))
         {
@@ -198,7 +198,7 @@ class Task
      * @return $this
      * @throws
      */
-    public function addClass($class, $func, $alas = '', $time = 1, $used = 1)
+    public function addClass($class, $func, $alas, $time = 1, $used = 1)
     {
         if (!class_exists($class))
         {
@@ -244,7 +244,7 @@ class Task
      * @param int $used 定时器占用进程数
      * @return $this
      */
-    public function addCommand($command, $alas = '', $time = 1, $used = 1)
+    public function addCommand($command, $alas, $time = 1, $used = 1)
     {
         if (!Helper::canExecuteCommand())
         {
