@@ -17,8 +17,8 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.5 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/static/exe/Wpc_install.zip" target="_blank">wpc扩展一键安装包</a>;）</li>  
-    <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展,一般默认已装;）</li>  
+    <li>windows：PHP>=5.5 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/static/exe/Wpc_install.zip" target="_blank">wpc扩展一键安装包</a>）</li>  
+    <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展,一般默认已装）</li>  
 </ul>  
 
 ## <h4>  Composer安装 </h4>
