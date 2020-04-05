@@ -213,7 +213,7 @@ ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【八】. 感谢phpStorm为开源作者提供免费授权码 </h5>
-<p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
+<p align="left"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
 
 ## <h5>【九】. Bug反馈 </h5>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;ＱＱ群60973229(讨论交流,问题反馈)
