@@ -10,8 +10,6 @@
 
 ## <h4 style="text-align:left">  项目介绍 </h4>
 <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是PHP常驻内存定时任务Composer包，通过其简洁的Api，您可以用它来完成需要长期反复运行的任务(如订单超时自动取消,短信邮件异步推送,后台报表数据异步生成,队列/消费者/频道订阅者)，任何在FPM下比较耗时的功能您都可以交给它来完成。我们还支持任务异常退出自动恢复任务，您还能自定义配置异常信息(例如接收异常通知到您的邮件或短信)。工具包同时支持windows、linux、mac环境运行。
-
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;ＱＱ群60973229(讨论交流,问题反馈)
 </p>
 
 ## <h4>   运行环境 </h4>
@@ -218,3 +216,4 @@ ppid:管理当前定时任务的守护进程id
 <p align="center"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
 
 ## <h5>【九】. Bug反馈 </h5>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;ＱＱ群60973229(讨论交流,问题反馈)
