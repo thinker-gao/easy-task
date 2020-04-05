@@ -4,7 +4,7 @@
 <img src="./icon/stable_version.svg" style="max-width:100%;">
 <img src="./icon/php_version.svg" style="max-width:100%;">
 <img src="./icon/license.svg" style="max-width:100%;">
-<a href='https://gitee.com/392223903/EasyTask/stargazers'><img src='https://gitee.com/392223903/EasyTask/badge/star.svg?theme=dark' alt='star'></img></a>
+<img src='https://gitee.com/392223903/EasyTask/badge/star.svg?theme=dark' alt='star'></img>
 </a>
 </p>
 
