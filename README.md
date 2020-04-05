@@ -1,10 +1,10 @@
 ﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时任务包</h4></p>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
+<img src='https://gitee.com/392223903/EasyTask/badge/star.svg?theme=dark' alt='star'></img>
 <img src="./icon/stable_version.svg" style="max-width:100%;">
 <img src="./icon/php_version.svg" style="max-width:100%;">
 <img src="./icon/license.svg" style="max-width:100%;">
-<img src='https://gitee.com/392223903/EasyTask/badge/star.svg?theme=dark' alt='star'></img>
 </a>
 </p>
 
