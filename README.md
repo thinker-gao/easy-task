@@ -1,4 +1,4 @@
-﻿<p align=""><h4>EasyTask跨平台的PHP常驻内存定时任务</h4></p>
+﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时任务包</h4></p>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
 <img src="./icon/stable_version.svg" style="max-width:100%;">
