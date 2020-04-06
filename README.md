@@ -26,12 +26,6 @@
   composer require easy-task/easy-task
 ~~~
 
-~~~
-  "require": {
-    "easy-task/easy-task": "*"
-  }
-~~~
-
 ## <h5>【一】. 快速入门->创建任务 </h5>
 
 ~~~
