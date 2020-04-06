@@ -1,10 +1,9 @@
 ﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时任务包</h4></p>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
-<img src='https://gitee.com/392223903/EasyTask/badge/star.svg?theme=dark' alt='star'></img>
-<img src="./icon/stable_version.svg" style="max-width:100%;">
-<img src="./icon/php_version.svg" style="max-width:100%;">
-<img src="./icon/license.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
 </a>
 </p>
 
@@ -208,7 +207,7 @@ ppid:管理当前定时任务的守护进程id
 ~~~
 
 ## <h5>【八】. 感谢phpStorm为开源作者提供免费授权码 </h5>
-<p align="left"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="./icon/phpstorm.svg" width="60" height="60"></p>
+<p align="left"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="60" height="60"></p>
 
 ## <h5>【九】. Bug反馈 </h5>
 ~~~
