@@ -36,7 +36,6 @@ class Check
             'umask',
             'putenv',
             'getenv',
-            'cli_set_process_title',
         ],
         //Linux
         '2' => [
@@ -53,7 +52,6 @@ class Check
             'pcntl_alarm',
             'pcntl_waitpid',
             'pcntl_signal_dispatch',
-            'cli_set_process_title',
         ]
     ];
 

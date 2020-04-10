@@ -312,7 +312,7 @@ class Win
 
         //设置进程标题
         $title = Env::get('prefix') . '.' . $item['alas'];
-        @cli_set_process_title($title);
+        Helper::cli_set_process_title($title);
 
         //保存进程信息
         $item['pid'] = $pid;
@@ -422,7 +422,7 @@ class Win
     private function daemonWait()
     {
         //进程标题
-        @cli_set_process_title(Env::get('prefix'));
+        Helper::cli_set_process_title(Env::get('prefix'));
 
         //输出信息
         $pid = getmypid();

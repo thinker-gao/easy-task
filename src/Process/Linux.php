@@ -296,7 +296,7 @@ class Linux
      */
     private function execute($item)
     {
-        @cli_set_process_title($item['alas']);
+        Helper::cli_set_process_title($item['alas']);
         $type = $item['type'];
         switch ($type)
         {
@@ -344,7 +344,7 @@ class Linux
     private function daemonWait()
     {
         //设置进程标题
-        @cli_set_process_title(Env::get('prefix'));
+        Helper::cli_set_process_title(Env::get('prefix'));
 
         //注册kill信号
         pcntl_signal(SIGTERM, function () {

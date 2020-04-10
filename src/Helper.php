@@ -10,6 +10,30 @@ use EasyTask\Exception\ErrorException;
 class Helper
 {
     /**
+     * 设置进程标题
+     * @param $title
+     */
+    public static function cli_set_process_title($title)
+    {
+        if (function_exists('cli_set_process_title'))
+        {
+            @cli_set_process_title($title);
+        }
+    }
+
+    /**
+     * 设置代码页
+     * @param int $code
+     */
+    public static function setCodePage($code = 65001)
+    {
+        if (static::canExecuteCommand())
+        {
+            @pclose(@popen("chcp {$code}", 'r'));
+        }
+    }
+
+    /**
      * 二维数组转字典
      * @param array $list
      * @param string $key

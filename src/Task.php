@@ -46,6 +46,7 @@ class Task
         Env::set('closeErrorRegister', false);
         if ($currentOs == 1)
         {
+            Helper::setCodePage();
             Env::set('phpPath', Helper::getPhpPath());
         }
     }
@@ -300,7 +301,8 @@ class Task
         }
 
         //进程启动
-        ($this->getProcess())->start();
+        $process = $this->getProcess();
+        $process->start();
     }
 
     /**
@@ -309,7 +311,8 @@ class Task
      */
     public function status()
     {
-        ($this->getProcess())->status();
+        $process = $this->getProcess();
+        $process->status();
     }
 
     /**
@@ -319,6 +322,7 @@ class Task
      */
     public function stop($force = false)
     {
-        ($this->getProcess())->stop($force);
+        $process = $this->getProcess();
+        $process->stop($force);
     }
 }
