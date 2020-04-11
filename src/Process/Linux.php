@@ -125,22 +125,13 @@ class Linux
     }
 
     /**
-     * 关闭标准输入输出
-     */
-    private function closeInOut()
-    {
-        fclose(STDIN);
-        fclose(STDOUT);
-    }
-
-    /**
      * 分配进程处理任务
      */
     private function allocate()
     {
         if (Env::get('daemon'))
         {
-            $this->closeInOut();
+            Helper::setStdClose();
         }
         foreach ($this->taskList as $item)
         {

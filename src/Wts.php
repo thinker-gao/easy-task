@@ -31,7 +31,7 @@ class Wts
         $runPath = Helper::getWinPath();
         if (!is_dir($runPath))
         {
-            mkdir($runPath, 0777, true);
+            @mkdir($runPath, 0777, true);
         }
 
         //创建进程信息文件

@@ -30,7 +30,7 @@ class Command
         $path = Helper::getCsgPath();
         if (!is_dir($path))
         {
-            mkdir($path, 0777, true);
+            @mkdir($path, 0777, true);
         }
 
         //创建文件

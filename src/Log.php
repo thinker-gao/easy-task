@@ -17,7 +17,7 @@ class Log
         $path = Helper::getLogPath();
         if (!is_dir($path))
         {
-            mkdir($path, 0777, true);
+            @mkdir($path, 0777, true);
         }
 
         //保存文件

@@ -21,7 +21,7 @@ class Lock
         $runPath = Helper::getRunTimePath();
         if (!is_dir($runPath))
         {
-            mkdir($runPath, 0777, true);
+            @mkdir($runPath, 0777, true);
         }
         $this->file = $runPath . 'lock';
         if (!file_exists($this->file))

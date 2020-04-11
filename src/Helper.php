@@ -170,6 +170,42 @@ class Helper
     }
 
     /**
+     * 获取标准输入输出目录
+     * @return  string
+     */
+    public static function getStdPath()
+    {
+        return Helper::getRunTimePath() . 'Std' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 关闭标准Std
+     */
+    public static function setStdClose()
+    {
+        global $STDOUT, $STDERR;
+        $path = static::getStdPath();
+        if (!is_dir($path))
+        {
+            @mkdir($path, 0777, true);
+        }
+        $file = $path . date('Y_m_d_H') . '.txt';
+        $handle = fopen($file, "a");
+        if ($handle)
+        {
+            unset($handle);
+            @fclose(STDOUT);
+            @fclose(STDERR);
+            $STDOUT = fopen($file, "a");
+            $STDERR = fopen($file, "a");
+        }
+        else
+        {
+            static::showError("std file {$file} can not open");
+        }
+    }
+
+    /**
      * 是否支持异步信号
      * @return bool
      */

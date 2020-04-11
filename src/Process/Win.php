@@ -140,7 +140,6 @@ class Win
         }
         else
         {
-            if (Env::get('daemon')) ob_start();
             if ($name == 'manager')
             {
                 $this->daemonWait();
@@ -149,7 +148,6 @@ class Win
             {
                 $this->invoker($name);
             }
-            if (Env::get('daemon')) ob_clean();
         }
     }
 
@@ -532,14 +530,17 @@ class Win
 
         //组装数据
         $pid = getmypid();
+        $prefix = Env::get('prefix');
         foreach ($infoData as $name => $item)
         {
-            $item['ppid'] = $pid;
-            $item['status'] = 'active';
-            $item['name'] = $item['alas'];
-            $item['status'] = $this->wts->getProcessStatus($name) ? 'active' : 'stop';
-            unset($item['alas']);
-            $report[] = $item;
+            $report[] = [
+                'pid' => $item['pid'],
+                'name' => "{$prefix}_{$item['alas']}",
+                'started' => $item['started'],
+                'timer' => $item['timer'],
+                'status' => $this->wts->getProcessStatus($name) ? 'active' : 'stop',
+                'ppid' => $pid,
+            ];
         }
 
         return $report;
