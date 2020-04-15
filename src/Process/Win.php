@@ -437,14 +437,14 @@ class Win
         }
 
         //记录执行
-        $text = "Task worker {$item['alas']}(pid:{$item['pid']})";
+        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
         Log::writeInfo("$text is executed");
 
         //检查进程存活
         $status = $this->wts->getProcessStatus('manager');
         if (!$status)
         {
-            Helper::showInfo("Listened exit command, $text is safely exited", true);
+            Helper::showInfo("listened exit command, $text is safely exited", true);
         }
     }
 
@@ -480,7 +480,7 @@ class Win
                         ]);
                         break;
                     case 'stop':
-                        Helper::showInfo("Listened exit command, $text is safely exited", true);
+                        Helper::showInfo("listened exit command, $text is safely exited", true);
                         break;
                 }
             }, $this->startTime);

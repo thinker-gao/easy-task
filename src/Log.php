@@ -21,7 +21,7 @@ class Log
         }
 
         //保存文件
-        $file = $path . date('Y_m_d_H') . '.txt';
+        $file = $path . date('Y_m_d') . '.txt';
 
         //加锁保存
         file_put_contents($file, $message, FILE_APPEND | LOCK_EX);
