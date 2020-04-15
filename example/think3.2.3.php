@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Think3.2.3 支持库
+ * Think3.2.3支持
  */
 class Support
 {
