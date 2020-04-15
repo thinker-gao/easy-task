@@ -321,14 +321,16 @@ class Helper
     /**
      * 获取Cron命令的下次执行时间
      * @param string $command cron命令
+     * @param string $currentTime cron命令
      * @return string
      */
-    public static function getCronNextDate($command)
+    public static function getCronNextDate($command, $currentTime = 'now')
     {
-        $cron = CronExpression::factory($command);
+        static $cronExpression = null;
+        if (!$cronExpression) $cronExpression = CronExpression::factory($command);
         try
         {
-            return $cron->getNextRunDate()->format('Y-m-d H:i:s');
+            return $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
         }
         catch (\Exception $exception)
         {
