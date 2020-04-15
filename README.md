@@ -136,8 +136,7 @@ $command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
 // 配置任务
 $task = new Task();
-$task->setDaemon(true)
-    ->addFunc(function () {
+$task->addFunc(function () {
         $url = 'https://www.gaojiufeng.cn/?id=271';
         @file_get_contents($url);
     }, 'request', 10, 2);;
@@ -157,12 +156,12 @@ elseif ($command == 'stop')
 }
 else
 {
-    exit('Command is not exists');
+    exit('Command is not exist');
 }
 
-启动: php this.php start
-查询: php this.php status
-关闭: php this.php stop
+启动: php console.php start
+查询: php console.php status
+关闭: php console.php stop
 ~~~
 
 ## <h5>【四】. 快速入门->认识输出信息 </h5>
@@ -208,10 +207,16 @@ ppid:管理当前定时任务的守护进程id
 -> 推荐安装php_event扩展基于事件轮询的毫秒级定时支持
 ~~~
 
-## <h5>【八】. 进阶了解->是否支持Crontab命令 </h5>
+## <h5>【八】. 进阶了解->时间参数Crontab支持 </h5>
 
 ~~~
- 正在支持中....
+ (1).特殊表达式:
+    @yearly                    每年运行一次 等同于(0 0 1 1 *) 
+    @annually                  每年运行一次 等同于(0 0 1 1 *)
+    @monthly                   每月运行一次 等同于(0 0 1 * *) 
+    @weekly                    每周运行一次 等同于(0 0 * * 0) 
+    @daily                     每日运行一次 等同于(0 0 * * *) 
+    @hourly                    每小时运行一次 等同于(0 * * * *)
 ~~~
 
 ## <h5>【九】. 特别感谢 </h5>
