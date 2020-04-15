@@ -27,13 +27,6 @@ class Wts
         //创建进程锁
         $this->lock = new Lock();
 
-        //创建运行时目录
-        $runPath = Helper::getWinPath();
-        if (!is_dir($runPath))
-        {
-            @mkdir($runPath, 0777, true);
-        }
-
         //创建进程信息文件
         $processFile = $this->getProcessInfoFile();
         if (!file_exists($processFile))

@@ -44,6 +44,8 @@ class Task
         Env::set('canAsync', Helper::canAsyncSignal());
         Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
+
+        //初始化代码页|PHP_Path
         if ($currentOs == 1)
         {
             Helper::setCodePage();
@@ -271,6 +273,7 @@ class Task
      */
     private function getProcess()
     {
+        Helper::initAllPath();
         $taskList = $this->taskList;
         $currentOs = Env::get('currentOs');
         if ($currentOs == 1)

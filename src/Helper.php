@@ -180,17 +180,34 @@ class Helper
     }
 
     /**
+     * 初始化所有目录
+     */
+    public static function initAllPath()
+    {
+        $paths = [
+            static::getRunTimePath(),
+            static::getWinPath(),
+            static::getLogPath(),
+            static::getCsgPath(),
+            static::getStdPath(),
+        ];
+        foreach ($paths as $path)
+        {
+            if (!is_dir($path))
+            {
+                mkdir($path, 0777, true);
+            }
+        }
+    }
+
+    /**
      * 关闭标准Std
      */
     public static function setStdClose()
     {
         global $STDOUT, $STDERR;
         $path = static::getStdPath();
-        if (!is_dir($path))
-        {
-            @mkdir($path, 0777, true);
-        }
-        $file = $path . date('Y_m_d_H') . '.txt';
+        $file = $path . date('Y_m_d') . '.txt';
         $handle = fopen($file, "a");
         if ($handle)
         {

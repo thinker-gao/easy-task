@@ -13,14 +13,8 @@ class Log
      */
     public static function write($message)
     {
-        //根目录
+        //日志文件
         $path = Helper::getLogPath();
-        if (!is_dir($path))
-        {
-            @mkdir($path, 0777, true);
-        }
-
-        //保存文件
         $file = $path . date('Y_m_d') . '.txt';
 
         //加锁保存

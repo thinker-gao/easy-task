@@ -307,7 +307,7 @@ class Win
 
         //输出信息
         $pid = getmypid();
-        if (!Env::get('daemon')) Helper::showInfo("this worker {$item['alas']}(pid:{$pid}) is start");
+        Helper::showInfo("this worker {$item['alas']}(pid:{$pid}) is start");
 
         //设置进程标题
         $title = Env::get('prefix') . '.' . $item['alas'];
@@ -437,8 +437,8 @@ class Win
         }
 
         //记录执行
-        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
-        Log::writeInfo("$text is executed");
+        //$text = "this worker {$item['alas']}(pid:{$item['pid']})";
+        //Log::writeInfo("$text is executed");
 
         //检查进程存活
         $status = $this->wts->getProcessStatus('manager');
@@ -459,7 +459,7 @@ class Win
         //输出信息
         $pid = getmypid();
         $text = "this manager(pid:{$pid})";
-        if (!Env::get('daemon')) Helper::showInfo("$text is start");;
+        Helper::showInfo("$text is start");;
 
         //挂起进程
         while (true)
@@ -478,6 +478,7 @@ class Win
                             'msgType' => 1,
                             'status' => $this->getReport(),
                         ]);
+                        Helper::showInfo("listened status command, $text is reported");
                         break;
                     case 'stop':
                         Helper::showInfo("listened exit command, $text is safely exited", true);
