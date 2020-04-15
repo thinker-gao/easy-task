@@ -185,26 +185,26 @@ ppid:管理当前定时任务的守护进程id
 ## <h5>【五】. 进阶了解->建议阅读 </h5>
 
 ~~~
--> 建议您使用绝对路径进行开发,是标准更是规范
--> 禁止在任务中使用exit/die语法,否则导致整个进程退出
--> Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题
--> 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
--> 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
+(1). 建议您使用绝对路径进行开发,是标准更是规范
+(2). 禁止在任务中使用exit/die语法,否则导致整个进程退出
+(3). Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题
+(4). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
+(5). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
 ~~~
 
-## <h5>【六】. 进阶了解->框架集成 </h5>
+## <h5>【六】. 进阶了解->框架集成教程 </h5>
 
-&ensp;&ensp;[<font size=2>-> thinkphp3.2.x已支持</font>](https://www.gaojiufeng.cn/?id=293). 
+&ensp;&ensp;[<font size=2>-> thinkphp3.2.x教程</font>](https://www.gaojiufeng.cn/?id=293). 
 
-&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x已支持</font>](https://www.gaojiufeng.cn/?id=294).
+&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](https://www.gaojiufeng.cn/?id=294).
 
-&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x已支持</font>](https://www.gaojiufeng.cn/?id=295).
+&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=295).
 
 ## <h5>【七】. 进阶了解->推荐操作 </h5>
 
 ~~~
--> 推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
--> 推荐安装php_event扩展基于事件轮询的毫秒级定时支持
+(1).推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
+(2).推荐安装php_event扩展基于事件轮询的毫秒级定时支持
 ~~~
 
 ## <h5>【八】. 进阶了解->时间参数支持crontab命令 </h5>
