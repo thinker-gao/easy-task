@@ -215,10 +215,12 @@ ppid:管理当前定时任务的守护进程id
 -> 虽然我们不支持Crontab指令,但是您可以设置定时器1秒执行1次,在执行的方法中自行判断当前时间是否可以执行,不是您需要的执行时间可以直接return即可,无任何IO消耗
 ~~~
 
-## <h5>【九】. 感谢phpStorm为开源作者提供免费授权码 </h5>
-<p align="left"><a href="https://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener noreferrer"  ><img src="https://www.gaojiufeng.cn/static/images/phpstorm.svg" width="60" height="60"></p>
-
+## <h5>【九】. 特别感谢 </h5>
+~~~
+-> ThinkPHP(EasyTask中命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
+-> Cron-expression(EasyTask中Crontab命令解析和版本兼容基于Cron-expression),官方地址:https://github.com/dragonmantank/cron-expression
+~~~
 ## <h5>【十】. Bug反馈 </h5>
 ~~~
-请反馈至QQ群60973229,感谢您的支持！
+请反馈至QQ群60973229,感谢持续反馈的用户,是您的反馈让EasyTask越来越稳定!
 ~~~
