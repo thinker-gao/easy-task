@@ -5,6 +5,7 @@ use EasyTask\Command;
 use EasyTask\Cron\CronExpression;
 use EasyTask\Env;
 use EasyTask\Error;
+use EasyTask\Log;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -201,6 +202,16 @@ class Linux
      */
     private function invoker($item)
     {
+        //输出信息
+        $pid = getmypid();
+        $text = "this worker {$item['alas']}(pid:{$pid})";
+        Log::writeInfo("$text is start");
+
+        //监听Kill信号
+        pcntl_signal(SIGTERM, function () use ($text) {
+            Log::writeInfo("listened exit command, $text is safely exited");
+        });
+
         //执行任务
         if ($item['time'] == 0)
         {
@@ -367,7 +378,12 @@ class Linux
         //设置进程标题
         Helper::cli_set_process_title(Env::get('prefix'));
 
-        //注册kill信号
+        //输出信息
+        $pid = getmypid();
+        $text = "this manager(pid:{$pid})";
+        Log::writeInfo("$text is start");
+
+        //Kill信号
         pcntl_signal(SIGTERM, function () {
             posix_kill(0, SIGTERM) && exit();
         });
@@ -379,11 +395,14 @@ class Linux
             sleep(1);
 
             //接收命令start/status/stop
-            $this->commander->waitCommandForExecute(2, function ($command) {
+            $this->commander->waitCommandForExecute(2, function ($command) use ($text) {
+                $exitText = "listened exit command, $text is safely exited";
+                $statusText = "listened status command, $text is reported";
                 if ($command['type'] == 'start')
                 {
                     if ($command['time'] > $this->startTime)
                     {
+                        Log::writeInfo($exitText);
                         posix_kill(0, SIGTERM) && exit();
                     }
                 }
@@ -395,9 +414,11 @@ class Linux
                         'msgType' => 1,
                         'status' => $report,
                     ]);
+                    Log::writeInfo($statusText);
                 }
                 if ($command['type'] == 'stop')
                 {
+                    Log::writeInfo($exitText);
                     $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
                 }
 
