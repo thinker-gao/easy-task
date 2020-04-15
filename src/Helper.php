@@ -1,6 +1,7 @@
 <?php
 namespace EasyTask;
 
+use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
 
 /**
@@ -286,6 +287,56 @@ class Helper
     }
 
     /**
+     * 检查任务时间是否合法
+     * @param $time
+     */
+    public static function checkTaskTime($time)
+    {
+        if (is_string($time))
+        {
+            if (!CronExpression::isValidExpression($time))
+            {
+                static::showError("$time is not a valid CRON expression");
+            }
+            return;
+        }
+        if (!is_numeric($time))
+        {
+            static::showError('the Task time must be numeric');
+        }
+        if ($time < 0)
+        {
+            static::showError('the Task time must be greater than or equal to 0');
+        }
+        if (is_float($time) && !static::canEvent())
+        {
+            static::showError('the Event extension must be enabled before using milliseconds');
+        }
+        if (!$time)
+        {
+            static::showError('the Task time must be valid');
+        }
+    }
+
+    /**
+     * 获取Cron命令的下次执行时间
+     * @param string $command cron命令
+     * @return string
+     */
+    public static function getCronNextDate($command)
+    {
+        $cron = CronExpression::factory($command);
+        try
+        {
+            return $cron->getNextRunDate()->format('Y-m-d H:i:s');
+        }
+        catch (\Exception $exception)
+        {
+            Helper::showError($exception->getMessage());
+        }
+    }
+
+    /**
      * 输出信息
      * @param string $message
      * @param bool $isExit
@@ -306,30 +357,6 @@ class Helper
             exit($text);
         }
         echo $text;
-    }
-
-    /**
-     * 检查任务时间是否合法
-     * @param $time
-     */
-    public static function checkTaskTime($time)
-    {
-        if (!is_numeric($time))
-        {
-            static::showError('the Task time must be numeric');
-        }
-        if ($time < 0)
-        {
-            static::showError('the Task time must be greater than or equal to 0');
-        }
-        if (is_float($time) && !static::canEvent())
-        {
-            static::showError('the Event extension must be enabled before using milliseconds');
-        }
-        if (!$time)
-        {
-            static::showError('the Task time must be valid');
-        }
     }
 
     /**

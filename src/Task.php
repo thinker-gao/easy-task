@@ -164,7 +164,7 @@ class Task
      * 新增匿名函数作为任务
      * @param Closure $func 匿名函数
      * @param string $alas 任务别名
-     * @param int $time 定时器间隔
+     * @param int|float|string $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      * @throws

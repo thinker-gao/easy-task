@@ -2,6 +2,7 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
+use EasyTask\Cron\CronExpression;
 use EasyTask\Env;
 use EasyTask\Error;
 use EasyTask\Log;
@@ -323,7 +324,11 @@ class Win
         ]);
 
         //执行任务
-        if (Env::get('canEvent') && $item['time'] != 0)
+        if (CronExpression::isValidExpression($item['time']))
+        {
+            $this->invokeByCron($item);
+        }
+        elseif (Env::get('canEvent') && $item['time'] != 0)
         {
             $this->invokeByEvent($item);
         }
@@ -379,6 +384,30 @@ class Win
 
         //事件循环
         $eventBase->loop();
+    }
+
+    /**
+     * 通过CronTab命令执行
+     * @param array $item 执行项目
+     */
+    private function invokeByCron($item)
+    {
+        $nextExecTime = 0;
+        while (true)
+        {
+            if (!$nextExecTime) $nextExecTime = Helper::getCronNextDate($item['time']);
+            $waitTime = (strtotime($nextExecTime) - time());
+            if (!$waitTime)
+            {
+                $this->execute($item);
+                $nextExecTime = 0;
+            }
+            else
+            {
+                sleep($waitTime);
+            }
+        }
+        exit;
     }
 
     /**

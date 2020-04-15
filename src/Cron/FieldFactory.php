@@ -24,7 +24,7 @@ class FieldFactory implements FieldFactoryInterface
      */
     public function getField($position)
     {
-        if (!$this->fields[$position])
+        if (!isset($this->fields[$position]))
         {
             $this->fields[$position] = $this->instantiateField($position);
         }

@@ -66,7 +66,7 @@ class CronExpression
      *
      * @return CronExpression
      */
-    public static function factory($expression, FieldFactoryInterface $fieldFactory = null)
+    public static function factory($expression, $fieldFactory = null)
     {
         $mappings = [
             '@yearly' => '0 0 1 1 *',
@@ -76,13 +76,11 @@ class CronExpression
             '@daily' => '0 0 * * *',
             '@hourly' => '0 * * * *',
         ];
-
         $shortcut = strtolower($expression);
         if (isset($mappings[$shortcut]))
         {
             $expression = $mappings[$shortcut];
         }
-
         return new static($expression, $fieldFactory ?: new FieldFactory());
     }
 
@@ -93,7 +91,7 @@ class CronExpression
      *
      * @return bool True if a valid CRON expression was passed. False if not.
      *
-     * @see \Cron\CronExpression::factory
+     * @see CronExpression::factory
      */
     public static function isValidExpression($expression)
     {
@@ -463,8 +461,8 @@ class CronExpression
             // Skip this match if needed
             if ((!$allowCurrentDate && $nextRun == $currentDate) || --$nth > -1)
             {
-                $parts[0] = empty($part[0]) ? null:$parts[0];
-                $this->fieldFactory->getField(0)->increment($nextRun, $invert,$parts[0] );
+                $parts[0] = empty($part[0]) ? null : $parts[0];
+                $this->fieldFactory->getField(0)->increment($nextRun, $invert, $parts[0]);
                 continue;
             }
 
