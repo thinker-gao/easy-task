@@ -43,7 +43,7 @@ class DayOfMonthField extends AbstractField
      *
      * @return \DateTime Returns the nearest date
      */
-    private static function getNearestWeekday( $currentYear,  $currentMonth,  $targetDay)
+    private static function getNearestWeekday($currentYear, $currentMonth, $targetDay)
     {
         $tday = str_pad((string)$targetDay, 2, '0', STR_PAD_LEFT);
         $target = DateTime::createFromFormat('Y-m-d', "${currentYear}-${currentMonth}-${tday}");
@@ -73,7 +73,7 @@ class DayOfMonthField extends AbstractField
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy(DateTimeInterface $date, $value)
+    public function isSatisfiedBy($date, $value)
     {
         // ? states that the field value is to be skipped
         if ('?' === $value)
@@ -110,7 +110,7 @@ class DayOfMonthField extends AbstractField
      *
      * @param \DateTime|\DateTimeImmutable &$date
      */
-    public function increment(DateTimeInterface &$date, $invert = false)
+    public function increment(&$date, $invert = false)
     {
         if ($invert)
         {

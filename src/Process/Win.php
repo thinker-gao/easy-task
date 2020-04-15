@@ -302,12 +302,12 @@ class Win
             Helper::showError("the task name $name is not exist" . json_encode($taskDict));
         }
 
-        //输出信息
-        $pid = getmypid();
-        if (!Env::get('daemon')) Helper::showInfo('this worker ' . $pid . ' is start...');
-
         //提取Task字典
         $item = $taskDict[$name];
+
+        //输出信息
+        $pid = getmypid();
+        if (!Env::get('daemon')) Helper::showInfo("this worker {$item['alas']}(pid:{$pid}) is start");
 
         //设置进程标题
         $title = Env::get('prefix') . '.' . $item['alas'];
@@ -320,7 +320,7 @@ class Win
             'name' => $item['name'],
             'alas' => $item['alas'],
             'started' => date('Y-m-d H:i:s', $this->startTime),
-            'timer' => $item['time']
+            'time' => $item['time']
         ]);
 
         //执行任务
@@ -400,6 +400,7 @@ class Win
             if (!$waitTime)
             {
                 $this->execute($item);
+                echo (date('Y-m-d H:i:s')) . PHP_EOL;
                 $nextExecTime = 0;
             }
             else
@@ -435,11 +436,15 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
+        //记录执行
+        $text = "Task worker {$item['alas']}(pid:{$item['pid']})";
+        Log::writeInfo("$text is executed");
+
         //检查进程存活
         $status = $this->wts->getProcessStatus('manager');
         if (!$status)
         {
-            Helper::showInfo('Listen to exit command, the current worker process ' . $item['pid'] . ' is safely exiting...', true);
+            Helper::showInfo("Listened exit command, $text is safely exited", true);
         }
     }
 
@@ -453,7 +458,8 @@ class Win
 
         //输出信息
         $pid = getmypid();
-        if (!Env::get('daemon')) Helper::showInfo('this manager ' . $pid . ' is start...');
+        $text = "this manager(pid:{$pid})";
+        if (!Env::get('daemon')) Helper::showInfo("$text is start");;
 
         //挂起进程
         while (true)
@@ -462,7 +468,7 @@ class Win
             sleep(1);
 
             //接收命令status/stop
-            $this->commander->waitCommandForExecute(2, function ($command) {
+            $this->commander->waitCommandForExecute(2, function ($command) use ($text) {
                 $commandType = $command['type'];
                 switch ($commandType)
                 {
@@ -474,8 +480,7 @@ class Win
                         ]);
                         break;
                     case 'stop':
-                        Log::writeInfo('Listen to exit command, the master process is safely exiting...');
-                        exit();
+                        Helper::showInfo("Listened exit command, $text is safely exited", true);
                         break;
                 }
             }, $this->startTime);
@@ -566,7 +571,7 @@ class Win
                 'pid' => $item['pid'],
                 'name' => "{$prefix}_{$item['alas']}",
                 'started' => $item['started'],
-                'timer' => $item['timer'],
+                'time' => $item['time'],
                 'status' => $this->wts->getProcessStatus($name) ? 'active' : 'stop',
                 'ppid' => $pid,
             ];

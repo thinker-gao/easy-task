@@ -188,7 +188,7 @@ class Linux
             function ($pid) use ($item) {
                 //write_log
                 $ppid = posix_getpid();
-                $this->processList[] = ['pid' => $pid, 'name' => $item['alas'], 'item' => $item, 'started' => $item['data'], 'timer' => $item['time'], 'status' => 'active', 'ppid' => $ppid];
+                $this->processList[] = ['pid' => $pid, 'name' => $item['alas'], 'item' => $item, 'started' => $item['data'], 'time' => $item['time'], 'status' => 'active', 'ppid' => $ppid];
                 //set not block
                 pcntl_wait($status, WNOHANG);
             }

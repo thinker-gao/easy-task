@@ -20,6 +20,7 @@ class FieldFactory implements FieldFactoryInterface
      *
      * @param int $position CRON expression position value to retrieve
      *
+     * @return mixed
      * @throws InvalidArgumentException if a position is not valid
      */
     public function getField($position)

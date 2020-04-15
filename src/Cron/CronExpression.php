@@ -223,7 +223,7 @@ class CronExpression
      * @throws \Exception
      *
      * @throws \RuntimeException on too many iterations
-     * @see \Cron\CronExpression::getNextRunDate
+     * @see CronExpression::getNextRunDate
      */
     public function getPreviousRunDate($currentTime = 'now', $nth = 0, $allowCurrentDate = false, $timeZone = null)
     {
@@ -241,6 +241,7 @@ class CronExpression
      * @param null|string $timeZone TimeZone to use instead of the system default
      *
      * @return \DateTime[] Returns an array of run dates
+     * @throws Exception
      */
     public function getMultipleRunDates($total, $currentTime = 'now', $invert = false, $allowCurrentDate = false, $timeZone = null)
     {
@@ -304,6 +305,7 @@ class CronExpression
      * @param null|string $timeZone TimeZone to use instead of the system default
      *
      * @return bool Returns TRUE if the cron is due to run or FALSE if not
+     * @throws Exception
      */
     public function isDue($currentTime = 'now', $timeZone = null)
     {

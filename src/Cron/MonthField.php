@@ -1,8 +1,6 @@
 <?php
 namespace EasyTask\Cron;
 
-use DateTimeInterface;
-
 /**
  * Month field.  Allows: * , / -.
  */
@@ -27,7 +25,7 @@ class MonthField extends AbstractField
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy(DateTimeInterface $date, $value): bool
+    public function isSatisfiedBy($date, $value)
     {
         if ($value == '?')
         {
@@ -44,7 +42,7 @@ class MonthField extends AbstractField
      *
      * @param \DateTime|\DateTimeImmutable &$date
      */
-    public function increment(DateTimeInterface &$date, $invert = false): FieldInterface
+    public function increment(&$date, $invert = false)
     {
         if ($invert)
         {
