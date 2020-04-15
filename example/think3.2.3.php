@@ -28,9 +28,6 @@ class Support
      */
     public function __construct()
     {
-        //重置工作目录(only_win_system)
-        chdir(dirname(__FILE__));
-
         //保存Cli_Input
         $this->argv = $_SERVER['argv'];
         $this->argc = $_SERVER['argc'];
