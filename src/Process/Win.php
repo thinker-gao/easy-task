@@ -309,10 +309,10 @@ class Win
 
         //输出信息
         $pid = getmypid();
-        Helper::showInfo("this worker {$item['alas']}(pid:{$pid}) is start");
+        $title = Env::get('prefix') . '_' . $item['alas'];
+        Helper::showInfo("this worker $title(pid:{$pid}) is start");
 
         //设置进程标题
-        $title = Env::get('prefix') . '.' . $item['alas'];
         Helper::cli_set_process_title($title);
 
         //保存进程信息
@@ -326,17 +326,13 @@ class Win
         ]);
 
         //执行任务
-        if (CronExpression::isValidExpression($item['time']))
+        if (is_int($item['time']) || is_float($item['time']))
+        {
+            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
+        }
+        elseif (is_string($item['time']))
         {
             $this->invokeByCron($item);
-        }
-        elseif (Env::get('canEvent') && $item['time'] != 0)
-        {
-            $this->invokeByEvent($item);
-        }
-        else
-        {
-            $this->invokeByDefault($item);
         }
     }
 
@@ -402,7 +398,6 @@ class Win
             if (!$waitTime)
             {
                 $this->execute($item);
-                echo (date('Y-m-d H:i:s')) . PHP_EOL;
                 $nextExecTime = 0;
             }
             else
@@ -439,11 +434,11 @@ class Win
         }
 
         //检查进程存活
-        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
         $status = $this->wts->getProcessStatus('manager');
         if (!$status)
         {
-            Helper::showInfo("listened exit command, $text is safely exited", true);
+            $text = Env::get('prefix') . '_' . $item['alas'];
+            Helper::showInfo("listened exit command, this worker $text(pid:{$item['pid']}) is safely exited", true);
         }
     }
 
@@ -514,8 +509,9 @@ class Win
                 $this->forkItemExec($argv);
                 if ($output)
                 {
+                    $name = Env::get('prefix') . '_' . $item['name'];
                     $this->autoRecEvent = true;
-                    Log::writeInfo("the worker {$item['alas']}(pid:{$item['pid']}) is stop,try to fork new one");
+                    Log::writeInfo("the worker $name(pid:{$item['pid']}) is stop,try to fork new one");
                 }
             }
         }

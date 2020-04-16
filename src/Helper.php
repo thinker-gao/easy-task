@@ -309,29 +309,24 @@ class Helper
      */
     public static function checkTaskTime($time)
     {
-        if (is_string($time))
+        if (is_int($time))
+        {
+            if ($time < 0) static::showError('time must be greater than or equal to 0');
+        }
+        elseif (is_float($time))
+        {
+            if (!static::canEvent()) static::showError('please install event.(dll/so) extend for using milliseconds');
+        }
+        elseif (is_string($time))
         {
             if (!CronExpression::isValidExpression($time))
             {
                 static::showError("$time is not a valid CRON expression");
             }
-            return;
         }
-        if (!is_numeric($time))
+        else
         {
-            static::showError('time must be numeric');
-        }
-        if ($time < 0)
-        {
-            static::showError('time must be greater than or equal to 0');
-        }
-        if (is_float($time) && !static::canEvent())
-        {
-            static::showError('please install event.(dll/so) extend for using milliseconds');
-        }
-        if (!$time)
-        {
-            static::showError('time is not a valid');
+            static::showError('time parameter is an unsupported type');
         }
     }
 

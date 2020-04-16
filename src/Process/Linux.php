@@ -9,6 +9,7 @@ use EasyTask\Log;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
+use \Throwable as Throwable;
 use EasyTask\Helper;
 
 /**
@@ -213,21 +214,14 @@ class Linux
         });
 
         //执行任务
-        if ($item['time'] == 0)
+        if (is_int($item['time']) || is_float($item['time']))
         {
-            $this->invokerByDirect($item);
+            if ($item['time'] === 0) $this->invokerByDirect($item);
+            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByAlarm($item);
         }
-        if (CronExpression::isValidExpression($item['time']))
+        elseif (is_string($item['time']))
         {
             $this->invokeByCron($item);
-        }
-        if (!Env::get('canEvent'))
-        {
-            $this->invokeByAlarm($item);
-        }
-        else
-        {
-            $this->invokeByEvent($item);
         }
     }
 
@@ -284,7 +278,7 @@ class Linux
             {
                 $this->execute($item);
             }
-            catch (\Throwable $exception)
+            catch (Throwable $exception)
             {
                 $type = 'appException';
                 Error::report($type, $exception);
