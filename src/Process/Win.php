@@ -10,6 +10,8 @@ use EasyTask\Wpc;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
+use \Exception as Exception;
+use \Throwable as Throwable;
 use EasyTask\Helper;
 use EasyTask\Wts;
 
@@ -91,7 +93,7 @@ class Win
         };
         if (!$this->wts->allocateProcess($func))
         {
-            Helper::showError('Unexpected error, process has been allocated');
+            Helper::showError('unexpected error, process has been allocated');
         }
     }
 
@@ -102,11 +104,11 @@ class Win
     {
         if (!Env::get('phpPath'))
         {
-            Helper::showError('If you use windows system, then you must set the value of phpPath through the setPhpPath method');
+            Helper::showError('please use setPhpPath api to set phpPath');
         }
         if (!$this->chkCanStart())
         {
-            Helper::showError('Please close the running process first');
+            Helper::showError('please close the running process first');
         }
     }
 
@@ -267,12 +269,12 @@ class Win
             $pid = $wpc->start();
             if (!$pid)
             {
-                Helper::showError('Create process failed!', true);
+                Helper::showError('create process failed,please try again', true);
             }
         }
-        catch (\Exception $exception)
+        catch (Exception $exception)
         {
-            throw  new \Exception(Helper::convert_char($exception->getMessage()));
+            throw  new Exception(Helper::convert_char($exception->getMessage()));
         }
     }
 
@@ -372,7 +374,7 @@ class Win
             {
                 $this->execute($item);
             }
-            catch (\Throwable $exception)
+            catch (Throwable $exception)
             {
                 $type = 'appException';
                 Error::report($type, $exception);
@@ -436,11 +438,8 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
-        //记录执行
-        //$text = "this worker {$item['alas']}(pid:{$item['pid']})";
-        //Log::writeInfo("$text is executed");
-
         //检查进程存活
+        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
         $status = $this->wts->getProcessStatus('manager');
         if (!$status)
         {
@@ -516,7 +515,7 @@ class Win
                 if ($output)
                 {
                     $this->autoRecEvent = true;
-                    Log::writeInfo('the worker ' . $item['pid'] . ' is stop,try to fork new one');
+                    Log::writeInfo("the worker {$item['alas']}(pid:{$item['pid']}) is stop,try to fork new one");
                 }
             }
         }

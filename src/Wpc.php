@@ -1,6 +1,9 @@
 <?php
 namespace EasyTask;
 
+use \Com as Com;
+use \Exception as Exception;
+
 /**
  * Class Wpc
  * @package EasyTask
@@ -19,13 +22,13 @@ class Wpc
      */
     public function __construct()
     {
-        $this->instance = new \Com('Wpc.Core');
+        $this->instance = new Com('Wpc.Core');
         return $this;
     }
 
     /**
      * 获取Com_Variant
-     * @return \Com
+     * @return Com
      */
     public function getInstance()
     {
@@ -35,15 +38,15 @@ class Wpc
     /**
      * 设置进程文件(pass)
      * @param string $filename
-     * @throws \Exception
      * @return $this
+     * @throws Exception
      */
     public function setFile($filename)
     {
         $filename = realpath($filename);
         if (!file_exists($filename))
         {
-            throw new \Exception("the file:{$filename} is not exist");
+            throw new Exception("the file:{$filename} is not exist");
         }
         $this->instance->SetFile($filename);
         return $this;

@@ -67,7 +67,7 @@ class Check
         {
             if (!extension_loaded($extend))
             {
-                Helper::showError("$extend extend is not load,please install this extend by dll file or so file");
+                Helper::showError("php_{$extend}.(dll/so) is not load,please check php.ini file");
             }
         }
         //检查函数

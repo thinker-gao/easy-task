@@ -1,6 +1,8 @@
 <?php
 namespace EasyTask;
 
+use \Closure as Closure;
+
 /**
  * Class Wts
  * @package EasyTask
@@ -140,7 +142,7 @@ class Wts
 
     /**
      * 分配进程
-     * @param \Closure $func
+     * @param Closure $func
      * @return bool
      */
     public function allocateProcess($func)

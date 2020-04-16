@@ -76,7 +76,7 @@ class Linux
                     $sid = posix_setsid();
                     if ($sid < 0)
                     {
-                        Helper::showError('set child processForManager failed');
+                        Helper::showError('set child processForManager failed,please try again');
                     }
                     $this->allocate();
                 },
@@ -164,7 +164,7 @@ class Linux
         $pid = pcntl_fork();
         if ($pid == -1)
         {
-            Helper::showError('fork child process failed');
+            Helper::showError('fork child process failed,please try again');
         }
         elseif ($pid)
         {

@@ -295,7 +295,6 @@ class Table
             }
         }
         $content .= $this->renderSeparator('bottom');
-
         return $content;
     }
 }

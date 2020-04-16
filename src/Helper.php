@@ -319,19 +319,19 @@ class Helper
         }
         if (!is_numeric($time))
         {
-            static::showError('the Task time must be numeric');
+            static::showError('time must be numeric');
         }
         if ($time < 0)
         {
-            static::showError('the Task time must be greater than or equal to 0');
+            static::showError('time must be greater than or equal to 0');
         }
         if (is_float($time) && !static::canEvent())
         {
-            static::showError('the Event extension must be enabled before using milliseconds');
+            static::showError('please install event.(dll/so) extend for using milliseconds');
         }
         if (!$time)
         {
-            static::showError('the Task time must be valid');
+            static::showError('time is not a valid');
         }
     }
 
@@ -343,7 +343,7 @@ class Helper
      */
     public static function getCronNextDate($command, $currentTime = 'now')
     {
-        static $cronExpression  = null;
+        static $cronExpression = null;
         $nextDate = null;
         if (!$cronExpression) $cronExpression = CronExpression::factory($command);
         try

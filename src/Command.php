@@ -34,7 +34,7 @@ class Command
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
             {
-                Helper::showError('crate process queue msgFile failed');
+                Helper::showError('crate msgFile failed,please try again');
             }
         }
     }
