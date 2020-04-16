@@ -217,7 +217,7 @@ class Linux
         if (is_int($item['time']) || is_float($item['time']))
         {
             if ($item['time'] === 0) $this->invokerByDirect($item);
-            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByAlarm($item);
+            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
         }
         elseif (is_string($item['time']))
         {
@@ -242,7 +242,7 @@ class Linux
      * 通过闹钟信号执行
      * @param array $item 执行项目
      */
-    private function invokeByAlarm($item)
+    private function invokeByDefault($item)
     {
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($item) {

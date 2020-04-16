@@ -328,12 +328,26 @@ class Win
         //执行任务
         if (is_int($item['time']) || is_float($item['time']))
         {
+            if ($item['time'] === 0) $this->invokerByDirect($item);
             Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
         }
         elseif (is_string($item['time']))
         {
             $this->invokeByCron($item);
         }
+    }
+
+    /**
+     * 普通执行(执行完成,直接退出)
+     * @param array $item 执行项目
+     */
+    private function invokerByDirect($item)
+    {
+        //执行程序
+        $this->execute($item);
+
+        //进程退出
+        exit;
     }
 
     /**
@@ -346,9 +360,6 @@ class Win
         {
             //执行任务
             $this->execute($item);
-
-            //执行一次
-            if ($item['time'] == 0) break;
 
             //CPU休息
             sleep($item['time']);
