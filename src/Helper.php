@@ -315,7 +315,7 @@ class Helper
         }
         elseif (is_float($time))
         {
-            if (!static::canEvent()) static::showError('please install event.(dll/so) extend for using milliseconds');
+            if (!static::canEvent()) static::showError('please install php_event.(dll/so) extend for using milliseconds');
         }
         elseif (is_string($time))
         {
