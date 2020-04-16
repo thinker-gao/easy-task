@@ -343,16 +343,18 @@ class Helper
      */
     public static function getCronNextDate($command, $currentTime = 'now')
     {
-        static $cronExpression = null;
+        static $cronExpression  = null;
+        $nextDate = null;
         if (!$cronExpression) $cronExpression = CronExpression::factory($command);
         try
         {
-            return $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
+            $nextDate = $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
         }
         catch (\Exception $exception)
         {
             Helper::showError($exception->getMessage());
         }
+        return $nextDate;
     }
 
     /**
@@ -453,7 +455,7 @@ class Helper
     }
 
     /**
-     * 通过Curl方式提交数据.
+     * 通过Curl方式提交数据
      *
      * @param string $url 目标URL
      * @param null $data 提交的数据
