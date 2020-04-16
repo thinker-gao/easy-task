@@ -67,7 +67,7 @@ class Check
         {
             if (!extension_loaded($extend))
             {
-                Helper::showError("$extend extend is not load");
+                Helper::showError("$extend extend is not load,please install this extend by dll file or so file");
             }
         }
         //检查函数
@@ -76,7 +76,7 @@ class Check
         {
             if (!function_exists($func))
             {
-                Helper::showError("$func function is disabled");
+                Helper::showError("function $func may be disabled,please check disable_functions in php.ini");
             }
         }
     }
