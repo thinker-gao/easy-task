@@ -358,11 +358,11 @@ class Win
     {
         while (true)
         {
-            //执行任务
-            $this->execute($item);
-
             //CPU休息
             sleep($item['time']);
+
+            //执行任务
+            $this->execute($item);
         }
         exit;
     }
