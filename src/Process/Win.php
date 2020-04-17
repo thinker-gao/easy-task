@@ -52,10 +52,16 @@ class Win
     private $taskCount;
 
     /**
-     * 进程worker
+     * 虚拟进程列表
      * @var array
      */
     private $workerList;
+
+    /**
+     * 实体进程容器
+     * @var array
+     */
+    private $wpcContainer;
 
     /**
      * AutoRec事件
@@ -260,7 +266,23 @@ class Win
             //根据Worker数创建子进程
             for ($i = 0; $i < $used; $i++)
             {
-                $this->taskList[$key]['wpc'][] = $this->forkItemExec();
+                $this->joinWpcContainer($this->forkItemExec());
+            }
+        }
+    }
+
+    /**
+     * 注册实体进程
+     * @param $wpc
+     */
+    private function joinWpcContainer($wpc)
+    {
+        $this->wpcContainer[] = $wpc;
+        foreach ($this->wpcContainer as $key => $wpc)
+        {
+            if ($wpc->hasExited())
+            {
+                unset($this->wpcContainer[$key]);
             }
         }
     }
@@ -537,13 +559,11 @@ class Win
         {
             if ($item['status'] == 'stop' && Env::get('canAutoRec'))
             {
-                $argv = Helper::getCliInput();
-                $this->forkItemExec($argv);
+                $this->joinWpcContainer($this->forkItemExec());
                 if ($output)
                 {
-                    $name = Env::get('prefix') . '_' . $item['name'];
                     $this->autoRecEvent = true;
-                    Log::writeInfo("the worker $name(pid:{$item['pid']}) is stop,try to fork new one");
+                    Log::writeInfo("the worker {$item['name']}(pid:{$item['pid']}) is stop,try to fork new one");
                 }
             }
         }
@@ -613,19 +633,15 @@ class Win
      */
     private function workerStopByForce()
     {
-        foreach ($this->taskList as $key => $item)
+        foreach ($this->wpcContainer as $wpc)
         {
-            $allWpc = $item['wpc'];
-            foreach ($allWpc as $wpc)
+            try
             {
-                try
-                {
-                    $wpc->stop(2);
-                }
-                catch (Exception $exception)
-                {
-                    Helper::showError(Helper::convert_char($exception->getMessage()), false);
-                }
+                $wpc->stop(2);
+            }
+            catch (Exception $exception)
+            {
+                Helper::showError(Helper::convert_char($exception->getMessage()), false);
             }
         }
     }
