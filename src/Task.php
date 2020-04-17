@@ -291,7 +291,7 @@ class Task
     {
         if (!$this->taskList)
         {
-            return;
+            Helper::showSysError('please add task to run');
         }
 
         //异常注册
