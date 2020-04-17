@@ -85,7 +85,7 @@ class Task
         $file = realpath($path);
         if (!file_exists($file))
         {
-            Helper::showError("the path {$path} is not exists");
+            Helper::showSysError("the path {$path} is not exists");
         }
         Helper::setPhpPath($path);
         return $this;
@@ -122,11 +122,11 @@ class Task
     {
         if (Env::get('closeErrorRegister'))
         {
-            Helper::showError('you must set closeErrorRegister as false before use this api');
+            Helper::showSysError('you must set closeErrorRegister as false before use this api');
         }
         if (!$notify instanceof Closure && !is_string($notify))
         {
-            Helper::showError('notify parameter can only be string or closure');
+            Helper::showSysError('notify parameter can only be string or closure');
         }
         Error::$notifyHand = $notify;
         return $this;
@@ -152,11 +152,11 @@ class Task
     {
         if (!is_dir($path))
         {
-            Helper::showError("the path {$path} is not exist");
+            Helper::showSysError("the path {$path} is not exist");
         }
         if (!is_writable($path))
         {
-            Helper::showError("the path {$path} is not writeable");
+            Helper::showSysError("the path {$path} is not writeable");
         }
         Env::set('runTimePath', $path);
         Helper::initAllPath();
@@ -176,7 +176,7 @@ class Task
     {
         if (!($func instanceof Closure))
         {
-            Helper::showError('func must instanceof Closure');
+            Helper::showSysError('func must instanceof Closure');
         }
         Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();
@@ -206,19 +206,19 @@ class Task
     {
         if (!class_exists($class))
         {
-            Helper::showError("class {$class} is not exist");
+            Helper::showSysError("class {$class} is not exist");
         }
         try
         {
             $reflect = new ReflectionClass($class);
             if (!$reflect->hasMethod($func))
             {
-                Helper::showError("class {$class}'s func {$func} is not exist");
+                Helper::showSysError("class {$class}'s func {$func} is not exist");
             }
             $method = new ReflectionMethod($class, $func);
             if (!$method->isPublic())
             {
-                Helper::showError("class {$class}'s func {$func} must public");
+                Helper::showSysError("class {$class}'s func {$func} must public");
             }
             Helper::checkTaskTime($time);
             $alas = $alas ? $alas : uniqid();
@@ -252,7 +252,7 @@ class Task
     {
         if (!Helper::canExecuteCommand())
         {
-            Helper::showError('please open the disabled function of popen and pclose');
+            Helper::showSysError('please open the disabled function of popen and pclose');
         }
         Helper::checkTaskTime($time);
         $alas = $alas ? $alas : uniqid();

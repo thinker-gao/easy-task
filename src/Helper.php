@@ -131,14 +131,13 @@ class Helper
     /**
      * 获取运行时目录
      * @return  string
-     * @throws Exception
      */
     public static function getRunTimePath()
     {
         $path = Env::get('runTimePath');
         if (!$path)
         {
-            static::showError('please invoke setRunTimePath function to set runPath', true, 'warring', false);
+            static::showSysError('please invoke setRunTimePath function to set runPath');
         }
         $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
         $path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
@@ -148,7 +147,6 @@ class Helper
     /**
      * 获取Win进程目录
      * @return  string
-     * @throws Exception
      */
     public static function getWinPath()
     {
@@ -158,7 +156,6 @@ class Helper
     /**
      * 获取日志目录
      * @return  string
-     * @throws Exception
      */
     public static function getLogPath()
     {
@@ -168,7 +165,6 @@ class Helper
     /**
      * 获取进程命令通信目录
      * @return  string
-     * @throws Exception
      */
     public static function getCsgPath()
     {
@@ -178,7 +174,6 @@ class Helper
     /**
      * 获取标准输入输出目录
      * @return  string
-     * @throws Exception
      */
     public static function getStdPath()
     {
@@ -317,22 +312,22 @@ class Helper
     {
         if (is_int($time))
         {
-            if ($time < 0) static::showError('time must be greater than or equal to 0');
+            if ($time < 0) static::showSysError('time must be greater than or equal to 0');
         }
         elseif (is_float($time))
         {
-            if (!static::canEvent()) static::showError('please install php_event.(dll/so) extend for using milliseconds');
+            if (!static::canEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
         }
         elseif (is_string($time))
         {
             if (!CronExpression::isValidExpression($time))
             {
-                static::showError("$time is not a valid CRON expression");
+                static::showSysError("$time is not a valid CRON expression");
             }
         }
         else
         {
-            static::showError('time parameter is an unsupported type');
+            static::showSysError('time parameter is an unsupported type');
         }
     }
 
@@ -351,9 +346,9 @@ class Helper
         {
             $nextDate = $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
         }
-        catch (\Exception $exception)
+        catch (Exception $exception)
         {
-            Helper::showError($exception->getMessage());
+            Helper::showSysError($exception->getMessage());
         }
         return $nextDate;
     }
@@ -396,6 +391,26 @@ class Helper
 
         //记录日志
         if ($log) Log::write($text);
+
+        //输出信息
+        if ($isExit)
+        {
+            exit($text);
+        }
+        echo $text;
+    }
+
+    /**
+     * 输出系统错误
+     * @param string $errStr
+     * @param bool $isExit
+     * @param string $type
+     * @throws
+     */
+    public static function showSysError($errStr, $isExit = true, $type = 'warring')
+    {
+        //格式化信息
+        $text = static::formatMessage($errStr, $type);
 
         //输出信息
         if ($isExit)

@@ -67,7 +67,7 @@ class Check
         {
             if (!extension_loaded($extend))
             {
-                Helper::showError("php_{$extend}.(dll/so) is not load,please check php.ini file");
+                Helper::showSysError("php_{$extend}.(dll/so) is not load,please check php.ini file");
             }
         }
         //检查函数
@@ -76,7 +76,7 @@ class Check
         {
             if (!function_exists($func))
             {
-                Helper::showError("function $func may be disabled,please check disable_functions in php.ini");
+                Helper::showSysError("function $func may be disabled,please check disable_functions in php.ini");
             }
         }
     }
