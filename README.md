@@ -8,7 +8,7 @@
 </p>
 
 ## <h4 style="text-align:left">  项目介绍 </h4>
-<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是PHP常驻内存定时任务Composer包，通过其简洁的Api，您可以用它来完成需要长期反复运行的任务(如订单超时自动取消,短信邮件异步推送,后台报表数据异步生成,队列/消费者/频道订阅者)，任何在FPM下比较耗时的功能您都可以交给它来完成。我们还支持任务异常退出自动恢复任务，您还能自定义配置异常信息(例如接收异常通知到您的邮件或短信)。工具包同时支持windows、linux、mac环境运行。
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是PHP常驻内存定时器/计划任务Composer包，通过其简洁的Api，您可以用它来完成需要反复运行的任务(如订单超时自动取消,短信邮件异步推送,队列/消费者/频道订阅者)，还能完成部分计划任务(如每天凌晨1点-3点同步DB数据,每月1号生成月度统一报表,每晚10点重启nginx服务器)；同时我们还集成了任务异常上报功能，异常错误您都可以自定义处理(例如实现异常错误自动短信邮件通知)；为了解决任务运行中的内存溢出问题，我们增加了子任务异常退出自动重启功能，让您的任务运行更稳定 ，工具包同时支持windows、linux、mac环境运行。
 </p>
 
 ## <h4>   运行环境 </h4>
@@ -51,6 +51,19 @@ $task->addClass(Sms::class, 'send', 'sendsms', 20, 1);
 // 3.添加指令类型的定时任务(开启1个进程,每隔10秒执行1次)
 $command = 'php /www/web/orderAutoCancel.php';
 $task->addCommand($command,'orderCancel',10,1);
+
+// 4.添加闭包函数任务,不需要定时器,立即执行(开启1个进程)
+$task->addFunc(function () {
+    while(true)
+    {
+       //todo
+    }
+}, 'request', 0, 1);
+
+// 5.每晚9点半通过curl命令访问网站
+$task->addCommand('curl https://www.gaojiufeng.cn', 'curl', '30 21 * * *', 1);
+
+
 
 // 启动任务
 $task->start();
