@@ -145,8 +145,9 @@ class Win
         {
             if ($name == 'manager')
             {
-                $this->allocate();
-                $this->daemonWait();
+                //$this->allocate();
+                //$this->daemonWait();
+                $this->manager();
             }
             else
             {
@@ -257,21 +258,26 @@ class Win
         //清理进程信息
         $this->wts->cleanProcessInfo();
 
-        //计算要分配的进程数
-        $count = $this->taskCount;
-
-        //根据count数分配进程
-        for ($i = 0; $i < $count; $i++)
+        foreach ($this->taskList as $key => $item)
         {
-            $this->forkItemExec();
+            //提取参数
+            $used = $item['used'];
+
+            //根据Worker数创建子进程
+            for ($i = 0; $i < $used; $i++)
+            {
+                $this->taskList[$key]['wpc'][] = $this->forkItemExec();
+            }
         }
     }
 
     /**
      * 创建任务执行子进程
+     * @return Wpc
      */
     private function forkItemExec()
     {
+        $wpc = null;
         try
         {
             //提取参数
@@ -288,15 +294,14 @@ class Win
             $wpc->setStyle($style);
             $wpc->setWorkDir($work);
             $pid = $wpc->start();
-            if (!$pid)
-            {
-                Helper::showError('create process failed,please try again', true);
-            }
+            if (!$pid) Helper::showError('create process failed,please try again', true);
         }
         catch (Exception $exception)
         {
             Helper::showError(Helper::convert_char($exception->getMessage()), true);
         }
+
+        return $wpc;
     }
 
     /**
@@ -475,7 +480,7 @@ class Win
     }
 
     /**
-     * 常驻进程
+     * 后台常驻运行
      */
     private function daemonWait()
     {
@@ -507,6 +512,8 @@ class Win
                         Helper::showInfo("listened status command, $text is reported");
                         break;
                     case 'stop':
+                        $force = Env::get('daemon') ? 2 : 1;
+                        $this->workerStop($force);
                         Helper::showInfo("listened exit command, $text is safely exited", true);
                         break;
                 }
@@ -552,7 +559,7 @@ class Win
     }
 
     /**
-     * master进程等待结束退出
+     * 主进程等待结束退出
      */
     private function masterWaitExit()
     {
@@ -606,5 +613,22 @@ class Win
         }
 
         return $report;
+    }
+
+    /**
+     * 关闭所有进程
+     * @param int $force
+     */
+    private function workerStop($force = 1)
+    {
+        foreach ($this->taskList as $key => $item)
+        {
+            //提取参数
+            $allWpc = $item['wpc'];
+            foreach ($allWpc as $wpc)
+            {
+                $wpc->Stop($force);
+            }
+        }
     }
 }
