@@ -208,6 +208,9 @@ class Linux
         $text = "this worker {$item['alas']}(pid:{$pid})";
         Log::writeInfo("$text is start");
 
+        //设置进程标题
+        Helper::cli_set_process_title($item['alas']);
+
         //监听Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
             Log::writeInfo("listened exit command, $text is safely exited", 'info', true);
@@ -322,7 +325,6 @@ class Linux
      */
     private function execute($item)
     {
-        Helper::cli_set_process_title($item['alas']);
         $type = $item['type'];
         switch ($type)
         {
@@ -449,6 +451,7 @@ class Linux
                 if (Env::get('canAutoRec'))
                 {
                     $this->forkItemExec($item['item']);
+                    Log::writeInfo("the worker {$item['name']}(pid:{$pid}) is stop,try to fork new one");
                     unset($this->processList[$key]);
                 }
             }
