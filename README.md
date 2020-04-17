@@ -131,10 +131,12 @@ $task->setDaemon(true)
 
 ~~~
 // 获取命令
+$force = empty($_SERVER['argv']['2']) ? '' : $_SERVER['argv']['2'];
 $command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
 // 配置任务
 $task = new Task();
+$task->setRunTimePath('./Application/Runtime/')
 $task->addFunc(function () {
         $url = 'https://www.gaojiufeng.cn/?id=271';
         @file_get_contents($url);
@@ -151,16 +153,18 @@ elseif ($command == 'status')
 }
 elseif ($command == 'stop')
 {
-    $task->stop();
+    $force = ($force == 'force'); //是否强制停止
+    $task->stop($force);
 }
 else
 {
     exit('Command is not exist');
 }
 
-启动: php console.php start
-查询: php console.php status
-关闭: php console.php stop
+启动任务: php console.php start
+查询任务: php console.php status
+普通关闭: php console.php stop
+强制关闭: php console.php stop force
 ~~~
 
 ## <h5>【四】. 快速入门->认识输出信息 </h5>
@@ -188,7 +192,8 @@ ppid:管理当前定时任务的守护进程id
 (2). 禁止在任务中使用exit/die语法,否则导致整个进程退出
 (3). Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题
 (4). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
-(5). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
+(5). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
+(6). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
 ~~~
 
 ## <h5>【六】. 进阶了解->框架集成教程 </h5>
