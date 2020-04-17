@@ -179,7 +179,6 @@ class Task
             Helper::showSysError('func must instanceof Closure');
         }
         Helper::checkTaskTime($time);
-        $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
             'type' => 1,
@@ -221,7 +220,6 @@ class Task
                 Helper::showSysError("class {$class}'s func {$func} must public");
             }
             Helper::checkTaskTime($time);
-            $alas = $alas ? $alas : uniqid();
             $uniKey = md5($alas);
             $this->taskList[$uniKey] = [
                 'type' => $method->isStatic() ? 2 : 3,
@@ -255,7 +253,6 @@ class Task
             Helper::showSysError('please open the disabled function of popen and pclose');
         }
         Helper::checkTaskTime($time);
-        $alas = $alas ? $alas : uniqid();
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
             'type' => 4,

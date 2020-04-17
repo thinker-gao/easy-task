@@ -620,7 +620,7 @@ class Win
             {
                 try
                 {
-                    $wpc->Stop(2);
+                    $wpc->stop(2);
                 }
                 catch (Exception $exception)
                 {
