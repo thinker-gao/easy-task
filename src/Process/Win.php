@@ -139,12 +139,13 @@ class Win
     {
         if ($name == 'master')
         {
-            $this->allocate();
+            $this->master();
         }
         else
         {
             if ($name == 'manager')
             {
+                $this->allocate();
                 $this->daemonWait();
             }
             else
@@ -214,25 +215,16 @@ class Win
     }
 
     /**
-     * 分配子进程
-     * @throws \Exception
+     * 主进程
+     * @throws Exception
      */
-    private function allocate()
+    private function master()
     {
-        //清理进程信息
-        $this->wts->cleanProcessInfo();
-
-        //计算要分配的进程数
-        $count = $this->taskCount;
-
-        //根据count数分配进程
-        for ($i = 0; $i <= $count; $i++)
-        {
-            $this->forkItemExec();
-        }
+        //创建常驻进程
+        $this->forkItemExec();
 
         //查询状态
-        $i = 30;
+        $i = 35;
         while ($i--)
         {
             $status = $this->wts->getProcessStatus('manager');
@@ -246,8 +238,37 @@ class Win
     }
 
     /**
-     * 创建任务执行的子进程
-     * @throws \Exception
+     * 常驻进程
+     */
+    private function manager()
+    {
+        //分配子进程
+        $this->allocate();
+
+        //后台常驻运行
+        $this->daemonWait();
+    }
+
+    /**
+     * 分配子进程
+     */
+    private function allocate()
+    {
+        //清理进程信息
+        $this->wts->cleanProcessInfo();
+
+        //计算要分配的进程数
+        $count = $this->taskCount;
+
+        //根据count数分配进程
+        for ($i = 0; $i < $count; $i++)
+        {
+            $this->forkItemExec();
+        }
+    }
+
+    /**
+     * 创建任务执行子进程
      */
     private function forkItemExec()
     {
@@ -274,7 +295,7 @@ class Win
         }
         catch (Exception $exception)
         {
-            throw  new Exception(Helper::convert_char($exception->getMessage()));
+            Helper::showError(Helper::convert_char($exception->getMessage()), true);
         }
     }
 
