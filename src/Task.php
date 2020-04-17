@@ -45,11 +45,11 @@ class Task
         Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
 
-        //初始化代码页|PHP_Path
+        //初始化PHP_BIN|代码页
         if ($currentOs == 1)
         {
+            Helper::setPhpPath();
             Helper::setCodePage();
-            Env::set('phpPath', Helper::getPhpPath());
         }
     }
 
@@ -87,7 +87,7 @@ class Task
         {
             Helper::showError("the path {$path} is not exists");
         }
-        Env::set('phpPath', $path);
+        Helper::setPhpPath($path);
         return $this;
     }
 
@@ -159,6 +159,7 @@ class Task
             Helper::showError("the path {$path} is not writeable");
         }
         Env::set('runTimePath', $path);
+        Helper::initAllPath();
         return $this;
     }
 
@@ -273,7 +274,6 @@ class Task
      */
     private function getProcess()
     {
-        Helper::initAllPath();
         $taskList = $this->taskList;
         $currentOs = Env::get('currentOs');
         if ($currentOs == 1)

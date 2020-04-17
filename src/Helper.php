@@ -3,6 +3,7 @@ namespace EasyTask;
 
 use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
+use \Exception as Exception;
 
 /**
  * Class Helper
@@ -100,6 +101,16 @@ class Helper
     }
 
     /**
+     * 设置PHP二进制文件
+     * @param $path
+     */
+    public static function setPhpPath($path = '')
+    {
+        if (!$path) $path = static::getPhpPath();
+        Env::set('phpPath', $path);
+    }
+
+    /**
      * 是否Win平台
      * @return bool
      */
@@ -118,25 +129,16 @@ class Helper
     }
 
     /**
-     * 获取临时目录
-     * @return string
-     */
-    public static function getOsTempPath()
-    {
-        $path = Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
-        return str_replace('/', DIRECTORY_SEPARATOR, $path);
-    }
-
-    /**
      * 获取运行时目录
      * @return  string
+     * @throws Exception
      */
     public static function getRunTimePath()
     {
         $path = Env::get('runTimePath');
         if (!$path)
         {
-            $path = Helper::getOsTempPath();
+            static::showError('please invoke setRunTimePath function to set runPath', true, 'warring', false);
         }
         $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
         $path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
@@ -146,6 +148,7 @@ class Helper
     /**
      * 获取Win进程目录
      * @return  string
+     * @throws Exception
      */
     public static function getWinPath()
     {
@@ -155,6 +158,7 @@ class Helper
     /**
      * 获取日志目录
      * @return  string
+     * @throws Exception
      */
     public static function getLogPath()
     {
@@ -164,6 +168,7 @@ class Helper
     /**
      * 获取进程命令通信目录
      * @return  string
+     * @throws Exception
      */
     public static function getCsgPath()
     {
@@ -173,6 +178,7 @@ class Helper
     /**
      * 获取标准输入输出目录
      * @return  string
+     * @throws Exception
      */
     public static function getStdPath()
     {
@@ -380,15 +386,16 @@ class Helper
      * @param string $errStr
      * @param bool $isExit
      * @param string $type
+     * @param bool $log
      * @throws
      */
-    public static function showError($errStr, $isExit = true, $type = 'warring')
+    public static function showError($errStr, $isExit = true, $type = 'warring', $log = true)
     {
         //格式化信息
         $text = static::formatMessage($errStr, $type);
 
         //记录日志
-        Log::write($text);
+        if ($log) Log::write($text);
 
         //输出信息
         if ($isExit)
