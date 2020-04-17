@@ -210,7 +210,7 @@ class Linux
 
         //监听Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
-            Log::writeInfo("listened exit command, $text is safely exited");
+            Log::writeInfo("listened exit command, $text is safely exited", 'info', true);
         });
 
         //执行任务
