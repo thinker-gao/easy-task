@@ -137,22 +137,16 @@ class Win
      */
     private function executeByProcessName($name)
     {
-        if ($name == 'master')
+        switch ($name)
         {
-            $this->master();
-        }
-        else
-        {
-            if ($name == 'manager')
-            {
-                //$this->allocate();
-                //$this->daemonWait();
+            case 'master':
+                $this->master();
+                break;
+            case 'manager':
                 $this->manager();
-            }
-            else
-            {
+                break;
+            default:
                 $this->invoker($name);
-            }
         }
     }
 
@@ -621,11 +615,17 @@ class Win
     {
         foreach ($this->taskList as $key => $item)
         {
-            //提取参数
             $allWpc = $item['wpc'];
             foreach ($allWpc as $wpc)
             {
-                $wpc->Stop(2);
+                try
+                {
+                    $wpc->Stop(2);
+                }
+                catch (Exception $exception)
+                {
+                    Helper::showError(Helper::convert_char($exception->getMessage()), false);
+                }
             }
         }
     }
