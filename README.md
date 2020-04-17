@@ -63,8 +63,6 @@ $task->addFunc(function () {
 // 5.每晚9点半通过curl命令访问网站
 $task->addCommand('curl https://www.gaojiufeng.cn', 'curl', '30 21 * * *', 1);
 
-
-
 // 启动任务
 $task->start();
 ~~~
