@@ -512,8 +512,7 @@ class Win
                         Helper::showInfo("listened status command, $text is reported");
                         break;
                     case 'stop':
-                        $force = Env::get('daemon') ? 2 : 1;
-                        $this->workerStop($force);
+                        if ($command['force']) $this->workerStopByForce();
                         Helper::showInfo("listened exit command, $text is safely exited", true);
                         break;
                 }
@@ -616,10 +615,9 @@ class Win
     }
 
     /**
-     * 关闭所有进程
-     * @param int $force
+     * 强制关闭所有进程
      */
-    private function workerStop($force = 1)
+    private function workerStopByForce()
     {
         foreach ($this->taskList as $key => $item)
         {
@@ -627,7 +625,7 @@ class Win
             $allWpc = $item['wpc'];
             foreach ($allWpc as $wpc)
             {
-                $wpc->Stop($force);
+                $wpc->Stop(2);
             }
         }
     }

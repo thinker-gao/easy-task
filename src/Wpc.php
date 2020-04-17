@@ -241,6 +241,6 @@ class Wpc
      */
     public function stop($force = 1)
     {
-        $this->instance->Stop();
+        $this->instance->Stop($force);
     }
 }
