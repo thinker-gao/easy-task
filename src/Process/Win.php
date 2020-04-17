@@ -2,7 +2,6 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
-use EasyTask\Cron\CronExpression;
 use EasyTask\Env;
 use EasyTask\Error;
 use EasyTask\Log;
