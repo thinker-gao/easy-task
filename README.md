@@ -88,9 +88,7 @@ $task->setDaemon(true)
 ->setPhpPath('C:/phpEnv/php/php-7.0/php.exe')
 
 /**
- * 设置记录运行时目录(日志或缓存目录)
- * 不设置的话Linux默认/tmp/目录
- * 不设置的话Window默认C:\Windows\Temp目录
+ * 设置运行时目录(日志或缓存目录)
  */
 ->setRunTimePath('./Application/Runtime/')
 
@@ -182,18 +180,18 @@ else
 
 ~~~
 ┌─────┬──────────────┬─────────────────────┬───────┬────────┬──────┐
-│ pid │ name         │ started             │ timer │ status │ ppid │
+│ pid │ name         │ started             │ time │ status │ ppid │
 ├─────┼──────────────┼─────────────────────┼───────┼────────┼──────┤
 │ 32  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 │ 33  │ Task_request │ 2020-01-10 15:55:44 │ 10    │ active │ 31   │
 └─────┴──────────────┴─────────────────────┴───────┴────────┴──────┘
 参数:
-pid:当前定时任务的进程id
-name:您为您的定时任务起的别名
-started:定时任务启动时间
-timer:定时任务执行间隔时间
-status:定时任务状态
-ppid:管理当前定时任务的守护进程id
+pid:任务进程id
+name:任务别名
+started:任务启动时间
+time:任务执行时间
+status:任务状态
+ppid:守护进程id
 ~~~
 
 ## <h5>【五】. 进阶了解->建议阅读 </h5>
