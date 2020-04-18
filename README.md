@@ -145,7 +145,7 @@ $command = empty($_SERVER['argv']['1']) ? '' : $_SERVER['argv']['1'];
 
 // 配置任务
 $task = new Task();
-$task->setRunTimePath('./Application/Runtime/')
+$task->setRunTimePath('./Application/Runtime/');
 $task->addFunc(function () {
         $url = 'https://www.gaojiufeng.cn/?id=271';
         @file_get_contents($url);
