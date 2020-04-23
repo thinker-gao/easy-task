@@ -22,7 +22,7 @@ class Wpc
      */
     public function __construct()
     {
-        $this->instance = new Com('Wpc.Core');
+        $this->instance = new Com('WinPc.Core');
         return $this;
     }
 
