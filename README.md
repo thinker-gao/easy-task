@@ -14,7 +14,7 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/static/exe/Wpc_install.zip" target="_blank">wpc扩展一键安装包</a>）</li>  
+    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/static/exe/Wpc_install.zip" target="_blank">点击下载wpc扩展安装包</a>）</li>  
     <li>linux|mac：PHP>=5.4 (依赖pcntl+posix扩展,一般默认已装）</li>  
 </ul>  
 
@@ -201,6 +201,7 @@ ppid:守护进程id
 (2). 禁止在任务中使用exit/die语法,否则导致整个进程退出
 (3). Windows安装Wpc扩展时请关闭杀毒软件,避免误报
 (4). Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题,请尽量使用CMD管理员方式运行
+(5). Windows提示com() has been disabled for security reasons,请在php.ini中删除disable_classes = com配置项目
 (5). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
 (6). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
 (7). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
