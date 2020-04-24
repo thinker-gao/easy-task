@@ -14,7 +14,7 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/static/exe/Wpc_install.zip" target="_blank">点击下载wpc扩展安装包</a>）</li>  
+    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/?id=322" target="_blank">环境安装教程</a>）</li>  
     <li>linux|mac：PHP>=5.4 (依赖pcntl+posix扩展,一般默认已装）</li>  
 </ul>  
 
