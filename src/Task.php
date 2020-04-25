@@ -69,7 +69,7 @@ class Task
      * @param string $prefix
      * @return $this
      */
-    public function setPrefix($prefix = '')
+    public function setPrefix($prefix = 'Task')
     {
         Env::set('prefix', $prefix);
         return $this;
