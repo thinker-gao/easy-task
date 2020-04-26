@@ -14,8 +14,8 @@
 ## <h4>   运行环境 </h4>
 
 <ul>
-    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展,<a href="https://www.gaojiufeng.cn/?id=322" target="_blank">环境安装教程</a>）</li>  
-    <li>linux|mac：PHP>=5.4 (依赖pcntl+posix扩展,一般默认已装）</li>  
+    <li>windows：PHP>=5.4 (依赖com_dotnet+wpc扩展）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">文档+安装教程</a></li>  
+    <li>linux|mac：PHP>=5.4 (依赖pcntl+posix扩展,一般默认已装）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">文档+安装教程</a></li>
 </ul>  
 
 ## <h4>  Composer安装 </h4>
