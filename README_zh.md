@@ -1,4 +1,5 @@
-﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时任务包</h4></p>
+﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时器</h4></p>
+<a href="./README_zh.md">English document</a> | <a href="./README_zh.md">Chinese document</a>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
 <img src="https://www.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
