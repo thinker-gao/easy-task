@@ -289,6 +289,7 @@ class Linux
             {
                 $type = 'appException';
                 Error::report($type, $exception);
+                $this->checkDaemonForExit($item);
             }
         });
 
