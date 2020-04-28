@@ -51,7 +51,7 @@ class Linux
         $this->taskList = $taskList;
         $this->startTime = time();
         $this->commander = new Command();
-        if (!Env::get('canEvent') && Env::get('canAsync'))
+        if (Env::get('canAsync'))
         {
             Helper::openAsyncSignal();
         }
@@ -62,13 +62,13 @@ class Linux
      */
     public function start()
     {
-        //发送命令(关闭重复进程)
+        //发送命令
         $this->commander->send([
             'type' => 'start',
             'msgType' => 2
         ]);
 
-        //异步
+        //常驻处理
         if (Env::get('daemon'))
         {
             $this->setMask();
@@ -88,7 +88,7 @@ class Linux
             );
         }
 
-        //同步
+        //同步处理
         $this->allocate();
     }
 
@@ -97,7 +97,7 @@ class Linux
      */
     public function status()
     {
-        //发送查询命令
+        //发送命令
         $this->commander->send([
             'type' => 'status',
             'msgType' => 2
@@ -111,7 +111,7 @@ class Linux
      */
     public function stop($force = false)
     {
-        //发送关闭命令
+        //发送命令
         $this->commander->send([
             'type' => 'stop',
             'force' => $force,
@@ -206,10 +206,16 @@ class Linux
         //输出信息
         $item['pid'] = getmypid();
         $item['ppid'] = posix_getppid();
-        Log::writeInfo("this worker {$item['alas']}(pid:{$item['pid']}) is start");
+        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
+        Log::writeInfo("$text is start");
 
-        //设置进程标题
+        //进程标题
         Helper::cli_set_process_title($item['alas']);
+
+        //Kill信号
+        pcntl_signal(SIGTERM, function () use ($text) {
+            Log::writeInfo("listened kill command, $text not to exit the program for safety");
+        });
 
         //执行任务
         if (is_int($item['time']) || is_float($item['time']))
@@ -345,7 +351,7 @@ class Linux
                 @pclose(@popen($item['command'], 'r'));
         }
 
-        //检查常驻进程存活,非活跃则退出
+        //常驻进程存活检查
         $this->checkDaemonForExit($item);
     }
 
@@ -397,8 +403,8 @@ class Linux
         Log::writeInfo("$text is start");
 
         //Kill信号
-        pcntl_signal(SIGTERM, function () {
-            posix_kill(0, SIGTERM) && exit();
+        pcntl_signal(SIGTERM, function () use ($text) {
+            Log::writeInfo("listened kill command $text is safely exited", 'info', true);
         });
 
         //挂起进程
@@ -439,7 +445,8 @@ class Linux
                     }
                     else
                     {
-                        Log::writeInfo($exitText) && exit();
+                        Log::writeInfo($exitText);
+                        exit();
                     }
                 }
 
