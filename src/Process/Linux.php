@@ -2,7 +2,6 @@
 namespace EasyTask\Process;
 
 use EasyTask\Command;
-use EasyTask\Cron\CronExpression;
 use EasyTask\Env;
 use EasyTask\Error;
 use EasyTask\Log;
@@ -68,7 +67,7 @@ class Linux
             'msgType' => 2
         ]);
 
-        //常驻处理
+        //异步处理
         if (Env::get('daemon'))
         {
             $this->setMask();
@@ -261,7 +260,7 @@ class Linux
         while (true)
         {
             //CPU休息
-            sleep(1);
+            Helper::sleep(1);
 
             //信号处理(同步/异步)
             if (!Env::get('canAsync')) pcntl_signal_dispatch();
@@ -316,7 +315,7 @@ class Linux
             else
             {
                 //Cpu休息
-                sleep(1);
+                Helper::sleep(1);
 
                 //常驻进程存活检查
                 $this->checkDaemonForExit($item);
@@ -374,7 +373,7 @@ class Linux
         while ($i--)
         {
             //CPU休息1秒
-            sleep(1);
+            Helper::sleep(1);
 
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
@@ -409,7 +408,7 @@ class Linux
         while (true)
         {
             //CPU休息
-            sleep(1);
+            Helper::sleep(1);
 
             //接收命令start/status/stop
             $this->commander->waitCommandForExecute(2, function ($command) use ($text) {

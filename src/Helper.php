@@ -18,10 +18,8 @@ class Helper
      */
     public static function sleep($time, $type = 1)
     {
-        if($type==1)
-        {
-
-        }
+        if ($type == 2) $time *= 1000;
+        $type == 1 ? sleep($time) : usleep($time);
     }
 
     /**

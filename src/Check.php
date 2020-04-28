@@ -36,7 +36,8 @@ class Check
             'umask',
             'putenv',
             'getenv',
-            'sleep'
+            'sleep',
+            'usleep',
         ],
         //Linux
         '2' => [
@@ -45,6 +46,7 @@ class Check
             'putenv',
             'getenv',
             'sleep',
+            'usleep',
             'pcntl_fork',
             'posix_setsid',
             'posix_getpid',

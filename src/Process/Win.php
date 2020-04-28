@@ -233,7 +233,7 @@ class Win
                 $this->status();
                 break;
             }
-            sleep(1);
+            Helper::sleep(1);
         }
     }
 
@@ -400,7 +400,7 @@ class Win
         while (true)
         {
             //CPU休息
-            sleep($item['time']);
+            Helper::sleep($item['time']);
 
             //执行任务
             $this->execute($item);
@@ -450,7 +450,7 @@ class Win
             $waitTime = (strtotime($nextExecuteTime) - time());
             if ($waitTime)
             {
-                sleep(1);
+                Helper::sleep(1);
             }
             else
             {
@@ -523,7 +523,7 @@ class Win
         while (true)
         {
             //CPU休息
-            sleep(1);
+            Helper::sleep(1);
 
             //接收命令status/stop
             $this->commander->waitCommandForExecute(2, function ($command) use ($text) {
@@ -591,7 +591,7 @@ class Win
         while ($i--)
         {
             //CPU休息
-            sleep(1);
+            Helper::sleep(1);
 
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
@@ -616,7 +616,7 @@ class Win
         $tryTotal = 10;
         while ($tryTotal--)
         {
-            sleep(1);
+            Helper::sleep(1);
             $infoData = $this->wts->getProcessInfo();
             if ($count == count($infoData)) break;
         }
