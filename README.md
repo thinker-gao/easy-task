@@ -1,4 +1,4 @@
-﻿<p align=""><h4>EasyTask is an easy-to-use PHP resident memory scheduled task package</h4></p>
+﻿<p><h4>EasyTask is an easy-to-use PHP resident memory scheduled task package</h4></p>
 <a href="./README.md">English document</a> | <a href="./README_zh.md">Chinese document</a>
 <br><br>
 <p align="">

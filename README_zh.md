@@ -1,4 +1,4 @@
-﻿<p align=""><h4>EasyTask简单易用的PHP常驻内存定时器</h4></p>
+﻿<p><h4>EasyTask简单易用的PHP常驻内存定时器</h4></p>
 <a href="./README.md">English document</a> | <a href="./README_zh.md">Chinese document</a>
 <br><br>
 <p align="">
