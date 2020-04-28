@@ -263,11 +263,8 @@ class Linux
             //CPU休息
             sleep(1);
 
-            //兼容信号处理(同步/异步)
+            //信号处理(同步/异步)
             if (!Env::get('canAsync')) pcntl_signal_dispatch();
-
-            //常驻进程存活检查
-            $this->checkDaemonForExit($item);
         }
     }
 

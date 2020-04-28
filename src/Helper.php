@@ -12,6 +12,19 @@ use \Exception as Exception;
 class Helper
 {
     /**
+     * 睡眠函数
+     * @param int $time 时间
+     * @param int $type 类型:1秒 2毫秒
+     */
+    public static function sleep($time, $type = 1)
+    {
+        if($type==1)
+        {
+
+        }
+    }
+
+    /**
      * 设置进程标题
      * @param $title
      */

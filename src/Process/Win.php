@@ -397,18 +397,13 @@ class Win
      */
     private function invokeByDefault($item)
     {
-        $nextTime = time() + $item['time'];
         while (true)
         {
-            $waitTime = ($nextTime - time());
-            if ($waitTime)
-            {
-                $this->checkDaemonForExit($item) && sleep(1);
-            }
-            else
-            {
-                $this->execute($item);
-            }
+            //CPU休息
+            sleep($item['time']);
+
+            //执行任务
+            $this->execute($item);
         }
         exit;
     }
@@ -453,18 +448,14 @@ class Win
         {
             if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
             $waitTime = (strtotime($nextExecuteTime) - time());
-            if (!$waitTime)
+            if ($waitTime)
             {
-                $this->execute($item);
-                $nextExecuteTime = 0;
+                sleep(1);
             }
             else
             {
-                //Cpu休息
-                sleep(1);
-
-                //常驻进程存活检查
-                $this->checkDaemonForExit($item);
+                $this->execute($item);
+                $nextExecuteTime = 0;
             }
         }
         exit;
@@ -495,7 +486,7 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
-        //检查常驻进程存活,非活跃则退出
+        //检查常驻进程存活
         $this->checkDaemonForExit($item);
     }
 
