@@ -204,17 +204,12 @@ class Linux
     private function invoker($item)
     {
         //输出信息
-        $pid = getmypid();
-        $text = "this worker {$item['alas']}(pid:{$pid})";
-        Log::writeInfo("$text is start");
+        $item['pid'] = getmypid();
+        $item['ppid'] = posix_getppid();
+        Log::writeInfo("this worker {$item['alas']}(pid:{$item['pid']}) is start");
 
         //设置进程标题
         Helper::cli_set_process_title($item['alas']);
-
-        //监听Kill信号
-        pcntl_signal(SIGTERM, function () use ($text) {
-            Log::writeInfo("listened exit command, $text is safely exited", 'info', true);
-        });
 
         //执行任务
         if (is_int($item['time']) || is_float($item['time']))
@@ -262,8 +257,11 @@ class Linux
             //CPU休息
             sleep(1);
 
-            //同步模式(调用信号处理)
+            //兼容信号处理(同步/异步)
             if (!Env::get('canAsync')) pcntl_signal_dispatch();
+
+            //常驻进程存活检查
+            $this->checkDaemonForExit($item);
         }
     }
 
@@ -301,19 +299,23 @@ class Linux
      */
     private function invokeByCron($item)
     {
-        $nextExecTime = 0;
+        $nextExecuteTime = 0;
         while (true)
         {
-            if (!$nextExecTime) $nextExecTime = Helper::getCronNextDate($item['time']);
-            $waitTime = (strtotime($nextExecTime) - time());
+            if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
+            $waitTime = (strtotime($nextExecuteTime) - time());
             if (!$waitTime)
             {
                 $this->execute($item);
-                $nextExecTime = 0;
+                $nextExecuteTime = 0;
             }
             else
             {
-                sleep($waitTime);
+                //Cpu休息
+                sleep(1);
+
+                //常驻进程存活检查
+                $this->checkDaemonForExit($item);
             }
         }
         exit;
@@ -341,6 +343,21 @@ class Linux
                 break;
             default:
                 @pclose(@popen($item['command'], 'r'));
+        }
+
+        //检查常驻进程存活,非活跃则退出
+        $this->checkDaemonForExit($item);
+    }
+
+    /**
+     * 检查常驻进程是否存活
+     * @param array $item
+     */
+    private function checkDaemonForExit($item)
+    {
+        if (!posix_kill($item['ppid'], 0))
+        {
+            Log::writeInfo("listened exit command, this worker {$item['alas']}(pid:{$item['pid']}) is safely exited", 'info', true);
         }
     }
 
@@ -394,12 +411,13 @@ class Linux
             $this->commander->waitCommandForExecute(2, function ($command) use ($text) {
                 $exitText = "listened exit command, $text is safely exited";
                 $statusText = "listened status command, $text is reported";
+                $forceExitText = "listened exit command, $text is safely exited";
                 if ($command['type'] == 'start')
                 {
                     if ($command['time'] > $this->startTime)
                     {
-                        Log::writeInfo($exitText);
-                        posix_kill(0, SIGTERM) && exit();
+                        Log::writeInfo($forceExitText);
+                        posix_kill(0, SIGKILL);
                     }
                 }
                 if ($command['type'] == 'status')
@@ -414,8 +432,15 @@ class Linux
                 }
                 if ($command['type'] == 'stop')
                 {
-                    Log::writeInfo($exitText);
-                    $command['force'] ? posix_kill(0, SIGKILL) : posix_kill(0, SIGTERM) && exit();
+                    if ($command['force'])
+                    {
+                        Log::writeInfo($forceExitText);
+                        posix_kill(0, SIGKILL);
+                    }
+                    else
+                    {
+                        Log::writeInfo($exitText) && exit();
+                    }
                 }
 
             }, $this->startTime);

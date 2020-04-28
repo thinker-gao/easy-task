@@ -46,6 +46,7 @@ class Check
             'pcntl_fork',
             'posix_setsid',
             'posix_getpid',
+            'posix_getppid',
             'pcntl_wait',
             'posix_kill',
             'pcntl_signal',

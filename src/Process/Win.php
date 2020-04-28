@@ -397,13 +397,18 @@ class Win
      */
     private function invokeByDefault($item)
     {
+        $nextTime = time() + $item['time'];
         while (true)
         {
-            //CPU休息
-            sleep($item['time']);
-
-            //执行任务
-            $this->execute($item);
+            $waitTime = ($nextTime - time());
+            if ($waitTime)
+            {
+                $this->checkDaemonForExit($item) && sleep(1);
+            }
+            else
+            {
+                $this->execute($item);
+            }
         }
         exit;
     }
@@ -442,19 +447,23 @@ class Win
      */
     private function invokeByCron($item)
     {
-        $nextExecTime = 0;
+        $nextExecuteTime = 0;
         while (true)
         {
-            if (!$nextExecTime) $nextExecTime = Helper::getCronNextDate($item['time']);
-            $waitTime = (strtotime($nextExecTime) - time());
+            if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
+            $waitTime = (strtotime($nextExecuteTime) - time());
             if (!$waitTime)
             {
                 $this->execute($item);
-                $nextExecTime = 0;
+                $nextExecuteTime = 0;
             }
             else
             {
-                sleep($waitTime);
+                //Cpu休息
+                sleep(1);
+
+                //常驻进程存活检查
+                $this->checkDaemonForExit($item);
             }
         }
         exit;
@@ -485,6 +494,17 @@ class Win
                 @pclose(@popen($item['command'], 'r'));
         }
 
+        //检查常驻进程存活,非活跃则退出
+        $this->checkDaemonForExit($item);
+    }
+
+    /**
+     * 检查常驻进程是否存活
+     * (常驻进程退出则任务退出)
+     * @param $item
+     */
+    private function checkDaemonForExit($item)
+    {
         //检查进程存活
         $status = $this->wts->getProcessStatus('manager');
         if (!$status)
