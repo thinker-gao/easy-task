@@ -243,6 +243,7 @@ class Helper
     {
         $path = static::getStdPath();
         $file = $path . date('Y_m_d') . '.txt';
+        $char = static::convert_char($char);
         file_put_contents($file, $char . PHP_EOL, FILE_APPEND);
     }
 
