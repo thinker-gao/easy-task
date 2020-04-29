@@ -39,7 +39,7 @@ class Error
     public static function appError($errno, $errStr, $errFile, $errLine)
     {
         //组装异常
-        $type = 'appError';
+        $type = 'error';
         $exception = new ErrorException($errno, $errStr, $errFile, $errLine);
 
         //日志记录
@@ -54,11 +54,8 @@ class Error
     public static function appException($exception)
     {
         //日志记录
-        $type = 'appException';
+        $type = 'exception';
         static::report($type, $exception);
-
-        //控制台抛出异常
-        Helper::showException($exception);
     }
 
     /**
@@ -69,15 +66,12 @@ class Error
     public static function appShutdown()
     {
         //存在错误
-        $type = 'appShutdown';
+        $type = 'warring';
         if (($error = error_get_last()) != null)
         {
             //日志记录
             $exception = new ErrorException($error['type'], $error['message'], $error['file'], $error['line']);
             static::report($type, $exception);
-
-            //控制台抛出异常
-            Helper::showException($exception);
         }
     }
 

@@ -334,7 +334,7 @@ class Helper
      * @param string $type
      * @return string
      */
-    public static function formatException($exception, $type = 'system')
+    public static function formatException($exception, $type = 'exception')
     {
         //时间
         $date = date('Y/m/d H:i:s', time());
@@ -349,7 +349,7 @@ class Helper
      * @param string $type
      * @return string
      */
-    public static function formatMessage($message, $type = 'system')
+    public static function formatMessage($message, $type = 'error')
     {
         //时间
         $date = date('Y/m/d H:i:s', time());
