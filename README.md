@@ -33,7 +33,7 @@
 $task = new Task();
 
 // set up resident memory
-$task->setDaemon(true);
+$task->setDaemon(false);
 
 // set project name
 $task->setPrefix('EasyTask');
@@ -74,8 +74,8 @@ $task->start();
 ~~~
 $task = new Task();
 
-// set up resident memory
-$task->setDaemon(true)   
+// Set non-resident memory
+$task->setDaemon(false)   
 
 // set project name
 ->setPrefix('ThinkTask')   

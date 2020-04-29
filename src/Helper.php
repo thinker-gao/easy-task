@@ -414,10 +414,7 @@ class Helper
      */
     public static function output($char, $exit = false)
     {
-        if (!Env::get('daemon'))
-        {
-            echo $char;
-        }
+        echo $char;
         if ($exit) exit();
     }
 
@@ -516,7 +513,11 @@ class Helper
         $table->setHeader($header);
         $table->setStyle('box');
         $table->setRows($data);
-        static::output($table->render(), $exit);
+        if ($exit)
+        {
+            exit($table->render());
+        }
+        echo($table->render());
     }
 
     /**

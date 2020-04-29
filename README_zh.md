@@ -32,8 +32,8 @@
 //初始化
 $task = new Task();
 
-// 设置常驻内存
-$task->setDaemon(true);
+// 设置非常驻内存
+$task->setDaemon(false);
 
 // 设置项目名称
 $task->setPrefix('EasyTask');
