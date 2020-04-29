@@ -469,6 +469,7 @@ class Win
     {
         //跟进任务类型执行
         $type = $item['type'];
+        if (Env::get('daemon')) ob_start();
         switch ($type)
         {
             case 1:
@@ -484,6 +485,14 @@ class Win
                 break;
             default:
                 @pclose(@popen($item['command'], 'r'));
+        }
+
+        //保存标准输出
+        if (Env::get('daemon'))
+        {
+            $stdChar = ob_get_contents();
+            if ($stdChar) Helper::saveStdChar($stdChar);
+            ob_end_clean();
         }
 
         //检查常驻进程存活

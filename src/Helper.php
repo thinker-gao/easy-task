@@ -236,6 +236,17 @@ class Helper
     }
 
     /**
+     * 保存标准输入|输出
+     * @param string $char 输入|输出
+     */
+    public static function saveStdChar($char)
+    {
+        $path = static::getStdPath();
+        $file = $path . date('Y_m_d') . '.txt';
+        file_put_contents($file, $char . PHP_EOL, FILE_APPEND);
+    }
+
+    /**
      * 是否支持异步信号
      * @return bool
      */
