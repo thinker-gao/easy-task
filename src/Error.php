@@ -92,7 +92,7 @@ class Error
         $text = Helper::formatException($exception, $type);
 
         //本地日志储存
-        Log::write($text);
+        Helper::writeLog($text);
 
         //同步模式输出
         if (!Env::get('daemon')) echo($text);
@@ -117,7 +117,7 @@ class Error
             $result = Helper::curl($notify, $request);
             if (!$result || $result != 'success')
             {
-                Helper::showInfo("request http api $notify failed");
+                Helper::showError("request http api $notify failed", false, 'warring', true);
             }
         }
     }

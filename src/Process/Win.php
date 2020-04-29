@@ -4,7 +4,6 @@ namespace EasyTask\Process;
 use EasyTask\Command;
 use EasyTask\Env;
 use EasyTask\Error;
-use EasyTask\Log;
 use EasyTask\Wpc;
 use \Event as Event;
 use \EventConfig as EventConfig;
@@ -376,6 +375,10 @@ class Win
         {
             $this->invokeByCron($item);
         }
+        else
+        {
+            Helper::showError("abnormal task time:{$item['time']}");
+        }
     }
 
     /**
@@ -583,7 +586,7 @@ class Win
                 if ($output)
                 {
                     $this->autoRecEvent = true;
-                    Log::writeInfo("the worker {$item['name']}(pid:{$item['pid']}) is stop,try to fork new one");
+                    Helper::showInfo("the worker {$item['name']}(pid:{$item['pid']}) is stop,try to fork new one");
                 }
             }
         }

@@ -4,7 +4,6 @@ namespace EasyTask\Process;
 use EasyTask\Command;
 use EasyTask\Env;
 use EasyTask\Error;
-use EasyTask\Log;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
@@ -206,14 +205,14 @@ class Linux
         $item['pid'] = getmypid();
         $item['ppid'] = posix_getppid();
         $text = "this worker {$item['alas']}(pid:{$item['pid']})";
-        Log::writeInfo("$text is start");
+        Helper::writeTypeLog("$text is start");
 
         //进程标题
         Helper::cli_set_process_title($item['alas']);
 
         //Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
-            Log::writeInfo("listened kill command, $text not to exit the program for safety");
+            Helper::writeTypeLog("listened kill command, $text not to exit the program for safety");
         });
 
         //执行任务
@@ -225,6 +224,9 @@ class Linux
         elseif (is_string($item['time']))
         {
             $this->invokeByCron($item);
+        }
+        else{
+            Helper::showError("abnormal task time:{$item['time']}");
         }
     }
 
@@ -360,7 +362,7 @@ class Linux
     {
         if (!posix_kill($item['ppid'], 0))
         {
-            Log::writeInfo("listened exit command, this worker {$item['alas']}(pid:{$item['pid']}) is safely exited", 'info', true);
+            Helper::writeTypeLog("listened exit command, this worker {$item['alas']}(pid:{$item['pid']}) is safely exited", 'info', true);
         }
     }
 
@@ -397,11 +399,11 @@ class Linux
         //输出信息
         $pid = getmypid();
         $text = "this manager(pid:{$pid})";
-        Log::writeInfo("$text is start");
+        Helper::writeTypeLog("$text is start");
 
         //Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
-            Log::writeInfo("listened kill command $text is safely exited", 'info', true);
+            Helper::writeTypeLog("listened kill command $text is safely exited", 'info', true);
         });
 
         //挂起进程
@@ -419,7 +421,7 @@ class Linux
                 {
                     if ($command['time'] > $this->startTime)
                     {
-                        Log::writeInfo($forceExitText);
+                        Helper::writeTypeLog($forceExitText);
                         posix_kill(0, SIGKILL);
                     }
                 }
@@ -431,18 +433,18 @@ class Linux
                         'msgType' => 1,
                         'status' => $report,
                     ]);
-                    Log::writeInfo($statusText);
+                    Helper::writeTypeLog($statusText);
                 }
                 if ($command['type'] == 'stop')
                 {
                     if ($command['force'])
                     {
-                        Log::writeInfo($forceExitText);
+                        Helper::writeTypeLog($forceExitText);
                         posix_kill(0, SIGKILL);
                     }
                     else
                     {
-                        Log::writeInfo($exitText);
+                        Helper::writeTypeLog($exitText);
                         exit();
                     }
                 }
@@ -480,7 +482,7 @@ class Linux
                 if (Env::get('canAutoRec'))
                 {
                     $this->forkItemExec($item['item']);
-                    Log::writeInfo("the worker {$item['name']}(pid:{$pid}) is stop,try to fork new one");
+                    Helper::writeTypeLog("the worker {$item['name']}(pid:{$pid}) is stop,try to fork new one");
                     unset($this->processList[$key]);
                 }
             }

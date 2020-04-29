@@ -247,6 +247,36 @@ class Helper
     }
 
     /**
+     * 保存日志
+     * @param string $message
+     */
+    public static function writeLog($message)
+    {
+        //日志文件
+        $path = Helper::getLogPath();
+        $file = $path . date('Y_m_d') . '.txt';
+
+        //加锁保存
+        file_put_contents($file, $message, FILE_APPEND | LOCK_EX);
+    }
+
+    /**
+     * 保存类型日志
+     * @param $message
+     * @param string $type
+     * @param bool $isExit
+     */
+    public static function writeTypeLog($message, $type = 'info', $isExit = false)
+    {
+        //格式化信息
+        $text = Helper::formatMessage($message, $type);
+
+        //记录日志
+        static::writeLog($text);
+        if ($isExit) exit();
+    }
+
+    /**
      * 是否支持异步信号
      * @return bool
      */
@@ -376,6 +406,20 @@ class Helper
     }
 
     /**
+     * 输出字符串
+     * @param string $char
+     * @param bool $exit
+     */
+    public static function output($char, $exit = false)
+    {
+        if (!Env::get('daemon'))
+        {
+            echo $char;
+        }
+        if ($exit) exit();
+    }
+
+    /**
      * 输出信息
      * @param string $message
      * @param bool $isExit
@@ -388,14 +432,10 @@ class Helper
         $text = static::formatMessage($message, $type);
 
         //记录日志
-        Log::write($text);
+        static::writeLog($text);
 
         //输出信息
-        if ($isExit)
-        {
-            exit($text);
-        }
-        echo $text;
+        static::output($text, $isExit);
     }
 
     /**
@@ -406,20 +446,16 @@ class Helper
      * @param bool $log
      * @throws
      */
-    public static function showError($errStr, $isExit = true, $type = 'warring', $log = true)
+    public static function showError($errStr, $isExit = true, $type = 'error', $log = true)
     {
         //格式化信息
         $text = static::formatMessage($errStr, $type);
 
         //记录日志
-        if ($log) Log::write($text);
+        if ($log) static::writeLog($text);
 
         //输出信息
-        if ($isExit)
-        {
-            exit($text);
-        }
-        echo $text;
+        static::output($text, $isExit);
     }
 
     /**
@@ -435,11 +471,7 @@ class Helper
         $text = static::formatMessage($errStr, $type);
 
         //输出信息
-        if ($isExit)
-        {
-            exit($text);
-        }
-        echo $text;
+        static::output($text, $isExit);
     }
 
     /**
@@ -455,14 +487,10 @@ class Helper
         $text = static::formatException($exception, $type);
 
         //记录日志
-        Log::write($text);
+        Helper::writeLog($text);
 
         //输出信息
-        if ($isExit)
-        {
-            exit($text);
-        }
-        echo $text;
+        static::output($text, $isExit);
     }
 
     /**
@@ -486,11 +514,7 @@ class Helper
         $table->setHeader($header);
         $table->setStyle('box');
         $table->setRows($data);
-        if ($exit)
-        {
-            exit($table->render());
-        }
-        echo($table->render());
+        static::output($table->render(), $exit);
     }
 
     /**
