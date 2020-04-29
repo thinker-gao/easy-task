@@ -257,6 +257,7 @@ class Helper
         $file = $path . date('Y_m_d') . '.txt';
 
         //加锁保存
+        $message = static::convert_char($message);
         file_put_contents($file, $message, FILE_APPEND | LOCK_EX);
     }
 
