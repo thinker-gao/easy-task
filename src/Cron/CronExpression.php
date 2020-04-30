@@ -463,8 +463,7 @@ class CronExpression
             // Skip this match if needed
             if ((!$allowCurrentDate && $nextRun == $currentDate) || --$nth > -1)
             {
-                $parts[0] = empty($part[0]) ? null : $parts[0];
-                $this->fieldFactory->getField(0)->increment($nextRun, $invert, $parts[0]);
+                $this->fieldFactory->getField(0)->increment($nextRun, $invert, empty($parts[0]) ? null : $parts[0]);
                 continue;
             }
 
