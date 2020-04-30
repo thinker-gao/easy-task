@@ -311,7 +311,7 @@ class Helper
      * @param string $coding
      * @return string
      */
-    public static function convert_char($char, $coding = 'utf-8')
+    public static function convert_char($char, $coding = 'UTF-8')
     {
         $encode_arr = [
             'UTF-8',
@@ -513,11 +513,12 @@ class Helper
         $table->setHeader($header);
         $table->setStyle('box');
         $table->setRows($data);
+        $render = static::convert_char($table->render());
         if ($exit)
         {
-            exit($table->render());
+            exit($render);
         }
-        echo($table->render());
+        echo($render);
     }
 
     /**

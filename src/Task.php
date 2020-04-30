@@ -45,7 +45,7 @@ class Task
         Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
 
-        //初始化PHP_BIN|代码页
+        //初始化PHP_BIN|CODE_PAGE
         if ($currentOs == 1)
         {
             Helper::setPhpPath();
