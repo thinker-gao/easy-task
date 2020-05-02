@@ -386,6 +386,7 @@ class Linux
                 }
             }, $this->startTime);
         }
+        Helper::showInfo('the process is too busy,please use status command try again');
         exit;
     }
 
