@@ -81,7 +81,6 @@ class Linux
                 },
                 function () {
                     pcntl_wait($status, WNOHANG);
-                    Helper::sleep(1);
                     $this->status();
                 }
             );
