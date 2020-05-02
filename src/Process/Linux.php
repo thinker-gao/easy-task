@@ -81,6 +81,7 @@ class Linux
                 },
                 function () {
                     pcntl_wait($status, WNOHANG);
+                    Helper::sleep(1);
                     $this->status();
                 }
             );
@@ -225,7 +226,8 @@ class Linux
         {
             $this->invokeByCron($item);
         }
-        else{
+        else
+        {
             Helper::showError("abnormal task time:{$item['time']}");
         }
     }
