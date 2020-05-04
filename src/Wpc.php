@@ -36,7 +36,7 @@ class Wpc
     }
 
     /**
-     * 设置进程文件(pass)
+     * 设置进程文件
      * @param string $filename
      * @return $this
      * @throws Exception
@@ -65,7 +65,7 @@ class Wpc
     }
 
     /**
-     * 设置进程参数(pass)
+     * 设置进程参数
      * @param string $argument
      * @return $this
      */
@@ -113,7 +113,7 @@ class Wpc
     }
 
     /**
-     * 设置进程风格(pass)
+     * 设置进程风格
      * @param int $style (0.正常 1.隐藏 2.最小化 3.最大化)
      * @return $this
      */
@@ -125,7 +125,7 @@ class Wpc
     }
 
     /**
-     * 设置进程工作目录(pass)
+     * 设置进程工作目录
      * @param string $path
      * @return $this
      * @throws Exception
@@ -227,7 +227,7 @@ class Wpc
     }
 
     /**
-     * 启动进程(pass)
+     * 启动进程
      * @return int 进程id
      */
     public function start()
@@ -236,7 +236,7 @@ class Wpc
     }
 
     /**
-     * 启动进程(pass)
+     * 停止进程
      * @param int $force (1.正常停止 2.强制停止)
      */
     public function stop($force = 1)
