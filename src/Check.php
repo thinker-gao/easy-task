@@ -23,6 +23,7 @@ class Check
             'json',
             'pcntl',
             'posix',
+            'mbstring',
         ]
     ];
 

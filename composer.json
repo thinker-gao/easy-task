@@ -14,7 +14,8 @@
   ],
   "require": {
     "php": ">=5.4",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-mbstring": "*"
   },
   "suggest": {
     "ext-event": "For better performance. "
