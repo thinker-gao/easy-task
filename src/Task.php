@@ -128,7 +128,7 @@ class Task
         {
             Helper::showSysError('notify parameter can only be string or closure');
         }
-        Error::$notifyHand = $notify;
+        Env::set('notifyHand', $notify);
         return $this;
     }
 

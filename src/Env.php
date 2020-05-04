@@ -7,6 +7,13 @@ namespace EasyTask;
  */
 class Env
 {
+
+    /**
+     * collection
+     * @var array
+     */
+    private static $collection;
+
     /**
      * Set
      * @param string $key
@@ -14,17 +21,16 @@ class Env
      */
     public static function set($key, $value)
     {
-        $value = is_bool($value) ? (int)$value : $value;
-        putenv("$key=$value");
+        static::$collection[$key] = $value;
     }
 
     /**
      * Get
      * @param string $key
-     * @return array|false|string
+     * @return mixed
      */
     public static function get($key)
     {
-        return getenv($key);
+        return isset(static::$collection[$key]) ? static::$collection[$key] : false;
     }
 }

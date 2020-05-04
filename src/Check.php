@@ -34,8 +34,6 @@ class Check
         //Win
         '1' => [
             'umask',
-            'putenv',
-            'getenv',
             'sleep',
             'usleep',
         ],
@@ -43,8 +41,6 @@ class Check
         '2' => [
             'umask',
             'chdir',
-            'putenv',
-            'getenv',
             'sleep',
             'usleep',
             'pcntl_fork',

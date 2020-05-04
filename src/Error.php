@@ -10,11 +10,6 @@ use \Closure as Closure;
  */
 class Error
 {
-    /**
-     * 异常回调句柄
-     * @var string|Closure
-     */
-    public static $notifyHand;
 
     /**
      * Register Error
@@ -92,10 +87,10 @@ class Error
         if (!Env::get('daemon')) echo($text);
 
         //回调上报信息
-        if (static::$notifyHand)
+        $notify = Env::get('notifyHand');
+        if ($notify)
         {
             //闭包回调
-            $notify = static::$notifyHand;
             if ($notify instanceof Closure)
             {
                 $notify($exception);
