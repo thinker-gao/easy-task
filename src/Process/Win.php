@@ -427,7 +427,7 @@ class Win
             }
             catch (Throwable $exception)
             {
-                $type = 'appException';
+                $type = 'exception';
                 Error::report($type, $exception);
                 $this->checkDaemonForExit($item);
             }

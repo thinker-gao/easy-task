@@ -199,6 +199,7 @@ class Linux
     /**
      * 执行器
      * @param array $item 执行项目
+     * @throws Throwable
      */
     private function invoker($item)
     {
@@ -235,6 +236,7 @@ class Linux
     /**
      * 普通执行(执行完成,直接退出)
      * @param array $item 执行项目
+     * @throws Throwable
      */
     private function invokerByDirect($item)
     {
@@ -287,7 +289,7 @@ class Linux
             }
             catch (Throwable $exception)
             {
-                $type = 'appException';
+                $type = 'exception';
                 Error::report($type, $exception);
                 $this->checkDaemonForExit($item);
             }
@@ -303,6 +305,7 @@ class Linux
     /**
      * 通过CronTab命令执行
      * @param array $item 执行项目
+     * @throws Throwable
      */
     private function invokeByCron($item)
     {
@@ -331,6 +334,7 @@ class Linux
     /**
      * 执行任务代码
      * @param array $item 执行项目
+     * @throws
      */
     private function execute($item)
     {
@@ -359,11 +363,13 @@ class Linux
         }
         catch (Exception $exception)
         {
-            Helper::showException($exception, 'exception', !$daemon);
+            if (!$daemon) throw $exception;
+            Helper::writeTypeLog($exception->getMessage(), 'exception');
         }
         catch (Throwable $exception)
         {
-            Helper::showException($exception, 'exception', !$daemon);
+            if (!$daemon) throw $exception;
+            Helper::writeTypeLog($exception->getMessage(), 'exception');
         }
 
         //常驻进程存活检查
