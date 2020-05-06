@@ -467,11 +467,11 @@ class Win
     /**
      * 执行任务代码
      * @param array $item 执行项目
-     * @throws Throwable
      */
     private function execute($item)
     {
         //根据任务类型执行
+        $daemon = Env::get('daemon');
         if (Env::get('daemon')) ob_start();
         try
         {
@@ -494,11 +494,13 @@ class Win
             }
 
         }
+        catch (Exception $exception)
+        {
+            Helper::showException($exception, 'exception', !$daemon);
+        }
         catch (Throwable $exception)
         {
-            $errType = 'appException';
-            Error::report($errType, $exception);
-            if (!Env::get('daemon')) throw $exception;
+            Helper::showException($exception, 'exception', !$daemon);
         }
 
         //保存标准输出

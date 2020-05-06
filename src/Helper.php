@@ -480,7 +480,7 @@ class Helper
      * @param bool $isExit
      * @throws
      */
-    public static function showException($exception, $type = 'warring', $isExit = true)
+    public static function showException($exception, $type = 'exception', $isExit = true)
     {
         //格式化信息
         $text = static::formatException($exception, $type);

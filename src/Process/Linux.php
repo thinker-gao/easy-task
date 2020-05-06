@@ -7,6 +7,7 @@ use EasyTask\Error;
 use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
+use \Exception as Exception;
 use \Throwable as Throwable;
 use EasyTask\Helper;
 
@@ -330,10 +331,11 @@ class Linux
     /**
      * 执行任务代码
      * @param array $item 执行项目
-     * @throws Throwable
      */
     private function execute($item)
     {
+        //根据任务类型执行
+        $daemon = Env::get('daemon');
         try
         {
             $type = $item['type'];
@@ -355,11 +357,13 @@ class Linux
             }
 
         }
+        catch (Exception $exception)
+        {
+            Helper::showException($exception, 'exception', !$daemon);
+        }
         catch (Throwable $exception)
         {
-            $errType = 'appException';
-            Error::report($errType, $exception);
-            if (!Env::get('daemon')) throw $exception;
+            Helper::showException($exception, 'exception', !$daemon);
         }
 
         //常驻进程存活检查
