@@ -467,27 +467,38 @@ class Win
     /**
      * 执行任务代码
      * @param array $item 执行项目
+     * @throws Throwable
      */
     private function execute($item)
     {
-        //跟进任务类型执行
-        $type = $item['type'];
+        //根据任务类型执行
         if (Env::get('daemon')) ob_start();
-        switch ($type)
+        try
         {
-            case 1:
-                $func = $item['func'];
-                $func();
-                break;
-            case 2:
-                call_user_func([$item['class'], $item['func']]);
-                break;
-            case 3:
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-                break;
-            default:
-                @pclose(@popen($item['command'], 'r'));
+            $type = $item['type'];
+            switch ($type)
+            {
+                case 1:
+                    $func = $item['func'];
+                    $func();
+                    break;
+                case 2:
+                    call_user_func([$item['class'], $item['func']]);
+                    break;
+                case 3:
+                    $object = new $item['class']();
+                    call_user_func([$object, $item['func']]);
+                    break;
+                default:
+                    @pclose(@popen($item['command'], 'r'));
+            }
+
+        }
+        catch (Throwable $exception)
+        {
+            $errType = 'appException';
+            Error::report($errType, $exception);
+            if (!Env::get('daemon')) throw $exception;
         }
 
         //保存标准输出

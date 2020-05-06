@@ -330,25 +330,36 @@ class Linux
     /**
      * 执行任务代码
      * @param array $item 执行项目
+     * @throws Throwable
      */
     private function execute($item)
     {
-        $type = $item['type'];
-        switch ($type)
+        try
         {
-            case 1:
-                $func = $item['func'];
-                $func();
-                break;
-            case 2:
-                call_user_func([$item['class'], $item['func']]);
-                break;
-            case 3:
-                $object = new $item['class']();
-                call_user_func([$object, $item['func']]);
-                break;
-            default:
-                @pclose(@popen($item['command'], 'r'));
+            $type = $item['type'];
+            switch ($type)
+            {
+                case 1:
+                    $func = $item['func'];
+                    $func();
+                    break;
+                case 2:
+                    call_user_func([$item['class'], $item['func']]);
+                    break;
+                case 3:
+                    $object = new $item['class']();
+                    call_user_func([$object, $item['func']]);
+                    break;
+                default:
+                    @pclose(@popen($item['command'], 'r'));
+            }
+
+        }
+        catch (Throwable $exception)
+        {
+            $errType = 'appException';
+            Error::report($errType, $exception);
+            if (!Env::get('daemon')) throw $exception;
         }
 
         //常驻进程存活检查
