@@ -426,7 +426,7 @@ class Linux
         if (!Env::get('daemon'))
         {
             Helper::showTable($this->processStatus(), false);
-            Helper::showInfo('start success,press Ctrl+C to stop');
+            Helper::showInfo('start success,press ctrl+c to stop');
         }
 
         //Kill信号
