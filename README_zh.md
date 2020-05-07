@@ -215,6 +215,8 @@ ppid:守护进程id
 
 &ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](https://www.gaojiufeng.cn/?id=294).
 
+&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=328).
+
 &ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=295).
 
 ## <h5>【七】. 进阶了解->推荐操作 </h5>
