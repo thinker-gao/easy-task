@@ -4,6 +4,7 @@ namespace EasyTask;
 use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
 use \Exception as Exception;
+use \Throwable as Throwable;
 
 /**
  * Class Helper
@@ -330,7 +331,7 @@ class Helper
 
     /**
      * 格式化异常信息
-     * @param ErrorException $exception
+     * @param ErrorException|Exception|Throwable $exception
      * @param string $type
      * @return string
      */

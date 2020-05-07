@@ -364,12 +364,12 @@ class Linux
         catch (Exception $exception)
         {
             if (!$daemon) throw $exception;
-            Helper::writeTypeLog($exception->getMessage(), 'exception');
+            Helper::writeTypeLog(Helper::formatException($exception), 'exception');
         }
         catch (Throwable $exception)
         {
             if (!$daemon) throw $exception;
-            Helper::writeTypeLog($exception->getMessage(), 'exception');
+            Helper::writeTypeLog(Helper::formatException($exception), 'exception');
         }
 
         //常驻进程存活检查
