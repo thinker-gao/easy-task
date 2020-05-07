@@ -364,12 +364,12 @@ class Linux
         catch (Exception $exception)
         {
             if (!$daemon) throw $exception;
-            Helper::writeTypeLog(Helper::formatException($exception), 'exception');
+            Helper::writeLog(Helper::formatException($exception));
         }
         catch (Throwable $exception)
         {
             if (!$daemon) throw $exception;
-            Helper::writeTypeLog(Helper::formatException($exception), 'exception');
+            Helper::writeLog(Helper::formatException($exception));
         }
 
         //常驻进程存活检查
@@ -423,6 +423,11 @@ class Linux
         $pid = getmypid();
         $text = "this manager(pid:{$pid})";
         Helper::writeTypeLog("$text is start");
+        if (!Env::get('daemon'))
+        {
+            Helper::showTable($this->processStatus(), false);
+            Helper::showInfo('start success,press Ctrl+C to stop');
+        }
 
         //Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
