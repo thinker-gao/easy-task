@@ -215,6 +215,8 @@ ppid:daemon id
 
 &ensp;&ensp;[<font size=2>-> thinkPhp5.x.x</font>](https://www.gaojiufeng.cn/?id=294).
 
+&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x</font>](https://www.gaojiufeng.cn/?id=328).
+
 &ensp;&ensp;[<font size=2>-> laravelPhp6.x.x</font>](https://www.gaojiufeng.cn/?id=295).
 
 ## <h5>【Seven】. Advanced understanding-> Recommended actions </h5>
