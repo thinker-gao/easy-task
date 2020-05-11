@@ -1,5 +1,5 @@
 ﻿<p><h4>EasyTask is an easy-to-use PHP resident memory scheduled task package</h4></p>
-<a href="./README.md">English document</a> | <a href="./README_zh.md">Chinese document</a>
+<a href="//shang.qq.com/wpa/qunwpa?idkey=d436563ad70f4e19d4a98b3e86cfe5272fd4a628a0d7f4c6d552b0012c55b4d7">Click on the official ＱＱ group to join</a> | <a href="./README_zh.md">Chinese document</a>
 <br><br>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
