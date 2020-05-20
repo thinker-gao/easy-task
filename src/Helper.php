@@ -314,19 +314,13 @@ class Helper
      */
     public static function convert_char($char, $coding = 'UTF-8')
     {
-        $encode_arr = [
-            'UTF-8',
-            'ASCII',
-            'GBK',
-            'GB2312',
-            'BIG5',
-            'JIS',
-            'eucjp-win',
-            'sjis-win',
-            'EUC-JP'
-        ];
+        $encode_arr = ['UTF-8', 'ASCII', 'GBK', 'GB2312', 'BIG5', 'JIS', 'eucjp-win', 'sjis-win', 'EUC-JP'];
         $encoded = mb_detect_encoding($char, $encode_arr);
-        return mb_convert_encoding($char, $coding, $encoded);
+        if ($encoded)
+        {
+            $char = mb_convert_encoding($char, $coding, $encoded);
+        }
+        return $char;
     }
 
     /**
