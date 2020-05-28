@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Think3.2.3支持
+ */
 class ThinkSupport
 {
     /**
