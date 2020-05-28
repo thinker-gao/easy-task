@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Think3.2.3支持
- */
-class Support
+class ThinkSupport
 {
     /**
      * argv
@@ -18,10 +15,16 @@ class Support
     private $argc;
 
     /**
-     * command
+     * action
      * @var string
      */
-    private $command;
+    private $action;
+
+    /**
+     * force
+     * @var string
+     */
+    private $force;
 
     /**
      * Support constructor.
@@ -33,14 +36,19 @@ class Support
         $this->argc = $_SERVER['argc'];
 
         //保存命令并清空Cli_Input
-        $this->command = isset($_SERVER['argv']['1']) ? $_SERVER['argv']['1'] : '';
+        $this->action = isset($_SERVER['argv']['1']) ? $_SERVER['argv']['1'] : '';
+        $this->force = isset($_SERVER['argv']['2']) ? $_SERVER['argv']['2'] : '';
         $_SERVER['argv'] = [] && $_SERVER['argc'] = 0;
+
+        //抑制Tp错误
+        if (!isset($_SERVER['REMOTE_ADDR'])) $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        if (!isset($_SERVER['REQUEST_URI'])) $_SERVER['REQUEST_URI'] = 'localhost';
     }
 
     /**
      * 加载Think代码
      * @param Closure $think
-     * @return Support
+     * @return ThinkSupport
      */
     public function invokeThink($think)
     {
@@ -56,23 +64,24 @@ class Support
      */
     public function invokeYourCode($code)
     {
-        //恢复Cli_Input
+        //恢复Cli_Input.(方便自己扩展)
         $_SERVER['argv'] = $this->argv;
         $_SERVER['argc'] = $this->argc;
 
         //执行
-        $code($this->command);
+        $code($this->action, $this->force);
     }
 }
 
 /**
- * How to use it ?
+ * Code start
  */
-(new Support())
+(new ThinkSupport())
     ->invokeThink(function () {
-        //复制think下index.php的代码
+        //加载tp的代码
+        require './index.php';
     })
-    ->invokeYourCode(function ($command) {
+    ->invokeYourCode(function ($action, $force) {
         // 加载Composer
         require './vendor/autoload.php';
 
