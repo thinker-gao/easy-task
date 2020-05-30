@@ -25,7 +25,7 @@ class Helper
 
     /**
      * 设置进程标题
-     * @param $title
+     * @param string $title
      */
     public static function cli_set_process_title($title)
     {
@@ -70,7 +70,7 @@ class Helper
 
     /**
      * 获取命令行输入
-     * @param $type
+     * @param int $type
      * @return string|array
      */
     public static function getCliInput($type = 1)
@@ -114,7 +114,7 @@ class Helper
 
     /**
      * 设置PHP二进制文件
-     * @param $path
+     * @param string $path
      */
     public static function setPhpPath($path = '')
     {
@@ -265,7 +265,7 @@ class Helper
 
     /**
      * 保存类型日志
-     * @param $message
+     * @param string $message
      * @param string $type
      * @param bool $isExit
      */
@@ -355,7 +355,7 @@ class Helper
 
     /**
      * 检查任务时间是否合法
-     * @param $time
+     * @param mixed $time
      */
     public static function checkTaskTime($time)
     {
