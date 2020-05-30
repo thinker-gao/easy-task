@@ -203,10 +203,11 @@ ppid:daemon id
 (2). It is forbidden to use exit / die syntax in the task, otherwise it will cause the entire process to exit
 (3). Please close anti-virus software when installing Wpc extension in Windows to avoid false alarms
 (4). Windows recommends to open popen, pclose method, it will automatically try to help you solve the problem of CMD output Chinese garbled, please try to use CMD administrator mode
-(5). Windows prompt com () has been disabled for security reasons, please delete disable_classes = com configuration item in php.ini
-(6). The log file is in the Log directory of the runtime directory, and the input and output abnormal files are marked in the Std directory of the runtime directory
-(7). Normally stop the task, the task will start to exit safely after the execution is successful, force stop the task to exit the task directly, and may quit when it is being executed
-(8). The development follows the synchronous start test and normal operation without any errors before setting the asynchronous operation. If there is a problem, check the log file or the standard input and output abnormal file, or feedback on the QQ group
+(5). Windows prompts Failed to create COM object `Wpc.Core ': invalid syntax, please follow the documentation to install the Wpc extension
+(6). Windows prompt com () has been disabled for security reasons, please delete disable_classes = com configuration item in php.ini
+(7). The log file is in the Log directory of the runtime directory, and the input and output abnormal files are marked in the Std directory of the runtime directory
+(8). Normally stop the task, the task will start to exit safely after the execution is successful, force the task to quit the task directly, and may quit when it is being executed
+(9). The development follows the synchronous start test, normal operation without any errors, and then the asynchronous operation. If there is a problem, check the log file or the standard input and output abnormal file, or feedback on the QQ group.
 ~~~
 
 ## <h5>【Six】. Advanced Understanding-> Framework Integration Tutorial </h5>
