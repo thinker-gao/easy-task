@@ -1,6 +1,8 @@
 <?php
 namespace EasyTask;
 
+use \Closure as Closure;
+
 /**
  * Class Lock
  * @package EasyTask
@@ -29,8 +31,8 @@ class Lock
 
     /**
      * 加锁执行
-     * @param $func
-     * @param $block
+     * @param Closure $func
+     * @param bool $block
      * @return mixed
      */
     public function execute($func, $block = true)
