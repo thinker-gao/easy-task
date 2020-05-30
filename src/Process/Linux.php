@@ -9,6 +9,7 @@ use \EventConfig as EventConfig;
 use \EventBase as EventBase;
 use \Exception as Exception;
 use \Throwable as Throwable;
+use \Closure as Closure;
 use EasyTask\Helper;
 
 /**
@@ -156,8 +157,8 @@ class Linux
 
     /**
      * 创建子进程
-     * @param $childInvoke
-     * @param $mainInvoke
+     * @param Closure $childInvoke
+     * @param Closure $mainInvoke
      */
     private function fork($childInvoke, $mainInvoke)
     {
@@ -178,7 +179,7 @@ class Linux
 
     /**
      * 创建任务执行的子进程
-     * @param array $item 执行项目
+     * @param array $item
      */
     private function forkItemExec($item)
     {
@@ -198,7 +199,7 @@ class Linux
 
     /**
      * 执行器
-     * @param array $item 执行项目
+     * @param array $item
      * @throws Throwable
      */
     private function invoker($item)
@@ -235,7 +236,7 @@ class Linux
 
     /**
      * 普通执行(执行完成,直接退出)
-     * @param array $item 执行项目
+     * @param array $item
      * @throws Throwable
      */
     private function invokerByDirect($item)
@@ -249,7 +250,7 @@ class Linux
 
     /**
      * 通过闹钟信号执行
-     * @param array $item 执行项目
+     * @param array $item
      */
     private function invokeByDefault($item)
     {
@@ -275,7 +276,7 @@ class Linux
 
     /**
      * 通过Event事件执行
-     * @param array $item 执行项目
+     * @param array $item
      */
     private function invokeByEvent($item)
     {
@@ -304,7 +305,7 @@ class Linux
 
     /**
      * 通过CronTab命令执行
-     * @param array $item 执行项目
+     * @param array $item
      * @throws Throwable
      */
     private function invokeByCron($item)
@@ -333,7 +334,7 @@ class Linux
 
     /**
      * 执行任务代码
-     * @param array $item 执行项目
+     * @param array $item
      * @throws
      */
     private function execute($item)
