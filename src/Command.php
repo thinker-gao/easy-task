@@ -41,7 +41,7 @@ class Command
 
     /**
      * 获取数据
-     * @return array|mixed
+     * @return array
      * @throws
      */
     public function get()
@@ -57,7 +57,7 @@ class Command
 
     /**
      * 重置数据
-     * @param $data
+     * @param array $data
      */
     public function set($data)
     {
@@ -66,7 +66,7 @@ class Command
 
     /**
      * 投递数据
-     * @param $command
+     * @param array $command
      */
     public function push($command)
     {
@@ -77,7 +77,7 @@ class Command
 
     /**
      * 发送命令
-     * @param $command
+     * @param array $command
      */
     public function send($command)
     {
