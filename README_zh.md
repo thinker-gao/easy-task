@@ -203,11 +203,12 @@ ppid:守护进程id
 (2). 禁止在任务中使用exit/die语法,否则导致整个进程退出
 (3). Windows安装Wpc扩展时请关闭杀毒软件,避免误报
 (4). Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题,请尽量使用CMD管理员方式运行
-(5). Windows提示Failed to create COM object `Wpc.Core': 无效的语法,请按照文档安装Wpc扩展
-(6). Windows提示com() has been disabled for security reasons,请在php.ini中删除disable_classes = com配置项目
-(7). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
-(8). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
-(9). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
+(5). Windows命令行不支持utf8国际标准编码，可切换git_bash来运行,解决乱码问题
+(6). Windows提示Failed to create COM object `Wpc.Core': 无效的语法,请按照文档安装Wpc扩展
+(7). Windows提示com() has been disabled for security reasons,请在php.ini中删除disable_classes = com配置项目
+(8). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
+(9). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
+(10). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
 ~~~
 
 ## <h5>【六】. 进阶了解->框架集成教程 </h5>
