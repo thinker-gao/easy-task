@@ -158,7 +158,7 @@ class Task
         {
             Helper::showSysError("the path {$path} is not writeable");
         }
-        Env::set('runTimePath', $path);
+        Env::set('runTimePath', realpath($path));
         Helper::initAllPath();
         return $this;
     }
