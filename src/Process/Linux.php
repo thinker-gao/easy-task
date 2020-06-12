@@ -315,7 +315,7 @@ class Linux
         {
             if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
             $waitTime = (strtotime($nextExecuteTime) - time());
-            if (!$waitTime)
+            if ($waitTime <= 0)
             {
                 $this->execute($item);
                 $nextExecuteTime = 0;
