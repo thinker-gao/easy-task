@@ -292,7 +292,7 @@ class Win extends Process
     /**
      * 初始化任务数量
      */
-    private function setTaskCount()
+    protected function setTaskCount()
     {
         $count = 0;
         foreach ($this->taskList as $key => $item)
@@ -306,7 +306,7 @@ class Win extends Process
      * 执行器
      * @param string $name 任务名称
      */
-    private function invoker($name)
+    protected function invoker($name)
     {
         //提取字典
         $taskDict = $this->workerList;
