@@ -513,7 +513,7 @@ class Win extends Process
                         Helper::showInfo("listened status command, $text is reported");
                         break;
                     case 'stop':
-                        if ($command['force']) $this->workerStopByForce();
+                        if ($command['force']) $this->stopWorkerByForce();
                         Helper::showInfo("listened exit command, $text is safely exited", true);
                         break;
                 }
@@ -557,29 +557,6 @@ class Win extends Process
     }
 
     /**
-     * 主进程等待结束退出
-     */
-    private function masterWaitExit()
-    {
-        $i = 10;
-        while ($i--)
-        {
-            //CPU休息
-            Helper::sleep(1);
-
-            //接收汇报
-            $this->commander->waitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status' && $report['status'])
-                {
-                    Helper::showTable($report['status']);
-                }
-            }, $this->startTime);
-        }
-        Helper::showInfo('the process is too busy,please use status command try again');
-        exit;
-    }
-
-    /**
      * 查看进程状态
      * @param int $count
      * @return array
@@ -617,7 +594,7 @@ class Win extends Process
     /**
      * 强制关闭所有进程
      */
-    private function workerStopByForce()
+    private function stopWorkerByForce()
     {
         foreach ($this->wpcContainer as $wpc)
         {

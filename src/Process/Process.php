@@ -110,4 +110,27 @@ abstract class Process
         //检查常驻进程存活
         $this->checkDaemonForExit($item);
     }
+
+    /**
+     * 主进程等待结束退出
+     */
+    protected function masterWaitExit()
+    {
+        $i = 15;
+        while ($i--)
+        {
+            //CPU休息
+            Helper::sleep(1);
+
+            //接收汇报
+            $this->commander->waitCommandForExecute(1, function ($report) {
+                if ($report['type'] == 'status' && $report['status'])
+                {
+                    Helper::showTable($report['status']);
+                }
+            }, $this->startTime);
+        }
+        Helper::showInfo('the process is too busy,please use status command try again');
+        exit;
+    }
 }

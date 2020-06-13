@@ -345,29 +345,6 @@ class Linux extends Process
     }
 
     /**
-     * master进程等待结束退出
-     */
-    private function masterWaitExit()
-    {
-        $i = 15;
-        while ($i--)
-        {
-            //CPU休息1秒
-            Helper::sleep(1);
-
-            //接收汇报
-            $this->commander->waitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status' && $report['status'])
-                {
-                    Helper::showTable($report['status']);
-                }
-            }, $this->startTime);
-        }
-        Helper::showInfo('the process is too busy,please use status command try again');
-        exit;
-    }
-
-    /**
      * 守护进程常驻
      */
     private function daemonWait()
