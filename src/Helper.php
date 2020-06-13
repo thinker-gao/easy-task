@@ -36,6 +36,14 @@ class Helper
     }
 
     /**
+     * 设置掩码
+     */
+    public static function setMask()
+    {
+        umask(0);
+    }
+
+    /**
      * 设置代码页
      * @param int $code
      */

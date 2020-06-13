@@ -185,35 +185,6 @@ class Win extends Process
     }
 
     /**
-     * 运行状态
-     */
-    public function status()
-    {
-        //发送查询命令
-        $this->commander->send([
-            'type' => 'status',
-            'msgType' => 2
-        ]);
-
-        //等待返回结果
-        $this->masterWaitExit();
-    }
-
-    /**
-     * 停止运行
-     * @param bool $force 是否强制
-     */
-    public function stop($force = false)
-    {
-        //发送关闭命令
-        $this->commander->send([
-            'type' => 'stop',
-            'force' => $force,
-            'msgType' => 2
-        ]);
-    }
-
-    /**
      * 主进程
      * @throws Exception
      */

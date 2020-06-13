@@ -7,8 +7,6 @@ use \Exception as Exception;
 use \Throwable as Throwable;
 
 /**
- * 抽象类
- * (Linux|Win计划迭代抽象至此)
  * Class Process
  * @package EasyTask\Process
  */
@@ -22,13 +20,29 @@ abstract class Process
     /**
      * 运行状态
      */
-    abstract public function status();
+    protected function status()
+    {
+        //发送命令
+        $this->commander->send([
+            'type' => 'status',
+            'msgType' => 2
+        ]);
+        $this->masterWaitExit();
+    }
 
     /**
      * 停止运行
-     * @param bool $force
+     * @param bool $force 是否强制
      */
-    abstract public function stop($force = false);
+    protected function stop($force = false)
+    {
+        //发送关闭命令
+        $this->commander->send([
+            'type' => 'stop',
+            'force' => $force,
+            'msgType' => 2
+        ]);
+    }
 
     /**
      * 检查是否可写标准输出日志

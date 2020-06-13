@@ -71,7 +71,7 @@ class Linux extends Process
         //异步处理
         if (Env::get('daemon'))
         {
-            $this->setMask();
+            Helper::setMask();
             $this->fork(
                 function () {
                     $sid = posix_setsid();
@@ -90,33 +90,6 @@ class Linux extends Process
 
         //同步处理
         $this->allocate();
-    }
-
-    /**
-     * 运行状态
-     */
-    public function status()
-    {
-        //发送命令
-        $this->commander->send([
-            'type' => 'status',
-            'msgType' => 2
-        ]);
-        $this->masterWaitExit();
-    }
-
-    /**
-     * 停止运行
-     * @param bool $force 是否强制
-     */
-    public function stop($force = false)
-    {
-        //发送命令
-        $this->commander->send([
-            'type' => 'stop',
-            'force' => $force,
-            'msgType' => 2
-        ]);
     }
 
     /**
