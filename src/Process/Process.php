@@ -50,7 +50,7 @@ abstract class Process
      */
     protected function canWriteStd()
     {
-        return Env::get('daemon') && !Env::get('closeStdOutPutLog');
+        return Env::get('daemon') && !Env::get('closeStdOutLog');
     }
 
     /**

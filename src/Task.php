@@ -107,9 +107,9 @@ class Task
      * @param bool $close
      * @return $this
      */
-    public function setCloseStdOutPutLog($close = false)
+    public function setCloseStdOutLog($close = false)
     {
-        Env::set('closeStdOutPutLog', $close);
+        Env::set('closeStdOutLog', $close);
         return $this;
     }
 
