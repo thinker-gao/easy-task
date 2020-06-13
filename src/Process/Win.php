@@ -29,7 +29,7 @@ class Win extends Process
      * 进程启动时间
      * @var int
      */
-    private $startTime;
+    protected $startTime;
 
     /**
      * 进程命令管理
