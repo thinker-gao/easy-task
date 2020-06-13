@@ -312,7 +312,7 @@ class Linux extends Process
     /**
      * 守护进程常驻
      */
-    private function daemonWait()
+    protected function daemonWait()
     {
         //设置进程标题
         Helper::cli_set_process_title(Env::get('prefix'));
@@ -389,7 +389,7 @@ class Linux extends Process
      * 查看进程状态
      * @return array
      */
-    private function processStatus()
+    protected function processStatus()
     {
         $report = [];
         foreach ($this->processList as $key => $item)
