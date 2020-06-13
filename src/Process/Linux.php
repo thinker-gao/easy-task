@@ -93,14 +93,6 @@ class Linux extends Process
     }
 
     /**
-     * 设置掩码
-     */
-    private function setMask()
-    {
-        umask(0);
-    }
-
-    /**
      * 分配进程处理任务
      */
     private function allocate()
