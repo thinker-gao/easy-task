@@ -22,25 +22,25 @@ class Linux extends Process
      * 进程启动时间
      * @var int
      */
-    private $startTime;
+    protected $startTime;
 
     /**
      * 进程命令管理
      * @var array
      */
-    private $commander;
+    protected $commander;
 
     /**
      * 任务列表
      * @var array
      */
-    private $taskList;
+    protected $taskList;
 
     /**
      * 进程执行记录
      * @var array
      */
-    private $processList = [];
+    protected $processList = [];
 
     /**
      * 构造函数
@@ -95,7 +95,7 @@ class Linux extends Process
     /**
      * 分配进程处理任务
      */
-    private function allocate()
+    protected function allocate()
     {
         if ($this->canWriteStd())
         {
@@ -125,7 +125,7 @@ class Linux extends Process
      * @param Closure $childInvoke
      * @param Closure $mainInvoke
      */
-    private function fork($childInvoke, $mainInvoke)
+    protected function fork($childInvoke, $mainInvoke)
     {
         $pid = pcntl_fork();
         if ($pid == -1)
@@ -146,7 +146,7 @@ class Linux extends Process
      * 创建任务执行的子进程
      * @param array $item
      */
-    private function forkItemExec($item)
+    protected function forkItemExec($item)
     {
         $this->fork(
             function () use ($item) {
@@ -167,7 +167,7 @@ class Linux extends Process
      * @param array $item
      * @throws Throwable
      */
-    private function invoker($item)
+    protected function invoker($item)
     {
         //输出信息
         $item['pid'] = getmypid();
