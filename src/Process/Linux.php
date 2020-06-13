@@ -204,7 +204,7 @@ class Linux extends Process
      * @param array $item
      * @throws Throwable
      */
-    private function invokerByDirect($item)
+    protected function invokerByDirect($item)
     {
         //执行程序
         $this->execute($item);
@@ -217,7 +217,7 @@ class Linux extends Process
      * 通过闹钟信号执行
      * @param array $item
      */
-    private function invokeByDefault($item)
+    protected function invokeByDefault($item)
     {
         //安装信号管理
         pcntl_signal(SIGALRM, function () use ($item) {
