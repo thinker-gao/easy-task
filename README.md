@@ -95,6 +95,11 @@ $task->setDaemon(false)
 ->setRunTimePath('./Application/Runtime/')
 
 /**
+ * set to turn off standard output STD file recording
+ */
+->setCloseStdOutLog(true);
+
+/**
  * Close EasyTask's exception registration
  * EasyTask will no longer listen to set_error_handler / set_exception_handler / register_shutdown_function events
  */
