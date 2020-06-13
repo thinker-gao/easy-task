@@ -332,50 +332,7 @@ class Linux extends Process
         exit;
     }
 
-    /**
-     * 执行任务代码
-     * @param array $item
-     * @throws
-     */
-    private function execute($item)
-    {
-        //根据任务类型执行
-        $daemon = Env::get('daemon');
-        try
-        {
-            $type = $item['type'];
-            switch ($type)
-            {
-                case 1:
-                    $func = $item['func'];
-                    $func();
-                    break;
-                case 2:
-                    call_user_func([$item['class'], $item['func']]);
-                    break;
-                case 3:
-                    $object = new $item['class']();
-                    call_user_func([$object, $item['func']]);
-                    break;
-                default:
-                    @pclose(@popen($item['command'], 'r'));
-            }
 
-        }
-        catch (Exception $exception)
-        {
-            if (!$daemon) throw $exception;
-            Helper::writeLog(Helper::formatException($exception));
-        }
-        catch (Throwable $exception)
-        {
-            if (!$daemon) throw $exception;
-            Helper::writeLog(Helper::formatException($exception));
-        }
-
-        //常驻进程存活检查
-        $this->checkDaemonForExit($item);
-    }
 
     /**
      * 检查常驻进程是否存活

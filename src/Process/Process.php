@@ -4,6 +4,8 @@ namespace EasyTask\Process;
 use \Closure as Closure;
 use EasyTask\Env;
 use EasyTask\Helper;
+use \Exception as Exception;
+use \Throwable as Throwable;
 
 /**
  * 抽象类
@@ -36,5 +38,76 @@ abstract class Process
     protected function canWriteStd()
     {
         return Env::get('daemon') && !Env::get('closeStdOutPutLog');
+    }
+
+
+    /**
+     * 执行任务代码
+     * @param array $item
+     * @throws
+     */
+    protected function execute($item)
+    {
+        //根据任务类型执行
+        $daemon = Env::get('daemon');
+
+        //Win_Std_Start
+        if (Helper::isWin() && $this->canWriteStd()) ob_start();
+        try
+        {
+            $type = $item['type'];
+            switch ($type)
+            {
+                case 1:
+                    $func = $item['func'];
+                    $func();
+                    break;
+                case 2:
+                    call_user_func([$item['class'], $item['func']]);
+                    break;
+                case 3:
+                    $object = new $item['class']();
+                    call_user_func([$object, $item['func']]);
+                    break;
+                default:
+                    @pclose(@popen($item['command'], 'r'));
+            }
+
+        }
+        catch (Exception $exception)
+        {
+            if (Helper::isWin())
+            {
+                Helper::showException($exception, 'exception', !$daemon);
+            }
+            else
+            {
+                if (!$daemon) throw $exception;
+                Helper::writeLog(Helper::formatException($exception));
+            }
+        }
+        catch (Throwable $exception)
+        {
+            if (Helper::isWin())
+            {
+                Helper::showException($exception, 'exception', !$daemon);
+            }
+            else
+            {
+                if (!$daemon) throw $exception;
+                Helper::writeLog(Helper::formatException($exception));
+            }
+        }
+
+        //Win_Std_End
+        if (Helper::isWin() && $this->canWriteStd())
+        {
+            $stdChar = ob_get_contents();
+            if ($stdChar) Helper::saveStdChar($stdChar);
+            ob_end_clean();
+        }
+
+        //检查常驻进程存活
+        $this->checkDaemonForExit($item);
     }
 }

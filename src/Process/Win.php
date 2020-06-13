@@ -465,57 +465,6 @@ class Win extends Process
     }
 
     /**
-     * 执行任务代码
-     * @param array $item 执行项目
-     */
-    private function execute($item)
-    {
-        //根据任务类型执行
-        $daemon = Env::get('daemon');
-        if ($this->canWriteStd()) ob_start();
-        try
-        {
-            $type = $item['type'];
-            switch ($type)
-            {
-                case 1:
-                    $func = $item['func'];
-                    $func();
-                    break;
-                case 2:
-                    call_user_func([$item['class'], $item['func']]);
-                    break;
-                case 3:
-                    $object = new $item['class']();
-                    call_user_func([$object, $item['func']]);
-                    break;
-                default:
-                    @pclose(@popen($item['command'], 'r'));
-            }
-
-        }
-        catch (Exception $exception)
-        {
-            Helper::showException($exception, 'exception', !$daemon);
-        }
-        catch (Throwable $exception)
-        {
-            Helper::showException($exception, 'exception', !$daemon);
-        }
-
-        //保存标准输出
-        if ($this->canWriteStd())
-        {
-            $stdChar = ob_get_contents();
-            if ($stdChar) Helper::saveStdChar($stdChar);
-            ob_end_clean();
-        }
-
-        //检查常驻进程存活
-        $this->checkDaemonForExit($item);
-    }
-
-    /**
      * 检查常驻进程是否存活
      * (常驻进程退出则任务退出)
      * @param $item
