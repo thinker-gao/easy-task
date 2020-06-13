@@ -243,7 +243,7 @@ class Linux extends Process
      * 通过Event事件执行
      * @param array $item
      */
-    protected function invokeByEvent($item)
+    protected  function invokeByEvent($item)
     {
         //创建Event事件
         $eventConfig = new EventConfig();
