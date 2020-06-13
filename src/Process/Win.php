@@ -388,7 +388,7 @@ class Win extends Process
      * 通过Event事件执行
      * @param array $item 执行项目
      */
-    private function invokeByEvent($item)
+    protected function invokeByEvent($item)
     {
         //创建Event事件
         $eventConfig = new EventConfig();
@@ -416,8 +416,9 @@ class Win extends Process
     /**
      * 通过CronTab命令执行
      * @param array $item 执行项目
+     * @throws Throwable
      */
-    private function invokeByCron($item)
+    protected function invokeByCron($item)
     {
         $nextExecuteTime = 0;
         while (true)
@@ -442,7 +443,7 @@ class Win extends Process
      * (常驻进程退出则任务退出)
      * @param $item
      */
-    private function checkDaemonForExit($item)
+    protected function checkDaemonForExit($item)
     {
         //检查进程存活
         $status = $this->wts->getProcessStatus('manager');
@@ -456,7 +457,7 @@ class Win extends Process
     /**
      * 后台常驻运行
      */
-    private function daemonWait()
+    protected function daemonWait()
     {
         //进程标题
         Helper::cli_set_process_title(Env::get('prefix'));
@@ -510,7 +511,7 @@ class Win extends Process
      * @return array
      * @throws
      */
-    private function getReport($output = false)
+    protected function getReport($output = false)
     {
         $report = $this->workerStatus($this->taskCount);
         foreach ($report as $key => $item)
@@ -534,7 +535,7 @@ class Win extends Process
      * @param int $count
      * @return array
      */
-    private function workerStatus($count)
+    protected function workerStatus($count)
     {
         //构建报告
         $report = $infoData = [];
@@ -567,7 +568,7 @@ class Win extends Process
     /**
      * 强制关闭所有进程
      */
-    private function stopWorkerByForce()
+    protected function stopWorkerByForce()
     {
         foreach ($this->wpcContainer as $wpc)
         {
