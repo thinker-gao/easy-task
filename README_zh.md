@@ -95,6 +95,11 @@ $task->setDaemon(true)
 ->setRunTimePath('./Application/Runtime/')
 
 /**
+ * 设置关闭标准输出的STD文件记录
+ */
+->setCloseStdOutLog(true);
+
+/**
  * 关闭EasyTask的异常注册
  * EasyTask将不再监听set_error_handler/set_exception_handler/register_shutdown_function事件
  */
