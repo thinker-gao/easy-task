@@ -332,8 +332,6 @@ class Linux extends Process
         exit;
     }
 
-
-
     /**
      * 检查常驻进程是否存活
      * @param array $item
