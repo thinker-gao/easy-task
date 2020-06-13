@@ -273,7 +273,7 @@ class Linux extends Process
      * @param array $item
      * @throws Throwable
      */
-    private function invokeByCron($item)
+    protected function invokeByCron($item)
     {
         $nextExecuteTime = 0;
         while (true)
@@ -301,7 +301,7 @@ class Linux extends Process
      * 检查常驻进程是否存活
      * @param array $item
      */
-    private function checkDaemonForExit($item)
+    protected function checkDaemonForExit($item)
     {
         if (!posix_kill($item['ppid'], 0))
         {
