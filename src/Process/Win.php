@@ -41,31 +41,31 @@ class Win extends Process
      * 任务列表
      * @var array
      */
-    private $taskList;
+    protected $taskList;
 
     /**
      * 任务总数
      * @var int
      */
-    private $taskCount;
+    protected $taskCount;
 
     /**
      * 虚拟进程列表
      * @var array
      */
-    private $workerList;
+    protected $workerList;
 
     /**
      * 实体进程容器
      * @var array
      */
-    private $wpcContainer;
+    protected $wpcContainer;
 
     /**
      * AutoRec事件
      * @var bool
      */
-    private $autoRecEvent;
+    protected $autoRecEvent;
 
     /**
      * 构造函数
