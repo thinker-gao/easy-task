@@ -104,7 +104,7 @@ class Win extends Process
     /**
      * 启动检查
      */
-    private function checkForRun()
+    protected function checkForRun()
     {
         if (!Env::get('phpPath'))
         {
@@ -120,7 +120,7 @@ class Win extends Process
      * 检查进程
      * @return bool
      */
-    private function chkCanStart()
+    protected function chkCanStart()
     {
         $workerList = $this->workerList;
         foreach ($workerList as $name => $item)
@@ -139,7 +139,7 @@ class Win extends Process
      * @param string $name
      * @throws \Exception
      */
-    private function executeByProcessName($name)
+    protected function executeByProcessName($name)
     {
         switch ($name)
         {
@@ -157,7 +157,7 @@ class Win extends Process
     /**
      * 构建任务
      */
-    private function make()
+    protected function make()
     {
         $list = [];
         if (!$this->wts->getProcessStatus('manager'))
@@ -188,7 +188,7 @@ class Win extends Process
      * 主进程
      * @throws Exception
      */
-    private function master()
+    protected function master()
     {
         //创建常驻进程
         $this->forkItemExec();
@@ -210,7 +210,7 @@ class Win extends Process
     /**
      * 常驻进程
      */
-    private function manager()
+    protected function manager()
     {
         //分配子进程
         $this->allocate();
@@ -222,7 +222,7 @@ class Win extends Process
     /**
      * 分配子进程
      */
-    private function allocate()
+    protected function allocate()
     {
         //清理进程信息
         $this->wts->cleanProcessInfo();
@@ -244,7 +244,7 @@ class Win extends Process
      * 注册实体进程
      * @param $wpc
      */
-    private function joinWpcContainer($wpc)
+    protected function joinWpcContainer($wpc)
     {
         $this->wpcContainer[] = $wpc;
         foreach ($this->wpcContainer as $key => $wpc)
@@ -260,7 +260,7 @@ class Win extends Process
      * 创建任务执行子进程
      * @return Wpc
      */
-    private function forkItemExec()
+    protected function forkItemExec()
     {
         $wpc = null;
         try
