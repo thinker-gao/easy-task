@@ -20,7 +20,7 @@ abstract class Process
     /**
      * 运行状态
      */
-    protected function status()
+    public function status()
     {
         //发送命令
         $this->commander->send([
@@ -34,7 +34,7 @@ abstract class Process
      * 停止运行
      * @param bool $force 是否强制
      */
-    protected function stop($force = false)
+    public function stop($force = false)
     {
         //发送关闭命令
         $this->commander->send([
