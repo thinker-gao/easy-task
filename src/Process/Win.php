@@ -35,7 +35,7 @@ class Win extends Process
      * 进程命令管理
      * @var array
      */
-    private $commander;
+    protected $commander;
 
     /**
      * 任务列表
