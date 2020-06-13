@@ -16,7 +16,7 @@ use EasyTask\Helper;
  * Class Linux
  * @package EasyTask\Process
  */
-class Linux
+class Linux extends Process
 {
     /**
      * 进程启动时间
@@ -132,7 +132,7 @@ class Linux
      */
     private function allocate()
     {
-        if (Env::get('daemon'))
+        if ($this->canWriteStd())
         {
             Helper::setStdClose();
         }

@@ -17,7 +17,7 @@ use EasyTask\Wts;
  * Class Win
  * @package EasyTask\Process
  */
-class Win
+class Win extends Process
 {
     /**
      * Wts服务
@@ -472,7 +472,7 @@ class Win
     {
         //根据任务类型执行
         $daemon = Env::get('daemon');
-        if (Env::get('daemon')) ob_start();
+        if ($this->canWriteStd()) ob_start();
         try
         {
             $type = $item['type'];
@@ -504,7 +504,7 @@ class Win
         }
 
         //保存标准输出
-        if (Env::get('daemon'))
+        if ($this->canWriteStd())
         {
             $stdChar = ob_get_contents();
             if ($stdChar) Helper::saveStdChar($stdChar);
