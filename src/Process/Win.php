@@ -23,7 +23,7 @@ class Win extends Process
      * Wts服务
      * @var Wts
      */
-    private $wts;
+    protected $wts;
 
     /**
      * 进程启动时间
