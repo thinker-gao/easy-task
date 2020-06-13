@@ -369,8 +369,9 @@ class Win extends Process
     /**
      * 通过默认定时执行
      * @param array $item 执行项目
+     * @throws Throwable
      */
-    private function invokeByDefault($item)
+    protected function invokeByDefault($item)
     {
         while (true)
         {
