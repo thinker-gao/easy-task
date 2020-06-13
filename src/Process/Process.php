@@ -1,7 +1,6 @@
 <?php
 namespace EasyTask\Process;
 
-use \Closure as Closure;
 use EasyTask\Env;
 use EasyTask\Helper;
 use \Exception as Exception;
@@ -39,7 +38,6 @@ abstract class Process
     {
         return Env::get('daemon') && !Env::get('closeStdOutPutLog');
     }
-
 
     /**
      * 执行任务代码
