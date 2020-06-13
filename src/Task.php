@@ -103,6 +103,17 @@ class Task
     }
 
     /**
+     * 设置关闭标准输出的日志
+     * @param bool $close
+     * @return $this
+     */
+    public function setCloseStdOutPutLog($close = false)
+    {
+        Env::set('closeStdOutPutLog', $close);
+        return $this;
+    }
+
+    /**
      * 设置关闭系统异常注册
      * @param bool $isReg 是否关闭
      * @return $this
