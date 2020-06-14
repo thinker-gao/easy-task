@@ -373,35 +373,6 @@ class Win extends Process
     }
 
     /**
-     * 通过Event事件执行
-     * @param array $item 执行项目
-     */
-    protected function invokeByEvent($item)
-    {
-        //创建Event事件
-        $eventConfig = new EventConfig();
-        $eventBase = new EventBase($eventConfig);
-        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
-            try
-            {
-                $this->execute($item);
-            }
-            catch (Throwable $exception)
-            {
-                $type = 'exception';
-                Error::report($type, $exception);
-                $this->checkDaemonForExit($item);
-            }
-        });
-
-        //添加事件
-        $event->add($item['time']);
-
-        //事件循环
-        $eventBase->loop();
-    }
-
-    /**
      * 检查常驻进程是否存活
      * (常驻进程退出则任务退出)
      * @param $item

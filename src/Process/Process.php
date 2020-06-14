@@ -2,6 +2,7 @@
 namespace EasyTask\Process;
 
 use EasyTask\Env;
+use EasyTask\Error;
 use EasyTask\Helper;
 use \Exception as Exception;
 use \Throwable as Throwable;
@@ -161,6 +162,35 @@ abstract class Process
             }
         }
         exit;
+    }
+
+    /**
+     * 通过Event事件执行
+     * @param array $item
+     */
+    protected  function invokeByEvent($item)
+    {
+        //创建Event事件
+        $eventConfig = new EventConfig();
+        $eventBase = new EventBase($eventConfig);
+        $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
+            try
+            {
+                $this->execute($item);
+            }
+            catch (Throwable $exception)
+            {
+                $type = 'exception';
+                Error::report($type, $exception);
+                $this->checkDaemonForExit($item);
+            }
+        });
+
+        //添加事件
+        $event->add($item['time']);
+
+        //事件循环
+        $eventBase->loop();
     }
 
     /**
