@@ -4,6 +4,9 @@ namespace EasyTask\Process;
 use EasyTask\Env;
 use EasyTask\Error;
 use EasyTask\Helper;
+use \Event as Event;
+use \EventBase as EventBase;
+use \EventConfig as EventConfig;
 use \Exception as Exception;
 use \Throwable as Throwable;
 
