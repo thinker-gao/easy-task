@@ -45,6 +45,19 @@ abstract class Process
     }
 
     /**
+     * 初始化任务数量
+     */
+    protected function setTaskCount()
+    {
+        $count = 0;
+        foreach ($this->taskList as $key => $item)
+        {
+            $count += (int)$item['used'];
+        }
+        $this->taskCount = $count;
+    }
+
+    /**
      * 检查是否可写标准输出日志
      * @return bool
      */
@@ -128,7 +141,7 @@ abstract class Process
      */
     protected function masterWaitExit()
     {
-        $i = 15;
+        $i = 150;
         while ($i--)
         {
             //CPU休息

@@ -137,7 +137,7 @@ class Win extends Process
     /**
      * 跟进进程名称执行任务
      * @param string $name
-     * @throws \Exception
+     * @throws Exception|Throwable
      */
     protected function executeByProcessName($name)
     {
@@ -194,7 +194,7 @@ class Win extends Process
         $this->forkItemExec();
 
         //查询状态
-        $i = 35;
+        $i = 3500;
         while ($i--)
         {
             $status = $this->wts->getProcessStatus('manager');
@@ -290,21 +290,9 @@ class Win extends Process
     }
 
     /**
-     * 初始化任务数量
-     */
-    protected function setTaskCount()
-    {
-        $count = 0;
-        foreach ($this->taskList as $key => $item)
-        {
-            $count += (int)$item['used'];
-        }
-        $this->taskCount = $count;
-    }
-
-    /**
      * 执行器
      * @param string $name 任务名称
+     * @throws Throwable
      */
     protected function invoker($name)
     {
