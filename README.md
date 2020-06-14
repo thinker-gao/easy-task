@@ -236,21 +236,27 @@ ppid:daemon id
 ## <h5>【Eight】. Advanced understanding-> time parameters support crontab command </h5>
 
 ~~~
-(1).Special expressions:
-     @yearly      runs once a year is equivalent to (0 0 1 1 *)
-     @annually    runs once a year and is equivalent to (0 0 1 1 *)
-     @monthly     runs once a month is equivalent to (0 0 1 * *)
-     @weekly      runs once a week is equivalent to (0 0 * * 0)
-     @daily       runs once a day is equivalent to (0 0 * * *)
-     @hourly      runs once every hour is equivalent to (0 * * * *)
-(2).Standard expression:
-     '30 21 * * * '      is executed once every night at 21:30
-     '0 23 * * 6'        is executed once every Saturday at 23:00
-     '3,15 * * * *'      every 3rd and 15th minute of the hour
-     '45 4 1,10,22 * * ' is executed at 04:45 on 1/10/22 of every month
-     '3,15 8-11 * * *'   is executed once every day in the 3rd and 15th minutes from 8am to 11am
-     Please test other instructions yourself
-     Use example / build_cron_date.php to generate a list of execution times to check whether your commands are as expected
+Crontab support has been removed since version 2.3.6, please handle it with PHP's own time function.
+(1). For example, it only needs to be executed at 20 o'clock every night, and it is not necessary to execute Return at 20 o'clock.
+$task->addFunc(function () {
+     $hour = date('H');
+     if ($hour != 20)
+     {
+         return;
+     }
+    
+     //Write your code
+},'request', 1, 1);
+(2). For example, it only needs to be executed every Sunday, and it is judged that Return is not executed on Sunday.
+$task->addFunc(function () {
+     $week = date('w');
+     if ($week !== 0)
+     {
+         return;
+     }
+    
+     //Write your code
+},'request', 1, 1);
 ~~~
 
 ## <h5>【Nine】. Special thanks to </h5>
