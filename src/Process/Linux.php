@@ -186,7 +186,7 @@ class Linux extends Process
         });
 
         //执行任务
-        if (is_int($item['time']) || is_float($item['time']))
+        if ($item['time'])
         {
             if ($item['time'] === 0) $this->invokerByDirect($item);
             Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
