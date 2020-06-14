@@ -190,7 +190,7 @@ class Win extends Process
         $this->forkItemExec();
 
         //查询状态
-        $i = $this->taskCount;
+        $i = $this->taskCount + 15;
         while ($i--)
         {
             $status = $this->wts->getProcessStatus('manager');

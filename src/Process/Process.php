@@ -168,7 +168,7 @@ abstract class Process
      * 通过Event事件执行
      * @param array $item
      */
-    protected  function invokeByEvent($item)
+    protected function invokeByEvent($item)
     {
         //创建Event事件
         $eventConfig = new EventConfig();
@@ -212,12 +212,9 @@ abstract class Process
      */
     protected function masterWaitExit()
     {
-        $i = $this->taskCount;
+        $i = $this->taskCount + 30;
         while ($i--)
         {
-            //CPU休息
-            Helper::sleep(1);
-
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
                 if ($report['type'] == 'status' && $report['status'])
@@ -225,6 +222,9 @@ abstract class Process
                     Helper::showTable($report['status']);
                 }
             }, $this->startTime);
+
+            //CPU休息
+            Helper::sleep(1);
         }
         Helper::showInfo('this cpu is too busy,please use status command try again');
         exit;
