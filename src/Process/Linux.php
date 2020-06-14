@@ -186,14 +186,13 @@ class Linux extends Process
         });
 
         //执行任务
-        if ($item['time'])
+        if ($item['time'] === 0)
         {
-            if ($item['time'] === 0) $this->invokerByDirect($item);
-            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
+            $this->invokerByDirect($item);
         }
         else
         {
-            Helper::showError("abnormal task time:{$item['time']}");
+            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
         }
     }
 
