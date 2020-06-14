@@ -3,7 +3,6 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
-use EasyTask\Error;
 use EasyTask\Wpc;
 use \Event as Event;
 use \EventConfig as EventConfig;
