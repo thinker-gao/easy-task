@@ -15,12 +15,14 @@ class Check
         //Win
         '1' => [
             'json',
+            'curl',
             'com_dotnet',
             'mbstring',
         ],
         //Linux
         '2' => [
             'json',
+            'curl',
             'pcntl',
             'posix',
             'mbstring',
