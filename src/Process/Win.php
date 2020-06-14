@@ -341,20 +341,6 @@ class Win extends Process
     }
 
     /**
-     * 普通执行(执行完成,直接退出)
-     * @param array $item 执行项目
-     * @throws Throwable
-     */
-    protected function invokerByDirect($item)
-    {
-        //执行程序
-        $this->execute($item);
-
-        //进程退出
-        exit;
-    }
-
-    /**
      * 通过默认定时执行
      * @param array $item 执行项目
      * @throws Throwable
