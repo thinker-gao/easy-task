@@ -1,11 +1,11 @@
 <?php
 namespace EasyTask\Process;
 
-use EasyTask\Command;
 use EasyTask\Env;
-use \Throwable as Throwable;
-use \Closure as Closure;
 use EasyTask\Helper;
+use EasyTask\Command;
+use \Closure as Closure;
+use \Throwable as Throwable;
 
 /**
  * Class Linux
