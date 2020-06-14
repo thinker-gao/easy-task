@@ -326,10 +326,6 @@ class Win extends Process
             if ($item['time'] === 0) $this->invokerByDirect($item);
             Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
         }
-        elseif (is_string($item['time']))
-        {
-            $this->invokeByCron($item);
-        }
         else
         {
             Helper::showError("abnormal task time:{$item['time']}");
