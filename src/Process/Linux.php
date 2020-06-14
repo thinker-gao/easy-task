@@ -55,6 +55,7 @@ class Linux extends Process
     public function __construct($taskList)
     {
         $this->taskList = $taskList;
+        $this->setTaskCount();
         $this->startTime = time();
         $this->commander = new Command();
         if (Env::get('canAsync'))

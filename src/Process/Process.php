@@ -141,7 +141,7 @@ abstract class Process
      */
     protected function masterWaitExit()
     {
-        $i = 150;
+        $i = $this->taskCount;
         while ($i--)
         {
             //CPU休息
@@ -155,7 +155,7 @@ abstract class Process
                 }
             }, $this->startTime);
         }
-        Helper::showInfo('the process is too busy,please use status command try again');
+        Helper::showInfo('this cpu is too busy,please use status command try again');
         exit;
     }
 }
