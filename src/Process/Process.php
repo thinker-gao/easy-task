@@ -40,7 +40,7 @@ abstract class Process
      */
     public function stop($force = false)
     {
-        //发送关闭命令
+        //发送命令
         $this->commander->send([
             'type' => 'stop',
             'force' => $force,
