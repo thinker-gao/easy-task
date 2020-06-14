@@ -3,7 +3,6 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
-
 use \EventBase as EventBase;
 use \Exception as Exception;
 use \Throwable as Throwable;
