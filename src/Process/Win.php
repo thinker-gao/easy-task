@@ -4,7 +4,6 @@ namespace EasyTask\Process;
 use EasyTask\Command;
 use EasyTask\Env;
 use EasyTask\Wpc;
-use \Event as Event;
 use \EventConfig as EventConfig;
 use \EventBase as EventBase;
 use \Exception as Exception;
