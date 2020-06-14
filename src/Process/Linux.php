@@ -3,7 +3,6 @@ namespace EasyTask\Process;
 
 use EasyTask\Command;
 use EasyTask\Env;
-use \Exception as Exception;
 use \Throwable as Throwable;
 use \Closure as Closure;
 use EasyTask\Helper;
