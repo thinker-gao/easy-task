@@ -170,16 +170,13 @@ abstract class Process
     }
 
     /**
-     * 普通执行(执行完成,直接退出)
+     * 普通执行
      * @param array $item
      * @throws Throwable
      */
     protected function invokerByDirect($item)
     {
-        //执行程序
         $this->execute($item);
-
-        //进程退出
         exit;
     }
 
