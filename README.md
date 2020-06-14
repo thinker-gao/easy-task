@@ -256,7 +256,6 @@ ppid:daemon id
 ## <h5>【Nine】. Special thanks to </h5>
 ~~~
 (1). ThinkPHP (command line output component is based on Tp_Table component), official address: http://www.thinkphp.cn/
-(2). Cron-expression (Crontab command parsing and version compatibility is based on Cron-expression), official address: https://github.com/dragonmantank/cron-expression
 ~~~
 ## <h5>【Ten】. Bug feedback</h5>
 ~~~

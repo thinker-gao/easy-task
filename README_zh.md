@@ -262,7 +262,6 @@ $task->addFunc(function () {
 ## <h5>【九】. 特别感谢 </h5>
 ~~~
 (1).ThinkPHP(命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
-(2).Cron-expression(Crontab命令解析和版本兼容基于Cron-expression),官方地址:https://github.com/dragonmantank/cron-expression
 ~~~
 ## <h5>【十】. Bug反馈 </h5>
 ~~~
