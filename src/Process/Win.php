@@ -402,31 +402,6 @@ class Win extends Process
     }
 
     /**
-     * 通过CronTab命令执行
-     * @param array $item 执行项目
-     * @throws Throwable
-     */
-    protected function invokeByCron($item)
-    {
-        $nextExecuteTime = 0;
-        while (true)
-        {
-            if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
-            $waitTime = (strtotime($nextExecuteTime) - time());
-            if ($waitTime)
-            {
-                Helper::sleep(1);
-            }
-            else
-            {
-                $this->execute($item);
-                $nextExecuteTime = 0;
-            }
-        }
-        exit;
-    }
-
-    /**
      * 检查常驻进程是否存活
      * (常驻进程退出则任务退出)
      * @param $item

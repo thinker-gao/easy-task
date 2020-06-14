@@ -276,35 +276,6 @@ class Linux extends Process
     }
 
     /**
-     * 通过CronTab命令执行
-     * @param array $item
-     * @throws Throwable
-     */
-    protected function invokeByCron($item)
-    {
-        $nextExecuteTime = 0;
-        while (true)
-        {
-            if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
-            $waitTime = (strtotime($nextExecuteTime) - time());
-            if ($waitTime <= 0)
-            {
-                $this->execute($item);
-                $nextExecuteTime = 0;
-            }
-            else
-            {
-                //Cpu休息
-                Helper::sleep(1);
-
-                //常驻进程存活检查
-                $this->checkDaemonForExit($item);
-            }
-        }
-        exit;
-    }
-
-    /**
      * 检查常驻进程是否存活
      * @param array $item
      */
