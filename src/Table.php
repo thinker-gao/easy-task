@@ -97,7 +97,6 @@ class Table
 
     /**
      * 设置表格头信息 以及对齐方式
-     * @access public
      * @param array $header 要输出的Header信息
      * @param int $align 对齐方式 默认1 ALGIN_LEFT 0 ALIGN_RIGHT 2 ALIGN_CENTER
      * @return void
