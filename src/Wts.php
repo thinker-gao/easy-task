@@ -76,7 +76,7 @@ class Wts
 
     /**
      * 获取进程状态
-     * @param string $name 进行名称
+     * @param string $name 进程名称
      * @return bool
      */
     public function getProcessStatus($name)
