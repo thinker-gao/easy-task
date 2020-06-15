@@ -110,7 +110,6 @@ class Table
 
     /**
      * 设置输出表格数据 及对齐方式
-     * @access public
      * @param array $rows 要输出的表格数据（二维数组）
      * @param int $align 对齐方式 默认1 ALGIN_LEFT 0 ALIGN_RIGHT 2 ALIGN_CENTER
      * @return void
@@ -128,7 +127,6 @@ class Table
 
     /**
      * 检查列数据的显示宽度
-     * @access public
      * @param mixed $row 行数据
      * @return void
      */
