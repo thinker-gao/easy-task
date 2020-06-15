@@ -80,8 +80,8 @@ abstract class Process
         //根据任务类型执行
         $daemon = Env::get('daemon');
 
-        //Win_Std_Start
-        if (Helper::isWin() && $this->canWriteStd()) ob_start();
+        //Std_Start
+        if ($this->canWriteStd()) ob_start();
         try
         {
             $type = $item['type'];
@@ -128,8 +128,8 @@ abstract class Process
             }
         }
 
-        //Win_Std_End
-        if (Helper::isWin() && $this->canWriteStd())
+        //Std_End
+        if ($this->canWriteStd())
         {
             $stdChar = ob_get_contents();
             if ($stdChar) Helper::saveStdChar($stdChar);

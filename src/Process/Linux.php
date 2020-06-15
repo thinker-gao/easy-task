@@ -99,10 +99,6 @@ class Linux extends Process
      */
     protected function allocate()
     {
-        if ($this->canWriteStd())
-        {
-            Helper::setStdClose();
-        }
         foreach ($this->taskList as $item)
         {
             //提取参数
