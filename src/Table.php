@@ -240,7 +240,6 @@ class Table
 
     /**
      * 输出表格
-     * @access public
      * @param array $dataList 表格数据
      * @return string
      */
