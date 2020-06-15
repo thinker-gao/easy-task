@@ -176,7 +176,6 @@ class Table
 
     /**
      * 输出分隔行
-     * @access public
      * @param string $pos 位置
      * @return string
      */
@@ -195,7 +194,6 @@ class Table
 
     /**
      * 输出表格头部
-     * @access public
      * @return string
      */
     protected function renderHeader()
