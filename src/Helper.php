@@ -221,29 +221,6 @@ class Helper
     }
 
     /**
-     * 关闭标准Std
-     */
-    public static function setStdClose()
-    {
-        global $STDOUT, $STDERR;
-        $path = static::getStdPath();
-        $file = $path . date('Y_m_d') . '.txt';
-        $handle = fopen($file, "a");
-        if ($handle)
-        {
-            unset($handle);
-            @fclose(STDOUT);
-            @fclose(STDERR);
-            $STDOUT = fopen($file, "a");
-            $STDERR = fopen($file, "a");
-        }
-        else
-        {
-            static::showError("std file {$file} can not open");
-        }
-    }
-
-    /**
      * 保存标准输入|输出
      * @param string $char 输入|输出
      */
