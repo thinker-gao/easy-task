@@ -95,7 +95,7 @@ class Wts
     }
 
     /**
-     * 获取进程信息no_lock
+     * 获取进程信息(非阻塞)
      * @return array
      */
     public function getProcessInfo()
