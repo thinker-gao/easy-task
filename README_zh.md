@@ -5,7 +5,7 @@
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
 <img src="https://www.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
 <img src="https://www.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
-<img src="https://www.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
+<img src="https://img.shields.io/github/license/Yurunsoft/PaySDK.svg" style="max-width:100%;">
 </a>
 </p>
 
