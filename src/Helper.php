@@ -1,7 +1,6 @@
 <?php
 namespace EasyTask;
 
-use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
 use \Exception as Exception;
 use \Throwable as Throwable;
