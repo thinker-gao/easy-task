@@ -146,7 +146,6 @@ class Table
 
     /**
      * 增加一行表格数据
-     * @access public
      * @param mixed $row 行数据
      * @param bool $first 是否在开头插入
      * @return void
@@ -167,7 +166,6 @@ class Table
 
     /**
      * 设置输出表格的样式
-     * @access public
      * @param string $style 样式名
      * @return void
      */
