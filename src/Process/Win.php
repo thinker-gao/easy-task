@@ -238,7 +238,7 @@ class Win extends Process
 
     /**
      * 注册实体进程
-     * @param $wpc
+     * @param Wpc $wpc
      */
     protected function joinWpcContainer($wpc)
     {
