@@ -16,7 +16,7 @@ class ErrorException extends \Exception
     /**
      * 构造函数
      * ErrorException constructor.
-     * @param $severity
+     * @param string $severity
      * @param $errStr
      * @param $errFile
      * @param $errLine
