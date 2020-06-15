@@ -1,6 +1,8 @@
 <?php
 namespace EasyTask;
 
+use \Closure as Closure;
+
 /**
  * Class Command
  * @package EasyTask
@@ -108,7 +110,7 @@ class Command
     /**
      * 根据命令执行对应操作
      * @param int $msgType 消息类型
-     * @param \Closure $func 执行函数
+     * @param Closure $func 执行函数
      * @param int $time 等待方时间戳
      */
     public function waitCommandForExecute($msgType, $func, $time)
