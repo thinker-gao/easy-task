@@ -351,8 +351,7 @@ class Win extends Process
 
     /**
      * 检查常驻进程是否存活
-     * (常驻进程退出则任务退出)
-     * @param $item
+     * @param array $item
      */
     protected function checkDaemonForExit($item)
     {
