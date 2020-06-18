@@ -2,7 +2,8 @@
 namespace EasyTask\Cron;
 
 /**
- * Month field.  Allows: * , / -.
+ * Class MonthField
+ * @package EasyTask\Cron
  */
 class MonthField extends AbstractField
 {
