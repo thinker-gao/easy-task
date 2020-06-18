@@ -4,7 +4,8 @@ namespace EasyTask\Cron;
 use DateTimeInterface;
 
 /**
- * CRON field interface.
+ * Interface FieldInterface
+ * @package EasyTask\Cron
  */
 interface FieldInterface
 {
