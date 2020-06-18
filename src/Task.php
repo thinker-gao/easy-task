@@ -178,7 +178,7 @@ class Task
      * 新增匿名函数作为任务
      * @param Closure $func 匿名函数
      * @param string $alas 任务别名
-     * @param int|float $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      * @throws
@@ -207,7 +207,7 @@ class Task
      * @param string $class 类名称
      * @param string $func 方法名称
      * @param string $alas 任务别名
-     * @param int|float $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      * @throws
@@ -253,7 +253,7 @@ class Task
      * 新增指令作为任务
      * @param string $command 指令
      * @param string $alas 任务别名
-     * @param int|float $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      */
