@@ -17,7 +17,7 @@
 
 <ul>
     <li>windows：PHP>=5.5 (依赖com_dotnet+wpc扩展）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">文档+安装教程</a></li>  
-    <li>linux|mac：PHP>=5.4 (依赖pcntl+posix扩展）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">文档+安装教程</a></li>
+    <li>linux|mac：PHP>=5.5 (依赖pcntl+posix扩展）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">文档+安装教程</a></li>
 </ul>  
 
 ## <h4>  Composer安装 </h4>
