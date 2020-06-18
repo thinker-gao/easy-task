@@ -2,7 +2,8 @@
 namespace EasyTask\Cron;
 
 /**
- * Minutes field.  Allows: * , / -.
+ * Class MinutesField
+ * @package EasyTask\Cron
  */
 class MinutesField extends AbstractField
 {
