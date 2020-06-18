@@ -4,9 +4,8 @@ namespace EasyTask\Cron;
 use InvalidArgumentException;
 
 /**
- * CRON field factory implementing a flyweight factory.
- *
- * @see http://en.wikipedia.org/wiki/Cron
+ * Class FieldFactory
+ * @package EasyTask\Cron
  */
 class FieldFactory implements FieldFactoryInterface
 {
