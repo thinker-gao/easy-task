@@ -10,16 +10,8 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * CRON expression parser that can determine whether or not a CRON expression is
- * due to run, the next run date and previous run date of a CRON expression.
- * The determinations made by this class are accurate if checked run once per
- * minute (seconds are dropped from date time comparisons).
- *
- * Schedule parts must map to:
- * minute [0-59], hour [0-23], day of month, month [1-12|JAN-DEC], day of week
- * [1-7|MON-SUN], and an optional year.
- *
- * @see http://en.wikipedia.org/wiki/Cron
+ * Class CronExpression
+ * @package EasyTask\Cron
  */
 class CronExpression
 {
