@@ -2,7 +2,8 @@
 namespace EasyTask\Cron;
 
 /**
- * Abstract CRON expression field.
+ * Class AbstractField
+ * @package EasyTask\Cron
  */
 abstract class AbstractField implements FieldInterface
 {
