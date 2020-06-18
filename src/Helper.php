@@ -330,10 +330,39 @@ class Helper
         {
             if (!static::canEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
         }
+        elseif (is_string($time))
+        {
+            if (!CronExpression::isValidExpression($time))
+            {
+                static::showSysError("$time is not a valid CRON expression");
+            }
+        }
         else
         {
             static::showSysError('time parameter is an unsupported type');
         }
+    }
+
+    /**
+     * 获取Cron命令的下次执行时间
+     * @param string $command cron命令
+     * @param string $currentTime cron命令
+     * @return string
+     */
+    public static function getCronNextDate($command, $currentTime = 'now')
+    {
+        static $cronExpression = null;
+        $nextDate = null;
+        if (!$cronExpression) $cronExpression = CronExpression::factory($command);
+        try
+        {
+            $nextDate = $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
+        }
+        catch (Exception $exception)
+        {
+            Helper::showSysError($exception->getMessage());
+        }
+        return $nextDate;
     }
 
     /**
