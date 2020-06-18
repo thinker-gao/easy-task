@@ -4,7 +4,8 @@ namespace EasyTask\Cron;
 use DateTimeZone;
 
 /**
- * Hours field.  Allows: * , / -.
+ * Class HoursField
+ * @package EasyTask\Cron
  */
 class HoursField extends AbstractField
 {
