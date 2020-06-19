@@ -28,12 +28,6 @@ class Win extends Process
     protected $startTime;
 
     /**
-     * 进程命令管理
-     * @var array
-     */
-    protected $commander;
-
-    /**
      * 任务列表
      * @var array
      */

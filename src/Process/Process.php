@@ -1,6 +1,7 @@
 <?php
 namespace EasyTask\Process;
 
+use EasyTask\Command;
 use EasyTask\Env;
 use EasyTask\Error;
 use EasyTask\Helper;
@@ -16,6 +17,12 @@ use \Throwable as Throwable;
  */
 abstract class Process
 {
+    /**
+     * 进程命令管理
+     * @var Command
+     */
+    protected $commander;
+
     /**
      * 开始运行
      */
