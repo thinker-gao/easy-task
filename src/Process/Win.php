@@ -28,12 +28,6 @@ class Win extends Process
     protected $taskList;
 
     /**
-     * 任务总数
-     * @var int
-     */
-    protected $taskCount;
-
-    /**
      * 虚拟进程列表
      * @var array
      */

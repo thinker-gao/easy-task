@@ -24,6 +24,12 @@ abstract class Process
     protected $startTime;
 
     /**
+     * 任务总数
+     * @var int
+     */
+    protected $taskCount;
+
+    /**
      * 进程命令管理
      * @var Command
      */

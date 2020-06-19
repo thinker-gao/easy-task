@@ -20,12 +20,6 @@ class Linux extends Process
     protected $taskList;
 
     /**
-     * 任务总数
-     * @var int
-     */
-    protected $taskCount;
-
-    /**
      * 进程执行记录
      * @var array
      */
