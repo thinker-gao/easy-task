@@ -14,12 +14,6 @@ use \Throwable as Throwable;
 class Linux extends Process
 {
     /**
-     * 进程启动时间
-     * @var int
-     */
-    protected $startTime;
-
-    /**
      * 任务列表
      * @var array
      */
