@@ -22,12 +22,6 @@ class Win extends Process
     protected $wts;
 
     /**
-     * 进程启动时间
-     * @var int
-     */
-    protected $startTime;
-
-    /**
      * 任务列表
      * @var array
      */
