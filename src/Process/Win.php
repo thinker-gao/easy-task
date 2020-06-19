@@ -22,12 +22,6 @@ class Win extends Process
     protected $wts;
 
     /**
-     * 任务列表
-     * @var array
-     */
-    protected $taskList;
-
-    /**
      * 虚拟进程列表
      * @var array
      */

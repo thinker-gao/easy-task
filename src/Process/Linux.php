@@ -14,12 +14,6 @@ use \Throwable as Throwable;
 class Linux extends Process
 {
     /**
-     * 任务列表
-     * @var array
-     */
-    protected $taskList;
-
-    /**
      * 进程执行记录
      * @var array
      */

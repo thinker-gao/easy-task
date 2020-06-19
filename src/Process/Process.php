@@ -30,6 +30,12 @@ abstract class Process
     protected $taskCount;
 
     /**
+     * 任务列表
+     * @var array
+     */
+    protected $taskList;
+
+    /**
      * 进程命令管理
      * @var Command
      */
