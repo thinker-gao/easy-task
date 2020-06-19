@@ -321,14 +321,7 @@ class Win extends Process
         ]);
 
         //执行任务
-        if ($item['time'] === 0)
-        {
-            $this->invokerByDirect($item);
-        }
-        else
-        {
-            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
-        }
+        $this->invoker($item);
     }
 
     /**

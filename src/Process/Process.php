@@ -141,6 +141,27 @@ abstract class Process
     }
 
     /**
+     * 执行任务
+     * @param array $item
+     * @throws Throwable
+     */
+    protected function invoker($item)
+    {
+        if ($item['time'] === 0)
+        {
+            $this->invokerByDirect($item);
+        }
+        elseif (is_string($item['time']))
+        {
+            $this->invokeByCron($item);
+        }
+        else
+        {
+            Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
+        }
+    }
+
+    /**
      * 通过CronTab命令执行
      * @param array $item
      * @throws Throwable
