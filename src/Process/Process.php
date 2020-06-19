@@ -42,11 +42,6 @@ abstract class Process
     protected $commander;
 
     /**
-     * 开始运行
-     */
-    abstract public function start();
-
-    /**
      * 构造函数
      * @param array $taskList
      */
@@ -57,6 +52,11 @@ abstract class Process
         $this->setTaskCount();
         $this->commander = new Command();
     }
+
+    /**
+     * 开始运行
+     */
+    abstract public function start();
 
     /**
      * 运行状态
