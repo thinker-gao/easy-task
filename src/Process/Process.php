@@ -18,6 +18,12 @@ use \Throwable as Throwable;
 abstract class Process
 {
     /**
+     * 进程启动时间
+     * @var int
+     */
+    protected $startTime;
+
+    /**
      * 进程命令管理
      * @var Command
      */
