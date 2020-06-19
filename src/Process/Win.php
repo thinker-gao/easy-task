@@ -5,7 +5,6 @@ use EasyTask\Wts;
 use EasyTask\Wpc;
 use EasyTask\Env;
 use EasyTask\Helper;
-use EasyTask\Command;
 use \Exception as Exception;
 use \Throwable as Throwable;
 
@@ -46,10 +45,7 @@ class Win extends Process
     public function __construct($taskList)
     {
         $this->wts = new Wts();
-        $this->startTime = time();
-        $this->taskList = $taskList;
-        $this->setTaskCount();
-        $this->commander = new Command();
+        parent::__construct($taskList);
     }
 
     /**

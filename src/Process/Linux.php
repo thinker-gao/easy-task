@@ -3,7 +3,6 @@ namespace EasyTask\Process;
 
 use EasyTask\Env;
 use EasyTask\Helper;
-use EasyTask\Command;
 use \Closure as Closure;
 use \Throwable as Throwable;
 
@@ -25,10 +24,7 @@ class Linux extends Process
      */
     public function __construct($taskList)
     {
-        $this->taskList = $taskList;
-        $this->setTaskCount();
-        $this->startTime = time();
-        $this->commander = new Command();
+        parent::__construct($taskList);
         if (Env::get('canAsync'))
         {
             Helper::openAsyncSignal();

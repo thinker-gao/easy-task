@@ -47,6 +47,18 @@ abstract class Process
     abstract public function start();
 
     /**
+     * 构造函数
+     * @param array $taskList
+     */
+    public function __construct($taskList)
+    {
+        $this->startTime = time();
+        $this->taskList = $taskList;
+        $this->setTaskCount();
+        $this->commander = new Command();
+    }
+
+    /**
      * 运行状态
      */
     public function status()
