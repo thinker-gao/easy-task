@@ -16,8 +16,8 @@
 ## <h4>   Operating environment </h4>
 
 <ul>
-    <li>windows：PHP>=5.5 (Rely on com_dotnet + wpc extension）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">Installation tutorial</a></li>  
-    <li>linux|mac：PHP>=5.5 (Rely on pcntl + posix extension）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">Installation tutorial</a></li>
+    <li>windows：PHP>=5.4 (Rely on com_dotnet + wpc extension）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">Installation tutorial</a></li>  
+    <li>linux|mac：PHP>=5.4 (Rely on pcntl + posix extension）<a href="https://www.kancloud.cn/a392223903/easytask/1666906" target="_blank">Installation tutorial</a></li>
 </ul>  
 
 ## <h4>  Composer install </h4>

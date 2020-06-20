@@ -39,9 +39,9 @@ class Task
     {
         //初始化基础配置
         Env::set('prefix', 'Task');
-        Env::set('canEvent', Helper::canEvent());
+        Env::set('canEvent', Helper::canUseEvent());
         Env::set('currentOs', $currentOs);
-        Env::set('canAsync', Helper::canAsyncSignal());
+        Env::set('canAsync', Helper::canUseAsyncSignal());
         Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
 
@@ -259,7 +259,7 @@ class Task
      */
     public function addCommand($command, $alas, $time = 1, $used = 1)
     {
-        if (!Helper::canExecuteCommand())
+        if (!Helper::canUseExcCommand())
         {
             Helper::showSysError('please open the disabled function of popen and pclose');
         }

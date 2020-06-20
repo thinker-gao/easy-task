@@ -49,7 +49,7 @@ class Helper
      */
     public static function setCodePage($code = 65001)
     {
-        if (static::canExecuteCommand())
+        if (static::canUseExcCommand())
         {
             @pclose(@popen("chcp {$code}", 'r'));
         }
@@ -119,10 +119,50 @@ class Helper
     }
 
     /**
+     * 开启异步信号
+     * @return bool
+     */
+    public static function openAsyncSignal()
+    {
+        return pcntl_async_signals(true);
+    }
+
+    /**
+     * 是否可使用Cron
+     * @return bool
+     */
+    public static function canUseCron()
+    {
+        if (version_compare(PHP_VERSION, '5.5', '<'))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 是否支持异步信号
+     * @return bool
+     */
+    public static function canUseAsyncSignal()
+    {
+        return (function_exists('pcntl_async_signals'));
+    }
+
+    /**
+     * 是否支持event事件
+     * @return bool
+     */
+    public static function canUseEvent()
+    {
+        return (extension_loaded('event'));
+    }
+
+    /**
      * 是否可执行命令
      * @return bool
      */
-    public static function canExecuteCommand()
+    public static function canUseExcCommand()
     {
         return function_exists('popen') && function_exists('pclose');
     }
@@ -244,33 +284,6 @@ class Helper
     }
 
     /**
-     * 是否支持异步信号
-     * @return bool
-     */
-    public static function canAsyncSignal()
-    {
-        return (function_exists('pcntl_async_signals'));
-    }
-
-    /**
-     * 开启异步信号
-     * @return bool
-     */
-    public static function openAsyncSignal()
-    {
-        return pcntl_async_signals(true);
-    }
-
-    /**
-     * 是否支持event事件
-     * @return bool
-     */
-    public static function canEvent()
-    {
-        return (extension_loaded('event'));
-    }
-
-    /**
      * 编码转换
      * @param string $char
      * @param string $coding
@@ -329,10 +342,14 @@ class Helper
         }
         elseif (is_float($time))
         {
-            if (!static::canEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
+            if (!static::canUseEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
         }
         elseif (is_string($time))
         {
+            if (!static::canUseCron())
+            {
+                static::showSysError("use CRON expression php version must be greater than 5.5");
+            }
             if (!CronExpression::isValidExpression($time))
             {
                 static::showSysError("$time is not a valid CRON expression");
