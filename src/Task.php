@@ -189,6 +189,10 @@ class Task
         {
             Helper::showSysError('func must instanceof Closure');
         }
+        if (isset($this->taskList[$alas]))
+        {
+            Helper::showSysError("task $alas already exists");
+        }
         Helper::checkTaskTime($time);
         $uniKey = md5($alas);
         $this->taskList[$uniKey] = [
@@ -217,6 +221,10 @@ class Task
         if (!class_exists($class))
         {
             Helper::showSysError("class {$class} is not exist");
+        }
+        if (isset($this->taskList[$alas]))
+        {
+            Helper::showSysError("task $alas already exists");
         }
         try
         {
@@ -262,6 +270,10 @@ class Task
         if (!Helper::canUseExcCommand())
         {
             Helper::showSysError('please open the disabled function of popen and pclose');
+        }
+        if (isset($this->taskList[$alas]))
+        {
+            Helper::showSysError("task $alas already exists");
         }
         Helper::checkTaskTime($time);
         $uniKey = md5($alas);
