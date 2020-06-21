@@ -10,14 +10,8 @@ use DateTimeInterface;
  */
 class DayOfMonthField extends AbstractField
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $rangeStart = 1;
 
-    /**
-     * {@inheritdoc}
-     */
     protected $rangeEnd = 31;
 
     /**
