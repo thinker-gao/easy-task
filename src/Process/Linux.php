@@ -140,9 +140,8 @@ class Linux extends Process
     protected function invoker($item)
     {
         //输出信息
-        $item['pid'] = getmypid();
         $item['ppid'] = posix_getppid();
-        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
+        $text = "this worker {$item['alas']}";
         Helper::writeTypeLog("$text is start");
 
         //进程标题
@@ -191,7 +190,7 @@ class Linux extends Process
     {
         if (!posix_kill($item['ppid'], 0))
         {
-            Helper::writeTypeLog("listened exit command, this worker {$item['alas']}(pid:{$item['pid']}) is safely exited", 'info', true);
+            Helper::writeTypeLog("listened exit command, this worker {$item['alas']} is safely exited", 'info', true);
         }
     }
 
@@ -204,8 +203,7 @@ class Linux extends Process
         Helper::cli_set_process_title(Env::get('prefix'));
 
         //输出信息
-        $pid = getmypid();
-        $text = "this manager(pid:{$pid})";
+        $text = "this manager";
         Helper::writeTypeLog("$text is start");
         if (!Env::get('daemon'))
         {
