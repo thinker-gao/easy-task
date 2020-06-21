@@ -60,7 +60,7 @@ class Wts
     public function getProcessFile($name)
     {
         $runPath = Helper::getWinPath();
-        return $runPath . md5($name);
+        return $runPath . md5($name) . '.win';
     }
 
     /**
