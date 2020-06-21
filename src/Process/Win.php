@@ -325,7 +325,7 @@ class Win extends Process
         if (!$status)
         {
             $text = Env::get('prefix') . '_' . $item['alas'];
-            Helper::showInfo("listened exit command, this worker $text is safely exited", true);
+            Helper::showInfo("listened exit command, this worker $text(pid:{$item['pid']}) is safely exited", true);
         }
     }
 
@@ -338,7 +338,8 @@ class Win extends Process
         Helper::cli_set_process_title(Env::get('prefix'));
 
         //输出信息
-        $text = "this manager";
+        $pid = getmypid();
+        $text = "this manager(pid:{$pid})";
         Helper::showInfo("$text is start");;
 
         //挂起进程
