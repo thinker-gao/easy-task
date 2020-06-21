@@ -310,11 +310,12 @@ class Helper
      */
     public static function formatException($exception, $type = 'exception')
     {
-        //时间
+        //参数
+        $pid = getmypid();
         $date = date('Y/m/d H:i:s', time());
 
-        //组装文本
-        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
+        //组装
+        return $date . "[$type] [PID:$pid] : errStr" . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
     }
 
     /**
@@ -325,11 +326,12 @@ class Helper
      */
     public static function formatMessage($message, $type = 'error')
     {
-        //时间
+        //参数
+        $pid = getmypid();
         $date = date('Y/m/d H:i:s', time());
 
-        //组装文本
-        return $date . ' [' . $type . '] : ' . $message . PHP_EOL;
+        //组装
+        return $date . "[$type] [PID:$pid] : " . $message . PHP_EOL;
     }
 
     /**
