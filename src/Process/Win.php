@@ -293,7 +293,7 @@ class Win extends Process
         ]);
 
         //执行任务
-        $this->invoker($item);
+        $this->executeInvoker($item);
     }
 
     /**

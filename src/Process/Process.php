@@ -182,7 +182,7 @@ abstract class Process
      * @param array $item
      * @throws Throwable
      */
-    protected function invoker($item)
+    protected function executeInvoker($item)
     {
         if ($item['time'] === 0)
         {
