@@ -44,8 +44,7 @@ class Wts
     public function joinProcess($name)
     {
         $this->processNames[] = $name;
-        $runPath = Helper::getWinPath();
-        $file = $runPath . md5($name);
+        $file = $this->getProcessFile($name);
         if (!file_exists($file))
         {
             file_put_contents($file, $name);
