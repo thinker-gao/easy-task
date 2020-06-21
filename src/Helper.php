@@ -49,9 +49,11 @@ class Helper
      */
     public static function setCodePage($code = 65001)
     {
-        if (static::canUseExcCommand())
+        $ds = DIRECTORY_SEPARATOR;
+        $codePageBinary = "C:{$ds}Windows{$ds}System32{$ds}chcp.com";
+        if (file_exists($codePageBinary) && static::canUseExcCommand())
         {
-            @pclose(@popen("chcp {$code}", 'r'));
+            @pclose(@popen("{$codePageBinary} {$code}", 'r'));
         }
     }
 
