@@ -140,9 +140,8 @@ class Linux extends Process
     protected function invoker($item)
     {
         //输出信息
-        $item['pid'] = getmypid();
         $item['ppid'] = posix_getppid();
-        $text = "this worker {$item['alas']}(pid:{$item['pid']})";
+        $text = "this worker {$item['alas']}";
         Helper::writeTypeLog("$text is start");
 
         //进程标题
@@ -204,8 +203,7 @@ class Linux extends Process
         Helper::cli_set_process_title(Env::get('prefix'));
 
         //输出信息
-        $pid = getmypid();
-        $text = "this manager(pid:{$pid})";
+        $text = 'this manager';
         Helper::writeTypeLog("$text is start");
         if (!Env::get('daemon'))
         {
@@ -294,7 +292,7 @@ class Linux extends Process
                 if (Env::get('canAutoRec'))
                 {
                     $this->forkItemExec($item['item']);
-                    Helper::writeTypeLog("the worker {$item['name']}(pid:{$pid}) is stop,try to fork new one");
+                    Helper::writeTypeLog("the worker {$item['name']} is stop,try to fork new one");
                     unset($this->processList[$key]);
                 }
             }
