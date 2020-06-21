@@ -249,9 +249,9 @@ class Helper
     public static function saveStdChar($char)
     {
         $path = static::getStdPath();
-        $file = $path . date('Y_m_d') . '.txt';
+        $file = $path . date('Y_m_d') . '.log';
         $char = static::convert_char($char);
-        file_put_contents($file, $char . PHP_EOL, FILE_APPEND);
+        file_put_contents($file, $char, FILE_APPEND);
     }
 
     /**
@@ -262,7 +262,7 @@ class Helper
     {
         //日志文件
         $path = Helper::getLogPath();
-        $file = $path . date('Y_m_d') . '.txt';
+        $file = $path . date('Y_m_d') . '.log';
 
         //加锁保存
         $message = static::convert_char($message);

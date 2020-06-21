@@ -30,7 +30,7 @@ class Command
     {
         //创建文件
         $path = Helper::getCsgPath();
-        $file = $path . '%s.txt';
+        $file = $path . '%s.log';
         $this->msgFile = sprintf($file, md5(__FILE__));
         if (!file_exists($this->msgFile))
         {
