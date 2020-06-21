@@ -70,7 +70,7 @@ class Wts
     public function getProcessInfoFile()
     {
         $runPath = Helper::getWinPath();
-        $infoFile = md5(__FILE__);
+        $infoFile = md5(__FILE__) . '.win';
         return $runPath . $infoFile;
     }
 

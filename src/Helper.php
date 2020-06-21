@@ -249,7 +249,7 @@ class Helper
     public static function saveStdChar($char)
     {
         $path = static::getStdPath();
-        $file = $path . date('Y_m_d') . '.log';
+        $file = $path . date('Y_m_d') . '.std';
         $char = static::convert_char($char);
         file_put_contents($file, $char, FILE_APPEND);
     }
