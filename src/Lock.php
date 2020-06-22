@@ -23,7 +23,7 @@ class Lock
     {
         //初始化文件
         $path = Helper::getLokPath();
-        $this->file = $path . md5($name) . 'lock';
+        $this->file = $path . md5($name);
         if (!file_exists($this->file))
         {
             @file_put_contents($this->file, '');
