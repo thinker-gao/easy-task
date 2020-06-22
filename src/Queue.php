@@ -55,7 +55,6 @@ class Queue
 
             //write
             array_push($queue_data, $item);
-            var_dump($queue_data);
             if (!file_put_contents($this->queFile, json_encode($queue_data)))
             {
                 Helper::showError('failed to save data to queue file');
