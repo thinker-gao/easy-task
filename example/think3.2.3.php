@@ -88,7 +88,7 @@ class ThinkSupport
         // 加载Composer
         require './vendor/autoload.php';
 
-        // $command值有start|status|stop
+        // $action值有start|status|stop
 
         // 编写你的代码
     });
