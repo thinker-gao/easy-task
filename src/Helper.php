@@ -1,7 +1,6 @@
 <?php
 namespace EasyTask;
 
-use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
 use \Exception as Exception;
 use \Throwable as Throwable;
@@ -127,19 +126,6 @@ class Helper
     public static function openAsyncSignal()
     {
         return pcntl_async_signals(true);
-    }
-
-    /**
-     * 是否可使用Cron
-     * @return bool
-     */
-    public static function canUseCron()
-    {
-        if (version_compare(PHP_VERSION, '5.5', '<'))
-        {
-            return false;
-        }
-        return true;
     }
 
     /**
