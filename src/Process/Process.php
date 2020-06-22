@@ -239,7 +239,7 @@ abstract class Process
      */
     protected function masterWaitExit()
     {
-        $i = $this->taskCount + 15;
+        $i = $this->taskCount + 30;
         while ($i--)
         {
             //接收汇报
