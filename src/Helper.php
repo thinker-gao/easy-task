@@ -208,6 +208,15 @@ class Helper
     }
 
     /**
+     * 获取进程锁目录
+     * @return  string
+     */
+    public static function getLokPath()
+    {
+        return Helper::getRunTimePath() . 'Lok' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * 获取标准输入输出目录
      * @return  string
      */

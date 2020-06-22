@@ -21,7 +21,7 @@ class Lock
     public function __construct()
     {
         //初始化文件
-        $runPath = Helper::getRunTimePath();
+        $runPath = Helper::getLokPath();
         $this->file = $runPath . 'lock';
         if (!file_exists($this->file))
         {
