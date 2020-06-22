@@ -62,9 +62,6 @@ $task->addFunc(function () {
     }
 }, 'request', 0, 1);
 
-// visit the website through the curl command at 9:30 every night
-$task->addCommand('curl https://www.gaojiufeng.cn', 'curl', '30 21 * * *', 1);
-
 // start task
 $task->start();
 ~~~
