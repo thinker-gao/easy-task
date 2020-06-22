@@ -17,12 +17,13 @@ class Lock
 
     /**
      * 构造函数
+     * @param string $name
      */
-    public function __construct()
+    public function __construct($name = 'lock')
     {
         //初始化文件
-        $runPath = Helper::getLokPath();
-        $this->file = $runPath . 'lock';
+        $path = Helper::getLokPath();
+        $this->file = $path . md5($name) . 'lock';
         if (!file_exists($this->file))
         {
             @file_put_contents($this->file, '');
