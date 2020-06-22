@@ -355,28 +355,6 @@ class Helper
     }
 
     /**
-     * 获取Cron命令的下次执行时间
-     * @param string $command cron命令
-     * @param string $currentTime cron命令
-     * @return string
-     */
-    public static function getCronNextDate($command, $currentTime = 'now')
-    {
-        static $cronExpression = null;
-        $nextDate = null;
-        if (!$cronExpression) $cronExpression = CronExpression::factory($command);
-        try
-        {
-            $nextDate = $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
-        }
-        catch (Exception $exception)
-        {
-            Helper::showSysError($exception->getMessage());
-        }
-        return $nextDate;
-    }
-
-    /**
      * 输出字符串
      * @param string $char
      * @param bool $exit
