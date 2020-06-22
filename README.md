@@ -233,7 +233,7 @@ ppid:daemon id
 ## <h5>【Eight】. Advanced understanding-> time parameters support crontab command </h5>
 
 ~~~
-Crontab support has been removed since version 2.3.6, please handle it with PHP's own time function.
+Crontab support has been removed since version 2.3.6, please handle it with PHP's own time function|DateTime class.
 (1). For example, it only needs to be executed at 20 o'clock every night, and it is not necessary to execute Return at 20 o'clock.
 $task->addFunc(function () {
      $hour = date('H');

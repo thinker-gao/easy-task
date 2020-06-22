@@ -234,7 +234,7 @@ ppid:守护进程id
 ## <h5>【八】. 进阶了解->CronTab支持 </h5>
 
 ~~~
-自2.3.6版本开始移除Crontab的支持,请通过PHP自带时间函数进行处理.
+自2.3.6版本开始移除Crontab的支持,请通过PHP自带时间函数|DateTime类进行处理.
 (1).例如只需要每天晚上20点执行,判断不是20点执行Return即可.
 $task->addFunc(function () {
     $hour = date('H');
