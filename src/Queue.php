@@ -2,7 +2,7 @@
 namespace EasyTask;
 
 /**
- * Class Queue
+ * Class Queue(纯数组队列)
  * @package EasyTask
  */
 class Queue
