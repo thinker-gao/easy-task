@@ -54,6 +54,7 @@ class Queue
 
             //write
             array_push($queue_data, $item);
+            var_dump($queue_data);
             if (!file_put_contents($this->queFile, json_encode($queue_data)))
             {
                 Helper::showError('failed to save data to queue file');
@@ -63,7 +64,7 @@ class Queue
 
     /**
      * 从队列弹出数据
-     * @return string
+     * @return string|null
      */
     public function shift()
     {
