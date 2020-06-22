@@ -195,33 +195,6 @@ abstract class Process
     }
 
     /**
-     * 通过CronTab命令执行
-     * @param array $item
-     * @throws Throwable
-     */
-    protected function invokeByCron($item)
-    {
-        $nextExecuteTime = 0;
-        while (true)
-        {
-            if (!$nextExecuteTime) $nextExecuteTime = Helper::getCronNextDate($item['time']);
-            $waitTime = (strtotime($nextExecuteTime) - time());
-            if ($waitTime <= 0)
-            {
-                $this->execute($item);
-                $nextExecuteTime = 0;
-            }
-            else
-            {
-                //Cpu休息+常驻存活检查
-                Helper::sleep(1);
-                $this->checkDaemonForExit($item);
-            }
-        }
-        exit;
-    }
-
-    /**
      * 通过Event事件执行
      * @param array $item
      */
