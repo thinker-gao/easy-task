@@ -15,6 +15,7 @@ class Queue
 
     /**
      * 队列文件
+     * @var string
      */
     private $queFile;
 
