@@ -180,11 +180,10 @@ class Task
      * @param string $alas 任务别名
      * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
-     * @param bool $async 定时器异步执行
      * @return $this
      * @throws
      */
-    public function addFunc($func, $alas, $time = 1, $used = 1, $async = false)
+    public function addFunc($func, $alas, $time = 1, $used = 1)
     {
         if (!($func instanceof Closure))
         {
@@ -201,8 +200,7 @@ class Task
             'func' => $func,
             'alas' => $alas,
             'time' => $time,
-            'used' => $used,
-            'async' => $async,
+            'used' => $used
         ];
 
         return $this;
@@ -215,11 +213,10 @@ class Task
      * @param string $alas 任务别名
      * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
-     * @param bool $async 定时器异步执行
      * @return $this
      * @throws
      */
-    public function addClass($class, $func, $alas, $time = 1, $used = 1, $async = false)
+    public function addClass($class, $func, $alas, $time = 1, $used = 1)
     {
         if (!class_exists($class))
         {
@@ -249,8 +246,7 @@ class Task
                 'alas' => $alas,
                 'time' => $time,
                 'used' => $used,
-                'class' => $class,
-                'async' => $async,
+                'class' => $class
             ];
         }
         catch (ReflectionException $exception)
@@ -267,10 +263,9 @@ class Task
      * @param string $alas 任务别名
      * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
-     * @param bool $async 定时器异步执行
      * @return $this
      */
-    public function addCommand($command, $alas, $time = 1, $used = 1, $async = false)
+    public function addCommand($command, $alas, $time = 1, $used = 1)
     {
         if (!Helper::canUseExcCommand())
         {
@@ -287,7 +282,6 @@ class Task
             'alas' => $alas,
             'time' => $time,
             'used' => $used,
-            'async' => $async,
             'command' => $command,
         ];
 
