@@ -315,7 +315,7 @@ class Helper
         $date = date('Y/m/d H:i:s', time());
 
         //组装
-        return $date . " [$type] [PID:$pid] : errStr" . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . " [PID:$pid]" . PHP_EOL;
+        return $date . " [$type] : errStr:" . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . " [PID:$pid]" . PHP_EOL;
     }
 
     /**
