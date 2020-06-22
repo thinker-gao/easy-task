@@ -156,6 +156,16 @@ class Helper
     }
 
     /**
+     * 获取操作系统目录
+     * @return string
+     */
+    public static function getOsTempPath()
+    {
+        $path = Helper::isWin() ? 'C:/Windows/Temp/' : '/tmp/';
+        return str_replace('/', DIRECTORY_SEPARATOR, $path);
+    }
+
+    /**
      * 获取运行时目录
      * @return  string
      */
@@ -164,7 +174,8 @@ class Helper
         $path = Env::get('runTimePath');
         if (!$path)
         {
-            static::showSysError('please invoke setRunTimePath function to set runPath');
+            $path = static::getOsTempPath();
+            if (!is_dir($path)) static::showSysError('please set runTimePath');
         }
         $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
         $path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
