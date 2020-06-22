@@ -348,17 +348,6 @@ class Helper
         {
             if (!static::canUseEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
         }
-        elseif (is_string($time))
-        {
-            if (!static::canUseCron())
-            {
-                static::showSysError("use CRON expression php version must be greater than 5.5");
-            }
-            if (!CronExpression::isValidExpression($time))
-            {
-                static::showSysError("$time is not a valid CRON expression");
-            }
-        }
         else
         {
             static::showSysError('time parameter is an unsupported type');
