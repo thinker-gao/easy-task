@@ -20,17 +20,18 @@ class Queue
 
     /**
      * 构造函数
+     * @param string $name
      * @throws
      */
-    public function __construct()
+    public function __construct($name = 'queue')
     {
         //创建进程锁
-        $this->lock = new Lock('queue');
+        $this->lock = new Lock($name);
 
         //创建队列文件
         $path = Helper::getQuePath();
         $file = $path . '%s.dat';
-        $this->queFile = sprintf($file, md5(__FILE__));
+        $this->queFile = sprintf($file, md5($name));
         if (!file_exists($this->queFile))
         {
             if (!file_put_contents($this->queFile, '[]', LOCK_EX))
