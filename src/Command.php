@@ -36,7 +36,7 @@ class Command
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
             {
-                Helper::showError('crate msgFile failed,please try again');
+                Helper::showError('failed to create msgFile');
             }
         }
     }
