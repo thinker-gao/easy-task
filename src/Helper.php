@@ -225,6 +225,7 @@ class Helper
             static::getRunTimePath(),
             static::getWinPath(),
             static::getLogPath(),
+            static::getQuePath(),
             static::getCsgPath(),
             static::getStdPath(),
         ];
