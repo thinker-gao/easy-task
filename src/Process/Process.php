@@ -188,10 +188,6 @@ abstract class Process
         {
             $this->invokerByDirect($item);
         }
-        elseif (is_string($item['time']))
-        {
-            $this->invokeByCron($item);
-        }
         else
         {
             Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
