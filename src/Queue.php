@@ -24,16 +24,10 @@ class Queue
      */
     public function __construct()
     {
-        $this->lock = new Lock();
-        $this->initQueFile();
-    }
+        //创建进程锁
+        $this->lock = new Lock('queue');
 
-    /**
-     * 初始化文件
-     */
-    private function initQueFile()
-    {
-        //创建文件
+        //创建队列文件
         $path = Helper::getQuePath();
         $file = $path . '%s.dat';
         $this->queFile = sprintf($file, md5(__FILE__));
