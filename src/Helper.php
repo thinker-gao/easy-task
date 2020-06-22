@@ -199,6 +199,15 @@ class Helper
     }
 
     /**
+     * 获取进程队列目录
+     * @return  string
+     */
+    public static function getQuePath()
+    {
+        return Helper::getRunTimePath() . 'Que' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * 获取标准输入输出目录
      * @return  string
      */
