@@ -92,6 +92,37 @@ class Task
     }
 
     /**
+     * 设置时区
+     * @param string $timeIdent
+     * @return $this
+     */
+    public function setTimeZone($timeIdent)
+    {
+        date_default_timezone_set($timeIdent);
+        return $this;
+    }
+
+    /**
+     * 设置运行时目录
+     * @param string $path
+     * @return $this
+     */
+    public function setRunTimePath($path)
+    {
+        if (!is_dir($path))
+        {
+            Helper::showSysError("the path {$path} is not exist");
+        }
+        if (!is_writable($path))
+        {
+            Helper::showSysError("the path {$path} is not writeable");
+        }
+        Env::set('runTimePath', realpath($path));
+        Helper::initAllPath();
+        return $this;
+    }
+
+    /**
      * 设置子进程自动恢复
      * @param bool $isRec
      * @return $this
@@ -140,37 +171,6 @@ class Task
             Helper::showSysError('notify parameter can only be string or closure');
         }
         Env::set('notifyHand', $notify);
-        return $this;
-    }
-
-    /**
-     * 设置时区
-     * @param string $timeIdent
-     * @return $this
-     */
-    public function setTimeZone($timeIdent)
-    {
-        date_default_timezone_set($timeIdent);
-        return $this;
-    }
-
-    /**
-     * 设置运行时目录
-     * @param string $path
-     * @return $this
-     */
-    public function setRunTimePath($path)
-    {
-        if (!is_dir($path))
-        {
-            Helper::showSysError("the path {$path} is not exist");
-        }
-        if (!is_writable($path))
-        {
-            Helper::showSysError("the path {$path} is not writeable");
-        }
-        Env::set('runTimePath', realpath($path));
-        Helper::initAllPath();
         return $this;
     }
 
