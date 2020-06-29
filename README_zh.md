@@ -3,9 +3,9 @@
 <br><br>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
-<img src="https://doc.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
-<img src="https://doc.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
-<img src="https://doc.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
+<img src="http://doc.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
+<img src="http://doc.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
+<img src="http://doc.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
 </a>
 </p>
 
@@ -216,13 +216,13 @@ ppid:守护进程id
 
 ## <h5>【六】. 进阶了解->框架集成教程 </h5>
 
-&ensp;&ensp;[<font size=2>-> thinkphp3.2.x教程</font>](https://doc.gaojiufeng.cn/?id=293). 
+&ensp;&ensp;[<font size=2>-> thinkphp3.2.x教程</font>](http://doc.gaojiufeng.cn/?id=293). 
 
-&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](https://doc.gaojiufeng.cn/?id=294).
+&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](http://doc.gaojiufeng.cn/?id=294).
 
-&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x教程</font>](https://doc.gaojiufeng.cn/?id=328).
+&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x教程</font>](http://doc.gaojiufeng.cn/?id=328).
 
-&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://doc.gaojiufeng.cn/?id=295).
+&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](http://doc.gaojiufeng.cn/?id=295).
 
 ## <h5>【七】. 进阶了解->推荐操作 </h5>
 
