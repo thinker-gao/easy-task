@@ -185,17 +185,17 @@ class Task
      */
     public function addFunc($func, $alas, $time = 1, $used = 1)
     {
+        $uniqueId = md5($alas);
         if (!($func instanceof Closure))
         {
             Helper::showSysError('func must instanceof Closure');
         }
-        if (isset($this->taskList[$alas]))
+        if (isset($this->taskList[$uniqueId]))
         {
             Helper::showSysError("task $alas already exists");
         }
         Helper::checkTaskTime($time);
-        $uniKey = md5($alas);
-        $this->taskList[$uniKey] = [
+        $this->taskList[$uniqueId] = [
             'type' => 1,
             'func' => $func,
             'alas' => $alas,
@@ -218,11 +218,12 @@ class Task
      */
     public function addClass($class, $func, $alas, $time = 1, $used = 1)
     {
+        $uniqueId = md5($alas);
         if (!class_exists($class))
         {
             Helper::showSysError("class {$class} is not exist");
         }
-        if (isset($this->taskList[$alas]))
+        if (isset($this->taskList[$uniqueId]))
         {
             Helper::showSysError("task $alas already exists");
         }
@@ -239,8 +240,7 @@ class Task
                 Helper::showSysError("class {$class}'s func {$func} must public");
             }
             Helper::checkTaskTime($time);
-            $uniKey = md5($alas);
-            $this->taskList[$uniKey] = [
+            $this->taskList[$uniqueId] = [
                 'type' => $method->isStatic() ? 2 : 3,
                 'func' => $func,
                 'alas' => $alas,
@@ -267,17 +267,17 @@ class Task
      */
     public function addCommand($command, $alas, $time = 1, $used = 1)
     {
+        $uniqueId = md5($alas);
         if (!Helper::canUseExcCommand())
         {
             Helper::showSysError('please open the disabled function of popen and pclose');
         }
-        if (isset($this->taskList[$alas]))
+        if (isset($this->taskList[$uniqueId]))
         {
             Helper::showSysError("task $alas already exists");
         }
         Helper::checkTaskTime($time);
-        $uniKey = md5($alas);
-        $this->taskList[$uniKey] = [
+        $this->taskList[$uniqueId] = [
             'type' => 4,
             'alas' => $alas,
             'time' => $time,
