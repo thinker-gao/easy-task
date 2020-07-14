@@ -224,12 +224,11 @@ ppid:守护进程id
 
 &ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=295).
 
-## <h5>【七】. 进阶了解->推荐操作 </h5>
+## <h5>【七】. 进阶了解->其他知识学习 </h5>
 
-~~~
-(1).推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
-(2).推荐安装php_event扩展基于事件轮询的毫秒级定时支持
-~~~
+&ensp;&ensp;[<font size=2>-> 原生PHP+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=346). 
+
+&ensp;&ensp;[<font size=2>-> EasyTask+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=347).
 
 ## <h5>【八】. 进阶了解->CronTab支持 </h5>
 
