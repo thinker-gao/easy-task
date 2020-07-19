@@ -171,6 +171,7 @@ abstract class Process
             $stdChar = ob_get_contents();
             if ($stdChar) Helper::saveStdChar($stdChar);
             ob_end_clean();
+            unset($stdChar);
         }
 
         //检查常驻进程存活
