@@ -1,11 +1,11 @@
 ﻿<p><h4>EasyTask简单易用的PHP常驻内存定时器</h4></p>
-<a href="//shang.qq.com/wpa/qunwpa?idkey=d436563ad70f4e19d4a98b3e86cfe5272fd4a628a0d7f4c6d552b0012c55b4d7">官方ＱＱ群点击一键加入</a> | <a href="./README.md">English document</a> 
+<a href="//shang.qq.com/wpa/qunwpa?idkey=fd96c45528f02f48d61b406cb63a665f93056877c33ae2e93ab25dd34a67e003&source_id=1_40001">官方ＱＱ群点击一键加入</a> | <a href="./README.md">English document</a> 
 <br><br>
 <p align="">
 <a href="" rel="noopener noreferrer" target="_blank" rel="noopener noreferrer">
-<img src="http://doc.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
-<img src="http://doc.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
-<img src="http://doc.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/stable_version.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/php_version.svg" style="max-width:100%;">
+<img src="https://www.gaojiufeng.cn/static/images/license.svg" style="max-width:100%;">
 </a>
 </p>
 
@@ -216,20 +216,19 @@ ppid:守护进程id
 
 ## <h5>【六】. 进阶了解->框架集成教程 </h5>
 
-&ensp;&ensp;[<font size=2>-> thinkphp3.2.x教程</font>](http://doc.gaojiufeng.cn/?id=293). 
+&ensp;&ensp;[<font size=2>-> thinkphp3.2.x教程</font>](https://www.gaojiufeng.cn/?id=293). 
 
-&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](http://doc.gaojiufeng.cn/?id=294).
+&ensp;&ensp;[<font size=2>-> thinkPhp5.x.x教程</font>](https://www.gaojiufeng.cn/?id=294).
 
-&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x教程</font>](http://doc.gaojiufeng.cn/?id=328).
+&ensp;&ensp;[<font size=2>-> thinkPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=328).
 
-&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](http://doc.gaojiufeng.cn/?id=295).
+&ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=295).
 
-## <h5>【七】. 进阶了解->推荐操作 </h5>
+## <h5>【七】. 进阶了解->其他知识学习 </h5>
 
-~~~
-(1).推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
-(2).推荐安装php_event扩展基于事件轮询的毫秒级定时支持
-~~~
+&ensp;&ensp;[<font size=2>-> 原生PHP+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=346). 
+
+&ensp;&ensp;[<font size=2>-> EasyTask+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=347).
 
 ## <h5>【八】. 进阶了解->CronTab支持 </h5>
 
