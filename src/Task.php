@@ -71,6 +71,10 @@ class Task
      */
     public function setPrefix($prefix = 'Task')
     {
+        if (Env::get('runTimePath'))
+        {
+            Helper::showSysError('should use setPrefix before setRunTimePath');
+        }
         Env::set('prefix', $prefix);
         return $this;
     }
