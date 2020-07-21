@@ -28,7 +28,7 @@ class Helper
      */
     public static function cli_set_process_title($title)
     {
-        if (function_exists('cli_set_process_title'))
+        if (function_exists('cli_set_process_title') && !static::isMac())
         {
             @cli_set_process_title($title);
         }
@@ -117,6 +117,15 @@ class Helper
     public static function isWin()
     {
         return (DIRECTORY_SEPARATOR == '\\') ? true : false;
+    }
+
+    /**
+     * 是否Mac平台
+     * @return bool
+     */
+    public static function isMac()
+    {
+        return PHP_EOL === "\r";
     }
 
     /**
