@@ -28,10 +28,12 @@ class Helper
      */
     public static function cli_set_process_title($title)
     {
-        if (function_exists('cli_set_process_title') && !static::isMac())
+        set_error_handler(function () {});
+        if (function_exists('cli_set_process_title'))
         {
-            @cli_set_process_title($title);
+            cli_set_process_title($title);
         }
+        restore_error_handler();
     }
 
     /**
