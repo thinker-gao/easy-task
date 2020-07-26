@@ -248,7 +248,9 @@ $task->addFunc(function () {
 
 ## <h5>【Nine】. Special thanks to </h5>
 ~~~
-(1). ThinkPHP (command line output component is based on Tp_Table component), official address: http://www.thinkphp.cn/
+(1) ThinkPHP (the official extension page shows EasyTask), official address: http://www.thinkphp.cn/
+(2) ThinkPHP (command line output component based on Tp_Table component), official address: http://www.thinkphp.cn/
+(3) Jetbrains (provide genuine authorization code, support genuine), official address: https://www.jetbrains.com/phpstorm/
 ~~~
 ## <h5>【Ten】. Bug feedback</h5>
 ~~~

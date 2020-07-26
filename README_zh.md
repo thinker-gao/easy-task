@@ -248,7 +248,9 @@ $task->addFunc(function () {
 
 ## <h5>【九】. 特别感谢 </h5>
 ~~~
-(1).ThinkPHP(命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
+(1).ThinkPHP(官方扩展页展示EasyTask),官方地址:http://www.thinkphp.cn/
+(2).ThinkPHP(命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
+(3).Jetbrains(提供正版授权码,支持正版),官方地址:https://www.jetbrains.com/phpstorm/
 ~~~
 ## <h5>【十】. Bug反馈 </h5>
 ~~~
