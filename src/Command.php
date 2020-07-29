@@ -1,6 +1,8 @@
 <?php
 namespace EasyTask;
 
+use \Closure as Closure;
+
 /**
  * Class Command
  * @package EasyTask
@@ -28,20 +30,20 @@ class Command
     {
         //创建文件
         $path = Helper::getCsgPath();
-        $file = $path . '%s.txt';
+        $file = $path . '%s.csg';
         $this->msgFile = sprintf($file, md5(__FILE__));
         if (!file_exists($this->msgFile))
         {
             if (!file_put_contents($this->msgFile, '[]', LOCK_EX))
             {
-                Helper::showError('crate msgFile failed,please try again');
+                Helper::showError('failed to create msgFile');
             }
         }
     }
 
     /**
      * 获取数据
-     * @return array|mixed
+     * @return array
      * @throws
      */
     public function get()
@@ -57,7 +59,7 @@ class Command
 
     /**
      * 重置数据
-     * @param $data
+     * @param array $data
      */
     public function set($data)
     {
@@ -66,7 +68,7 @@ class Command
 
     /**
      * 投递数据
-     * @param $command
+     * @param array $command
      */
     public function push($command)
     {
@@ -77,7 +79,7 @@ class Command
 
     /**
      * 发送命令
-     * @param $command
+     * @param array $command
      */
     public function send($command)
     {
@@ -108,7 +110,7 @@ class Command
     /**
      * 根据命令执行对应操作
      * @param int $msgType 消息类型
-     * @param \Closure $func 执行函数
+     * @param Closure $func 执行函数
      * @param int $time 等待方时间戳
      */
     public function waitCommandForExecute($msgType, $func, $time)

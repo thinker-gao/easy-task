@@ -44,8 +44,7 @@ class Wts
     public function joinProcess($name)
     {
         $this->processNames[] = $name;
-        $runPath = Helper::getWinPath();
-        $file = $runPath . md5($name);
+        $file = $this->getProcessFile($name);
         if (!file_exists($file))
         {
             file_put_contents($file, $name);
@@ -60,7 +59,7 @@ class Wts
     public function getProcessFile($name)
     {
         $runPath = Helper::getWinPath();
-        return $runPath . md5($name);
+        return $runPath . md5($name) . '.win';
     }
 
     /**
@@ -70,13 +69,13 @@ class Wts
     public function getProcessInfoFile()
     {
         $runPath = Helper::getWinPath();
-        $infoFile = md5(__FILE__);
+        $infoFile = md5(__FILE__) . '.win';
         return $runPath . $infoFile;
     }
 
     /**
      * 获取进程状态
-     * @param string $name 进行名称
+     * @param string $name 进程名称
      * @return bool
      */
     public function getProcessStatus($name)
@@ -95,7 +94,7 @@ class Wts
     }
 
     /**
-     * 获取进程信息no_lock
+     * 获取进程信息(非阻塞)
      * @return array
      */
     public function getProcessInfo()

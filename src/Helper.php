@@ -1,7 +1,6 @@
 <?php
 namespace EasyTask;
 
-use EasyTask\Cron\CronExpression;
 use EasyTask\Exception\ErrorException;
 use \Exception as Exception;
 use \Throwable as Throwable;
@@ -25,14 +24,24 @@ class Helper
 
     /**
      * 设置进程标题
-     * @param $title
+     * @param string $title
      */
     public static function cli_set_process_title($title)
     {
+        set_error_handler(function () {});
         if (function_exists('cli_set_process_title'))
         {
-            @cli_set_process_title($title);
+            cli_set_process_title($title);
         }
+        restore_error_handler();
+    }
+
+    /**
+     * 设置掩码
+     */
+    public static function setMask()
+    {
+        umask(0);
     }
 
     /**
@@ -41,36 +50,17 @@ class Helper
      */
     public static function setCodePage($code = 65001)
     {
-        if (static::canExecuteCommand())
+        $ds = DIRECTORY_SEPARATOR;
+        $codePageBinary = "C:{$ds}Windows{$ds}System32{$ds}chcp.com";
+        if (file_exists($codePageBinary) && static::canUseExcCommand())
         {
-            @pclose(@popen("chcp {$code}", 'r'));
+            @pclose(@popen("{$codePageBinary} {$code}", 'r'));
         }
-    }
-
-    /**
-     * 二维数组转字典
-     * @param array $list
-     * @param string $key
-     * @return array
-     */
-    public static function array_dict($list, $key)
-    {
-        $dict = [];
-        foreach ($list as $v)
-        {
-            if (!isset($v[$key]))
-            {
-                continue;
-            }
-            $dict[$v[$key]] = $v;
-        }
-
-        return $dict;
     }
 
     /**
      * 获取命令行输入
-     * @param $type
+     * @param int $type
      * @return string|array
      */
     public static function getCliInput($type = 1)
@@ -114,7 +104,7 @@ class Helper
 
     /**
      * 设置PHP二进制文件
-     * @param $path
+     * @param string $path
      */
     public static function setPhpPath($path = '')
     {
@@ -132,10 +122,46 @@ class Helper
     }
 
     /**
+     * 是否Mac平台
+     * @return bool
+     */
+    public static function isMac()
+    {
+        return PHP_EOL === "\r";
+    }
+
+    /**
+     * 开启异步信号
+     * @return bool
+     */
+    public static function openAsyncSignal()
+    {
+        return pcntl_async_signals(true);
+    }
+
+    /**
+     * 是否支持异步信号
+     * @return bool
+     */
+    public static function canUseAsyncSignal()
+    {
+        return (function_exists('pcntl_async_signals'));
+    }
+
+    /**
+     * 是否支持event事件
+     * @return bool
+     */
+    public static function canUseEvent()
+    {
+        return (extension_loaded('event'));
+    }
+
+    /**
      * 是否可执行命令
      * @return bool
      */
-    public static function canExecuteCommand()
+    public static function canUseExcCommand()
     {
         return function_exists('popen') && function_exists('pclose');
     }
@@ -149,7 +175,7 @@ class Helper
         $path = Env::get('runTimePath');
         if (!$path)
         {
-            static::showSysError('please invoke setRunTimePath function to set runPath');
+            static::showSysError('please set runTimePath');
         }
         $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
         $path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
@@ -184,6 +210,24 @@ class Helper
     }
 
     /**
+     * 获取进程队列目录
+     * @return  string
+     */
+    public static function getQuePath()
+    {
+        return Helper::getRunTimePath() . 'Que' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * 获取进程锁目录
+     * @return  string
+     */
+    public static function getLokPath()
+    {
+        return Helper::getRunTimePath() . 'Lok' . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * 获取标准输入输出目录
      * @return  string
      */
@@ -201,6 +245,8 @@ class Helper
             static::getRunTimePath(),
             static::getWinPath(),
             static::getLogPath(),
+            static::getLokPath(),
+            static::getQuePath(),
             static::getCsgPath(),
             static::getStdPath(),
         ];
@@ -214,38 +260,15 @@ class Helper
     }
 
     /**
-     * 关闭标准Std
-     */
-    public static function setStdClose()
-    {
-        global $STDOUT, $STDERR;
-        $path = static::getStdPath();
-        $file = $path . date('Y_m_d') . '.txt';
-        $handle = fopen($file, "a");
-        if ($handle)
-        {
-            unset($handle);
-            @fclose(STDOUT);
-            @fclose(STDERR);
-            $STDOUT = fopen($file, "a");
-            $STDERR = fopen($file, "a");
-        }
-        else
-        {
-            static::showError("std file {$file} can not open");
-        }
-    }
-
-    /**
      * 保存标准输入|输出
      * @param string $char 输入|输出
      */
     public static function saveStdChar($char)
     {
         $path = static::getStdPath();
-        $file = $path . date('Y_m_d') . '.txt';
+        $file = $path . date('Y_m_d') . '.std';
         $char = static::convert_char($char);
-        file_put_contents($file, $char . PHP_EOL, FILE_APPEND);
+        file_put_contents($file, $char, FILE_APPEND);
     }
 
     /**
@@ -256,7 +279,7 @@ class Helper
     {
         //日志文件
         $path = Helper::getLogPath();
-        $file = $path . date('Y_m_d') . '.txt';
+        $file = $path . date('Y_m_d') . '.log';
 
         //加锁保存
         $message = static::convert_char($message);
@@ -265,7 +288,7 @@ class Helper
 
     /**
      * 保存类型日志
-     * @param $message
+     * @param string $message
      * @param string $type
      * @param bool $isExit
      */
@@ -280,33 +303,6 @@ class Helper
     }
 
     /**
-     * 是否支持异步信号
-     * @return bool
-     */
-    public static function canAsyncSignal()
-    {
-        return (function_exists('pcntl_async_signals'));
-    }
-
-    /**
-     * 开启异步信号
-     * @return bool
-     */
-    public static function openAsyncSignal()
-    {
-        return pcntl_async_signals(true);
-    }
-
-    /**
-     * 是否支持event事件
-     * @return bool
-     */
-    public static function canEvent()
-    {
-        return (extension_loaded('event'));
-    }
-
-    /**
      * 编码转换
      * @param string $char
      * @param string $coding
@@ -314,19 +310,13 @@ class Helper
      */
     public static function convert_char($char, $coding = 'UTF-8')
     {
-        $encode_arr = [
-            'UTF-8',
-            'ASCII',
-            'GBK',
-            'GB2312',
-            'BIG5',
-            'JIS',
-            'eucjp-win',
-            'sjis-win',
-            'EUC-JP'
-        ];
+        $encode_arr = ['UTF-8', 'ASCII', 'GBK', 'GB2312', 'BIG5', 'JIS', 'eucjp-win', 'sjis-win', 'EUC-JP'];
         $encoded = mb_detect_encoding($char, $encode_arr);
-        return mb_convert_encoding($char, $coding, $encoded);
+        if ($encoded)
+        {
+            $char = mb_convert_encoding($char, $coding, $encoded);
+        }
+        return $char;
     }
 
     /**
@@ -337,11 +327,12 @@ class Helper
      */
     public static function formatException($exception, $type = 'exception')
     {
-        //时间
+        //参数
+        $pid = getmypid();
         $date = date('Y/m/d H:i:s', time());
 
-        //组装文本
-        return $date . ' [' . $type . '] : errStr:' . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . PHP_EOL;
+        //组装
+        return $date . " [$type] : errStr:" . $exception->getMessage() . ',errFile:' . $exception->getFile() . ',errLine:' . $exception->getLine() . " (pid:$pid)" . PHP_EOL;
     }
 
     /**
@@ -352,16 +343,17 @@ class Helper
      */
     public static function formatMessage($message, $type = 'error')
     {
-        //时间
+        //参数
+        $pid = getmypid();
         $date = date('Y/m/d H:i:s', time());
 
-        //组装文本
-        return $date . ' [' . $type . '] : ' . $message . PHP_EOL;
+        //组装
+        return $date . " [$type] : " . $message . " (pid:$pid)" . PHP_EOL;
     }
 
     /**
      * 检查任务时间是否合法
-     * @param $time
+     * @param mixed $time
      */
     public static function checkTaskTime($time)
     {
@@ -371,41 +363,12 @@ class Helper
         }
         elseif (is_float($time))
         {
-            if (!static::canEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
-        }
-        elseif (is_string($time))
-        {
-            if (!CronExpression::isValidExpression($time))
-            {
-                static::showSysError("$time is not a valid CRON expression");
-            }
+            if (!static::canUseEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
         }
         else
         {
             static::showSysError('time parameter is an unsupported type');
         }
-    }
-
-    /**
-     * 获取Cron命令的下次执行时间
-     * @param string $command cron命令
-     * @param string $currentTime cron命令
-     * @return string
-     */
-    public static function getCronNextDate($command, $currentTime = 'now')
-    {
-        static $cronExpression = null;
-        $nextDate = null;
-        if (!$cronExpression) $cronExpression = CronExpression::factory($command);
-        try
-        {
-            $nextDate = $cronExpression->getNextRunDate($currentTime)->format('Y-m-d H:i:s');
-        }
-        catch (Exception $exception)
-        {
-            Helper::showSysError($exception->getMessage());
-        }
-        return $nextDate;
     }
 
     /**

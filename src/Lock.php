@@ -1,6 +1,8 @@
 <?php
 namespace EasyTask;
 
+use \Closure as Closure;
+
 /**
  * Class Lock
  * @package EasyTask
@@ -15,12 +17,13 @@ class Lock
 
     /**
      * 构造函数
+     * @param string $name
      */
-    public function __construct()
+    public function __construct($name = 'lock')
     {
         //初始化文件
-        $runPath = Helper::getRunTimePath();
-        $this->file = $runPath . 'lock';
+        $path = Helper::getLokPath();
+        $this->file = $path . md5($name);
         if (!file_exists($this->file))
         {
             @file_put_contents($this->file, '');
@@ -29,8 +32,8 @@ class Lock
 
     /**
      * 加锁执行
-     * @param $func
-     * @param $block
+     * @param Closure $func
+     * @param bool $block
      * @return mixed
      */
     public function execute($func, $block = true)

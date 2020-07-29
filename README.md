@@ -10,7 +10,7 @@
 </p>
 
 ## <h4 style="text-align:left">  Project Introduction </h4>
-<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask is a PHP resident memory timer Composer package, positioning is consistent with Javascript's setInterval timer effect, you can use it to complete tasks that need to be repeated (such as automatic cancellation of order timeout, asynchronous push of SMS mail, queue / consumer / channel Subscribers, etc.), and even handle Crontab scheduled tasks (such as synchronizing DB data from 1 am to 3 am every day, generating monthly unified reports on the 1st of every month, restarting the nginx server at 10 pm every night, etc.); built-in task abnormal reporting function, You can customize the handling of abnormal errors (such as automatic SMS notification of abnormal errors); it also supports automatic restart of abnormal task exits to make your task run more stable, and the toolkit supports the operation of windows, linux, and mac environments.
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask is a PHP resident memory timer Composer package, Same effect as Workerman timer, Multiple timers are running in multiple processes at the same time ,you can use it to complete tasks that need to be repeated (such as automatic cancellation of order timeout, asynchronous push of SMS mail, queue / consumer / channel Subscribers, etc.), and even handle Crontab scheduled tasks (such as synchronizing DB data from 1 am to 3 am every day, generating monthly unified reports on the 1st of every month, restarting the nginx server at 10 pm every night, etc.); built-in task abnormal reporting function, You can customize the handling of abnormal errors (such as automatic SMS notification of abnormal errors); it also supports automatic restart of abnormal task exits to make your task run more stable, and the toolkit supports the operation of windows, linux, and mac environments.
 </p>
 
 ## <h4>   Operating environment </h4>
@@ -62,9 +62,6 @@ $task->addFunc(function () {
     }
 }, 'request', 0, 1);
 
-// visit the website through the curl command at 9:30 every night
-$task->addCommand('curl https://www.gaojiufeng.cn', 'curl', '30 21 * * *', 1);
-
 // start task
 $task->start();
 ~~~
@@ -93,6 +90,11 @@ $task->setDaemon(false)
  * set the logging runtime directory (log or cache directory)
  */
 ->setRunTimePath('./Application/Runtime/')
+
+/**
+ * set to turn off standard output STD file recording
+ */
+->setCloseStdOutLog(true);
 
 /**
  * Close EasyTask's exception registration
@@ -203,10 +205,12 @@ ppid:daemon id
 (2). It is forbidden to use exit / die syntax in the task, otherwise it will cause the entire process to exit
 (3). Please close anti-virus software when installing Wpc extension in Windows to avoid false alarms
 (4). Windows recommends to open popen, pclose method, it will automatically try to help you solve the problem of CMD output Chinese garbled, please try to use CMD administrator mode
-(5). Windows prompt com () has been disabled for security reasons, please delete disable_classes = com configuration item in php.ini
-(6). The log file is in the Log directory of the runtime directory, and the input and output abnormal files are marked in the Std directory of the runtime directory
-(7). Normally stop the task, the task will start to exit safely after the execution is successful, force stop the task to exit the task directly, and may quit when it is being executed
-(8). The development follows the synchronous start test and normal operation without any errors before setting the asynchronous operation. If there is a problem, check the log file or the standard input and output abnormal file, or feedback on the QQ group
+(5). Windows command line does not support utf8 international standard encoding, you can switch git_bash to run, solve the garbled problem
+(6). Windows prompts Failed to create COM object `Wpc.Core ': invalid syntax, please follow the documentation to install the Wpc extension
+(7). Windows prompt com () has been disabled for security reasons, please delete disable_classes = com configuration item in php.ini
+(8). The log file is in the Log directory of the runtime directory, and the input and output abnormal files are marked in the Std directory of the runtime directory
+(9). Normally stop the task, the task will start to exit safely after the execution is successful, force the task to quit the task directly, and may quit when it is being executed
+(10). The development follows the synchronous start test, normal operation without any errors, and then the asynchronous operation. If there is a problem, check the log file or the standard input and output abnormal file, or feedback on the QQ group.
 ~~~
 
 ## <h5>【Six】. Advanced Understanding-> Framework Integration Tutorial </h5>
@@ -229,27 +233,24 @@ ppid:daemon id
 ## <h5>【Eight】. Advanced understanding-> time parameters support crontab command </h5>
 
 ~~~
-(1).Special expressions:
-     @yearly      runs once a year is equivalent to (0 0 1 1 *)
-     @annually    runs once a year and is equivalent to (0 0 1 1 *)
-     @monthly     runs once a month is equivalent to (0 0 1 * *)
-     @weekly      runs once a week is equivalent to (0 0 * * 0)
-     @daily       runs once a day is equivalent to (0 0 * * *)
-     @hourly      runs once every hour is equivalent to (0 * * * *)
-(2).Standard expression:
-     '30 21 * * * '      is executed once every night at 21:30
-     '0 23 * * 6'        is executed once every Saturday at 23:00
-     '3,15 * * * *'      every 3rd and 15th minute of the hour
-     '45 4 1,10,22 * * ' is executed at 04:45 on 1/10/22 of every month
-     '3,15 8-11 * * *'   is executed once every day in the 3rd and 15th minutes from 8am to 11am
-     Please test other instructions yourself
-     Use example / build_cron_date.php to generate a list of execution times to check whether your commands are as expected
+Since the 2.3.6 version to reduce maintenance work, Crontab support has been removed, please use PHP's own time functionDateTime class for processing.
+For example, it only needs to be executed at 20 o'clock every night, and it is not necessary to execute Return at 20 o'clock.
+$task->addFunc(function () {
+     $hour = date('H');
+     if ($hour != 20)
+     {
+         return;
+     }
+    
+     //Write your code
+},'request', 1, 1);
 ~~~
 
 ## <h5>【Nine】. Special thanks to </h5>
 ~~~
-(1). ThinkPHP (command line output component is based on Tp_Table component), official address: http://www.thinkphp.cn/
-(2). Cron-expression (Crontab command parsing and version compatibility is based on Cron-expression), official address: https://github.com/dragonmantank/cron-expression
+(1) ThinkPHP (the official extension page shows EasyTask), official address: http://www.thinkphp.cn/
+(2) ThinkPHP (command line output component based on Tp_Table component), official address: http://www.thinkphp.cn/
+(3) Jetbrains (provide genuine authorization code, support genuine), official address: https://www.jetbrains.com/phpstorm/
 ~~~
 ## <h5>【Ten】. Bug feedback</h5>
 ~~~

@@ -39,9 +39,9 @@ class Task
     {
         //初始化基础配置
         Env::set('prefix', 'Task');
-        Env::set('canEvent', Helper::canEvent());
+        Env::set('canEvent', Helper::canUseEvent());
         Env::set('currentOs', $currentOs);
-        Env::set('canAsync', Helper::canAsyncSignal());
+        Env::set('canAsync', Helper::canUseAsyncSignal());
         Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
 
@@ -71,6 +71,10 @@ class Task
      */
     public function setPrefix($prefix = 'Task')
     {
+        if (Env::get('runTimePath'))
+        {
+            Helper::showSysError('should use setPrefix before setRunTimePath');
+        }
         Env::set('prefix', $prefix);
         return $this;
     }
@@ -92,6 +96,37 @@ class Task
     }
 
     /**
+     * 设置时区
+     * @param string $timeIdent
+     * @return $this
+     */
+    public function setTimeZone($timeIdent)
+    {
+        date_default_timezone_set($timeIdent);
+        return $this;
+    }
+
+    /**
+     * 设置运行时目录
+     * @param string $path
+     * @return $this
+     */
+    public function setRunTimePath($path)
+    {
+        if (!is_dir($path))
+        {
+            Helper::showSysError("the path {$path} is not exist");
+        }
+        if (!is_writable($path))
+        {
+            Helper::showSysError("the path {$path} is not writeable");
+        }
+        Env::set('runTimePath', realpath($path));
+        Helper::initAllPath();
+        return $this;
+    }
+
+    /**
      * 设置子进程自动恢复
      * @param bool $isRec
      * @return $this
@@ -99,6 +134,17 @@ class Task
     public function setAutoRecover($isRec = true)
     {
         Env::set('canAutoRec', $isRec);
+        return $this;
+    }
+
+    /**
+     * 设置关闭标准输出的日志
+     * @param bool $close
+     * @return $this
+     */
+    public function setCloseStdOutLog($close = false)
+    {
+        Env::set('closeStdOutLog', $close);
         return $this;
     }
 
@@ -133,59 +179,32 @@ class Task
     }
 
     /**
-     * 设置时区
-     * @param string $timeIdent
-     * @return $this
-     */
-    public function setTimeZone($timeIdent)
-    {
-        date_default_timezone_set($timeIdent);
-        return $this;
-    }
-
-    /**
-     * 设置运行时目录
-     * @param string $path
-     * @return $this
-     */
-    public function setRunTimePath($path)
-    {
-        if (!is_dir($path))
-        {
-            Helper::showSysError("the path {$path} is not exist");
-        }
-        if (!is_writable($path))
-        {
-            Helper::showSysError("the path {$path} is not writeable");
-        }
-        Env::set('runTimePath', $path);
-        Helper::initAllPath();
-        return $this;
-    }
-
-    /**
      * 新增匿名函数作为任务
      * @param Closure $func 匿名函数
      * @param string $alas 任务别名
-     * @param int|float|string $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      * @throws
      */
     public function addFunc($func, $alas, $time = 1, $used = 1)
     {
+        $uniqueId = md5($alas);
         if (!($func instanceof Closure))
         {
             Helper::showSysError('func must instanceof Closure');
         }
+        if (isset($this->taskList[$uniqueId]))
+        {
+            Helper::showSysError("task $alas already exists");
+        }
         Helper::checkTaskTime($time);
-        $uniKey = md5($alas);
-        $this->taskList[$uniKey] = [
+        $this->taskList[$uniqueId] = [
             'type' => 1,
             'func' => $func,
             'alas' => $alas,
             'time' => $time,
-            'used' => $used,
+            'used' => $used
         ];
 
         return $this;
@@ -196,16 +215,21 @@ class Task
      * @param string $class 类名称
      * @param string $func 方法名称
      * @param string $alas 任务别名
-     * @param int|float|string $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      * @throws
      */
     public function addClass($class, $func, $alas, $time = 1, $used = 1)
     {
+        $uniqueId = md5($alas);
         if (!class_exists($class))
         {
             Helper::showSysError("class {$class} is not exist");
+        }
+        if (isset($this->taskList[$uniqueId]))
+        {
+            Helper::showSysError("task $alas already exists");
         }
         try
         {
@@ -220,14 +244,13 @@ class Task
                 Helper::showSysError("class {$class}'s func {$func} must public");
             }
             Helper::checkTaskTime($time);
-            $uniKey = md5($alas);
-            $this->taskList[$uniKey] = [
+            $this->taskList[$uniqueId] = [
                 'type' => $method->isStatic() ? 2 : 3,
                 'func' => $func,
                 'alas' => $alas,
                 'time' => $time,
                 'used' => $used,
-                'class' => $class,
+                'class' => $class
             ];
         }
         catch (ReflectionException $exception)
@@ -242,19 +265,23 @@ class Task
      * 新增指令作为任务
      * @param string $command 指令
      * @param string $alas 任务别名
-     * @param int|float|string $time 定时器间隔
+     * @param mixed $time 定时器间隔
      * @param int $used 定时器占用进程数
      * @return $this
      */
     public function addCommand($command, $alas, $time = 1, $used = 1)
     {
-        if (!Helper::canExecuteCommand())
+        $uniqueId = md5($alas);
+        if (!Helper::canUseExcCommand())
         {
             Helper::showSysError('please open the disabled function of popen and pclose');
         }
+        if (isset($this->taskList[$uniqueId]))
+        {
+            Helper::showSysError("task $alas already exists");
+        }
         Helper::checkTaskTime($time);
-        $uniKey = md5($alas);
-        $this->taskList[$uniKey] = [
+        $this->taskList[$uniqueId] = [
             'type' => 4,
             'alas' => $alas,
             'time' => $time,

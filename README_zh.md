@@ -10,7 +10,7 @@
 </p>
 
 ## <h4 style="text-align:left">  项目介绍 </h4>
-<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask是PHP常驻内存定时器Composer包，定位与Javascript的setInterval定时器效果一致，您可以用它来完成需要重复运行的任务(如订单超时自动取消,短信邮件异步推送,队列/消费者/频道订阅者等等)，甚至处理Crontab计划任务(如每天凌晨1点-3点同步DB数据,每月1号生成月度统一报表,每晚10点重启nginx服务器等等)；内置任务异常上报功能，异常错误您都可以自定义处理(例如实现异常错误自动短信邮件通知)；还支持任务异常退出自动重启功能，让您的任务运行更稳定 ，工具包同时支持windows、linux、mac环境运行。
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;EasyTask,PHP常驻内存定时器Composer包，与Workerman定时器效果完全一致，多个定时器是同时在多个进程中运行的，您可以用它来完成需要重复运行的任务(如订单超时自动取消,短信邮件异步推送,队列/消费者/频道订阅者等等)，甚至处理Crontab计划任务(如每天凌晨1点-3点同步DB数据,每月1号生成月度统一报表,每晚10点重启nginx服务器等等)；内置任务异常上报功能，异常错误您都可以自定义处理(例如实现异常错误自动短信邮件通知)；还支持任务异常退出自动重启功能，让您的任务运行更稳定 ，工具包同时支持windows、linux、mac环境运行。
 </p>
 
 ## <h4>   运行环境 </h4>
@@ -29,7 +29,7 @@
 ## <h5>【一】. 快速入门->创建任务 </h5>
 
 ~~~
-//初始化
+// 初始化
 $task = new Task();
 
 // 设置非常驻内存
@@ -62,9 +62,6 @@ $task->addFunc(function () {
     }
 }, 'request', 0, 1);
 
-// 5.每晚9点半通过curl命令访问网站
-$task->addCommand('curl https://www.gaojiufeng.cn', 'curl', '30 21 * * *', 1);
-
 // 启动任务
 $task->start();
 ~~~
@@ -72,6 +69,7 @@ $task->start();
 ## <h5>【二】. 快速入门->连贯操作 </h5>
 
 ~~~
+// 初始化
 $task = new Task();
 
 // 设置常驻内存
@@ -93,6 +91,11 @@ $task->setDaemon(true)
  * 设置运行时目录(日志或缓存目录)
  */
 ->setRunTimePath('./Application/Runtime/')
+
+/**
+ * 设置关闭标准输出的STD文件记录
+ */
+->setCloseStdOutLog(true);
 
 /**
  * 关闭EasyTask的异常注册
@@ -203,10 +206,12 @@ ppid:守护进程id
 (2). 禁止在任务中使用exit/die语法,否则导致整个进程退出
 (3). Windows安装Wpc扩展时请关闭杀毒软件,避免误报
 (4). Windows建议开启popen,pclose方法,会自动尝试帮您解决CMD输出中文乱码问题,请尽量使用CMD管理员方式运行
-(5). Windows提示com() has been disabled for security reasons,请在php.ini中删除disable_classes = com配置项目
-(6). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
-(7). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
-(8). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
+(5). Windows命令行不支持utf8国际标准编码，可切换git_bash来运行,解决乱码问题
+(6). Windows提示Failed to create COM object `Wpc.Core': 无效的语法,请按照文档安装Wpc扩展
+(7). Windows提示com() has been disabled for security reasons,请在php.ini中删除disable_classes = com配置项目
+(8). 日志文件在运行时目录的Log目录下,标出输入输出异常文件在运行时目录Std目录下
+(9). 普通停止任务,任务会在执行成功后开始安全退出,强制停止任务直接退出任务,可能正在执行就强制退出
+(10). 开发遵守先同步启动测试正常运行无任何报错再设置异步运行,有问题查看日志文件或者标准输入输出异常文件,或者上QQ群反馈
 ~~~
 
 ## <h5>【六】. 进阶了解->框架集成教程 </h5>
@@ -219,37 +224,33 @@ ppid:守护进程id
 
 &ensp;&ensp;[<font size=2>-> laravelPhp6.x.x教程</font>](https://www.gaojiufeng.cn/?id=295).
 
-## <h5>【七】. 进阶了解->推荐操作 </h5>
+## <h5>【七】. 进阶了解->其他知识学习 </h5>
+
+&ensp;&ensp;[<font size=2>-> 原生PHP+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=346). 
+
+&ensp;&ensp;[<font size=2>-> EasyTask+Redis队列学习教程</font>](https://www.gaojiufeng.cn/?id=347).
+
+## <h5>【八】. 进阶了解->CronTab支持 </h5>
 
 ~~~
-(1).推荐使用7.1以上版本的PHP,支持异步信号,不依赖ticks
-(2).推荐安装php_event扩展基于事件轮询的毫秒级定时支持
-~~~
-
-## <h5>【八】. 进阶了解->时间参数支持crontab命令 </h5>
-
-~~~
- (1).特殊表达式:
-    @yearly                    每年运行一次 等同于(0 0 1 1 *) 
-    @annually                  每年运行一次 等同于(0 0 1 1 *)
-    @monthly                   每月运行一次 等同于(0 0 1 * *) 
-    @weekly                    每周运行一次 等同于(0 0 * * 0) 
-    @daily                     每日运行一次 等同于(0 0 * * *) 
-    @hourly                    每小时运行一次 等同于(0 * * * *)
- (2).标准表达式:
-    '30 21 * * *'              每天晚上21:30执行一次
-    '0 23 * * 6'               每周星期六的晚上23:00执行一次
-    '3,15 * * * *'             每小时的第3分钟和第15分钟执行一次
-    '45 4 1,10,22 * *'         每月的1/10/22日的04:45执行一次
-    '3,15 8-11 * * *'          每天上午8点到11点的第3分钟和第15分钟执行一次
-    其他指令请自己测试
-   使用example/build_cron_date.php生成执行时间列表来检查自己的命令是否符合预期
+自2.3.6版本为减少维护工作开始移除Crontab的支持,请通过PHP自带时间函数|DateTime类进行处理.
+例如只需要每天晚上20点执行,判断不是20点执行Return即可.
+$task->addFunc(function () {
+    $hour = date('H');
+    if ($hour != 20)
+    {
+        return;
+    }
+    
+    //Write your code
+}, 'request', 1, 1);
 ~~~
 
 ## <h5>【九】. 特别感谢 </h5>
 ~~~
-(1).ThinkPHP(命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
-(2).Cron-expression(Crontab命令解析和版本兼容基于Cron-expression),官方地址:https://github.com/dragonmantank/cron-expression
+(1).ThinkPHP(官方扩展页展示EasyTask),官方地址:http://www.thinkphp.cn/
+(2).ThinkPHP(命令行输出组件基于Tp_Table组件),官方地址:http://www.thinkphp.cn/
+(3).Jetbrains(提供正版授权码,支持正版),官方地址:https://www.jetbrains.com/phpstorm/
 ~~~
 ## <h5>【十】. Bug反馈 </h5>
 ~~~

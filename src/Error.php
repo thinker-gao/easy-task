@@ -72,8 +72,8 @@ class Error
 
     /**
      * Report
-     * @param $type
-     * @param $exception
+     * @param string $type
+     * @param ErrorException $exception
      */
     public static function report($type, $exception)
     {

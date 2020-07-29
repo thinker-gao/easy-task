@@ -15,12 +15,14 @@ class Check
         //Win
         '1' => [
             'json',
+            'curl',
             'com_dotnet',
             'mbstring',
         ],
         //Linux
         '2' => [
             'json',
+            'curl',
             'pcntl',
             'posix',
             'mbstring',
@@ -37,6 +39,9 @@ class Check
             'umask',
             'sleep',
             'usleep',
+            'ob_start',
+            'ob_end_clean',
+            'ob_get_contents',
         ],
         //Linux
         '2' => [
@@ -44,6 +49,9 @@ class Check
             'chdir',
             'sleep',
             'usleep',
+            'ob_start',
+            'ob_end_clean',
+            'ob_get_contents',
             'pcntl_fork',
             'posix_setsid',
             'posix_getpid',
