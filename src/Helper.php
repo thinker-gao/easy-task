@@ -28,7 +28,8 @@ class Helper
      */
     public static function cli_set_process_title($title)
     {
-        set_error_handler(function () {});
+        set_error_handler(function () {
+        });
         if (function_exists('cli_set_process_title'))
         {
             cli_set_process_title($title);
@@ -89,26 +90,12 @@ class Helper
     }
 
     /**
-     * 获取PHP二进制文件
-     * @return string
-     */
-    public static function getPhpPath()
-    {
-        $file = dirname(php_ini_loaded_file()) . DIRECTORY_SEPARATOR . 'php';
-        if (Helper::isWin())
-        {
-            $file .= '.exe';
-        }
-        return file_exists($file) ? $file : '';
-    }
-
-    /**
      * 设置PHP二进制文件
      * @param string $path
      */
     public static function setPhpPath($path = '')
     {
-        if (!$path) $path = static::getPhpPath();
+        if (!$path) $path = PHP_BINARY;
         Env::set('phpPath', $path);
     }
 
