@@ -42,7 +42,6 @@ class Task
         Env::set('canEvent', Helper::canUseEvent());
         Env::set('currentOs', $currentOs);
         Env::set('canAsync', Helper::canUseAsyncSignal());
-        Env::set('canAutoRec', true);
         Env::set('closeErrorRegister', false);
 
         //初始化PHP_BIN|CODE_PAGE
@@ -131,7 +130,7 @@ class Task
      * @param bool $isRec
      * @return $this
      */
-    public function setAutoRecover($isRec = true)
+    public function setAutoRecover($isRec = false)
     {
         Env::set('canAutoRec', $isRec);
         return $this;
