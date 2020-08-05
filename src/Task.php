@@ -121,7 +121,6 @@ class Task
             Helper::showSysError("the path {$path} is not writeable");
         }
         Env::set('runTimePath', realpath($path));
-        Helper::initAllPath();
         return $this;
     }
 
@@ -325,6 +324,9 @@ class Task
         {
             Error::register();
         }
+
+        //目录构建
+        Helper::initAllPath();
 
         //进程启动
         $process = $this->getProcess();
