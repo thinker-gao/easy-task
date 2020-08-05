@@ -103,7 +103,7 @@ class Win extends Process
     }
 
     /**
-     * 根据进程名称执行任务
+     * 跟进进程名称执行任务
      * @param string $name
      * @throws Exception|Throwable
      */

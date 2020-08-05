@@ -109,15 +109,6 @@ class Helper
     }
 
     /**
-     * 是否Mac平台
-     * @return bool
-     */
-    public static function isMac()
-    {
-        return PHP_EOL === "\r";
-    }
-
-    /**
      * 开启异步信号
      * @return bool
      */
