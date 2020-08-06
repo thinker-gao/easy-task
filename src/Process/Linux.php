@@ -190,7 +190,7 @@ class Linux extends Process
     {
         if (!posix_kill($item['ppid'], 0))
         {
-            Helper::writeTypeLog("listened exit command, this worker {$item['alas']} is safely exited", 'info', true);
+            Helper::writeTypeLog("listened exit command, this worker {$item['alas']} is exiting safely", 'info', true);
         }
     }
 
@@ -213,7 +213,7 @@ class Linux extends Process
 
         //Kill信号
         pcntl_signal(SIGTERM, function () use ($text) {
-            Helper::writeTypeLog("listened kill command $text is safely exited", 'info', true);
+            Helper::writeTypeLog("listened kill command $text is exiting safely", 'info', true);
         });
 
         //挂起进程
@@ -224,9 +224,9 @@ class Linux extends Process
 
             //接收命令start/status/stop
             $this->commander->waitCommandForExecute(2, function ($command) use ($text) {
-                $exitText = "listened exit command, $text is safely exited";
+                $exitText = "listened exit command, $text is exiting safely";
                 $statusText = "listened status command, $text is reported";
-                $forceExitText = "listened exit command, $text is safely exited";
+                $forceExitText = "listened exit command, $text is exiting unsafely";
                 if ($command['type'] == 'start')
                 {
                     if ($command['time'] > $this->startTime)
@@ -292,7 +292,7 @@ class Linux extends Process
                 if (Env::get('canAutoRec'))
                 {
                     $this->forkItemExec($item['item']);
-                    Helper::writeTypeLog("the worker {$item['name']}(pid:{$pid}) is stop,try to fork new one");
+                    Helper::writeTypeLog("the worker {$item['name']}(pid:{$pid}) is stop,try to fork a new one");
                     unset($this->processList[$key]);
                 }
             }

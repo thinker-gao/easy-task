@@ -325,7 +325,7 @@ class Win extends Process
         if (!$status)
         {
             $text = Env::get('prefix') . '_' . $item['alas'];
-            Helper::showInfo("listened exit command, this worker $text is safely exited", true);
+            Helper::showInfo("listened exit command, this worker $text is exiting safely", true);
         }
     }
 
@@ -362,7 +362,7 @@ class Win extends Process
                         break;
                     case 'stop':
                         if ($command['force']) $this->stopWorkerByForce();
-                        Helper::showInfo("listened exit command, $text is safely exited", true);
+                        Helper::showInfo("listened exit command, $text is exiting safely", true);
                         break;
                 }
             }, $this->startTime);
@@ -396,7 +396,7 @@ class Win extends Process
                 if ($output)
                 {
                     $this->autoRecEvent = true;
-                    Helper::showInfo("the worker {$item['name']}(pid:{$item['pid']}) is stop,try to fork new one");
+                    Helper::showInfo("the worker {$item['name']}(pid:{$item['pid']}) is stop,try to fork a new one");
                 }
             }
         }
