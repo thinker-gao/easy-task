@@ -95,6 +95,9 @@ class Command
     public function receive($msgType, &$command)
     {
         $data = $this->get();
+        if (empty($data)) {
+            return;
+        }
         foreach ($data as $key => $item)
         {
             if ($item['msgType'] == $msgType)
