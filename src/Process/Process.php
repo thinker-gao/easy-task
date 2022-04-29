@@ -78,6 +78,7 @@ abstract class Process
     public function stop($force = false)
     {
         //发送命令
+        $force = $force ?: true;
         $this->commander->send([
             'type' => 'stop',
             'force' => $force,
