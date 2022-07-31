@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyTask;
 
 use EasyTask\Exception\ErrorException;
@@ -30,8 +31,7 @@ class Helper
     {
         set_error_handler(function () {
         });
-        if (function_exists('cli_set_process_title'))
-        {
+        if (function_exists('cli_set_process_title')) {
             cli_set_process_title($title);
         }
         restore_error_handler();
@@ -53,9 +53,8 @@ class Helper
     {
         $ds = DIRECTORY_SEPARATOR;
         $codePageBinary = "C:{$ds}Windows{$ds}System32{$ds}chcp.com";
-        if (file_exists($codePageBinary) && static::canUseExcCommand())
-        {
-            @pclose(@popen("{$codePageBinary} {$code}", 'r'));
+        if (file_exists($codePageBinary) && static::canUseExcCommand()) {
+            @shell_exec("{$codePageBinary} {$code}");
         }
     }
 
@@ -73,17 +72,14 @@ class Helper
         array_unshift($argv, Env::get('phpPath'));
 
         //自动校正
-        foreach ($argv as $key => $value)
-        {
-            if (file_exists($value))
-            {
+        foreach ($argv as $key => $value) {
+            if (file_exists($value)) {
                 $argv[$key] = realpath($value);
             }
         }
 
         //返回
-        if ($type == 1)
-        {
+        if ($type == 1) {
             return join(' ', $argv);
         }
         return $argv;
@@ -95,8 +91,17 @@ class Helper
      */
     public static function setPhpPath($path = '')
     {
-        if (!$path) $path = PHP_BINARY;
+        if (!$path) $path = self::getBinary();;
         Env::set('phpPath', $path);
+    }
+
+    /**
+     * 获取进程二进制文件
+     * @return string
+     */
+    public static function getBinary()
+    {
+        return PHP_BINARY;
     }
 
     /**
@@ -141,7 +146,7 @@ class Helper
      */
     public static function canUseExcCommand()
     {
-        return function_exists('popen') && function_exists('pclose');
+        return function_exists('shell_exec');
     }
 
     /**
@@ -151,8 +156,7 @@ class Helper
     public static function getRunTimePath()
     {
         $path = Env::get('runTimePath') ? Env::get('runTimePath') : sys_get_temp_dir();
-        if (!is_dir($path))
-        {
+        if (!is_dir($path)) {
             static::showSysError('please set runTimePath');
         }
         $path = $path . DIRECTORY_SEPARATOR . Env::get('prefix') . DIRECTORY_SEPARATOR;
@@ -228,10 +232,8 @@ class Helper
             static::getCsgPath(),
             static::getStdPath(),
         ];
-        foreach ($paths as $path)
-        {
-            if (!is_dir($path))
-            {
+        foreach ($paths as $path) {
+            if (!is_dir($path)) {
                 mkdir($path, 0777, true);
             }
         }
@@ -290,8 +292,7 @@ class Helper
     {
         $encode_arr = ['UTF-8', 'ASCII', 'GBK', 'GB2312', 'BIG5', 'JIS', 'eucjp-win', 'sjis-win', 'EUC-JP'];
         $encoded = mb_detect_encoding($char, $encode_arr);
-        if ($encoded)
-        {
+        if ($encoded) {
             $char = mb_convert_encoding($char, $coding, $encoded);
         }
         return $char;
@@ -335,16 +336,11 @@ class Helper
      */
     public static function checkTaskTime($time)
     {
-        if (is_int($time))
-        {
+        if (is_int($time)) {
             if ($time < 0) static::showSysError('time must be greater than or equal to 0');
-        }
-        elseif (is_float($time))
-        {
+        } elseif (is_float($time)) {
             if (!static::canUseEvent()) static::showSysError('please install php_event.(dll/so) extend for using milliseconds');
-        }
-        else
-        {
+        } else {
             static::showSysError('time parameter is an unsupported type');
         }
     }
@@ -445,8 +441,7 @@ class Helper
         $header = array_keys($data['0']);
 
         //组装数据
-        foreach ($data as $key => $row)
-        {
+        foreach ($data as $key => $row) {
             $data[$key] = array_values($row);
         }
 
@@ -456,8 +451,7 @@ class Helper
         $table->setStyle('box');
         $table->setRows($data);
         $render = static::convert_char($table->render());
-        if ($exit)
-        {
+        if ($exit) {
             exit($render);
         }
         echo($render);
@@ -483,12 +477,10 @@ class Helper
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        if (is_array($header))
-        {
+        if (is_array($header)) {
             curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         }
-        if ($data)
-        {
+        if ($data) {
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
@@ -501,8 +493,7 @@ class Helper
         curl_close($curl);
 
         //转成数组
-        if ($return_array)
-        {
+        if ($return_array) {
             return json_decode($result, true);
         }
 

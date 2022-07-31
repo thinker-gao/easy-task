@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyTask\Process;
 
 use EasyTask\Command;
@@ -92,8 +93,7 @@ abstract class Process
     protected function setTaskCount()
     {
         $count = 0;
-        foreach ($this->taskList as $key => $item)
-        {
+        foreach ($this->taskList as $key => $item) {
             $count += (int)$item['used'];
         }
         $this->taskCount = $count;
@@ -120,11 +120,9 @@ abstract class Process
 
         //Std_Start
         if ($this->canWriteStd()) ob_start();
-        try
-        {
+        try {
             $type = $item['type'];
-            switch ($type)
-            {
+            switch ($type) {
                 case 1:
                     $func = $item['func'];
                     $func();
@@ -137,38 +135,35 @@ abstract class Process
                     call_user_func([$object, $item['func']]);
                     break;
                 default:
-                    @pclose(@popen($item['command'], 'r'));
+                    $result = shell_exec($item['command']);
+                    if ($result) {
+                        echo $result . PHP_EOL;
+                        Helper::output($result);
+                    }
+                    if ($result === false) {
+                        $errorResult = 'failed to execute ' . $item['alas'] . ' task' . PHP_EOL;
+                        Helper::output($errorResult);
+                    }
             }
 
-        }
-        catch (Exception $exception)
-        {
-            if (Helper::isWin())
-            {
+        } catch (Exception $exception) {
+            if (Helper::isWin()) {
                 Helper::showException($exception, 'exception', !$daemon);
-            }
-            else
-            {
+            } else {
                 if (!$daemon) throw $exception;
                 Helper::writeLog(Helper::formatException($exception));
             }
-        }
-        catch (Throwable $exception)
-        {
-            if (Helper::isWin())
-            {
+        } catch (Throwable $exception) {
+            if (Helper::isWin()) {
                 Helper::showException($exception, 'exception', !$daemon);
-            }
-            else
-            {
+            } else {
                 if (!$daemon) throw $exception;
                 Helper::writeLog(Helper::formatException($exception));
             }
         }
 
         //Std_End
-        if ($this->canWriteStd())
-        {
+        if ($this->canWriteStd()) {
             $stdChar = ob_get_contents();
             if ($stdChar) Helper::saveStdChar($stdChar);
             ob_end_clean();
@@ -185,12 +180,9 @@ abstract class Process
      */
     protected function executeInvoker($item)
     {
-        if ($item['time'] === 0)
-        {
+        if ($item['time'] === 0) {
             $this->invokerByDirect($item);
-        }
-        else
-        {
+        } else {
             Env::get('canEvent') ? $this->invokeByEvent($item) : $this->invokeByDefault($item);
         }
     }
@@ -205,12 +197,9 @@ abstract class Process
         $eventConfig = new EventConfig();
         $eventBase = new EventBase($eventConfig);
         $event = new Event($eventBase, -1, Event::TIMEOUT | Event::PERSIST, function () use ($item) {
-            try
-            {
+            try {
                 $this->execute($item);
-            }
-            catch (Throwable $exception)
-            {
+            } catch (Throwable $exception) {
                 $type = 'exception';
                 Error::report($type, $exception);
                 $this->checkDaemonForExit($item);
@@ -241,12 +230,10 @@ abstract class Process
     protected function masterWaitExit()
     {
         $i = $this->taskCount + 30;
-        while ($i--)
-        {
+        while ($i--) {
             //接收汇报
             $this->commander->waitCommandForExecute(1, function ($report) {
-                if ($report['type'] == 'status' && $report['status'])
-                {
+                if ($report['type'] == 'status' && $report['status']) {
                     Helper::showTable($report['status']);
                 }
             }, $this->startTime);

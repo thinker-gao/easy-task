@@ -202,7 +202,7 @@ ppid:daemon id
 (1). It is recommended that you use the absolute path for development, which is the standard and the norm
 (2). It is forbidden to use exit / die syntax in the task, otherwise it will cause the entire process to exit
 (3). Please close anti-virus software when installing Wpc extension in Windows to avoid false alarms
-(4). Windows recommends to open popen, pclose method, it will automatically try to help you solve the problem of CMD output Chinese garbled, please try to use CMD administrator mode
+(4). Windows recommends to open shell_exec method, it will automatically try to help you solve the problem of CMD output Chinese garbled, please try to use CMD administrator mode
 (5). Windows command line does not support utf8 international standard encoding, you can switch git_bash to run, solve the garbled problem
 (6). Windows prompts Failed to create COM object `Wpc.Core ': invalid syntax, please follow the documentation to install the Wpc extension
 (7). Windows prompt com () has been disabled for security reasons, please delete disable_classes = com configuration item in php.ini

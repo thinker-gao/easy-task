@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyTask;
 
 use \Closure as Closure;
@@ -45,8 +46,7 @@ class Task
         Env::set('closeErrorRegister', false);
 
         //初始化PHP_BIN|CODE_PAGE
-        if ($currentOs == 1)
-        {
+        if ($currentOs == 1) {
             Helper::setPhpPath();
             Helper::setCodePage();
         }
@@ -70,8 +70,7 @@ class Task
      */
     public function setPrefix($prefix = 'Task')
     {
-        if (Env::get('runTimePath'))
-        {
+        if (Env::get('runTimePath')) {
             Helper::showSysError('should use setPrefix before setRunTimePath');
         }
         Env::set('prefix', $prefix);
@@ -86,8 +85,7 @@ class Task
     public function setPhpPath($path)
     {
         $file = realpath($path);
-        if (!file_exists($file))
-        {
+        if (!file_exists($file)) {
             Helper::showSysError("the path {$path} is not exists");
         }
         Helper::setPhpPath($path);
@@ -112,12 +110,10 @@ class Task
      */
     public function setRunTimePath($path)
     {
-        if (!is_dir($path))
-        {
+        if (!is_dir($path)) {
             Helper::showSysError("the path {$path} is not exist");
         }
-        if (!is_writable($path))
-        {
+        if (!is_writable($path)) {
             Helper::showSysError("the path {$path} is not writeable");
         }
         Env::set('runTimePath', realpath($path));
@@ -164,12 +160,10 @@ class Task
      */
     public function setErrorRegisterNotify($notify)
     {
-        if (Env::get('closeErrorRegister'))
-        {
+        if (Env::get('closeErrorRegister')) {
             Helper::showSysError('you must set closeErrorRegister as false before use this api');
         }
-        if (!$notify instanceof Closure && !is_string($notify))
-        {
+        if (!$notify instanceof Closure && !is_string($notify)) {
             Helper::showSysError('notify parameter can only be string or closure');
         }
         Env::set('notifyHand', $notify);
@@ -188,12 +182,10 @@ class Task
     public function addFunc($func, $alas, $time = 1, $used = 1)
     {
         $uniqueId = md5($alas);
-        if (!($func instanceof Closure))
-        {
+        if (!($func instanceof Closure)) {
             Helper::showSysError('func must instanceof Closure');
         }
-        if (isset($this->taskList[$uniqueId]))
-        {
+        if (isset($this->taskList[$uniqueId])) {
             Helper::showSysError("task $alas already exists");
         }
         Helper::checkTaskTime($time);
@@ -221,24 +213,19 @@ class Task
     public function addClass($class, $func, $alas, $time = 1, $used = 1)
     {
         $uniqueId = md5($alas);
-        if (!class_exists($class))
-        {
+        if (!class_exists($class)) {
             Helper::showSysError("class {$class} is not exist");
         }
-        if (isset($this->taskList[$uniqueId]))
-        {
+        if (isset($this->taskList[$uniqueId])) {
             Helper::showSysError("task $alas already exists");
         }
-        try
-        {
+        try {
             $reflect = new ReflectionClass($class);
-            if (!$reflect->hasMethod($func))
-            {
+            if (!$reflect->hasMethod($func)) {
                 Helper::showSysError("class {$class}'s func {$func} is not exist");
             }
             $method = new ReflectionMethod($class, $func);
-            if (!$method->isPublic())
-            {
+            if (!$method->isPublic()) {
                 Helper::showSysError("class {$class}'s func {$func} must public");
             }
             Helper::checkTaskTime($time);
@@ -250,9 +237,7 @@ class Task
                 'used' => $used,
                 'class' => $class
             ];
-        }
-        catch (ReflectionException $exception)
-        {
+        } catch (ReflectionException $exception) {
             Helper::showException($exception);
         }
 
@@ -270,12 +255,10 @@ class Task
     public function addCommand($command, $alas, $time = 1, $used = 1)
     {
         $uniqueId = md5($alas);
-        if (!Helper::canUseExcCommand())
-        {
-            Helper::showSysError('please open the disabled function of popen and pclose');
+        if (!Helper::canUseExcCommand()) {
+            Helper::showSysError('please open the disabled function of shell_exec');
         }
-        if (isset($this->taskList[$uniqueId]))
-        {
+        if (isset($this->taskList[$uniqueId])) {
             Helper::showSysError("task $alas already exists");
         }
         Helper::checkTaskTime($time);
@@ -298,12 +281,9 @@ class Task
     {
         $taskList = $this->taskList;
         $currentOs = Env::get('currentOs');
-        if ($currentOs == 1)
-        {
+        if ($currentOs == 1) {
             return (new Win($taskList));
-        }
-        else
-        {
+        } else {
             return (new Linux($taskList));
         }
     }
@@ -314,14 +294,12 @@ class Task
      */
     public function start()
     {
-        if (!$this->taskList)
-        {
+        if (!$this->taskList) {
             Helper::showSysError('please add task to run');
         }
 
         //异常注册
-        if (!Env::get('closeErrorRegister'))
-        {
+        if (!Env::get('closeErrorRegister')) {
             Error::register();
         }
 
